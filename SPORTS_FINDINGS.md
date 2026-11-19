@@ -13,6 +13,46 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 11/18 (night) - FABLE: CARD QUALITY, THE SECOND PASS (the owner: "it's just short and fucking vague and a real shitty fucking breakdown. This is a fucking permanent bug" / "permanent fix for everything going forward"): EVERY UNIT CARD FILLS TO ITS FLOOR WITH REAL FACTS FOR OUR SIDE - 22 OF 49 UNDER 6 -> 6; A CUT ON THE PAGE PULLS A SPARE FACT IN; A SHORT UNIT CARD IS A NAMED PROBLEM EVERY HOUR (results/studies/cards_1118/README.md section 8; tests test_cards_1118_the_deep_refill_*, test_cards_1118_a_cut_on_the_page_*, test_cards_1119_*; no pick, size or weight changed)
+
+Not a betting study - a write-up one. BUILT:
+- **The deep refill** (`sports_breakdown_v24.deep_facts`): the facts the engine held and the card never said, each a count
+  off the game files / the box scores, only when it argues for us - their missing man's numbers and their record without
+  him; each side as the favorite / the dog; the close and the start of games off the line scores; big nights; comfortable
+  wins / bad losses; who they beat; the close ones; the box-score edges (rebounds, threes, turnovers, shots on net,
+  rushing yards, sacks); hoops depth; the covers. College: never off THEIR games against teams rated above us.
+- **The spares** (`leg["spare"]` + `sports_card_check.refill`): the write-up fills one past the floor and keeps what it
+  didn't need; every render pulls a spare in when a cut leaves the card under its floor.
+- **The standing check**: `tools/card_audit.py` class "short" -> `tools/health.py` "SHORT CARD", the card named with why.
+- **The count** (the 49 board cards 11/1-11/18 re-written): fact lines a card 5.7 -> 6.5; under 6: 22 -> 6; under 4:
+  3 -> 0. The 11/19 dry run (37 candidate sides): 4.7 -> 5.8; under 6: 26 -> 9; 0 bad lines written.
+NOT BUILT / HONEST: 6 of the 49 can't reach 6 and no spare is left - three NBA dogs in the season's first two weeks
+(4-7 games: no 10-game windows), the Jets on a 9-game skid, Kansas St, the Nuggets against a Celtics team better on
+nearly every count. The refill never pads; those cards are named on the hourly check. The early plays' rows are not
+breakdown cards and have no floor. Head to head stays off the cards (10/5). The dry run had no NBA / NFL injury report.
+
+## 11/18 - FABLE: CARD QUALITY (the owner on the Nuggets card: "the breakdown just sucks ... This needs to be fixed permanently"; after the knocks were cut: "it's just short and fucking vague ... a permanent bug"): 125 LINES ON THE 11/1-11/18 CARDS WERE TRUE AND STILL WRONG ON A CARD; 0 BY TONIGHT'S CODE; A CUT CARD REFILLS; A STANDING QUALITY SCORE (results/studies/cards_1118/README.md; tests test_cards_1118_* (four); no pick, size or weight changed)
+
+Not a betting study - a write-up one. The 11/17 sweep made every line true and current; this one graded what a card is
+FOR. BUILT:
+- **The count.** 74 posted cards (49 board + 25 early), 531 lines: 52 knock our own side (our loss / skid / losing record
+  / bad numbers in the body), 25 name a man out who doesn't matter (a bench man, a man out for weeks), 15 say nothing
+  ("1-1 at home", "A wash on the records"), 14 jargon ("per 48 minutes", "a +2 team a game", "13 points better than their
+  record"), 10 argue for the other side ("The Kraken won their last one too"), 9 said twice. One line in four.
+- **The refill** (`sports_breakdown_v24.fill_facts`): a card under its floor fills with real facts for our side - our top
+  scorer(s) off the box scores (football: the back / the catcher by yards), our scoreboard lately / on the year, theirs when it's bad, the last 10, the price in plain
+  words. Fact lines a card shows: 4.7 -> 5.7 on average on the 49 re-written cards; none under 2.
+- **The bench / star lines on a rewrite**: the NBA roster read is built with the board; a rewrite run had none
+  (`add_breakdowns` builds it now).
+- **The pools at the root**: each fact builder says its fact for us or sends it to the one ⚠️ line; `no_repeats`.
+- **Who matters, every league** (`sports_absences.who_matters`): NBA top-3 scorer / starter, college hoops top-5 minutes,
+  hockey top-6 F / top-4 D by ice time / the #1 goalie, football the regulars; never a man who sat the last 5 box scores
+  (2 in football).
+- **The standing check**: card-check rules on every render + the card-quality score in `tools/card_audit.py` (a QUALITY
+  PROBLEM on the hourly bug check).
+NOT BUILT / HONEST: a bad team that is our dog still has a short card (22 of 49 under 6 fact lines, 3 under 4) - the
+refill never pads; the 11/19 dry run here had no NBA / NFL injury report.
+
 
 ## 11/18 - DAILY STUDIES (the owner's daily routine: the board check, yesterday's picks, the lead tracker + 10 NEW studies on the sports in season; the 11/17-11/18 Fable runs and the 11/17 daily studies not redone): NOTHING CLEARS THE FIVE CHECKS - NOTHING WEIGHED; TWO TRACKER LEADS (the NHL dog off a cheap win - the residual the built weights leave - and the college hoops dog vs a favorite off a 1-2 point win); ONE BOARD BUG FIXED (the college hoops slot twin re-proposed every hour) (results/studies/daily_1118/ - README.md (the table), lib.py / h.py (the 11/17 helpers, cache ~/.cache/d503_daily1118), s1_s10.py, s_followups.py (A-D), s_followup_b2.py, lead_tracker.py + *_out.txt; tests test_daily_1118_the_slot_twin_reopens_a_game_once_never_every_hour, test_daily_1118_cheap_win_dog_and_close_win_favorite_are_tracker_leads_only; committed on the worktree branch)
 Prices: ESPN's close at its own juice, the paid football history's first FAIR look (ready_at / fair), the paid NBA (2020-23) / NHL (2021-23) game-day morning and ESPN's open (2023-26) as the second prices; regular season; train = the seasons through 2021 (paid football 2020-22), each newer season held out apart, 2026 = now; placebo = 2,000 random same-size sets from the cell's own pool, the follow-ups PRICE-MATCHED (bin for bin, 50-cent bins). ~420 cells - about 20 would clear |z| 2 by luck. Not re-run (checked first): everything in the 11/17 and earlier "Not re-run" lists; NFL / college heartbreak (10/16 - S3 is basketball), the college hoops games-played gap (11/11 s14 - S4 is NHL / NBA), the football hold at the first fair look (11/17 S3 - S2 is the CLOSE in NBA / NHL / college hoops), spread juice shading (10/10), the NHL extra-time RECORD (11/8 - S1 is how OFTEN a team goes past regulation), the college hoops letdown after a top-25 win (S9 is the pros), the NHL team after a shutout (10/16 - S10 is football).

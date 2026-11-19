@@ -2,8 +2,8 @@
  "_meta": {
   "expected_luck_nominal_max": 5.2,
   "min_n_each_half": 150,
-  "null_bonferroni_avg": 0.0,
-  "null_nominal_avg": 1.4,
+  "null_bonferroni_avg": 0.05,
+  "null_nominal_avg": 1.7,
   "null_sims": 20,
   "spots": {
    "3in4": "3rd game in 4 nights (nba/nhl/ncaab)",
@@ -2134,28 +2134,28 @@
     "edge_new": 0.0065,
     "edge_old": 0.0031,
     "hit_new": 0.5866,
-    "hit_old": 0.5918,
+    "hit_old": 0.5919,
     "n_new": 11143,
-    "n_old": 10787,
+    "n_old": 10788,
     "profit_new": -4.97,
     "profit_old": -5.25,
     "proven": false,
     "tested": true,
-    "z": 1.6
+    "z": 1.61
    },
    "revenge|ml|team": {
     "candidate": false,
     "edge_new": -0.0065,
     "edge_old": -0.0031,
     "hit_new": 0.4134,
-    "hit_old": 0.4082,
+    "hit_old": 0.4081,
     "n_new": 11143,
-    "n_old": 10787,
+    "n_old": 10788,
     "profit_new": -10.33,
     "profit_old": -9.55,
     "proven": false,
     "tested": true,
-    "z": -1.6
+    "z": -1.61
    },
    "revenge|spread|fade": {
     "candidate": false,
@@ -2164,9 +2164,9 @@
     "hit_new": 0.4915,
     "hit_old": 0.4972,
     "n_new": 10984,
-    "n_old": 10640,
+    "n_old": 10641,
     "profit_new": -6.06,
-    "profit_old": -5.03,
+    "profit_old": -5.02,
     "proven": false,
     "tested": true,
     "z": -1.67
@@ -2178,9 +2178,9 @@
     "hit_new": 0.5085,
     "hit_old": 0.5028,
     "n_new": 10984,
-    "n_old": 10640,
+    "n_old": 10641,
     "profit_new": -2.79,
-    "profit_old": -3.95,
+    "profit_old": -3.96,
     "proven": false,
     "tested": true,
     "z": 1.67
@@ -2362,7 +2362,7 @@
    "ml": "2022-12-31",
    "spread": "2023-01-03"
   },
-  "games": 60058,
+  "games": 60060,
   "proven": [],
   "shifts": {
    "ml": {},

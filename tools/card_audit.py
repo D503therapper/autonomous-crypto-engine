@@ -267,7 +267,7 @@ def audit_leg(pk, leg, games, injuries=None, as_shown=True):
 #   100 = clean. -15 for each bad line the write-up put on the card (the check cuts it on the page - but the pool wrote
 #   it), -25 for each one a reader can still SEE, -20 for a unit play left with fewer than 2 fact lines.
 # A PROBLEM on the hourly bug check: a bad line still on the page; a live card whose write-up put 3+ bad lines on it (a
-# pool went bad - fix it at the root); a live unit play with a thin card.
+# pool went bad - fix it at the root); a live unit play under its floor of fact lines (class "short", the card named).
 Q_WRITTEN, Q_SHOWN, Q_THIN, Q_ROOT = 15, 25, 20, 3
 
 
@@ -284,7 +284,20 @@ def card_quality(pk, leg, games):
     unit = not (pk.get("lean") or leg.get("is_lean") or leg.get("tier") in ("lean", "strong"))
     thin = unit and facts < cc.THIN_BODY
     score = max(0, 100 - Q_WRITTEN * len(written) - Q_SHOWN * len(still) - (Q_THIN if thin else 0))
-    return {"score": score, "written": written, "shown": still, "facts": facts, "thin": bool(thin)}
+    # 🧱 11/18 (night) THE FLOOR IS A STANDING CHECK (the owner: "it's just short and fucking vague ... This is a fucking
+    # permanent bug" / "permanent fix for everything going forward"): a card under its floor on the page (6 fact lines a
+    # unit play, 5 a lean - sports_breakdown_v24.FLOOR_*) is named, with why it's short.
+    floor = cc.card_floor({"lean": not unit})
+    short = facts < floor
+    why = ""
+    if short:
+        spare = leg.get("spare")
+        why = ("written before the refill kept spare facts - the next run rewrites it" if spare is None else
+               "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with "
+               "little going for it but the price)" if not spare else
+               f"{len(spare)} spare fact{'s' if len(spare) != 1 else ''} didn't pass the page's checks")
+    return {"score": score, "written": written, "shown": still, "facts": facts, "thin": bool(thin),
+            "floor": floor, "short": bool(short), "short_why": why, "unit": bool(unit)}
 
 
 def early_quality(p, lines, games):
@@ -318,7 +331,7 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
     cc.reset()
     rep = {"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "cards": 0, "lines": 0, "problems": [],
            "by_class": {}, "bad_cards": 0, "shown": bool(as_shown)}
-    Q = {"n": 0, "sum": 0, "thin": 0, "written": {}, "shown": {}, "cards": []}
+    Q = {"n": 0, "sum": 0, "thin": 0, "short": [], "facts": 0, "written": {}, "shown": {}, "cards": []}
     if not live_only:                                        # (a history run reads the graded cards' 📝 reviews too)
         try:
             import sports_dashboard as dash
@@ -347,6 +360,10 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
                 Q["n"] += 1
                 Q["sum"] += q["score"]
                 Q["thin"] += q["thin"]
+                Q["facts"] += q["facts"]
+                if q["short"] and q["unit"]:
+                    Q["short"].append({"date": pk.get("date"), "team": leg.get("team"), "league": leg.get("league"),
+                                       "facts": q["facts"], "floor": q["floor"], "why": q["short_why"]})
                 for k, _ in q["written"]:
                     Q["written"][k] = Q["written"].get(k, 0) + 1
                 for k, _ in q["shown"]:
@@ -365,9 +382,9 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
                     probs.append(("quality", f"the write-up put {len(q['written'])} bad lines on this card ("
                                   + ", ".join(f"{n_} {k}" for k, n_ in sorted(kinds.items(), key=lambda z: -z[1]))
                                   + f") - the check cut them; card quality {q['score']}/100, fix the pool", q["written"][0][1]))
-                if live_only and q["thin"]:
-                    probs.append(("quality", f"a thin card: {q['facts']} fact line{'s' if q['facts'] != 1 else ''} "
-                                             "left for a unit play", ""))
+                if live_only and q["short"] and q["unit"]:  # (11/18 night: under the floor = a PROBLEM, the card named)
+                    probs.append(("short", f"a short card: {q['facts']} fact line{'s' if q['facts'] != 1 else ''} on a "
+                                           f"unit play, the floor is {q['floor']} - {q['short_why']}", ""))
             rep["cards"] += 1
             rep["lines"] += n
             rep["bad_cards"] += bool([p for p in probs if p[0] != "lingo"])
@@ -413,6 +430,8 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
     for p in rep["problems"]:
         rep["by_class"][p["class"]] = rep["by_class"].get(p["class"], 0) + 1
     rep["quality"] = {"score": round(Q["sum"] / Q["n"]) if Q["n"] else 100, "cards": Q["n"], "thin": Q["thin"],
+                      "short": Q["short"][:20], "under_floor": len(Q["short"]),
+                      "avg_facts": round(Q["facts"] / Q["n"], 1) if Q["n"] else 0,
                       "written": Q["written"], "shown": Q["shown"],
                       "worst": sorted(Q["cards"], key=lambda c: c["score"])[:12]}
     return rep
@@ -467,7 +486,10 @@ if __name__ == "__main__":
           f"{rep_['by_class']} on {rep_['bad_cards']} cards")
     q_ = rep_.get("quality") or {}
     print(f"card quality: {q_.get('score')}/100 on {q_.get('cards')} cards - bad lines the write-up put on them {q_.get('written')}, "
-          f"still on the page {q_.get('shown')}, thin cards {q_.get('thin')}")
+          f"still on the page {q_.get('shown')}, thin cards {q_.get('thin')}; fact lines a card: "
+          f"{q_.get('avg_facts')}, unit cards under the floor of 6: {q_.get('under_floor')}")
+    for c in q_.get("short") or []:
+        print(f"   SHORT {c['date']} {c['league']} {c['team']}: {c['facts']} fact lines (floor {c['floor']}) - {c['why']}")
     for p_ in rep_["problems"]:
         if p_["class"] != "lingo" or "--all" in a:
             print(f"  {p_['class'].upper():8} {p_['date']} {p_['team']}: {p_['why']}\n           {p_['line'][:200]}")

@@ -208,9 +208,12 @@ try:
     ca = json.load(open(os.path.join(sd.DATA, "card_audit.json")))
     bad = [p for p in ca.get("problems") or [] if p.get("class") != "lingo"]
     if (now - _t(ca["at"])).total_seconds() <= 3 * 3600:
-        if bad:
+        short_ = [p for p in bad if p.get("class") == "short"]   # (11/18 night: a unit card under its floor of fact
+        bad_ = [p for p in bad if p.get("class") != "short"]     #  lines is a PROBLEM of its own, the card named - never
+        if bad:                                                  #  crowded out by the other card problems)
             problems.extend(f"card audit: {p['class'].upper()} on the {p['team']} card ({p['date']}): {p['why']}"[:220]
-                            for p in bad[:6])
+                            for p in bad_[:6])
+            problems.extend(f"card audit: SHORT CARD - {p['team']} ({p['date']}): {p['why']}"[:260] for p in short_[:6])
         else:
             ok.append(f"card audit: {ca.get('cards', 0)} live cards, {ca.get('lines', 0)} lines - nothing false, "
                       "outdated or senseless")
@@ -220,7 +223,8 @@ try:
         q_ = ca.get("quality") or {}
         if q_.get("cards"):
             ok.append(f"card quality: {q_.get('score')}/100 on {q_.get('cards')} live cards (bad lines the write-up put "
-                      f"on them: {sum((q_.get('written') or {}).values())}, thin cards: {q_.get('thin', 0)})")
+                      f"on them: {sum((q_.get('written') or {}).values())}, thin cards: {q_.get('thin', 0)}, "
+                      f"fact lines a card: {q_.get('avg_facts', '?')}, unit cards under the floor: {q_.get('under_floor', 0)})")
 except FileNotFoundError:
     pass                                                 # (first run after the 11/17 build: the engine writes it)
 except Exception as e:                                   # noqa: BLE001

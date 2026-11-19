@@ -247,6 +247,7 @@ def ncaab_last_season(fin, tid, before):
 REC_GAP = 3            # 10/23, the owner: "Army 4-2, Tulsa 4-3 ... we know which side we want - they both have 4 wins":
 #                        a record is a 'better team' line only 3+ games better (wins minus losses: 4-2 vs 4-3 is 1;
 #                        93-68 vs 87-75 is 13)
+GOOD_REC = 0.6         # a record said by itself ("Nuggets sit 9-4 so far") is a line only at 60%+ won
 MIN_REC_GAMES = 3      # a record line / a record "because" needs this many games (0-1 vs 0-1 says nothing - 10/21)
 
 
@@ -677,6 +678,7 @@ class Voice:
         self.seed, self.used, self.mine = seed, used if used is not None else set(), []
         self.names = ()
         self.dirs = {}          # (10/27) line -> "us" / "neutral": which side a body line argues for (unset = ours)
+        self.fill = set()       # (11/18) the refill lines of this card (fill_facts) - a first-hand line leads before one
         self.knocks = []        # (10/27) (priority, fact) - the facts that favor the OTHER side; one, the biggest, posts
         #                         as the ⚠️ risk line at the end of the card. Never a body line (the owner, 10/27: "a lot
         #                         of facts that support the opposing team")
@@ -1017,11 +1019,16 @@ def breakdown(leg, games, elo, injuries, used=None):
                                       f"📋 {them} are {rec_t}. {us} are {rec_u}."]))
         elif rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) < _wsh(rec_t):   # (10/27: their better record
             v.knock(3, f"{them} come in {rec_t} to {_pos(us)} {rec_u}")                  #  is a knock, never a reason)
-            out.append(v.say("rec", _won_rec if last_said else _plain_rec))
+            #   (11/19, the Nuggets card: "📋 Nuggets sit 7-5 so far." over "⚠️ ... Celtics come in 11-3 to Nuggets'
+            #    7-5" - the record the ⚠️ line already uses, arguing for nobody. With THEIR record the better one our
+            #    record is no body line; the win behind it still is.)
+            if last_said:
+                out.append(v.say("f_last", [f"📅 {us} come off a {last_said}.", f"📅 Last time out, {us} got a {last_said}.",
+                                            f"📅 Fresh off a {last_said} for {us}."]))
         elif last_said:
             out.append(v.say("rec", _won_rec))
-        else:
-            out.append(v.say("rec", _plain_rec))
+        elif _wsh(rec_u) >= GOOD_REC:                    # (a plain record line only for a GOOD record - or one that
+            out.append(v.say("rec", _plain_rec))         #  beats theirs, above)
 
     # talk our talk when the other side's been bad (only when the numbers back it up)
     r_theirs_all = r_theirs
@@ -1688,17 +1695,25 @@ def breakdown(leg, games, elo, injuries, used=None):
     # the log says so.
     try:
         _fl = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
-        _nf = lambda ls: sum(1 for x in ls if not str(x).startswith(NEVER_CUT))   # noqa: E731
-        if _nf(lines) < _fl:
-            _at = next((i for i, x in enumerate(lines) if str(x).startswith(("⚠️", "✅", "🟡", "🔒"))), len(lines))
-            for x in fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs,
-                                " ".join(str(y) for y in lines) + " " + _wl, _own):
-                if _nf(lines) >= _fl:
-                    break
-                if x and x not in lines:
-                    lines.insert(_at, x)
-                    _at += 1
-                    added.append(x)                       # (a fact line: never shaped out below)
+        _fl += REFILL_PAST                                # (one past the floor: 6-9 is the owner's range, and a cut on the
+        if not str(leg.get("why_line") or "").strip():    #  page lands on a card with room; the card's best line becomes
+            _fl += 1                                      #  the one-liner below and leaves the body)
+        _nf = lambda ls: counted(ls, leg)                 # noqa: E731 (what the page counts - never the 🚑 chip's names)
+        _pool = fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs,
+                           " ".join(str(y) for y in lines) + " " + _wl, _own, fin, elo.get(lg))
+        _spare = []
+        _at = next((i for i, x in enumerate(lines) if str(x).startswith(("⚠️", "✅ Bottom", "🟡", "🔒"))), len(lines))
+        for x in _pool:
+            if not x or x in lines:
+                continue
+            if _nf(lines) >= _fl:
+                _spare.append(x)                          # (not needed today: it rides along - a cut on the page later
+                continue                                  #  pulls it in, sports_card_check.refill)
+            lines.insert(_at, x)
+            _at += 1
+            added.append(x)                               # (a fact line: never shaped out below)
+            v.fill.add(x)                                 # (and never the one-liner while a first-hand line can lead)
+        leg["spare"] = _spare[:SPARE_MAX]
     except Exception:                                     # noqa: BLE001
         pass
     if day_game(start):                                   # (10/4, the owner's queue: "tonight" on a 10 AM game)
@@ -1945,6 +1960,10 @@ def no_repeats(lines, why, known, recs=(), us=""):
             names = [n for n in names if len(n.split()) >= 2]
             if names and all(n in wl for n in names):
                 continue                                     # (d) the men the one-liner already named
+        if x.startswith(("🏟", "🧳")) and re.search(r"at home|on the road|away from home|own building|the crib", wl, re.I):
+            rr = [f"{a}-{b}" for a, b in _SCORE_RX.findall(x)]
+            if rr and all(re.search(rf"(?<![\d-]){re.escape(r)}(?![\d-])", wl) for r in rr):
+                continue                                     # (e) the home / road record the one-liner already said
         said |= sc
         keep[i] = x
     return [keep[i] for i in sorted(keep)]
@@ -1954,11 +1973,16 @@ STAR_WINDOW = {"nba": 10, "ncaab": 5, "nhl": 10}    # our top scorer: the team's
 STAR_MIN = {"nba": 18.0, "ncaab": 14.0, "nhl": 0.8}  # ...worth a line at this many points a game (hockey: points = G + A)
 
 
-def top_scorer(lg, team_id, before, skip=(), rank=0):
+FB_STAT_MIN = {"rushingYards": 70.0, "receivingYards": 70.0}   # football: a back / a catcher worth a line (yards a game)
+
+
+def top_scorer(lg, team_id, before, skip=(), rank=0, stat=None):
     """(name, points a game, games) - the team's top scorer over its last box scores, a man who played its LAST game
-    and isn't on the card's out / questionable lists. None when the box scores can't say."""
-    n = STAR_WINDOW.get(lg)
-    if not n:
+    and isn't on the card's out / questionable lists. None when the box scores can't say. Football (stat =
+    'rushingYards' / 'receivingYards'): the leader in yards a game over the last 3 box scores."""
+    fb = lg in ("nfl", "ncaaf")
+    n = 3 if fb else STAR_WINDOW.get(lg)
+    if not n or (fb and stat not in FB_STAT_MIN):
         return None
     try:
         import json as _json
@@ -1975,24 +1999,614 @@ def top_scorer(lg, team_id, before, skip=(), rank=0):
                 st = _json.loads(r.get("stats") or "{}")
             except ValueError:
                 continue
-            p = _sa._num(st.get("points")) if lg != "nhl" else _sa._num(st.get("goals")) + _sa._num(st.get("assists"))
+            if fb and stat not in st:
+                continue
+            p = _sa._num(st.get(stat)) if fb else _sa._num(st.get("points")) if lg != "nhl" \
+                else _sa._num(st.get("goals")) + _sa._num(st.get("assists"))
             t = tot.setdefault(r["player"], [0.0, 0])
             t[0] += p
             t[1] += 1
     in_last = {r["player"] for r in last[-1][2]}
     gone = {_sa._nm(str(x).split(" (")[0]) for x in skip if x}
     ok = sorted(((name, pts / gp, gp) for name, (pts, gp) in tot.items()
-                 if gp >= 3 and name in in_last and _sa._nm(name) not in gone), key=lambda x: -x[1])
+                 if gp >= (2 if fb else 3) and name in in_last and _sa._nm(name) not in gone), key=lambda x: -x[1])
     best = ok[rank] if len(ok) > rank else None
-    return best if best and best[1] >= STAR_MIN[lg] * (1 if rank == 0 else 0.8) else None
+    floor_ = FB_STAT_MIN[stat] if fb else STAR_MIN[lg] * (1 if rank == 0 else 0.8)
+    return best if best and best[1] >= floor_ else None
 
 
-def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs, said, own=None):
+def counted(lines, leg=None):
+    """How many of a card's lines the page counts as FACT lines (sports_card_check.fact_lines) - and never a 🚑 line
+    that only repeats the card's 'missing' chip (the page cuts it)."""
+    import sports_card_check as _cc
+    return _cc.fact_lines([x for x in lines or [] if not (leg and _cc.chip_repeat(x, leg))])
+
+
+# 🧱 11/18 (night) THE DEEP REFILL (the owner, after the first refill: "it's just short and fucking vague and a real shitty
+# fucking breakdown. This is a fucking permanent bug" / "this needs to be permanent fix for everything going forward"):
+# after the first refill 22 of the 49 board cards 11/1-11/18 still showed under 6 fact lines. The files hold a lot more
+# for our side than the card ever said - every one below is a COUNT off the game files / the box scores, said the way a
+# bettor says it (never a rate, never a formula), and only when it argues for US:
+#   their missing man's numbers (and their record without him) · how each side does as the favorite / the dog · the
+#   close of games (the 4th quarter, the third period, after halftime) · who each side beats (teams with a winning
+#   record) · the box-score edges (rebounds, threes, turnovers, shots on net, rushing yards, sacks) · the spread covers.
+LATE_PART = {"nba": (4, (3,), "the 4th quarter", 10), "nhl": (3, (2,), "the third period", 10),
+             "nfl": (4, (2, 3), "the second half", 5), "ncaaf": (4, (2, 3), "the second half", 5),
+             "ncaab": (2, (1,), "the second half", 5)}    # league -> (regulation parts, the closing ones, its name, games)
+LATE_MIN = {"nba": 6, "nhl": 3, "nfl": 14, "ncaaf": 17, "ncaab": 15}   # the closing stretch is a line at this gap (NBA:
+#                                                                         quarters won of the 10; the rest: goals / points)
+LATE_GAMES_MIN = 4     # a "last N games" count needs this many games (early in a season it says the 4+ there are)
+ROMP_BY = {"nba": 10, "ncaab": 10, "nhl": 3, "nfl": 14, "ncaaf": 14}   # a comfortable win / a bad loss: by this many or more
+DEPTH_MIN = {"nba": (6, 10.0, 10), "ncaab": (5, 10.0, 5)}   # hoops depth: this many men at 10+ points a game (box games)
+DEEP_FILL = True       # the deep refill's switch (False = the first refill only)
+ROLE_MIN = 4           # a record as the favorite / the dog needs this many games
+WIN_TEAM_GAMES = 5     # "a team with a winning record" has played this many
+BOX_EDGE = {"nba": (("rebounds", 4.0, 5), ("threes", 2.5, 5), ("turnovers", 2.5, 5)),
+            "ncaab": (("rebounds", 5.0, 4),),
+            "nhl": (("shotsTotal", 3.0, 5),),
+            "nfl": (("rushingYards", 35.0, 3), ("sacks", 1.0, 3)),
+            "ncaaf": (("rushingYards", 45.0, 3), ("sacks", 1.0, 3))}   # league -> (stat, the gap worth a line, box games)
+GONE_MIN = {"nba": 14.0, "ncaab": 12.0, "nhl": 0.6}   # their missing man is worth his own line at this many points a game
+COVER_GAMES = {"nba": 10, "ncaab": 8, "nfl": 6, "ncaaf": 6}
+BIG_NIGHT = {"nba": (120, 5), "nhl": (4, 5), "nfl": (28, 5), "ncaaf": (31, 5), "ncaab": (80, 5)}   # a big number on the
+#   scoreboard (points / goals) and the games looked at: "gave up 120+ in 4 of their last 5" is a line at 3+ of the 5
+CLOSE_BY = {"nba": 5, "ncaab": 5, "nhl": 1, "nfl": 7, "ncaaf": 7}   # a close game: decided by this many or fewer
+START_MIN = {"nba": 6, "nhl": 3, "nfl": 14, "ncaaf": 17, "ncaab": 15}   # the START of games (1st quarter / 1st period / 1st half)
+REFILL_PAST = 1        # the write-up refills a short card to its floor + this
+SPARE_MAX = 8          # the refill facts a card didn't need ride along on the leg (leg["spare"]) - see sports_card_check.refill
+
+
+def _fnum(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return None
+
+
+def ml_role(x, tid):
+    """'fav' / 'dog' / None - what the closing moneyline made this team in a finished game."""
+    home = x.get("home") == tid
+    a, b = _fnum(x.get("ml_home" if home else "ml_away")), _fnum(x.get("ml_away" if home else "ml_home"))
+    if a is None or b is None or a == b:
+        return None
+    return "fav" if a < b else "dog"
+
+
+def role_record(gs, tid, role):
+    """(wins, losses) in the season's games where the close made this team the favorite / the dog."""
+    w = lo = 0
+    for x in gs or []:
+        if ml_role(x, tid) == role:
+            r = _line(x, tid)[0]
+            w, lo = w + (r == "W"), lo + (r == "L")
+    return w, lo
+
+
+def covers(gs, tid, n):
+    """(covered, didn't, games) against the closing spread over the team's last n lined games - or None."""
+    last = [x for x in gs or [] if _fnum(x.get("spread_home")) is not None][-n:]
+    if len(last) < n:
+        return None
+    c = miss = 0
+    for x in last:
+        home = x["home"] == tid
+        line = _fnum(x["spread_home"]) * (1 if home else -1)
+        m = (int(x["home_score"]) - int(x["away_score"])) * (1 if home else -1) + line
+        c, miss = c + (m > 0), miss + (m < 0)
+    return c, miss, n
+
+
+def late_score(gs, tid, lg):
+    """(scored, allowed, stretches won, lost, games) in the closing stretch of the team's last games - the NBA's 4th
+    quarter, hockey's third period, football's / college hoops' second half - off the line scores. None when a line
+    score is missing (never a guess)."""
+    cfg = LATE_PART.get(lg)
+    if not cfg:
+        return None
+    parts, idx, _, n = cfg
+    last = (gs or [])[-n:]
+    if len(last) < min(n, LATE_GAMES_MIN):                # (early in a season: the 5+ games there are, said as that many)
+        return None
+    n = len(last)
+    f = a = won = lost = 0
+    for x in last:
+        try:
+            hs = [int(v) for v in str(x.get("ls_home") or "").split(",")]
+            aw = [int(v) for v in str(x.get("ls_away") or "").split(",")]
+        except ValueError:
+            return None
+        if len(hs) < parts or len(aw) < parts:
+            return None
+        if sum(hs) != int(x["home_score"]) or sum(aw) != int(x["away_score"]):
+            return None                                   # (a line score that doesn't add up to the final: no line)
+        home = x["home"] == tid
+        mine, his = (hs, aw) if home else (aw, hs)
+        pf, pa = sum(mine[i] for i in idx), sum(his[i] for i in idx)
+        f, a, won, lost = f + pf, a + pa, won + (pf > pa), lost + (pf < pa)
+    return f, a, won, lost, n
+
+
+def big_nights(gs, tid, lg, allowed):
+    """(games at the big number, games) - how often the team scored (allowed=False) or gave up (True) the league's big
+    number over its last games. None without the full window."""
+    cfg = BIG_NIGHT.get(lg)
+    if not cfg:
+        return None
+    big, n = cfg
+    last = (gs or [])[-n:]
+    if len(last) < min(n, LATE_GAMES_MIN):
+        return None
+    n = len(last)
+    c = 0
+    for x in last:
+        home = x["home"] == tid
+        mine, his = (int(x["home_score"]), int(x["away_score"])) if home else (int(x["away_score"]), int(x["home_score"]))
+        c += (his if allowed else mine) >= big
+    return c, n
+
+
+def romps(gs, tid, lg, lost=False):
+    """(games, of the last n) the team WON by ROMP_BY or more - or, lost=True, LOST by that many."""
+    by = ROMP_BY.get(lg)
+    last = (gs or [])[-5:]
+    if not by or len(last) < LATE_GAMES_MIN:
+        return None
+    c = 0
+    for x in last:
+        d = (int(x["home_score"]) - int(x["away_score"])) * (1 if x["home"] == tid else -1)
+        c += (-d if lost else d) >= by
+    return c, len(last)
+
+
+def double_figures(lg, team_id, before, skip=()):
+    """Hoops depth off the box scores: the men at 10+ points a game over the team's last box scores (3+ games each, in
+    the last one, not on the card's out / questionable lists) -> (how many, box games) or None."""
+    cfg = DEPTH_MIN.get(lg)
+    if not cfg:
+        return None
+    try:
+        import json as _json
+        import sports_absences as _sa
+        last = _sa._real(None, lg, team_id, before)[-cfg[2]:]
+    except Exception:                                     # noqa: BLE001
+        return None
+    if len(last) < LATE_GAMES_MIN:
+        return None
+    tot = {}
+    for _, _, rs in last:
+        for r in rs:
+            try:
+                st = _json.loads(r.get("stats") or "{}")
+            except ValueError:
+                continue
+            if _sa._num(st.get("minutes")) <= 0:
+                continue
+            t = tot.setdefault(r["player"], [0.0, 0])
+            t[0] += _sa._num(st.get("points"))
+            t[1] += 1
+    in_last = {r["player"] for r in last[-1][2]}
+    gone = {_sa._nm(str(x).split(" (")[0]) for x in skip if x}
+    n = sum(1 for nm, (pts, gp) in tot.items() if gp >= 3 and nm in in_last and _sa._nm(nm) not in gone and pts / gp >= cfg[1])
+    return n, len(last)
+
+
+def close_games(gs, tid, lg):
+    """(wins, losses) in the season's games decided by CLOSE_BY or fewer (hockey: one goal)."""
+    by = CLOSE_BY.get(lg)
+    w = lo = 0
+    for x in gs or [] if by else []:
+        d = int(x["home_score"]) - int(x["away_score"])
+        if d and abs(d) <= by:
+            won = (d > 0) == (x["home"] == tid)
+            w, lo = w + won, lo + (not won)
+    return w, lo
+
+
+def early_score(gs, tid, lg):
+    """late_score for the START of games: the NBA's 1st quarter, hockey's first period, the first half elsewhere."""
+    cfg = LATE_PART.get(lg)
+    if not cfg:
+        return None
+    keep = LATE_PART[lg]
+    try:
+        LATE_PART[lg] = (cfg[0], (0, 1) if lg in ("nfl", "ncaaf") else (0,), "", cfg[3])
+        return late_score(gs, tid, lg)
+    finally:
+        LATE_PART[lg] = keep
+
+
+_REC_NOW = {}
+
+
+def records_now(fin, since, lg):
+    """{team id: (wins, losses)} - every team's regular-season record since `since` (an ISO start), one pass."""
+    key = (lg, since, len(fin))
+    if key not in _REC_NOW:
+        if len(_REC_NOW) > 40:
+            _REC_NOW.clear()
+        rec = {}
+        for x in fin:
+            if str(x.get("start") or "") < since or str(x.get("stype") or "2") != "2":
+                continue
+            try:
+                h, a = int(x["home_score"]), int(x["away_score"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            for t_, won, lost in ((x["home"], h > a, h < a), (x["away"], a > h, a < h)):
+                r = rec.setdefault(t_, [0, 0])
+                r[0] += won
+                r[1] += lost
+        _REC_NOW[key] = rec
+    return _REC_NOW[key]
+
+
+def vs_winners(gs, tid, rec):
+    """(wins, losses) against teams that have a winning record today (WIN_TEAM_GAMES+ played)."""
+    w = lo = 0
+    for x in gs or []:
+        o = x["away"] if x["home"] == tid else x["home"]
+        ow, ol = rec.get(o, (0, 0))
+        if ow + ol >= WIN_TEAM_GAMES and ow > ol:
+            r = _line(x, tid)[0]
+            w, lo = w + (r == "W"), lo + (r == "L")
+    return w, lo
+
+
+def _box_stat(st, stat):
+    if stat == "threes":
+        v = str(st.get("threePointFieldGoalsMade-threePointFieldGoalsAttempted") or "")
+        return float(v.split("-")[0]) if v.split("-")[0].isdigit() else None
+    return _fnum(st.get(stat))
+
+
+def box_avg(lg, team_id, before, stat, n):
+    """The team's total a game in one box-score stat over its last n box scores (every man's line added up) - or None
+    when a box score doesn't carry the stat."""
+    try:
+        import json as _json
+        import sports_absences as _sa
+        last = _sa._real(None, lg, team_id, before)[-n:]
+    except Exception:                                     # noqa: BLE001
+        return None
+    if len(last) < n:
+        return None
+    tot = 0.0
+    for _, _, rs in last:
+        got = False
+        for r in rs:
+            try:
+                val = _box_stat(_json.loads(r.get("stats") or "{}"), stat)
+            except ValueError:
+                val = None
+            if val is not None:
+                tot, got = tot + val, True
+        if not got:
+            return None
+    return tot / n
+
+
+def gone_man(lg, team_id, before, name, season_games):
+    """Their man who's out, off the box scores: (points a game, games he played, the team's wins, losses without him
+    this season) - None when the box scores can't say. Hockey: points = goals + assists."""
+    if lg not in GONE_MIN or not season_games:
+        return None
+    try:
+        import json as _json
+        import sports_absences as _sa
+        since = str(season_games[0].get("start") or "")
+        rows = [r for r in _sa._real(None, lg, team_id, before) if r[0] >= since]
+    except Exception:                                     # noqa: BLE001
+        return None
+    want = _sa._nm(str(name).split(" (")[0])
+    res = {x.get("id"): _line(x, team_id)[0] for x in season_games}
+    pts, gp, w, lo = 0.0, 0, 0, 0
+    for _, gid, rs in rows:
+        mine = [r for r in rs if _sa._nm(r.get("player")) == want]
+        if mine:
+            try:
+                st = _json.loads(mine[0].get("stats") or "{}")
+            except ValueError:
+                continue
+            if lg != "nhl" and _sa._num(st.get("minutes")) <= 0:
+                continue
+            pts += _sa._num(st.get("points")) if lg != "nhl" else _sa._num(st.get("goals")) + _sa._num(st.get("assists"))
+            gp += 1
+        elif gid in res:
+            w, lo = w + (res[gid] == "W"), lo + (res[gid] == "L")
+    if gp < 3:
+        return None
+    return pts / gp, gp, w, lo
+
+
+_ALL_RX = re.compile(r"\b(\d+) of (their|the) last \1\b")
+
+
+def _every(line):
+    """'in 5 of their last 5 games' -> 'in every one of their last 5 games' (all of them is said as all of them)."""
+    t = _ALL_RX.sub(lambda m: f"every one of {m.group(2)} last {m.group(1)}", str(line or ""))
+    return re.sub(r"^(\W+)every one", r"\1Every one", t)
+
+
+def _of(c, n):
+    """'3 of 5' - or 'all 5' when it's every one ("lost 6 of 6" reads wrong)."""
+    return f"all {n}" if c == n else f"{c} of {n}"
+
+
+def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs, said, fin=None, e=None):
+    """🧱 The deep refill: more real facts FOR our side off the game files and the box scores - each one a count, each
+    said only when it argues for us. -> {key: line}; fill_facts puts them in order."""
+    out = {}
+    low = str(said or "").lower()
+    before = g.get("start") or "9"
+    nhl = lg == "nhl"
+    dog = (leg.get("odds") or 0) > 0 if leg.get("market") == "ml" else (_fnum(leg.get("line")) or 0) > 0
+    say = lambda k, ways: out.__setitem__(k, _every(v.say("deep_" + k, ways, fact=True)))   # noqa: E731
+    # (SCHEDULE_FAIR, 11/15 - "We can't be looking like some clowns"): in college a stretch of THEIR games that holds one
+    # against a team rated above us says nothing about this game - no "they fold late" off a week of buy games
+    fair = lambda n: lg not in SCHEDULE_FAIR or not any(_tougher(x, oid, tid, e) for x in (s_theirs or [])[-n:])   # noqa: E731
+
+    # 1. their missing man: what he was giving them, and how they've done without him
+    try:
+        named = who_plays_only([str(x) for x in (leg.get("opp_outs") or []) if x], lg, oid, before)
+        best = None
+        for x in named[:4]:
+            nm = x.split(" (")[0]
+            gm = gone_man(lg, oid, before, nm, r_theirs)
+            if gm and gm[0] >= GONE_MIN[lg] and (best is None or gm[0] > best[1][0]):
+                best = (nm, gm)
+        if best:
+            nm, (ppg, gp, w, lo) = best
+            tail = f" {them} {vb(them, 'are', 'is')} {w} and {lo} in the games he missed this year." if w + lo >= 3 and w < lo else ""
+            if nhl:
+                say("gone", [f"📉 {nm} had {round(ppg * gp)} points in {gp} games for {them} this year, and he's out.{tail}",
+                             f"📉 {them} lose {nm} - {round(ppg * gp)} points in his {gp} games this year.{tail}"])
+            else:
+                say("gone", [f"📉 {nm} was giving {them} {ppg:.0f} points a night ({gp} games) and he's out.{tail}",
+                             f"📉 No {nm} means {ppg:.0f} points a night gone for {them}.{tail}",
+                             f"📉 {them} gotta find {nm}'s {ppg:.0f} points a night somewhere else.{tail}"])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 2. the favorite / the dog: how each side has done in this spot (the closing moneylines)
+    try:
+        if "as the dog" not in low and "as the favorite" not in low and "as the underdog" not in low:
+            mine, his = ("dog", "fav") if dog else ("fav", "dog")
+            w, lo = role_record(r_ours, tid, mine)
+            if w + lo >= ROLE_MIN and (w >= lo if dog else w >= 2 * lo):
+                say("role", [f"🐶 {us} won {_of(w, w + lo)} as the underdog this year. They cash plus money.",
+                             f"🐶 As the dog this year {us} won {_of(w, w + lo)}.",
+                             f"🐶 {w} wins in {w + lo} games as the underdog for {us} this season."] if dog else
+                    [f"🏦 {us} won {_of(w, w + lo)} as the favorite this year. They handle business when they're supposed to.",
+                     f"🏦 When the book makes {us} the favorite they won {_of(w, w + lo)} this year.",
+                     f"🏦 {w} wins in {w + lo} games as the favorite for {us} this season."])
+            w, lo = role_record(r_theirs, oid, his)
+            if w + lo >= ROLE_MIN and (lo >= 3 and lo * 20 >= (w + lo) * 9 if dog else lo >= 3 and lo >= 2 * w):   # (a favorite that loses 45%+)
+                say("role_t", [f"💸 {them} lost {_of(lo, w + lo)} as the favorite this year. That's a favorite that loses.",
+                               f"💸 When the book makes {them} the favorite, they lost {_of(lo, w + lo)} this year.",
+                               f"💸 {lo} losses in {w + lo} games as the favorite for {them} this season."] if dog else
+                    [f"💸 {them} lost {_of(lo, w + lo)} as the underdog this year.",
+                     f"💸 As the dog this year {them} lost {_of(lo, w + lo)}. They don't sneak up on people.",
+                     f"💸 {lo} losses in {w + lo} games as the underdog for {them} this season."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 3. the close of games (line scores): ours when we own it, theirs when they give it away
+    try:
+        cfg = LATE_PART.get(lg)
+        if cfg and cfg[2] not in low and "4th" not in low and "third" not in low:
+            what, n = cfg[2], cfg[3]
+            lu, lt = late_score(s_ours, tid, lg), late_score(s_theirs, oid, lg)
+            if lg == "nba":
+                if lu and lu[2] * 10 >= lu[4] * LATE_MIN[lg] and lu[0] > lu[1]:
+                    say("late", [f"⏱️ {us} won {what} in {lu[2]} of their last {lu[4]} games. They close.",
+                                 f"⏱️ Closing time: {us} took {what} in {lu[2]} of their last {lu[4]}.",
+                                 f"⏱️ {lu[2]} of the last {lu[4]} times out, {us} won {what}."])
+                if lt and lt[3] * 10 >= lt[4] * LATE_MIN[lg] and lt[0] < lt[1] and fair(lt[4]):
+                    say("late_t", [f"⏱️ {them} lost {what} in {lt[3]} of their last {lt[4]} games. They fold late.",
+                                   f"⏱️ {them} got outscored in {what} in {lt[3]} of their last {lt[4]}.",
+                                   f"⏱️ {lt[3]} of the last {lt[4]} times out, {them} lost {what}."])
+            else:
+                unit = "goals" if nhl else "points"
+                if lu and lu[0] - lu[1] >= LATE_MIN[lg]:
+                    say("late", [f"⏱️ {us} outscored teams {lu[0]} to {lu[1]} in {what} over their last {lu[4]} games. They close.",
+                                 f"⏱️ {what.capitalize()}, last {lu[4]} games: {lu[0]} {unit} for {us}, {lu[1]} against.",
+                                 f"⏱️ {us} put up {lu[0]} {unit} in {what} over their last {lu[4]} and gave up {lu[1]}."])
+                if lt and lt[1] - lt[0] >= LATE_MIN[lg] and fair(lt[4]):
+                    say("late_t", [f"⏱️ {them} got outscored {lt[1]} to {lt[0]} in {what} over their last {lt[4]} games. They fold late.",
+                                   f"⏱️ {what.capitalize()}, last {lt[4]} games: {them} gave up {lt[1]} {unit} and scored {lt[0]}.",
+                                   f"⏱️ {them} gave up {lt[1]} {unit} in {what} over their last {lt[4]} and only got {lt[0]} back."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 4. who each side beats: the record against teams with a winning record (the pros - a full schedule on file)
+    try:
+        if lg in ("nba", "nhl", "nfl", "mlb") and fin and r_ours and r_theirs and "winning record" not in low:
+            rec = records_now(fin, min(str(r_ours[0]["start"]), str(r_theirs[0]["start"])), lg)
+            w, lo = vs_winners(r_theirs, oid, rec)
+            if w + lo >= 4 and w == 0:
+                say("win_t", [f"🧾 {them} haven't beaten a team with a winning record this year - {lo} tries, {lo} losses.",
+                              f"🧾 {lo} games against teams with a winning record this year for {them}, {lo} losses."])
+            elif w + lo >= 4 and lo >= 2 * w + 1:
+                say("win_t", [f"🧾 {them} won {_of(w, w + lo)} against teams with a winning record this year.",
+                              f"🧾 Against teams with a winning record {them} won just {_of(w, w + lo)} this year.",
+                              f"🧾 {them} only got {w} win{'s' if w != 1 else ''} in {w + lo} games against winning teams this year."])
+            w, lo = vs_winners(r_ours, tid, rec)
+            ow, ol = rec.get(oid, (0, 0))
+            if w + lo >= 4 and w >= lo and ow > ol:
+                say("win", [f"🧾 {us} won {_of(w, w + lo)} against teams with a winning record this year.",
+                            f"🧾 Against teams with a winning record {us} won {_of(w, w + lo)} this year. Good teams don't scare 'em.",
+                            f"🧾 {w} wins in {w + lo} games against winning teams for {us} this year."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 5. the box-score edges: both teams' totals a game over their last box scores - only a real gap, only ours
+    try:
+        seen = lg in ("nba", "nhl", "nfl") or bool(s_ours and s_theirs)
+        for stat, gap, n in BOX_EDGE.get(lg, ()) if seen else ():
+            a, b = box_avg(lg, tid, before, stat, n), box_avg(lg, oid, before, stat, n)
+            if a is None or b is None:
+                continue
+            if stat == "turnovers":
+                if b - a >= gap and "turn" not in low:
+                    say("box_to", [f"🧤 {us} take care of the ball: {a:.0f} turnovers a night over their last {n}, {them} {b:.0f}.",
+                                   f"🧤 {them} been coughing it up {b:.0f} times a night over their last {n}. {us}: {a:.0f}.",
+                                   f"🧤 Turnovers a night, last {n} games: {us} {a:.0f}, {them} {b:.0f}."])
+                continue
+            if a - b < gap:
+                continue
+            if stat == "rebounds" and "rebound" not in low and "glass" not in low:
+                say("box_reb", [f"🧲 {us} been owning the glass: {a:.0f} rebounds a night over their last {n}, {them} {b:.0f}.",
+                                f"🧲 Rebounds a night over the last {n}: {us} {a:.0f}, {them} {b:.0f}. Second chances are ours.",
+                                f"🧲 {a:.0f} rebounds a night for {us} over their last {n}. {them} get {b:.0f}."])
+            elif stat == "threes" and "threes" not in low:
+                say("box_3", [f"👌 {us} been hitting {a:.0f} threes a night over their last {n}. {them}: {b:.0f}.",
+                              f"👌 Threes a night, last {n} games: {us} {a:.0f}, {them} {b:.0f}.",
+                              f"👌 {a:.0f} threes a night for {us} over their last {n} to {_pos(them)} {b:.0f}."])
+            elif stat == "shotsTotal" and "shots" not in low:
+                say("box_sh", [f"🏹 {us} been putting {a:.0f} shots on net a night over their last {n}. {them}: {b:.0f}.",
+                               f"🏹 Shots on net a night, last {n} games: {us} {a:.0f}, {them} {b:.0f}.",
+                               f"🏹 {a:.0f} shots a night for {us} over their last {n} to {_pos(them)} {b:.0f}. We get more looks."])
+            elif stat == "rushingYards" and "on the ground" not in low and "ran for" not in low:
+                say("box_run", [f"🏃 {us} ran for {a:.0f} yards a game over their last {n}. {them}: {b:.0f}.",
+                                f"🏃 On the ground the last {n} games: {us} {a:.0f} yards a game, {them} {b:.0f}.",
+                                f"🏃 {a:.0f} rushing yards a game for {us} over their last {n} to {_pos(them)} {b:.0f}."])
+            elif stat == "sacks" and "sack" not in low and round(a * n) >= 6:
+                say("box_sack", [f"💥 {us} got to the quarterback {round(a * n)} times in their last {n} games. {them}: {round(b * n)}.",
+                                 f"💥 {round(a * n)} sacks in the last {n} games for {us}, {round(b * n)} for {them}.",
+                                 f"💥 Sacks over the last {n}: {us} {round(a * n)}, {them} {round(b * n)}. Our front gets home."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 7. big nights on the scoreboard: how often they give it up, how often we put it up
+    try:
+        cfg = BIG_NIGHT.get(lg)
+        if cfg and f"{cfg[0]}+" not in low and f"{cfg[0]} or more" not in low:
+            big, n = cfg
+            unit = "goals" if nhl else "points"
+            bt, bu = big_nights(s_theirs, oid, lg, True), big_nights(s_ours, tid, lg, False)
+            if bt and bt[0] >= 3 and fair(bt[1]):
+                n = bt[1]
+                say("big_t", [f"🚪 {them} gave up {big} or more {unit} in every one of their last {n} games.",
+                              f"🚪 {big}+ {unit} allowed {n} games running by {them}. That defense is giving it away."] if bt[0] == n else
+                    [f"🚪 {them} gave up {big} or more {unit} in {bt[0]} of their last {n} games.",
+                              f"🚪 {bt[0]} of the last {n} teams to play {them} put up {big} or more.",
+                              f"🚪 {big}+ {unit} allowed in {bt[0]} of the last {n} for {them}. That defense is giving it away."])
+            if bu and bu[0] >= 3:
+                n = bu[1]
+                say("big", [f"💣 {us} scored {big} or more in every one of their last {n} games.",
+                            f"💣 {big}+ {unit} for {us} {n} games running. They can score."] if bu[0] == n else
+                    [f"💣 {us} scored {big} or more in {bu[0]} of their last {n} games.",
+                     f"💣 {big}+ {unit} for {us} in {bu[0]} of their last {n}. They can score.",
+                     f"💣 {bu[0]} of the last {n} times out, {us} put up {big} or more."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 8. the start of games (line scores)
+    try:
+        if "1st quarter" not in low and "first period" not in low and "first half" not in low and "halftime" not in low:
+            what = {"nba": "the 1st quarter", "nhl": "the first period"}.get(lg, "the first half")
+            n = (LATE_PART.get(lg) or (0, 0, 0, 0))[3]
+            eu, et = early_score(s_ours, tid, lg), early_score(s_theirs, oid, lg)
+            unit = "goals" if nhl else "points"
+            if lg == "nba":
+                if eu and eu[2] * 10 >= eu[4] * START_MIN[lg] and eu[0] > eu[1]:
+                    say("start", [f"🏁 {us} won {what} in {eu[2]} of their last {eu[4]} games. They come out ready.",
+                                  f"🏁 {eu[2]} of the last {eu[4]} times out, {us} took {what}."])
+                if et and et[3] * 10 >= et[4] * START_MIN[lg] and et[0] < et[1] and fair(et[4]):
+                    say("start_t", [f"🏁 {them} lost {what} in {et[3]} of their last {et[4]} games. Slow starters.",
+                                    f"🏁 {et[3]} of the last {et[4]} times out, {them} were behind after {what}."])
+            else:
+                if eu and eu[0] - eu[1] >= START_MIN.get(lg, 99):
+                    say("start", [f"🏁 {us} outscored teams {eu[0]} to {eu[1]} in {what} over their last {eu[4]} games. They come out ready.",
+                                  f"🏁 {what.capitalize()}, last {eu[4]} games: {eu[0]} {unit} for {us}, {eu[1]} against."])
+                if et and et[1] - et[0] >= START_MIN.get(lg, 99) and fair(et[4]):
+                    say("start_t", [f"🏁 {them} got outscored {et[1]} to {et[0]} in {what} over their last {et[4]} games. Slow starters.",
+                                    f"🏁 {what.capitalize()}, last {et[4]} games: {them} gave up {et[1]} {unit} and scored {et[0]}."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 9. the close ones: who wins the games that come down to the end
+    try:
+        by = CLOSE_BY.get(lg)
+        if by and "close" not in low and "one-goal" not in low:
+            how = "one-goal games" if nhl else f"games decided by {by} or less"
+            w, lo = close_games(r_ours, tid, lg)
+            if w + lo >= 4 and w >= 2 * lo:
+                say("close", [f"🎬 {us} won {w} of their {w + lo} {how} this year. They finish.",
+                              f"🎬 In {how} this year {us} won {_of(w, w + lo)}."])
+            w, lo = close_games(r_theirs, oid, lg)
+            if w + lo >= 4 and lo >= 2 * w and fair(len(s_theirs or [])):
+                say("close_t", [f"🎬 {them} lost {lo} of their {w + lo} {how} this year. They don't finish.",
+                                f"🎬 In {how} this year {them} lost {_of(lo, w + lo)}."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 10. comfortable wins / bad losses, counted (the 🥊 line is one game; this is how often)
+    try:
+        by = ROMP_BY.get(lg)
+        unit = "goals" if nhl else "points"
+        if by and f"by {by}" not in low:
+            ru, rt = romps(s_ours, tid, lg), romps(s_theirs, oid, lg, lost=True)
+            if ru and ru[0] >= 3:
+                say("romp", [f"🧹 {us} won every one of their last {ru[1]} games by {by} or more {unit}.",
+                             f"🧹 {us} ain't squeaking by: {ru[1]} straight wins by {by}+."] if ru[0] == ru[1] else
+                    [f"🧹 {us} won by {by} or more {unit} in {ru[0]} of their last {ru[1]} games.",
+                     f"🧹 {us} won {ru[0]} of their last {ru[1]} games by {by} or more.",
+                     f"🧹 {us} ain't squeaking by: {ru[0]} wins by {by}+ in their last {ru[1]} games."])
+            if rt and rt[0] >= 3 and fair(rt[1]):
+                say("romp_t", [f"🧹 {them} lost by {by} or more {unit} in {_of(rt[0], rt[1])} of their last {rt[1]} games."
+                               if rt[0] != rt[1] else f"🧹 {them} lost every one of their last {rt[1]} games by {by} or more {unit}.",
+                               f"🧹 {them} lost {_of(rt[0], rt[1])} of their last {rt[1]} games by {by} or more."
+                               if rt[0] != rt[1] else f"🧹 {rt[1]} straight losses by {by} or more for {them}.",
+                               f"🧹 {them} been getting run: {rt[0]} losses by {by}+ in their last {rt[1]} games."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 11. hoops depth: how many of ours score in double figures (the box scores)
+    try:
+        cfg = DEPTH_MIN.get(lg)
+        if cfg and "double figures" not in low:
+            skip = list(leg.get("outs") or []) + list(leg.get("absent") or []) + list(leg.get("on_report") or []) \
+                + list(leg.get("waiting") or []) + list((leg.get("rep_status") or {}).keys())
+            du, dt = double_figures(lg, tid, before, skip), double_figures(lg, oid, before, leg.get("opp_outs") or [])
+            if du and du[0] >= cfg[0] and (not dt or du[0] > dt[0]):
+                say("depth", [f"🖐️ {us} got {du[0]} guys scoring in double figures over their last {du[1]} games. You can't just guard one.",
+                              f"🖐️ {du[0]} different {us} players are putting up 10 or more a night over their last {du[1]}.",
+                              f"🖐️ Depth: {du[0]} guys in double figures for {us} over their last {du[1]} games."])
+    except Exception:                                     # noqa: BLE001
+        pass
+
+    # 6. the spread covers (hoops / football - hockey and baseball are moneyline sports here)
+    try:
+        n = COVER_GAMES.get(lg)
+        if n and "cover" not in low:
+            cu, ct = covers(s_ours, tid, n), covers(s_theirs, oid, n)
+            if cu and cu[0] * 10 >= n * 6:
+                say("cover", [f"🎟️ {us} covered the spread in {cu[0]} of their last {n} games.",
+                              f"🎟️ {cu[0]} covers in the last {n} for {us}. They been better than the book thinks.",
+                              f"🎟️ {us} beat the spread {cu[0]} times in their last {n}."])
+            if ct and ct[1] * 10 >= n * 6:
+                say("cover_t", [f"🎟️ {them} failed to cover in {ct[1]} of their last {n} games.",
+                                f"🎟️ {them} didn't cover the spread in {ct[1]} of their last {n}. The book keeps asking too much of 'em.",
+                                f"🎟️ {ct[1]} of the last {n} times out, {them} didn't cover."])
+    except Exception:                                     # noqa: BLE001
+        pass
+    return {k: x for k, x in out.items() if x}
+
+
+def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs, said, own=None, fin=None, e=None):
     """🧱 The refill (11/18): real facts FOR our side the card hasn't said, best first - used only while a card sits under
     its floor. Each is a number from the box scores / the game files / the price; a fact already on the card (its
     number is there) is skipped."""
     out = []
     low = str(said or "").lower()
+    keys = {}                                             # line -> its fact, for the order below
+
+    def say(key, ways, **kw):
+        x = v.say(key, ways, **kw)
+        if x:
+            keys[x] = key
+        return x
     nhl = lg == "nhl"
     unit = "goals" if nhl else "points"
     try:                                                  # 1. our top scorer, with his numbers
@@ -2003,54 +2617,67 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
             nm, ppg, gp = ts
             if nhl:
                 pts = round(ppg * gp)
-                out.append(v.say("fill_star", [f"💯 {nm} has {pts} points in {_pos(us)} last {gp} games.",
+                out.append(say("fill_star", [f"💯 {nm} has {pts} points in {_pos(us)} last {gp} games.",
                                                f"💯 {_pos(us)} top scorer lately is {nm} - {pts} points in the last {gp} games.",
                                                f"💯 {nm} been producing for {us}: {pts} points over the last {gp}."], fact=True))
             else:
-                out.append(v.say("fill_star", [f"💯 {nm} is giving {us} {ppg:.0f} a night over the last {gp} games he's played.",
+                out.append(say("fill_star", [f"💯 {nm} is giving {us} {ppg:.0f} a night over the last {gp} games he's played.",
                                                f"💯 {_pos(us)} top scorer {nm} is putting up {ppg:.0f} a night lately ({gp} games).",
                                                f"💯 {nm} been cooking for {us} - {ppg:.0f} a night over his last {gp}."], fact=True))
+        if lg in ("nfl", "ncaaf"):                        # football: our back and our top catcher, the yards they got
+            for stat_, ways in (("rushingYards", ("💯 {nm} has run for {y} yards over {pu} last {gp} games.",
+                                                  "💯 {y} yards on the ground for {nm} in {pu} last {gp} games.")),
+                                ("receivingYards", ("💯 {nm} has {y} receiving yards over {pu} last {gp} games.",
+                                                    "💯 {nm} caught {y} yards' worth in {pu} last {gp} games."))):
+                fs = top_scorer(lg, tid, g.get("start") or "9", skip, stat=stat_)
+                if fs and fs[0].lower() not in low:
+                    out.append(say("fill_" + stat_, [w.format(nm=fs[0], y=round(fs[1] * fs[2]), pu=_possm(us), gp=fs[2])
+                                                       for w in ways], fact=True))
     except Exception:                                     # noqa: BLE001
         pass
     dec = 1 if nhl or lg == "mlb" else 0
     pu, pt = _pts3(s_ours, tid, dec=dec), _pts3(s_theirs, oid, dec=dec)
     lately = "over their last" in low or "last 3" in low or "last 2" in low or "lately" in low
-    if pu and pu[0] > pu[1] and not lately:               # 2. our scoreboard lately, when we're winning it
+    _gap = 0.3 if nhl or lg == "mlb" else 2                # (a 1-point edge on the scoreboard says nothing)
+    if pu and pu[0] - pu[1] >= _gap and not lately:             # 2. our scoreboard lately, when we're winning it
         net = round(pu[0] - pu[1], 1)
-        out.append(v.say("fill_pts", [f"📊 {us} {vb(us, 'are', 'is')} winning by {net:g} a game over their last {pu[2]} ({pu[0]:g} scored, {pu[1]:g} allowed).",
+        out.append(say("fill_pts", [f"📊 {us} {vb(us, 'are', 'is')} winning by {net:g} a game over their last {pu[2]} ({pu[0]:g} scored, {pu[1]:g} allowed).",
                                       f"📊 Last {pu[2]} for {us}: {pu[0]:g} scored a game, {pu[1]:g} allowed.",
                                       f"📊 {us} put up {pu[0]:g} a game over their last {pu[2]} and gave up {pu[1]:g}."], fact=True))
-    elif pt and pt[0] < pt[1] and not lately:             # ... or theirs, when they're losing it
-        out.append(v.say("fill_pts", [f"📊 {them} have been outscored {pt[1]:g} to {pt[0]:g} a game over their last {pt[2]}.",
+    elif pt and pt[1] - pt[0] >= _gap and not lately:           # ... or theirs, when they're losing it
+        out.append(say("fill_pts", [f"📊 {them} have been outscored {pt[1]:g} to {pt[0]:g} a game over their last {pt[2]}.",
                                       f"📊 Last {pt[2]} for {them}: {pt[0]:g} scored a game, {pt[1]:g} given up."], fact=True))
     year = bool(re.search(r"(?:📊|🛡)[^📊🛡⚠✅]*?(?:this year|on the year|this season)", str(said)))
     fmt = (lambda x: f"{x:.1f}") if nhl or lg == "mlb" else (lambda x: f"{round(x)}")
     if len(r_ours) >= 5 and not year:                     # 3. our season on the scoreboard, when it's in the black
         pg = _per_game(r_ours, tid)
         if pg and pg[0] - pg[1] >= (0.3 if nhl or lg == "mlb" else 2):
-            out.append(v.say("fill_year", [f"📊 On the year {us} {vb(us, 'score', 'scores')} {fmt(pg[0])} {unit} a game and {vb(us, 'give', 'gives')} up {fmt(pg[1])}.",
+            out.append(say("fill_year", [f"📊 On the year {us} {vb(us, 'score', 'scores')} {fmt(pg[0])} {unit} a game and {vb(us, 'give', 'gives')} up {fmt(pg[1])}.",
                                            f"📊 {us} this season: {fmt(pg[0])} {unit} a game scored, {fmt(pg[1])} allowed.",
                                            f"📊 {fmt(pg[0])} a game for {us} this year, {fmt(pg[1])} against. They outscore people."], fact=True))
     if len(r_theirs) >= 5 and not year:                   # 4. their season, when it's in the red
         pg = _per_game(r_theirs, oid)
         if pg and pg[1] - pg[0] >= (0.3 if nhl or lg == "mlb" else 2):
-            out.append(v.say("fill_year_t", [f"📊 On the year {them} {vb(them, 'give', 'gives')} up {fmt(pg[1])} {unit} a game and {vb(them, 'score', 'scores')} {fmt(pg[0])}.",
+            out.append(say("fill_year_t", [f"📊 On the year {them} {vb(them, 'give', 'gives')} up {fmt(pg[1])} {unit} a game and {vb(them, 'score', 'scores')} {fmt(pg[0])}.",
                                              f"📊 {them} this season: {fmt(pg[1])} {unit} a game allowed, {fmt(pg[0])} scored. They get outscored."], fact=True))
     if len(r_ours) >= 5 and len(r_theirs) >= 5 and not year and not any(str(x).startswith("📊") and "year" in str(x) or
                                                                         "this season" in str(x) for x in out):
         pu_, pt_ = _per_game(r_ours, tid), _per_game(r_theirs, oid)   # 4b. the matchup on the year, either end of the floor
         step = 0.1 if nhl or lg == "mlb" else 1
         if pu_ and pt_ and pt_[1] - pu_[1] >= step:
-            out.append(v.say("fill_d", [f"🛡️ {them} {vb(them, 'give', 'gives')} up {fmt(pt_[1])} {unit} a game this year. {us} {vb(us, 'give', 'gives')} up {fmt(pu_[1])}.",
+            out.append(say("fill_d", [f"🛡️ {them} {vb(them, 'give', 'gives')} up {fmt(pt_[1])} {unit} a game this year. {us} {vb(us, 'give', 'gives')} up {fmt(pu_[1])}.",
                                         f"🛡️ On the year {us} {vb(us, 'allow', 'allows')} {fmt(pu_[1])} a game, {them} {fmt(pt_[1])}."], fact=True)
                        if fmt(pt_[1]) != fmt(pu_[1]) else "")
         elif pu_ and pt_ and pu_[0] - pt_[0] >= step and fmt(pu_[0]) != fmt(pt_[0]):
-            out.append(v.say("fill_o", [f"📊 {us} {vb(us, 'score', 'scores')} {fmt(pu_[0])} {unit} a game this year; {them} {vb(them, 'score', 'scores')} {fmt(pt_[0])}.",
+            out.append(say("fill_o", [f"📊 {us} {vb(us, 'score', 'scores')} {fmt(pu_[0])} {unit} a game this year; {them} {vb(them, 'score', 'scores')} {fmt(pt_[0])}.",
                                         f"📊 On the year {us} put up {fmt(pu_[0])} a game, {them} {fmt(pt_[0])}."], fact=True))
     for gs, t_id, nm_, ours_ in ((s_ours, tid, us, True), (s_theirs, oid, them, False)):   # 6. the last 10
         l10 = _last_n(gs, t_id, 10)
+        if any(nm_ in seg for seg in re.findall(r"🗓[^🗓⚠✅📋📅💯📊🏟🧳🥊]*", str(said))):
+            continue                                      # (11/19, the Nuggets card: "won 6 of their last 10" next to
+            #                                               "3-2 over their last 5" - one form line a team on a card)
         if l10 and "last 10" not in low and ((ours_ and l10[0] >= 6) or (not ours_ and l10[0] <= 4)):
-            out.append(v.say("fill_l10" + ("" if ours_ else "_t"),
+            out.append(say("fill_l10" + ("" if ours_ else "_t"),
                              [f"🗓️ {nm_} won {l10[0]} of their last 10.", f"🗓️ {l10[0]} wins in the last 10 for {nm_}."] if ours_ else
                              [f"🗓️ {nm_} won only {l10[0]} of their last 10.", f"🗓️ Just {l10[0]} wins in the last 10 for {nm_}."],
                              fact=True))
@@ -2058,7 +2685,7 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         ts2 = top_scorer(lg, tid, g.get("start") or "9", skip, rank=1)
         if ts2 and ts2[0].lower() not in low:
             nm, ppg, gp = ts2
-            out.append(v.say("fill_star2", [f"💯 {nm} has {round(ppg * gp)} points in his last {gp} games for {us}."] if nhl else
+            out.append(say("fill_star2", [f"💯 {nm} has {round(ppg * gp)} points in his last {gp} games for {us}."] if nhl else
                              [f"💯 {nm}: {ppg:.0f} a night for {us} over his last {gp} games.",
                               f"💯 {nm} is putting up {ppg:.0f} a night for {us} too ({gp} games)."], fact=True))
     except Exception:                                     # noqa: BLE001
@@ -2067,7 +2694,7 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         f = card_fair(leg, own, beat=True) if own is not None and leg.get("market") == "ml" else None
         if f and f not in said:
             o = _am(leg["odds"])
-            out.append(v.say("fill_price", [f"💵 We price {us} at {f}. The book's paying {o}.",
+            out.append(say("fill_price", [f"💵 We price {us} at {f}. The book's paying {o}.",
                                             f"💵 Our number on {us} is {f} and the book's hanging {o}.",
                                             f"💵 {o} at the book on a side we make {f}."], fact=True))
     except Exception:                                     # noqa: BLE001
@@ -2076,10 +2703,27 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
     if leg.get("market") == "ml" and o_ >= 150 and "times in" not in low and "time in" not in low:
         #   (never rounded in our favor: +150 breaks even at 4 in 10, +200 at 1 in 3, +234 at 3 in 10, +300 at 1 in 4)
         how = "4 times in 10" if o_ < 200 else "1 time in 3" if o_ < 234 else "3 times in 10" if o_ < 300 else "1 time in 4"
-        out.append(v.say("fill_need", [f"💵 At {_am(o_)} {us} only gotta win this about {how} for the bet to pay.",
-                                       f"💵 {_am(o_)} means {us} don't have to be the better team - they gotta win about {how}.",
+        out.append(say("fill_need", [f"💵 At {_am(o_)} {us} only gotta win this about {how} for the bet to pay.",
+                                       f"💵 {_am(o_)} on {us}: about {how} is all it takes for this bet to pay.",
                                        f"💵 Plus money: at {_am(o_)}, {us} winning about {how} is all we need."], fact=True))
-    return [x for x in out if x]
+    try:                                                  # 9. the deep refill (deep_facts), each fact in its place
+        deep = {} if not DEEP_FILL else deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs, said, fin, e)
+    except Exception:                                     # noqa: BLE001
+        deep = {}
+    for k, x in deep.items():
+        keys[x] = "deep_" + k
+        out.append(x)
+    rank = lambda x: next((r for pre, r in FILL_ORDER if keys.get(x, "").startswith(pre)), 5.0)   # noqa: E731
+    return sorted((x for x in out if x), key=rank)        # (a stable sort: ties keep the order they were found in)
+
+
+FILL_ORDER = (   # the refill, best first: a name with numbers, then how the two sides really play, the price last
+    ("fill_star2", 7.0), ("fill_star", 0.0), ("fill_rushingYards", 0.5), ("fill_receivingYards", 0.6),
+    ("deep_gone", 1.0), ("fill_pts", 1.5), ("deep_role", 2.0), ("deep_late", 3.0), ("deep_box", 4.0),
+    ("fill_year", 4.5), ("fill_d", 4.7), ("fill_o", 4.7), ("deep_win", 5.0), ("deep_big", 3.5), ("deep_close", 5.5),
+    ("deep_romp", 3.7), ("deep_depth", 4.2),
+    ("deep_start", 6.5), ("fill_l10", 6.0), ("deep_cover", 8.0),
+    ("fill_price", 9.0), ("fill_need", 10.0))
 
 
 def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
@@ -2392,7 +3036,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
             _gf, _ga = (round(_pg[0] * len(r_ours)), round(_pg[1] * len(r_ours))) if _pg else (0, 0)
             if _gf and _gf >= _ga and f"{_gf}-{_ga}" not in body:
                 add.append(v.say("f_pyth", [f"🎲 {us} have scored {_gf} and given up {_ga} this year. That's a better team than the standings show.",
-                                            f"🎲 {_gf} goals for, {_ga} against on the year for {us} - they been playing better than their record.",
+                                            f"🎲 {_gf} goals scored and {_ga} allowed on the year by {us} - they been playing better than their record.",
                                             f"🎲 On the year {us} have scored {_gf} goals and allowed {_ga}. The record ain't caught up to that yet."]
                                  if _gf > _ga else
                                  [f"🎲 {us} have scored {_gf} and given up {_ga} this year - dead even. That's a better team than the standings show."]))
@@ -2674,7 +3318,7 @@ def lead_line(lines, v, us):
     body = [x for x in (lines or [])[:-1] if x and not str(x).startswith(("⚠️", "✅", "🟡", "🔒"))]
     for fill in (False, True):                            # (11/18: a refill line - 💯 / 💵 - leads only when nothing else can)
         for x in body:
-            if str(x).startswith(("💯", "💵")) != fill:
+            if (str(x).startswith(("💯", "💵")) or x in getattr(v, "fill", ())) != fill:
                 continue
             if (v.dirs.get(x, "us") if v is not None else "us") == "us" and not knocks_us(x, us):
                 return x
@@ -3045,9 +3689,9 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
     if bench and bench[0] is not None and bench[1] is not None and bench[0] - bench[1] >= BENCH_GAP:
         #   (11/18, cards_1118 - layman's terms: "+5.7 per 48 minutes" is a stat sheet's unit; 48 minutes is a full game)
         _bn = lambda x: f"outscored teams by {x:g}" if x >= 0 else f"got outscored by {-x:g}"   # noqa: E731
-        m["deeper bench"] = [f"last season {_pos(U)} bench {_bn(bench[0])} points for every full game it played; {_pos(T)} {_bn(bench[1])}",
-                             f"{_pos(U)} bench {_bn(bench[0])} a full game last season, {_pos(T)} {_bn(bench[1])}",
-                             f"the benches last year, per full game played: {_pos(U)} {_bn(bench[0])}, {_pos(T)} {_bn(bench[1])}"]
+        m["deeper bench"] = [f"last season {_pos(U)} bench {_bn(bench[0])} a game; {_pos(T)} {_bn(bench[1])}",
+                             f"{_pos(U)} bench {_bn(bench[0])} a game last season, {_pos(T)} {_bn(bench[1])}",
+                             f"the benches last season: {_pos(U)} {_bn(bench[0])} a game, {_pos(T)} {_bn(bench[1])}"]
     #   (the roster read, 10/20 - numbers from the box scores)
     hot = form.get((True, "hot"))
     if sp_us:

@@ -39,6 +39,11 @@ and cares about? Does it say anything new? Does it read right? Is the man it nam
 | **said twice** (the one-liner's fact again, the same game in two or three lines) | **9** | 14 | 0 | 0 |
 | **all** | **125** | **95** | **0** | **0** |
 
+The dry run of the 11/19 slate (36 moneyline sides the engine priced from -150 to +350: hockey 19, college hoops 15,
+college football 2 - the NBA / NFL injury reports did not load in this sandbox, so those sides sat in "waiting" and are
+covered by the 11/1-11/18 replay only): 292 lines written, 0 bad as written, 0 on the page. Its first pass caught one
+more bug - "New Mexico St" read as "st" inside the word "lost", so every loss on that card read as ours - fixed.
+
 About one line in four on a posted card was one of these. None was false - the 11/17 audit passed every one.
 
 How thin the cards were (fact lines a reader sees, the ⚠️ / bottom / update lines not counted):
@@ -46,7 +51,8 @@ How thin the cards were (fact lines a reader sees, the ⚠️ / bottom / update 
 | | average | under 6 | under 4 | under 2 |
 |---|---|---|---|---|
 | the 49 board cards re-written by the morning's code, after the page's cuts | 4.7 | 36 | 17 | 2 |
-| by tonight's code (the refill) | 5.6 | 23 | 4 | 0 |
+| by tonight's code (the refill) | 5.7 | 22 | 3 | 0 |
+| **the second pass (11/18 night - section 8: the deep refill + the spares)** | **6.5** | **6** | **0** | **0** |
 
 ## 3. Real examples, before -> after
 
@@ -70,21 +76,25 @@ The Nuggets card, start to finish:
     AS POSTED (11/18, 8 AM)                                        TONIGHT'S CODE
     🧠 The Celtics gotta breathe 5,300 feet up. Nuggets fin to     🧠 (the same one-liner)
        handle that. Plus Celtics flew 1,760 miles for this.
-    🧳 The Celtics put in the miles (1,760-mile trip west).        📅 The Celtics are fresh off a 115-105 loss to the Magic.
-    🗓️ Nuggets are 3-2 over their last 5.                          📋 Nuggets sit 7-5 so far.
-    🏔️ Thin air — 5,300 feet up. ...                               🗓️ Nuggets are 3-2 over their last 5.
-    📋 Nuggets are 7-5 after a 117-105 loss to the Suns.           💯 Jamal Murray is giving Nuggets 26 a night over the last
-    📅 The Celtics ... loss to the Magic; the Nuggets off a           10 games he's played.
-       117-105 loss to the Suns.                                   🏀 Nuggets: their bench outscored teams by 6.1 points for
-    🏀 ... bench outscored teams by 6.1 per 48 minutes ...            every full game it played last season - deep squad · the
-    ⚠️ Biggest knock on Nuggets: Nuggets go without Julian            coach plays 7 guys real minutes.
-       Strawther (G).                                              ⚠️ Biggest knock on Nuggets: Celtics come in 11-3 to
-    ✅ Bottom line: Nuggets (+120). We price Nuggets at +103,         Nuggets' 7-5.
-       the book's at +120.                                         ✅ Bottom line: Nuggets (+120). We price Nuggets at +103,
-    🌟 Nuggets: Jamal Murray (All-NBA 2026) is in the lineup.         the book's at +120.
+    🧳 The Celtics put in the miles (1,760-mile trip west).        📋 Nuggets sit 7-5 so far.
+    🗓️ Nuggets are 3-2 over their last 5.                          💯 Jamal Murray is giving Nuggets 26 a night over the last
+    🏔️ Thin air — 5,300 feet up. ...                                  10 games he's played.
+    📋 Nuggets are 7-5 after a 117-105 loss to the Suns.           💯 Nikola Jokic is putting up 24 a night for Nuggets too
+    📅 The Celtics ... loss to the Magic; the Nuggets off a           (10 games).
+       117-105 loss to the Suns.                                   🗓️ Nuggets won 6 of their last 10.
+    🏀 ... bench outscored teams by 6.1 per 48 minutes ...         🗓️ Nuggets are 3-2 over their last 5.
+    ⚠️ Biggest knock on Nuggets: Nuggets go without Julian         📅 The Celtics are fresh off a 115-105 loss to the Magic.
+       Strawther (G).                                              🏀 Nuggets: their bench outscored teams by 6.1 points for
+    ✅ Bottom line: Nuggets (+120). We price Nuggets at +103,         every full game it played last season - deep squad · the
+       the book's at +120.                                            coach plays 7 guys real minutes.
+    🌟 Nuggets: Jamal Murray (All-NBA 2026) is in the lineup.      ⚠️ Biggest knock on Nuggets: Celtics come in 11-3 to
+                                                                      Nuggets' 7-5.
+                                                                   ✅ Bottom line: Nuggets (+120). We price Nuggets at +103,
+                                                                      the book's at +120.
                                                                    🌟 Nuggets: Jamal Murray (All-NBA 2026) is in the lineup tonight.
 
-(In between, the afternoon's rewrite had left it at three lines: the knocks were cut on the page and nothing came back,
+(The right-hand card is the 11/18 leg re-written by tonight's code off the files in the repo, with the roster read built.
+The live card is re-written by the engine's next run - its lines can differ where the news has moved.) (In between, the afternoon's rewrite had left it at three lines: the knocks were cut on the page and nothing came back,
 and the 🏀 / 🌟 lines were lost - section 4, items 1 and 2.)
 
 ## 4. Root causes and fixes
@@ -130,16 +140,92 @@ and the 🏀 / 🌟 lines were lost - section 4, items 1 and 2.)
   whose write-up put 3+ bad lines on it (a pool went bad - fix it at the root); a thin live unit card. The score is
   printed every hour.
 
-## 6. What is still short (honest)
+## 6. What is still short (honest) - as of the first pass; section 8 has where it stands now
 
-A bad team that is our dog has few real facts for it - 4 of the 49 re-written cards still show under 4 fact lines
+A bad team that is our dog has few real facts for it - 3 of the 49 re-written cards still show under 4 fact lines (22 under 6)
 (a team on a 9-game skid with a losing record at home and on the road). The refill never pads: the log says
-BREAKDOWN SHORT and the audit calls a card under 2 lines thin. Football has no top-scorer line (its fact is the
+BREAKDOWN SHORT and the audit calls a card under 2 lines thin. Football's refill line is the back or the catcher by yards (its other fact is the
 quarterback line, which is only said when his numbers are good). The trip's miles, the weather line and a quoted
 headline are still not re-derived (the 11/17 list).
 
-## 7. Tests
+## 7. Tests (the first pass)
 
 `test_cards_1118_*` in `sports_test.py` (four): the refill + the roster read on a rewrite; every kind of bad line and the
 pools at the root + nothing said twice; who matters in every league + old news; the early rows + the quality score and
-its PROBLEM lines. `sports_breakdown.VERSION` 67 rewrites the open cards (the pick never changes).
+its PROBLEM lines. `sports_breakdown.VERSION` 67 rewrote the open cards (68 after the second pass, section 8).
+
+## 8. The second pass (11/18 night): every unit card to its floor
+
+The owner, after the first refill: "it's just short and fucking vague and a real shitty fucking breakdown. This is a
+fucking permanent bug" / "this needs to be permanent fix for everything going forward". 22 of the 49 cards were still
+under the floor of 6. Three things were wrong, and each has a fix that stands:
+
+**(a) The files held more for our side than the card ever said.** `sports_breakdown_v24.deep_facts` - every one a COUNT
+off the game files or the box scores, said the way a bettor says it, and only when it argues for us:
+
+| the fact | where it comes from | a real line |
+|---|---|---|
+| 📉 their missing man's numbers (and their record without him, 3+ games) | the box scores | "Stephen Curry was giving Warriors 29 points a night (5 games) and he's out." |
+| 🐶 🏦 💸 each side as the favorite / the dog | the closing moneylines | "Knicks lost 5 of 11 as the favorite this year." / "9 wins in 16 games as the underdog for Predators this season." |
+| ⏱️ the close of games - the 4th quarter, the third period, the second half | the line scores | "Lakers lost the 4th quarter in 6 of their last 7 games. They fold late." |
+| 🏁 the start of games | the line scores | "Nuggets won the 1st quarter in 7 of their last 10 games. They come out ready." |
+| 🚪 💣 big nights on the scoreboard | the game files | "4+ goals allowed in 3 of the last 5 for Panthers." / "Capitals scored 4 or more in 4 of their last 5 games." |
+| 🧹 comfortable wins / bad losses, counted | the game files | "Trail Blazers ain't squeaking by: 3 wins by 10+ in their last 5 games." |
+| 🧾 who each side beats (the pros) | every team's record today | "Panthers won 2 of 7 against teams with a winning record this year." |
+| 🎬 the close ones | the game files | "Capitals won 5 of their 6 one-goal games this year. They finish." |
+| 🧲 👌 🧤 🏹 🏃 💥 the box-score edges - rebounds, threes, turnovers, shots on net, rushing yards, sacks | both teams' last box scores, only a real gap | "On the ground the last 3 games: UConn 206 yards a game, North Carolina 101." |
+| 🖐️ hoops depth - how many of ours score 10+ a night | the box scores | "Pepperdine got 5 guys scoring in double figures over their last 4 games." |
+| 🎟️ the spread covers (hoops / football) | the closing spreads | "5 covers in the last 6 for Packers." |
+
+Never a rate or a formula; "all 5" / "every one of their last 5", never "5 of 5"; never an N-N a reader could take for
+a record. In college a stretch of THEIR games with one against a team rated above us is no line (SCHEDULE_FAIR - no
+"they fold late" off a week of buy games). Head to head stays off the cards (the owner, 10/5). `DEEP_FILL` is the switch.
+
+**(b) The refill stopped at the floor and then the page cut more.** The write-up now fills to the floor + 1
+(`REFILL_PAST`), counts what the page counts (never the 🚑 line the chip already says), leaves room for the line that
+moves up to be the one-liner - and KEEPS the facts it didn't need on the leg (`leg["spare"]`, up to 8).
+`sports_card_check.refill` runs at the end of the card check on EVERY render (the page, the brain, the audit, the
+pre-post check): a card that comes out under its floor - a goalie line cut for the news, a knock, a repeat - pulls its
+spares in, each through the same checks as any card line, until it is back at 6. A spare naming a man whose status
+moved is skipped. No spare left = the card stays short; nothing is ever padded.
+
+**(c) Nobody was told.** `tools/card_audit.py`: a live unit card under its floor is a PROBLEM of its own class
+("short"), the card named, with why - "the engine holds no more facts for this side", "N spare facts didn't pass the
+page's checks", or "written before the refill" - and `tools/health.py` prints it every hour as
+`card audit: SHORT CARD - Nuggets (2026-11-18): a short card: 4 fact lines on a unit play, the floor is 6 - ...`, never
+crowded out by the other card problems. The hourly line also says the fact lines a card and how many are under the floor.
+
+The thinness table, the same 49 board cards re-written off the files in the repo:
+
+| | average | under 6 | under 4 | under 2 |
+|---|---|---|---|---|
+| the morning's code, after the page's cuts | 4.7 | 36 | 17 | 2 |
+| the first refill | 5.7 | 22 | 3 | 0 |
+| the second pass | 6.5 | 6 | 0 | 0 |
+
+The dry run of the 11/19 slate (37 moneyline sides the engine priced from -150 to +350 - every candidate, not the
+picks: hockey 19, college hoops 16, college football 2): 4.7 on average, 26 under 6, 10 under 4 -> 5.8, 9 under 6,
+5 under 4; 341 lines written, 0 bad.
+
+**The cards that still can't reach 6, and why** (every one has no spare left - the engine holds nothing more for the side):
+- 11/1 Clippers +114 (4 lines), 11/2 Suns +120 (4), 11/4 Suns +125 (4): the season's first two weeks - 4 to 7 games
+  each, so no last-10, no 10-game line-score read, no 4-game record as a dog; and both were losing teams (1-4, 1-3).
+- 11/3 Jets +160 (4): a team on a 9-game skid, 1-9 in its last 10, 2-6 on the road - the files hold four real facts for
+  it and no fifth.
+- 11/7 Kansas St +200 (4): a dog that failed to cover in 4 of 6 and lost the second half lately; its opponent's man
+  out is on the 🚑 chip already.
+- 11/18 Nuggets +120 (5 in this replay - 6 on the live card, which has the 🏀 bench line the replay can't build): the
+  Celtics were the better team on nearly every count; the case is the altitude, the trip and the price.
+- the dry run's 9: seven college hoops sides in their first 3-4 games (no 4-game windows yet, and a team we don't fully
+  see gets no record / streak line - seen_all), two hockey sides with little going for them but the price.
+
+Also fixed on the way (the live Nuggets card after VERSION 67): one form line a team (never "won 6 of their last 10"
+next to "3-2 over their last 5"); a plain record line only for a good record (60%+) or one that beats theirs - never
+the record the ⚠️ line already uses; the bench line the way a bettor says it ("their bench outscored teams by 6 a game
+last season - deep squad · 7 guys play real minutes", no "for every full game it played"); the 💵 dog-price line no
+longer says "don't have to be the better team" (the page cut it).
+
+Tests: `test_cards_1118_the_deep_refill_says_the_facts_the_engine_held_and_never_said`,
+`test_cards_1118_a_cut_on_the_page_pulls_a_spare_fact_in_and_a_short_card_is_a_named_problem`,
+`test_cards_1119_one_form_line_a_plain_record_only_when_its_good_and_the_bench_said_plain`.
+`sports_breakdown.VERSION` 68 rewrites the open cards (the pick never changes).
