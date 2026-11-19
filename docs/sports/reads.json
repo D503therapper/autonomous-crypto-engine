@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T05:45Z",
+ "updated": "2026-11-19T06:04Z",
  "games": [
   {
    "id": "ncaab:401909753",
@@ -1222,8 +1222,8 @@
    "away": "Avalanche",
    "home": "Mammoth",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1327,8 +1327,8 @@
    "away": "Fullerton",
    "home": "UCLA",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1342,8 +1342,8 @@
    "away": "UNLV",
    "home": "Auburn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2177,8 +2177,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.386,
-    "tie": 0.298,
+    "p": 0.369,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2186,7 +2186,7 @@
    "start": "2026-11-20T02:00Z",
    "away": "Ducks",
    "home": "Avalanche",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Ducks",
@@ -2194,9 +2194,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -198,
-    "p": 0.648,
-    "win_p": 0.432,
-    "reasons": []
+    "p": 0.682,
+    "win_p": 0.465,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
