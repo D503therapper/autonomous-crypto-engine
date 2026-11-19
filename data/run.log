@@ -24065,3 +24065,19 @@ crypto scanner failed: HTTP Error 404: Not Found
    dex screen: REJECT CFG@ethereum liq $237,979 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; honeypot_with_same_creator; top-10 holders 48%; lp locked 0% < 95%
    dex screen: REJECT AMZNC@base liq $29,187 - liquidity $29,187 < $100,000; 24h volume $6,841 < $100,000
    dex screen: UNREACHABLE LUCIA@ethereum liq $335,660 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-11-19 13:33 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/mover     equity $173.66 (-65.3%) 1 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/social_heat equity $322.98 (-35.4%) 1 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 13:33 UTC] crypto/hold_btc  equity $391.14 (-21.8%) 1 open  market DOWN
+   social heat top: SKY 42 (29/0/13), TRUMP 40 (40/0/0), PENGU 24 (24/0/0), HYPE 21 (21/0/0), XRP 16 (16/0/0)
