@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T03:51Z",
+ "updated": "2026-11-20T04:08Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -368,8 +368,8 @@
    "away": "Rice",
    "home": "Temple",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -605,8 +605,8 @@
    "away": "Wild",
    "home": "Flames",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -620,8 +620,8 @@
    "away": "Colts",
    "home": "Texans",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -635,8 +635,8 @@
    "away": "Rutgers",
    "home": "UNLV",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -650,8 +650,8 @@
    "away": "Seton Hall",
    "home": "Wisconsin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -857,6 +857,21 @@
    "start": "2026-11-20T03:30Z",
    "away": "VCU",
    "home": "Santa Clara",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926773",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T04:00Z",
+   "away": "Tarleton St",
+   "home": "USC",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1576,10 +1591,10 @@
     "team": "Mount St Marys",
     "opp": "W Michigan",
     "market": "spread",
-    "line": 8.5,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.247,
+    "line": 7.5,
+    "odds": -102,
+    "p": 0.5,
+    "win_p": 0.254,
     "reasons": [
      "W Michigan are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
@@ -1847,10 +1862,10 @@
     "team": "Georgia Tech",
     "opp": "Georgia",
     "market": "spread",
-    "line": 8.5,
-    "odds": -112,
+    "line": 9.5,
+    "odds": -118,
     "p": 0.502,
-    "win_p": 0.242,
+    "win_p": 0.249,
     "reasons": [
      "Georgia are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
@@ -2104,7 +2119,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Idaho",
-    "p": 0.497,
+    "p": 0.491,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -2120,9 +2135,9 @@
     "opp": "Bakersfield",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.524,
-    "win_p": 0.524,
+    "odds": -115,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
      "the stronger team"
     ]
