@@ -28985,6 +28985,19 @@ def test_early_1119_no_early_football_side_while_its_qb_room_is_in_flux_and_the_
     assert "q = qb_unsettled(c, games)" in open(se.__file__, encoding="utf-8").read()
 
 
+def test_cards_1120_a_spread_stack_card_never_runs_itself_down_or_leads_on_even_records():
+    """11/20 pre-board check: the Niagara +2.5 ½u stack play's card - "🧠 Niagara went 8-22 last season, Delaware St 8-23.
+    Small bet on Niagara - half a unit at about a fair price." and "✅ Bottom line: ... Niagara is the play because of the
+    spot, and the units say how much." Two even records say nothing; "about a fair price" runs our own play down."""
+    import sports_breakdown_v24 as v24
+    assert v24.even_records("Niagara went 8-22 last season, Delaware St 8-23")
+    assert not v24.even_records("Broncos are 6-2, Panthers are 3-4")
+    assert not v24.even_records("Flyers beat the Sabres 4-3")
+    src = open(v24.__file__, encoding="utf-8").read()
+    for bad in ("at about a fair price", "the play because of the spot", "Fair price, right spot"):
+        assert bad not in src, bad
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)
