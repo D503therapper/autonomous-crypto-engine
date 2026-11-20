@@ -24537,3 +24537,30 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-20 00:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-20 00:05 UTC] crypto/hold_btc  equity $381.92 (-23.6%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), PENGU 32 (32/0/0), ETH 29 (29/0/0), SKY 24 (24/0/0), VVV 21 (21/0/0)
+   dex screen: REJECT BONK@solana liq $229,223 - top-10 holders 40%; lp holders unknown
+   dex screen: REJECT PYTH@solana liq $70,251 - liquidity $70,251 < $100,000
+   dex screen: PASS TROLL@solana liq $1,865,817
+   dex screen: REJECT REKT@ethereum liq $733,723 - top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT DCTY@ethereum liq $116,039 - top-10 holders 46%
+   dex screen: REJECT RAY@solana liq $1,485,237 - top-10 holders 83%
+   dex screen: REJECT KMNO@solana liq $1,496,933 - top-10 holders 53%
+   dex screen: REJECT TSLAC@base liq $26,940 - liquidity $26,940 < $100,000; 24h volume $11,478 < $100,000
+   dex screen: REJECT JEANPHIL@solana liq $169,589 - lp holders unknown; rugcheck lp locked 80% < 95%
+   dex screen: REJECT MSTRC@base liq $87,527 - liquidity $87,527 < $100,000; 24h volume $36,345 < $100,000
+   dex screen: REJECT AERO@base liq $4,933 - liquidity $4,933 < $100,000; 24h volume $974 < $100,000
+   dex screen: PASS JOB@solana liq $169,745
+   dex screen: REJECT CATE@solana liq $1,477,168 - top-10 holders 100%
+   dex screen: PASS CATE@solana liq $1,272,239
+   dex screen: REJECT FOLD@ethereum liq $860,114 - goplus partial data: cannot_sell_all unknown; is_mintable; honeypot_with_same_creator; owner_percent 38%; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT FLOAT@solana liq $215,164 - lp locked 0% < 95%
+   dex scanner: 2,538 pools (solana 1,764 / base 423 / ethereum 351), refresh cycle 103s (hot 99s), 3090 calls (109 feed, 429s 0, failed 0), 89,429 refreshed (13051 no pair), +59 added / -82 dropped (dead 74, stale 8, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-20 01:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/mover     equity $154.28 (-69.1%) 1 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/social_heat equity $321.39 (-35.7%) 2 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-20 01:05 UTC] crypto/hold_btc  equity $382.09 (-23.6%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), ETH 35 (35/0/0), XRP 29 (29/0/0), VVV 28 (27/0/2), PENGU 24 (24/0/0)
