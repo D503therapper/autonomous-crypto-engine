@@ -25044,3 +25044,54 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-20 17:05 UTC] stocks/trend     equity $444.58 (-11.1%) 1 open  market DOWN
 [2026-11-20 17:05 UTC] stocks/hold_spy  equity $460.52 (-7.9%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), TRUMP 35 (35/0/0), HYPE 24 (24/0/0), ETH 21 (21/0/0), SOL 16 (16/0/0)
+   dex screen: REJECT JUP@solana liq $409,227 - top-10 holders 65%; lp holders unknown
+   dex screen: REJECT GATO@solana liq $204,512 - lp holders unknown; rugcheck lp locked 94% < 95%
+   dex screen: REJECT FRXUSD@ethereum liq $1,005,748 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 84%
+   dex screen: REJECT MCDX@solana liq $194,889 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 97%; lp holders unknown
+   dex screen: REJECT PROS@ethereum liq $105,667 - is_mintable; top-10 holders 82%; lp locked 0% < 95%
+   dex screen: REJECT SOL@ethereum liq $1,255,921 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy
+   dex screen: REJECT MACCA@base liq $134,550 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   scanner: CORGIAI: +25.7% in 30 min on 12.7x volume @ 2.3689e-05 spread 0.75%
+   take-off: BUY CORGIAI (scanner mover): CORGIAI: +25.7% in 30 min on 12.7x volume @ 2.3689e-05 spread 0.75%
+   >> crypto/mover: BUY $67.52 of CORGIAI @ 2.4e-05 (scanner mover)
+   dex screen: REJECT ZEC@solana liq $1,650,344,943 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $1,382,791,973 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $973,234,146 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $3,084,020 - top-10 holders 100%
+   scanner: CORGIAI: +25.6% in 15 min on 36.9x volume @ 2.5414e-05 spread 1.19%
+   scanner: CORGIAI: +21.1% in 15 min on 40.0x volume @ 2.5272e-05 spread 1.19%
+   dex screen: PASS NEET@solana liq $1,222,158
+   scanner: CORGIAI: +8.1% in 15 min on 40.1x volume @ 2.2544e-05 spread 1.08%
+   >> crypto/mover: SELL $61.06 of CORGIAI @ 2.1e-05, P/L $-6.98 (stop hit (live check))
+   scanner: CORGIAI: +21.4% in 30 min on 36.1x volume @ 2.4551e-05 spread 0.41%
+   scanner: CORGIAI: +8.1% in 15 min on 55.4x volume @ 2.1635e-05 spread 0.97%
+   dex scanner: 2,150 pools (solana 1,630 / base 296 / ethereum 224), refresh cycle 93s (hot 90s), 2877 calls (110 feed, 429s 0, failed 0), 83,008 refreshed (14249 no pair), +84 added / -92 dropped (dead 71, stale 21, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-20 18:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/mover     equity $143.68 (-71.3%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/social_heat equity $311.43 (-37.7%) 2 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] crypto/hold_btc  equity $365.71 (-26.9%) 1 open  market DOWN
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-20 18:05 UTC] stocks/rsi2      equity $440.88 (-11.8%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 0, XLB 0, GLD 1, DIA 1
+[2026-11-20 18:05 UTC] stocks/breakout52 equity $450.55 (-9.9%) 3 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-20 18:05 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 49.01 vs its 200-day average 65.44: BELOW (cash)
+[2026-11-20 18:05 UTC] stocks/dual_momentum equity $428.73 (-14.3%) 2 open  market DOWN
+[2026-11-20 18:05 UTC] stocks/trend_ensemble equity $488.52 (-2.3%) 5 open  market DOWN
+[2026-11-20 18:05 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-20 18:05 UTC] stocks/trend     equity $444.19 (-11.2%) 1 open  market DOWN
+[2026-11-20 18:05 UTC] stocks/hold_spy  equity $459.67 (-8.1%) 1 open  market DOWN
+   social heat top: TRUMP 37 (37/0/0), BTC 29 (29/0/0), HYPE 27 (27/0/0), SOL 19 (19/0/0), ETH 16 (16/0/0)
