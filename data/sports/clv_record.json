@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 123,
+  "n": 125,
   "beat": 42,
-  "same": 54,
-  "worse": 27,
-  "avg_pts": 0.26
+  "same": 55,
+  "worse": 28,
+  "avg_pts": 0.25
  },
  "unit_plays": {
-  "n": 123,
+  "n": 125,
   "beat": 42,
-  "same": 54,
-  "worse": 27,
-  "avg_pts": 0.26
+  "same": 55,
+  "worse": 28,
+  "avg_pts": 0.25
  },
  "by_kind": {
   "dog": {
-   "n": 32,
+   "n": 33,
    "beat": 7,
-   "same": 16,
+   "same": 17,
    "worse": 9,
-   "avg_pts": -0.2
+   "avg_pts": -0.19
   },
   "lock": {
    "n": 15,
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 76,
+   "n": 77,
    "beat": 26,
    "same": 34,
-   "worse": 16,
-   "avg_pts": 0.26
+   "worse": 17,
+   "avg_pts": 0.25
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.36
   },
   "ncaab": {
-   "n": 3,
+   "n": 4,
    "beat": 2,
    "same": 1,
-   "worse": 0,
-   "avg_pts": 2.07
+   "worse": 1,
+   "avg_pts": 1.38
   },
   "ncaaf": {
    "n": 42,
@@ -73,9 +73,9 @@
    "avg_pts": 0.85
   },
   "nhl": {
-   "n": 49,
+   "n": 50,
    "beat": 16,
-   "same": 20,
+   "same": 21,
    "worse": 13,
    "avg_pts": 0.17
   }
@@ -1807,6 +1807,20 @@
   },
   {
    "date": "2026-11-19",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Ducks",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 110,
+   "pts": 0.0,
+   "units": 3.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-19",
    "kind": "play",
    "lean": false,
    "league": "nhl",
@@ -1832,6 +1846,20 @@
    "pts": 1.2,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "UTEP",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 105,
+   "pts": -0.7,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }
