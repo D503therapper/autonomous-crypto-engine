@@ -1,6 +1,6 @@
 {
- "fetched": "2026-11-20T15:15Z",
- "src": "oddsapi",
+ "fetched": "2026-11-20T16:20Z",
+ "src": "bovada",
  "lines": [
   {
    "a": "Carlos Alcaraz\u00a0",
@@ -18,22 +18,28 @@
   {
    "a": "Daniil Medvedev",
    "b": "Frances Tiafoe",
-   "start": "2026-11-20T19:30Z",
-   "a_ml": -235,
-   "b_ml": 195,
+   "start": "2026-11-20T19:45Z",
+   "src": "bovada",
    "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
+   "a_hcp": -3.0,
+   "b_hcp": 3.0,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": -240,
+   "b_ml": 195
   },
   {
-   "a": "Carlos Alcaraz",
+   "a": "Carlos Alcaraz\u00a0",
    "b": "Ben Shelton",
    "start": "2026-11-21T13:00Z",
-   "a_ml": -252,
-   "b_ml": 201,
+   "src": "bovada",
    "tour": "atp",
-   "src": "oddsapi",
-   "books": 1
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
+   "a_sp": -135,
+   "b_sp": 105,
+   "a_ml": -300,
+   "b_ml": 240
   }
  ]
 }

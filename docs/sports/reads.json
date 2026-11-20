@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T16:12Z",
+ "updated": "2026-11-20T16:24Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -37,9 +37,9 @@
     "team": "Green Bay",
     "opp": "Florida St",
     "market": "spread",
-    "line": 23.5,
-    "odds": -115,
-    "p": 0.517,
+    "line": 22.5,
+    "odds": -108,
+    "p": 0.516,
     "win_p": 0.036,
     "reasons": []
    }
@@ -82,7 +82,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Temple",
-    "p": 0.568,
+    "p": 0.555,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -91,19 +91,17 @@
    "start": "2026-11-20T17:30Z",
    "away": "Temple",
    "home": "MTSU",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Temple",
     "opp": "MTSU",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.624,
-    "win_p": 0.624,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "odds": -166,
+    "p": 0.606,
+    "win_p": 0.606,
+    "reasons": []
    }
   },
   {
@@ -265,8 +263,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Rhode Island",
-    "p": 0.499,
+    "team": "Liberty",
+    "p": 0.479,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -278,15 +276,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Rhode Island",
-    "opp": "Liberty",
+    "team": "Liberty",
+    "opp": "Rhode Island",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.53,
-    "win_p": 0.53,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "sharp money moving this way",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -827,7 +827,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Western KY",
-    "p": 0.482,
+    "p": 0.48,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -843,9 +843,9 @@
     "opp": "Richmond",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.506,
-    "win_p": 0.506,
+    "odds": -108,
+    "p": 0.502,
+    "win_p": 0.502,
     "reasons": [
      "sharp money moving this way",
      "the turnover matchup is ours by 6.6 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
@@ -1665,8 +1665,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Idaho",
-    "p": 0.504,
-    "tie": 0.044,
+    "p": 0.518,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1674,18 +1674,19 @@
    "start": "2026-11-21T02:00Z",
    "away": "Bakersfield",
    "home": "Idaho",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Idaho",
     "opp": "Bakersfield",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.534,
-    "win_p": 0.534,
+    "odds": -130,
+    "p": 0.552,
+    "win_p": 0.552,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -3105,8 +3106,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.387,
-    "tie": 0.298,
+    "p": 0.401,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3114,19 +3115,17 @@
    "start": "2026-11-21T18:00Z",
    "away": "Oilers",
    "home": "Hurricanes",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Oilers",
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -213,
-    "p": 0.647,
-    "win_p": 0.429,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "odds": -175,
+    "p": 0.62,
+    "win_p": 0.402,
+    "reasons": []
    }
   },
   {
@@ -4255,7 +4254,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Harvard",
-    "p": 0.615,
+    "p": 0.61,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -4271,9 +4270,9 @@
     "opp": "Yale",
     "market": "ml",
     "line": null,
-    "odds": -299,
-    "p": 0.659,
-    "win_p": 0.659,
+    "odds": -288,
+    "p": 0.653,
+    "win_p": 0.653,
     "reasons": [
      "the stronger team"
     ]
@@ -4648,8 +4647,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Panthers",
-    "p": 0.391,
-    "tie": 0.298,
+    "p": 0.399,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4664,9 +4663,9 @@
     "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
-    "p": 0.639,
-    "win_p": 0.422,
+    "odds": -180,
+    "p": 0.623,
+    "win_p": 0.405,
     "reasons": []
    }
   },
@@ -4707,7 +4706,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "USC",
-    "p": 0.751,
+    "p": 0.755,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -4723,13 +4722,13 @@
     "opp": "Maryland",
     "market": "spread",
     "line": -17.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.532,
-    "win_p": 0.811,
+    "win_p": 0.815,
     "reasons": [
      "the stronger team",
-     "opponent's body clock is off",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent's body clock is off"
     ]
    }
   },
@@ -4801,7 +4800,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.354,
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -4817,9 +4816,9 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -286,
-    "p": 0.71,
-    "win_p": 0.493,
+    "odds": -245,
+    "p": 0.711,
+    "win_p": 0.494,
     "reasons": []
    }
   },
@@ -5428,8 +5427,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Kraken",
-    "p": 0.352,
+    "team": "Sharks",
+    "p": 0.357,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -5441,13 +5440,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Sharks",
-    "opp": "Kraken",
+    "team": "Kraken",
+    "opp": "Sharks",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.708,
-    "win_p": 0.495,
+    "odds": -238,
+    "p": 0.704,
+    "win_p": 0.487,
     "reasons": []
    }
   },
