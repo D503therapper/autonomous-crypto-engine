@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 121,
-  "beat": 40,
+  "n": 122,
+  "beat": 41,
   "same": 54,
   "worse": 27,
-  "avg_pts": 0.23
+  "avg_pts": 0.25
  },
  "unit_plays": {
-  "n": 121,
-  "beat": 40,
+  "n": 122,
+  "beat": 41,
   "same": 54,
   "worse": 27,
-  "avg_pts": 0.23
+  "avg_pts": 0.25
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 74,
-   "beat": 24,
+   "n": 75,
+   "beat": 25,
    "same": 34,
    "worse": 16,
-   "avg_pts": 0.21
+   "avg_pts": 0.25
   }
  },
  "by_sport": {
@@ -73,11 +73,11 @@
    "avg_pts": 0.85
   },
   "nhl": {
-   "n": 48,
-   "beat": 15,
+   "n": 49,
+   "beat": 16,
    "same": 20,
    "worse": 13,
-   "avg_pts": 0.1
+   "avg_pts": 0.17
   }
  },
  "lock_by_size": {
@@ -1804,6 +1804,20 @@
    "pts": 5.2,
    "units": 2.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flyers",
+   "market": "ml",
+   "line": null,
+   "odds": 150,
+   "close": 130,
+   "pts": 3.5,
+   "units": 2.0,
+   "result": "won"
   }
  ]
 }

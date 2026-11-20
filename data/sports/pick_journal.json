@@ -7212,5 +7212,54 @@
   "score": "77-79",
   "margin": -2.0,
   "pnl_units": -2.0
+ },
+ {
+  "date": "2026-11-19",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892743",
+  "team": "Flyers",
+  "opp": "Senators",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 150,
+  "posted": "2026-11-19T16:00Z",
+  "price_says": 0.4,
+  "win_p": 0.38913302197466826,
+  "own_read": 0.449,
+  "weighed": null,
+  "dog_p": 0.4492,
+  "edge_own": -0.027167445063329354,
+  "near_lock": false,
+  "units": 2.0,
+  "reasons": [
+   "the hockey dog score backs it: +6.6 (our read +0.6 points on the no-vig number, the puck luck's been against them (PDO 970), the books overpay for the other goalie's hot run - every hockey dog angle weighed)"
+  ],
+  "angles": [
+   "f_last:0",
+   "m_h2h:1",
+   "m_thin:0",
+   "m_site:1",
+   "m_rout:0",
+   "f_pdo:2",
+   "fill_star:2"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 130,
+  "beat_close_pts": 3.5,
+  "result": "won",
+  "score": "6-5",
+  "margin": 1.0,
+  "pnl_units": 3.0
  }
 ]
