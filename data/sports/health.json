@@ -1,9 +1,9 @@
 {
- "at": "2026-11-20T14:53Z",
+ "at": "2026-11-20T14:54Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (64s)",
+  "live watcher fresh (146s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 48 min ago",
+  "engine ran 50 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-20T14:54Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-20T14:53Z",
    "fixes": [],
@@ -566,18 +571,6 @@
    "at": "2026-11-18T21:14Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Tiafoe vs Cobolli: no points for 169s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-18T21:13Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "live tennis scores: tennis Tiafoe vs Cobolli: no points for 169s",
