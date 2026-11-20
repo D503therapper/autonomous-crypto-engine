@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T19:16Z",
+ "updated": "2026-11-20T19:53Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -41,8 +41,8 @@
    "away": "Green Bay",
    "home": "Florida St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -56,8 +56,8 @@
    "away": "Oklahoma St",
    "home": "Minnesota",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -71,8 +71,8 @@
    "away": "Temple",
    "home": "MTSU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -90,100 +90,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401916123",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "SF Austin",
-    "p": 0.592,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-20T20:00Z",
-   "away": "Indiana St",
-   "home": "SF Austin",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "SF Austin",
-    "opp": "Indiana St",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.649,
-    "win_p": 0.649,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "their top scorer Karmani Gregory (21.3 a game) missed their last game - the books under-price that (4 of 4 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920380",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Virginia Tech",
-    "p": 0.784,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-20T20:00Z",
-   "away": "Northwestern",
-   "home": "Virginia Tech",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Northwestern",
-    "opp": "Virginia Tech",
-    "market": "spread",
-    "line": 11.5,
-    "odds": -112,
-    "p": 0.505,
-    "win_p": 0.137,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401919826",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UAlbany",
-    "p": 0.664,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-20T20:00Z",
-   "away": "W Illinois",
-   "home": "UAlbany",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "UAlbany",
-    "opp": "W Illinois",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.737,
-    "win_p": 0.737,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "out-rebounding people by +5.6 a game to their -0.8 - the books don't price the glass (5 of 5 seasons)"
-    ]
-   }
   },
   {
    "id": "ncaab:401922022",
@@ -309,7 +215,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mercyhurst",
-    "p": 0.548,
+    "p": 0.557,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -318,16 +224,16 @@
    "start": "2026-11-20T22:30Z",
    "away": "Mercyhurst",
    "home": "Canisius",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Mercyhurst",
     "opp": "Canisius",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.598,
-    "win_p": 0.598,
+    "odds": -170,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1264,7 +1170,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia",
-    "p": 0.703,
+    "p": 0.695,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1279,10 +1185,10 @@
     "team": "Georgia Tech",
     "opp": "Georgia",
     "market": "spread",
-    "line": 7.5,
-    "odds": -102,
-    "p": 0.501,
-    "win_p": 0.217,
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.502,
+    "win_p": 0.226,
     "reasons": [
      "Georgia are laying 7.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
@@ -1427,7 +1333,7 @@
     "opp": "Michigan St",
     "market": "spread",
     "line": -17.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.521,
     "win_p": 0.795,
     "reasons": [
@@ -1547,7 +1453,7 @@
     "opp": "UTEP",
     "market": "spread",
     "line": -21.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.549,
     "win_p": 0.867,
     "reasons": [
@@ -1671,7 +1577,7 @@
     "opp": "North Carolina",
     "market": "spread",
     "line": 18.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.512,
     "win_p": 0.047,
     "reasons": [
