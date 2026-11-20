@@ -1361,16 +1361,16 @@
  "ncaab": {
   "cells": {
    "+100-139|all": {
-    "n_new": 3103,
+    "n_new": 3104,
     "n_old": 3155,
     "proven": false,
-    "roi_new": -0.0373,
+    "roi_new": -0.0376,
     "roi_old": -0.0129,
     "trap": false,
     "vs_fair": 0.0072,
-    "win_rate": 0.449,
-    "z": -1.83,
-    "z_fair": 1.15
+    "win_rate": 0.448,
+    "z": -1.84,
+    "z_fair": 1.14
    },
    "+100-139|away": {
     "n_new": 1772,
@@ -1385,16 +1385,16 @@
     "z_fair": 0.36
    },
    "+100-139|away from dog": {
-    "n_new": 1500,
+    "n_new": 1501,
     "n_old": 0,
     "proven": false,
-    "roi_new": -0.0217,
+    "roi_new": -0.0224,
     "roi_old": 0.0,
     "trap": false,
-    "vs_fair": 0.0094,
-    "win_rate": 0.451,
-    "z": -0.78,
-    "z_fair": 0.73
+    "vs_fair": 0.0091,
+    "win_rate": 0.45,
+    "z": -0.8,
+    "z_fair": 0.71
    },
    "+100-139|away|even rest": {
     "n_new": 1728,
@@ -1433,28 +1433,28 @@
     "z_fair": 0.4
    },
    "+100-139|home": {
-    "n_new": 1331,
+    "n_new": 1332,
     "n_old": 1373,
     "proven": false,
-    "roi_new": -0.0204,
+    "roi_new": -0.0211,
     "roi_old": -0.0019,
+    "trap": false,
+    "vs_fair": 0.0127,
+    "win_rate": 0.456,
+    "z": -0.54,
+    "z_fair": 1.33
+   },
+   "+100-139|home|even rest": {
+    "n_new": 1307,
+    "n_old": 1357,
+    "proven": false,
+    "roi_new": -0.0262,
+    "roi_old": 0.0031,
     "trap": false,
     "vs_fair": 0.0128,
     "win_rate": 0.456,
-    "z": -0.53,
-    "z_fair": 1.34
-   },
-   "+100-139|home|even rest": {
-    "n_new": 1306,
-    "n_old": 1357,
-    "proven": false,
-    "roi_new": -0.0255,
-    "roi_old": 0.0031,
-    "trap": false,
-    "vs_fair": 0.0129,
-    "win_rate": 0.456,
-    "z": -0.52,
-    "z_fair": 1.34
+    "z": -0.54,
+    "z_fair": 1.33
    },
    "+100-139|home|on b2b": {
     "n_new": 5,
@@ -1889,7 +1889,7 @@
     "z_fair": -0.5
    },
    "all|all": {
-    "n_new": 10246,
+    "n_new": 10247,
     "n_old": 10246,
     "proven": false,
     "roi_new": -0.0698,
@@ -1898,7 +1898,7 @@
     "vs_fair": -0.0065,
     "win_rate": 0.341,
     "z": -6.9,
-    "z_fair": -2.0
+    "z_fair": -2.01
    },
    "all|away": {
     "n_new": 6842,
@@ -1913,40 +1913,40 @@
     "z_fair": -2.6
    },
    "all|away from dog": {
-    "n_new": 5153,
+    "n_new": 5154,
     "n_old": 0,
     "proven": false,
-    "roi_new": -0.0488,
+    "roi_new": -0.049,
     "roi_old": 0.0,
     "trap": false,
-    "vs_fair": -0.0009,
+    "vs_fair": -0.001,
     "win_rate": 0.344,
-    "z": -2.55,
-    "z_fair": -0.14
+    "z": -2.56,
+    "z_fair": -0.15
    },
    "all|even rest": {
-    "n_new": 9958,
+    "n_new": 9959,
     "n_old": 10040,
     "proven": false,
-    "roi_new": -0.0689,
+    "roi_new": -0.069,
     "roi_old": -0.0608,
     "trap": true,
-    "vs_fair": -0.0061,
+    "vs_fair": -0.0062,
     "win_rate": 0.342,
     "z": -6.75,
-    "z_fair": -1.86
+    "z_fair": -1.87
    },
    "all|home": {
-    "n_new": 3404,
+    "n_new": 3405,
     "n_old": 3559,
     "proven": false,
-    "roi_new": -0.0547,
+    "roi_new": -0.055,
     "roi_old": -0.0356,
     "trap": false,
-    "vs_fair": 0.0009,
+    "vs_fair": 0.0008,
     "win_rate": 0.366,
-    "z": -2.85,
-    "z_fair": 0.15
+    "z": -2.86,
+    "z_fair": 0.14
    },
    "all|on b2b": {
     "n_new": 235,
@@ -1985,18 +1985,18 @@
     "z_fair": -0.93
    }
   },
-  "dogs": 20492,
+  "dogs": 20493,
   "price": {
-   "games": 30623,
-   "ll_book": 0.52268,
-   "ll_fixed": 0.52182,
+   "games": 30626,
+   "ll_book": 0.52269,
+   "ll_fixed": 0.52184,
    "proven": true,
    "shifts": {
     "0": -0.0945,
     "1": -0.0958,
     "2": -0.0071,
-    "3": 0.0502,
-    "4": 0.006,
+    "3": 0.0498,
+    "4": 0.0064,
     "5": 0.0526,
     "6": 0.067,
     "7": 0.1678
@@ -2019,12 +2019,12 @@
     },
     "40%-50%": {
      "book_said": 0.449,
-     "games": 3367,
+     "games": 3368,
      "really_won": 0.462
     },
     "50%-60%": {
      "book_said": 0.552,
-     "games": 4485,
+     "games": 4486,
      "really_won": 0.554
     },
     "60%-70%": {
@@ -2039,7 +2039,7 @@
     },
     "80%-100%": {
      "book_said": 0.891,
-     "games": 7932,
+     "games": 7933,
      "really_won": 0.918
     }
    }
