@@ -1,19 +1,50 @@
 {
- "at": "2026-11-20T15:31Z",
- "bad_cards": 0,
- "by_class": {},
- "cards": 6,
- "lines": 9,
- "problems": [],
+ "at": "2026-11-20T16:02Z",
+ "bad_cards": 1,
+ "by_class": {
+  "short": 1
+ },
+ "cards": 7,
+ "lines": 11,
+ "problems": [
+  {
+   "class": "short",
+   "date": "2026-11-20",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "Niagara",
+   "why": "a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  }
+ ],
  "quality": {
   "avg_facts": 0.0,
-  "cards": 6,
-  "score": 100,
-  "short": [],
+  "cards": 7,
+  "score": 97,
+  "short": [
+   {
+    "date": "2026-11-20",
+    "facts": 0,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "Niagara",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   }
+  ],
   "shown": {},
-  "thin": 0,
-  "under_floor": 0,
-  "worst": [],
+  "thin": 1,
+  "under_floor": 1,
+  "worst": [
+   {
+    "date": "2026-11-20",
+    "facts": 0,
+    "league": "ncaab",
+    "score": 80,
+    "shown": [],
+    "team": "Niagara",
+    "written": []
+   }
+  ],
   "written": {}
  },
  "shown": true
