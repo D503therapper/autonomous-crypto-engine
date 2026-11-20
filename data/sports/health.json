@@ -1,12 +1,11 @@
 {
- "at": "2026-11-20T20:30Z",
+ "at": "2026-11-20T20:35Z",
  "fixes": [],
  "problems": [
-  "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (59s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,17 +14,25 @@
   "slate check: all 74 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
+  "studies ran 1h ago",
   "simulator ran 2h ago",
-  "engine ran 24 min ago",
+  "engine ran 28 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-20T20:35Z",
+   "fixes": [],
+   "problems": [
+    "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-20T20:30Z",
    "fixes": [],
@@ -552,16 +559,6 @@
    "at": "2026-11-19T02:45Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-19T02:44Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
