@@ -3023,6 +3023,44 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         out.append(say("fill_need", [f"💵 At {_am(o_)} {us} only gotta win this about {how} for the bet to pay.",
                                        f"💵 {_am(o_)} on {us}: about {how} is all it takes for this bet to pay.",
                                        f"💵 Plus money: at {_am(o_)}, {us} winning about {how} is all we need."], fact=True))
+    # 🏀 11/20 (the board check - the Niagara +2.5 ½u stack play posted with NO fact line: a winless side on a spread, so
+    # every "we're winning" fact was empty and the two facts the files did hold for the bet had no line): a SPREAD
+    # play's own facts - our covers running, and a record of theirs built on non-D1 schools.
+    try:
+        if leg.get("market") == "spread" and "cover" not in low and "spread" not in low:
+            lined = [x for x in s_ours or [] if _fnum(x.get("spread_home")) is not None
+                     and str(x.get("home_score") or "") != "" and str(x.get("away_score") or "") != ""]
+            run, last = 0, None
+            for x in reversed(lined):
+                home_ = x["home"] == tid
+                ln = _fnum(x["spread_home"]) * (1 if home_ else -1)
+                mg = (int(x["home_score"]) - int(x["away_score"])) * (1 if home_ else -1)
+                if mg + ln <= 0:
+                    break
+                run += 1
+                if last is None:
+                    last = (ln, mg, x["away_name"] if home_ else x["home_name"], home_)
+            if run >= 2 and last:
+                ln, mg, opp_, home_ = last
+                where = f"against {opp_}" if home_ else f"at {opp_}"
+                how = (f"they won it by {mg}" if mg > 0 else f"the game ended {abs(mg)} apart") if ln > 0 else f"they won by {mg}"
+                got = f"getting {ln:g} {where}" if ln > 0 else f"laying {abs(ln):g} {where}"
+                out.append(say("fill_cov", [f"🎟️ {us} beat the spread in their last {run} games - the last one {got}, {how}.",
+                                              f"🎟️ {run} straight covers for {us}. Last time out, {got}, {how}."], fact=True))
+    except Exception:                                     # noqa: BLE001
+        pass
+    try:
+        if lg == "ncaab" and r_theirs and _D1.get("set") is not None and "non-d" not in low and "division i" not in low:
+            wins = [x for x in r_theirs if (int(x["home_score"]) > int(x["away_score"])) == (x["home"] == oid)]
+            soft = [x for x in wins if non_d1(lg, _opp_id(x, oid))]
+            if len(wins) >= 2 and len(soft) == len(wins):
+                nm_ = [x["away_name"] if x["home"] == oid else x["home_name"] for x in soft]
+                n_ = len(wins)
+                cnt = "Both" if n_ == 2 else f"All {n_}"
+                out.append(say("fill_nond1", [f"📋 {cnt} of {_pos(them)} wins came over schools that aren't Division I ({_and(nm_[:3])}).",
+                                                f"📋 {them} got {'both' if n_ == 2 else f'all {n_}'} of their wins off non-Division I schools - {_and(nm_[:3])}."], fact=True))
+    except Exception:                                     # noqa: BLE001
+        pass
     try:                                                  # 9. the deep refill (deep_facts), each fact in its place
         deep = {} if not DEEP_FILL else deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs, said, fin, e)
     except Exception:                                     # noqa: BLE001
@@ -3046,6 +3084,7 @@ FILL_ORDER = (   # the refill, best first: a name with numbers, then how the two
     ("fill_year", 4.5), ("fill_d", 4.7), ("fill_o", 4.7), ("deep_win", 5.0), ("deep_big", 3.5), ("deep_close", 5.5),
     ("deep_romp", 3.7), ("deep_depth", 4.2),
     ("deep_start", 6.5), ("fill_l10", 6.0), ("deep_cover", 8.0),
+    ("fill_cov", 1.2), ("fill_nond1", 1.3),
     ("fill_price", 9.0), ("fill_need", 10.0))
 
 
