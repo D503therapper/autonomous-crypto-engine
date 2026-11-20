@@ -560,6 +560,7 @@ def tags(c, sports):
     #                                                          dog vs a favorite off a 1-2 point win (two LEADS)
     t += goalie_1119_tags(c, sports)                         # 11/19 FABLE - HOCKEY GOALIES: the dog across a net that
     #                                                          isn't the favorite's #1, and its control (a LEAD)
+    t += daily_1120_tags(c, sports)                          # 11/20 daily studies: the non-D1 tune-up, the late-quarter closer
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -974,6 +975,74 @@ def daily_1119_tags(c, sports):
         if c.get("league") in TWO_MAN and 100 <= odds <= 350:
             return [HOOPS_TWO_MAN_DOG_TAG] if hoops_two_man_dog(c) else []
         return []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+DAILY_1120_FROM = "2026-11-21"   # 11/20 daily studies (results/studies/daily_1120/): logs from the 11/21 games
+NCAAB_TUNEUP_ATS_TAG = "college hoops spread side off a non-D1 tune-up vs a team off a D1 game"   # the BUILT rank weight's
+#   line (sports.NCAAB_TUNEUP_W): ATS +5.4% on 1,944 at the close 2018-26 (train +3.9% / held +6.4%, 5 of 5 held seasons
+#   up, placebo 0 of 2,000). Judge at 100 graded: under 50% covered = the weight comes off.
+NCAAB_TUNEUP_DOG_TAG = "college hoops dog off a non-D1 tune-up vs a team off a D1 game (lead)"   # a LEAD, tracked only:
+#   +15.0% on 570 at the close (train +19.1% / held +12.4%, month-and-price placebo 0 of 2,000) but +4.1% on 233 at
+#   ESPN's open 2023-26 (2023 and 2026 down). Judge at 60: +10% or better = the five checks as +1 on the dog read.
+LATE_CLOSER_TAG = "spread side winning the late quarters vs a team losing them (fade)"   # a LEAD, tracked only (S3): the
+#   NBA side +25 or more in the 4th quarter over its last 10 against a team -25 or worse ATS -15.0% on 522 (train
+#   -21.3% / held -9.6%, every held season down, placebo 9 of 2,000); college football (2nd half, last 4, +28 / -28)
+#   -24.2% on 161 (train -27.6% / held -21.9%, placebo 8); the NFL the same sign on 80 (placebo 171); college hoops
+#   nothing. The late-game scoreboard is the bench's minutes - the number over-reads it. Judge at 60: under 45%
+#   covered = the five checks as a -0.02 spread-rank weight.
+LATE_CLOSER = {"nba": (10, 25, 3, 4), "ncaaf": (4, 28, 2, 4), "nfl": (4, 21, 2, 4)}   # league: (games, margin, the late periods)
+
+
+def late_margin(c):
+    """The side's scoring margin in the late periods (the NBA's 4th quarter, football's 2nd half) over its last N
+    games this season - from the games file, finals before tonight; None unless all N line scores are on file."""
+    cfg = LATE_CLOSER.get(c.get("league"))
+    if not cfg:
+        return None
+    n, _, lo, hi = cfg
+    team, rows = _season_before(c)
+    if not team or len(rows) < n:
+        return None
+    tot = 0
+    for x in rows[-n:]:
+        ph, pa = _periods(x, "home"), _periods(x, "away")
+        if not ph or not pa or len(ph) < hi or len(pa) < hi:
+            return None
+        d = sum(ph[lo:hi]) - sum(pa[lo:hi])
+        tot += d if x.get("home") == team else -d
+    return tot
+
+
+def late_closer_vs_fader(c):
+    """True when this side has been winning the late periods by the league's margin and the other side losing them."""
+    cfg = LATE_CLOSER.get(c.get("league"))
+    other = {"home": "away", "away": "home"}.get(c.get("side") or "")
+    if not cfg or not other:
+        return None
+    me, op = late_margin(c), late_margin({**c, "side": other})
+    if me is None or op is None:
+        return None
+    return me >= cfg[1] and op <= -cfg[1]
+
+
+def daily_1120_tags(c, sports):
+    """11/20 daily studies: the college hoops side off a non-D1 tune-up (the spread rank weight's line + the dog, a
+    lead) and the spread side that has been winning the late quarters against a team losing them (a lead). The tune-up
+    flags are the board's (sports.mark_ncaab_tuneup); the leads are never read by the board."""
+    try:
+        if not DAILY_1120_FROM or sports.pt_day(c) < DAILY_1120_FROM:
+            return []
+        t = []
+        if c.get("league") == "ncaab" and c.get("tuneup"):
+            if c.get("market") == "spread":
+                t.append(NCAAB_TUNEUP_ATS_TAG)
+            elif c.get("market") == "ml" and 100 <= (c.get("odds") or 0) <= 350:
+                t.append(NCAAB_TUNEUP_DOG_TAG)
+        if c.get("market") == "spread" and c.get("league") in LATE_CLOSER and late_closer_vs_fader(c):
+            t.append(LATE_CLOSER_TAG)
+        return t
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 
@@ -1666,6 +1735,7 @@ def spread_tags(c, sports):
     #   records (both sides) + the college football 7-loss LEAD (results/studies/deep_1112)
     t += leans_1113_spread_tags(c, sports)                   # 11/13 FABLE: the college hoops leans - the cut's record + two LEADS
     t += daily_1113_spread_tags(c, sports)                   # 11/13 DAILY: one built weight's record + three spread LEADS
+    t += daily_1120_tags(c, sports)                          # 11/20 DAILY: the non-D1 tune-up weight's record + the late-quarter closer (a LEAD)
     return t
 
 

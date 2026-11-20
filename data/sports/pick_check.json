@@ -1,13 +1,13 @@
 {
- "day": "2026-11-19",
+ "day": "2026-11-20",
  "picks": {
-  "dog|nhl:401892751|away|ml": {
-   "key": "dog|nhl:401892751|away|ml",
-   "kind": "dog",
-   "team": "Ducks",
-   "odds": 110,
-   "league": "nhl",
-   "units": 3.0,
+  "play|ncaab:401924844|away|spread": {
+   "key": "play|ncaab:401924844|away|spread",
+   "kind": "stackplay",
+   "team": "Niagara",
+   "odds": -115,
+   "league": "ncaab",
+   "units": 0.5,
    "lean": false,
    "held": false,
    "why": "",
@@ -16,28 +16,13 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
-    "card": "pass"
-   }
-  },
-  "play|nhl:401892743|away|ml": {
-   "key": "play|nhl:401892743|away|ml",
-   "kind": "dogplay",
-   "team": "Flyers",
-   "odds": 150,
-   "league": "nhl",
-   "units": 2.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass",
+    "stack": "pass",
     "card": "pass"
    }
   }
  },
- "updated": "2026-11-19T16:00Z",
+ "updated": "2026-11-20T16:00Z",
  "held": []
 }

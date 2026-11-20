@@ -149,7 +149,51 @@ def top_out(games, team, start):
         if (ps.get(pid) or (0, 0, ""))[0] > 0:
             break
         run += 1
-    return {"out": m <= 0, "name": name, "ppg": ppg, "run": run}
+    out = m <= 0
+    if out and start[:13] >= (TUNE_FROM or "9999") and last_tuneup(games, team, start):
+        # 🏀 11/20 daily studies (S1): the game he sat was a non-D1 tune-up - rest, not an absence (the side across such a
+        # team ATS -11.9% on 91, held out -23.4%; across a man who missed a D1 game +1.6% on 1,821, held +4.2%)
+        return {"out": False, "name": name, "ppg": ppg, "run": 0, "tune": True}
+    return {"out": out, "name": name, "ppg": ppg, "run": run}
+
+
+TUNE_FROM = "2026-11-21T12"  # 🏀 11/20 DAILY STUDIES (results/studies/daily_1120/fA_tuneup.py): THE NON-D1 TUNE-UP. From the
+#                              games starting at / after this UTC hour (the 11/21 Pacific day; None = off) a top scorer who sat out a game against a non-D1 school
+#                              did NOT "miss the last game" (top_out) - coaches rest starters in a tune-up. The board check
+#                              of 11/20 found it: the Niagara +2.5 ½u stack play stood on Delaware St's top scorer sitting a
+#                              90-70 win over Cheyney (PA). Box scores 2021-26: the spread side ACROSS a top scorer who
+#                              missed a D1 game +1.6% on 1,821 (held 2024-26 +4.2%, a random set as good 5 of 2,000); when
+#                              the game he missed was the tune-up -11.9% on 91 (train -2.9% / held -23.4%) - and the wider
+#                              read says the same thing from the other side: a D1 team off a tune-up, against a team off a
+#                              D1 game, covers (ATS +5.4% on 1,944 at the close 2018-26, sports.NCAAB_TUNEUP_*).
+_D1 = {}                     # (id(games), len(games)) -> the D1 set (sm.ncaab_d1) - one pass a run
+
+
+def d1_set(games):
+    """The Division I teams in the games file (sports_model.ncaab_d1), cached for the run; None when it can't tell."""
+    key = (id(games), len(games or {}))
+    if _D1.get("key") != key:
+        import sports_model as sm
+        try:
+            fin = [g for g in (games or {}).values() if g.get("status") == "final" and g.get("start")
+                   and str(g.get("id") or "").startswith("ncaab")]
+            _D1["key"], _D1["set"] = key, sm.ncaab_d1(fin)
+        except Exception:                                    # noqa: BLE001 - can't tell = nobody is a tune-up
+            _D1["key"], _D1["set"] = key, None
+    return _D1.get("set")
+
+
+def last_tuneup(games, team, start):
+    """None (unknown) / True / False: was this D1 team's last finished game this season against a non-D1 school?"""
+    d1 = d1_set(games)
+    last = _last_final(games, team, str(start or ""))
+    if d1 is None or not last or str(team) not in d1:
+        return None
+    g = (games or {}).get(last[1]) or {}
+    opp = g.get("away") if str(g.get("home")) == str(team) else g.get("home")
+    if not opp:
+        return None
+    return str(opp) not in d1
 
 
 # ---------------- 11/4 FABLE EXPERT KNOWLEDGE: the star's 2nd game back + the turmoil read (box) ----------------

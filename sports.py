@@ -1309,6 +1309,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_football_yard_luck(games, out)               # 🏈 11/10 daily: the scoreboard over the yards (college -1 / -0.02)
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
+    mark_ncaab_tuneup(games, out)                     # 🏀 11/20 daily: off a non-D1 tune-up vs a team off a D1 game (spread rank)
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
     mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
     mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
@@ -4227,6 +4228,7 @@ def rank_p(c):
             + ncaab_roster_spread_w(c)                         # (11/3 KNOWLEDGE (A): Feb-Mar, the transfer-heavy side -0.02,
             #                                                     the freshman-heavy side vs an experienced team +0.02)
             + ncaab_star_back_spread_w(c)                      # (11/4 EXPERT: the star's 2nd game back -0.03 / +0.03 across)
+            + ncaab_tuneup_spread_w(c)                         # (11/20 daily: off a non-D1 tune-up vs a team off a D1 game ±0.02)
             + ncaab_across_spread_w(c)                         # (11/11 FABLE: ACROSS a lucky-from-three team +0.02 / a
             #                                                     top scorer out +0.03 - the built fades' other bench)
             + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
@@ -5758,6 +5760,65 @@ def mark_ncaab_road_cold(games, cands):
                 c["reasons"] = c["reasons"] + [f"{g.get('away_name') or 'they'} have come up {-cm:.1f} points a game short "
                                                f"of their number on the road this year ({n} road games) - that road dog "
                                                "lost 8 of 8 seasons"]
+
+
+NCAAB_TUNEUP_FROM = "2026-11-21"   # 🏀 11/20 DAILY STUDIES - S9 (results/studies/daily_1120/s_game.py / fA_tuneup.py; SPORTS_FINDINGS
+NCAAB_TUNEUP_W = 0.02              # "11/20 - DAILY STUDIES"): THE GAME AFTER A NON-D1 TUNE-UP. A Division I team whose last game
+#   was against a non-D1 school (no price on it, the ratings never see it - sm.ncaab_d1), tonight on a true home / road
+#   floor against a D1 team whose last game was a D1 game: ATS +5.4% on 1,944 at ESPN's close 2018-26 (train 2018-21
+#   +3.9%, 3 of 4 seasons / held out 2022-26 +6.4%, 5 of 5 seasons up: +9.5 / +0.6 / +2.4 / +6.3 / +17.3; z 2.5; a random
+#   same-size set of November spread sides as good 0 of 2,000); the side across it -14.5% (the same games). Its moneyline
+#   dog +100..+350 +15.0% on 570 (train +19.1% 4 of 4 / held +12.4%; a month-and-price matched placebo 0 of 2,000) but
+#   +4.1% on 233 at ESPN's open 2023-26 with 2023 and 2026 down, and past +350 it loses like every long dog - the DOG is
+#   a tracker LEAD, not a weight. At a neutral site the sign flips (-11.7% on 110) - never there. A WEIGHT on the spread
+#   RANK only (rank_p: +NCAAB_TUNEUP_W on that side, - on the side across) - so a college hoops spread LEAN has a studied
+#   reason; it is NOT in the stack (ncaab_spread_stack - the ½u stack play's own replay never saw it), nothing is picked
+#   off it alone. With leans off (LEANS_GONE, 11/16) it changes no pick today: it orders equal stacks on a night with
+#   more stack plays than the cap (ncaab_stack_plays' third key) and runs on the tracker. From the games of this Pacific day ("9999" = off). Tracker tags
+#   sports_leads.NCAAB_TUNEUP_ATS_TAG / NCAAB_TUNEUP_DOG_TAG.
+
+
+def mark_ncaab_tuneup(games, cands):
+    """🏀 11/20: tuneup on a college hoops side whose last game was a non-D1 tune-up while the other team's was a D1
+    game (a true home / road floor), vs_tuneup on the side across. Unknown (no D1 set, a team with no game yet) =
+    nothing. From NCAAB_TUNEUP_FROM."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")
+             and c.get("side") in ("home", "away") and pt_day(c) >= NCAAB_TUNEUP_FROM]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_roster as nr
+    except Exception:                                        # noqa: BLE001
+        return
+    seen = {}
+    for c in hoops:
+        gid = c.get("game_id")
+        if gid not in seen:
+            g = (games or {}).get(gid) or {}
+            start = str(g.get("start") or c.get("start") or "")
+            seen[gid] = None
+            if len(start) < 10 or str(g.get("neutral") or "0") == "1" or not g.get("home") or not g.get("away"):
+                continue
+            try:
+                seen[gid] = {s_: nr.last_tuneup(games, g[s_], start) for s_ in ("home", "away")}
+            except Exception:                                # noqa: BLE001 - a weight never breaks the board
+                seen[gid] = None
+        t = seen.get(gid)
+        if not t:
+            continue
+        me, op = t.get(c["side"]), t.get("away" if c["side"] == "home" else "home")
+        if me is True and op is False:
+            c["tuneup"] = True
+        elif me is False and op is True:
+            c["vs_tuneup"] = True
+
+
+def ncaab_tuneup_spread_w(c):
+    """The 11/20 rank weight on a college hoops SPREAD side: + off a non-D1 tune-up against a team off a D1 game, - on
+    the side across - a weight, never a trigger (unknown = 0)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread":
+        return 0.0
+    return NCAAB_TUNEUP_W if c.get("tuneup") else -NCAAB_TUNEUP_W if c.get("vs_tuneup") else 0.0
 
 
 def mark_ncaab_star_back(games, cands):
