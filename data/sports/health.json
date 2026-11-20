@@ -1,9 +1,11 @@
 {
- "at": "2026-11-20T14:08Z",
+ "at": "2026-11-20T14:16Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+ ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -12,17 +14,23 @@
   "card quality: 100/100 on 6 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 4 min ago",
+  "simulator ran 7h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-20T14:16Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-11-20T14:08Z",
    "fixes": [],
@@ -579,18 +587,6 @@
    "at": "2026-11-18T19:37Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Podoroska vs Gormaz: no points for 756s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-18T19:35Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "live tennis scores: tennis Podoroska vs Gormaz: no points for 756s",
