@@ -1664,10 +1664,10 @@ def breakdown(leg, games, elo, injuries, used=None):
         #    on a read that starts at the books' number, the forced ⭐ too. The Celtics -124 1u card of 11/10 closed
         #    "Could go either way. Celtics by a nose - a lean." - "a lean" / "No units" on a play with a unit on it.)
         out.append(v.say("bottom_unit_fair", [
-            f"✅ Bottom line: {price}. This one's up on the spot {us} {vb(us, 'are', 'is')} in.",
-            f"✅ Bottom line: {price}. {us} {vb(us, 'are', 'is')} the play because of the spot, and the units say how much.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Fair price, right spot - that's the bet."]) or
-                   _short(v, price, False, "A fair price on our side."))
+            f"✅ Bottom line: {price}. {us} the side tonight.",      # (11/20, the Niagara +2.5 card: "because of
+            f"✅ Bottom line: {price}. We on {us}.",                 #  the spot, and the units say how much" said nothing,
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. That's the bet."]) or   # "fair price" ran it down)
+                   _short(v, price, False, ""))
     elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml" \
             and _sb_mod.coin_side(leg, _own):                                # (11/13: never at a -148 price / a 60% win %)
         #   (10/1, the owner: "we like the Kraken,
@@ -3887,6 +3887,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     Fs = [f.strip() for f in (facts or ([fact] if fact else [])) if f and f.strip()]
     if lg in REAL_LOSS and (g.get("start") or "")[:10] >= CLOSE_WIN_FROM:   # (11/19: a 4-3 game never leads the line)
         Fs = [f for f in Fs if not 0 < _score_gap(f) < REAL_LOSS[lg]]
+    if (g.get("start") or "")[:10] >= CLOSE_WIN_FROM:     # (11/20, the Niagara card: "Niagara went 8-22 last season,
+        Fs = [f for f in Fs if not even_records(f)]       #  Delaware St 8-23" - two records about the same say nothing)
     if not Fs:
         nums = ("w_num", [])
     elif round(100 * own) > 55:
@@ -3904,8 +3906,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                                  lambda F: f"🧠 {F} Even so it's close to 50-50 on our read, {us} by a hair.",
                                  lambda F: f"🧠 {F} Close to 50-50 for us, {us} by a nose."), names))   # is the reason)
     elif need and own <= need and not lean:               # (11/13, the owner on the Predators ½u floor play: "we like
-        nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} Small bet on {us} - half a unit at about a fair price.",   # Predators
-                                 lambda F: f"🧠 {F} {us} at about a fair price, so it's a light bet."), names))    # just not at
+        nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} {us} the side tonight.",   # (11/20: the old "fair price" tail ran our   Predators
+                                 lambda F: f"🧠 {F} We on {us}."), names))         #  own play down - the owner: no bad shit)  just not at
         #   this price makes zero sense" - a play WITH units never says the price is wrong for units)
     elif need and own <= need:
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} {us} is the side, but the price is too steep for units.",
@@ -4534,3 +4536,13 @@ def whole_card(lines, leg, v, us, lg, g, side, games):
         why = _cc.one_coherent(cand, leg, cx, st, lean_)[0]
     leg["why_line"] = why or ""
     return lines
+
+
+def even_records(text, gap=0.10):
+    """True when a line's two W-L records are within `gap` of each other in win rate (8-22 vs 8-23) - no argument."""
+    recs = [(int(a), int(b)) for a, b in re.findall(r"\b(\d{1,2})-(\d{1,2})\b", str(text or ""))
+            if int(a) + int(b) >= 3 and int(a) + int(b) <= 90]
+    if len(recs) < 2:
+        return False
+    (a1, b1), (a2, b2) = recs[:2]
+    return abs(a1 / (a1 + b1) - a2 / (a2 + b2)) < gap
