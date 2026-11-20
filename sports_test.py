@@ -28997,6 +28997,11 @@ def test_cards_1120_a_spread_stack_card_never_runs_itself_down_or_leads_on_even_
     src = open(v24.__file__, encoding="utf-8").read()
     for bad in ("at about a fair price", "the play because of the spot", "Fair price, right spot"):
         assert bad not in src, bad
+    import sports_nba_roster as _nr
+    lines = v24.nba_lines("Niagara", "Delaware St", {"us": ("8-22", -7.4), "them": ("8-23", -9.3)})
+    assert lines == [], lines                              # our losing year never makes the card
+    good = v24.nba_lines("Niagara", "Delaware St", {"us": ("20-11", 4.1), "them": ("8-23", -9.3)})
+    assert good and "20-11" in good[0]
 
 
 def inspect_source(obj):
