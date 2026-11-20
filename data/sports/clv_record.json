@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 121,
-  "beat": 40,
-  "same": 54,
-  "worse": 27,
-  "avg_pts": 0.23
+  "n": 125,
+  "beat": 42,
+  "same": 55,
+  "worse": 28,
+  "avg_pts": 0.25
  },
  "unit_plays": {
-  "n": 121,
-  "beat": 40,
-  "same": 54,
-  "worse": 27,
-  "avg_pts": 0.23
+  "n": 125,
+  "beat": 42,
+  "same": 55,
+  "worse": 28,
+  "avg_pts": 0.25
  },
  "by_kind": {
   "dog": {
-   "n": 32,
+   "n": 33,
    "beat": 7,
-   "same": 16,
+   "same": 17,
    "worse": 9,
-   "avg_pts": -0.2
+   "avg_pts": -0.19
   },
   "lock": {
    "n": 15,
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 74,
-   "beat": 24,
+   "n": 77,
+   "beat": 26,
    "same": 34,
-   "worse": 16,
-   "avg_pts": 0.21
+   "worse": 17,
+   "avg_pts": 0.25
   }
  },
  "by_sport": {
@@ -45,18 +45,18 @@
    "avg_pts": 0.55
   },
   "nba": {
-   "n": 15,
-   "beat": 8,
+   "n": 16,
+   "beat": 9,
    "same": 5,
    "worse": 2,
-   "avg_pts": 0.3
+   "avg_pts": 0.36
   },
   "ncaab": {
-   "n": 3,
+   "n": 4,
    "beat": 2,
    "same": 1,
-   "worse": 0,
-   "avg_pts": 2.07
+   "worse": 1,
+   "avg_pts": 1.38
   },
   "ncaaf": {
    "n": 42,
@@ -73,11 +73,11 @@
    "avg_pts": 0.85
   },
   "nhl": {
-   "n": 48,
-   "beat": 15,
-   "same": 20,
+   "n": 50,
+   "beat": 16,
+   "same": 21,
    "worse": 13,
-   "avg_pts": 0.1
+   "avg_pts": 0.17
   }
  },
  "lock_by_size": {
@@ -1804,6 +1804,62 @@
    "pts": 5.2,
    "units": 2.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Ducks",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 110,
+   "pts": 0.0,
+   "units": 3.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flyers",
+   "market": "ml",
+   "line": null,
+   "odds": 150,
+   "close": 130,
+   "pts": 3.5,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Warriors",
+   "market": "ml",
+   "line": null,
+   "odds": 180,
+   "close": 171,
+   "pts": 1.2,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "UTEP",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 105,
+   "pts": -0.7,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }

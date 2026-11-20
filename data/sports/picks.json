@@ -23833,12 +23833,20 @@
      null,
      false
     ],
+    "confirmed": [
+     "Scott Wedgewood"
+    ],
     "country": "USA",
     "ctx": [],
     "ctx_tags": [
      "game:conf"
     ],
     "dec": 2.1,
+    "decider": {
+     "s": "4-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -23872,6 +23880,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0",
+     "h": "0,3,1"
+    },
     "form_state": [
      -2.0,
      -1,
@@ -23881,7 +23893,8 @@
     ],
     "fresh": [
      "\ud83d\udd04 Update: Gavin Brindley is out for the Avalanche too.",
-     "\ud83d\udd04 Update: Scott Wedgewood is projected in net for the Avalanche now, not Mackenzie Blackwood (not confirmed yet)."
+     "\ud83d\udd04 Update: Scott Wedgewood is the Avalanche goalie now, not Mackenzie Blackwood.",
+     "\u2705 Update: Scott Wedgewood is confirmed in net for the Avalanche."
     ],
     "g_role_me": null,
     "g_role_opp": null,
@@ -23952,10 +23965,12 @@
      "Nathan MacKinnon": "out"
     },
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Ducks 0 @ Avalanche 4",
     "season_games": null,
+    "settled": "2026-11-20T04:43Z",
     "side": "away",
     "spare": [
      "\u23f1\ufe0f The third period, last 10 games: 21 goals for Ducks, 16 against.",
@@ -23983,12 +23998,14 @@
   ],
   "max_play": true,
   "p_hit": 0.4943,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-19T16:00Z",
   "round": 1,
+  "settled": "2026-11-20T04:43Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 3.0
  },
  {
   "american": 150,
@@ -24042,6 +24059,15 @@
      "them:trip1000"
     ],
     "dec": 2.5,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Travis Konecny",
+     "s": "6-5",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24062,6 +24088,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,3,1",
+     "h": "1,2,2,0"
+    },
     "form_state": [
      1.0,
      1,
@@ -24134,10 +24164,12 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Flyers 6 @ Senators 5",
     "season_games": null,
+    "settled": "2026-11-20T03:06Z",
     "side": "away",
     "spare": [],
     "stale": [
@@ -24158,12 +24190,14 @@
    }
   ],
   "p_hit": 0.3891,
-  "pnl": 0.0,
+  "pnl": 150.0,
   "posted": "2026-11-19T16:00Z",
   "round": 1,
+  "settled": "2026-11-20T03:06Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 180,
@@ -24233,6 +24267,12 @@
      "us:road3in6"
     ],
     "dec": 2.8,
+    "decider": {
+     "h": "55-47",
+     "s": "126-98",
+     "type": "blowout",
+     "win": "home"
+    },
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -24292,6 +24332,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 0.26,
+    "flow": {
+     "a": "24,23,26,25",
+     "h": "31,24,37,34"
+    },
     "form_state": [
      -22.0,
      -4,
@@ -24383,10 +24427,12 @@
      "Zach Edey": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Warriors 98 @ Grizzlies 126",
     "season_games": 15,
+    "settled": "2026-11-20T03:40Z",
     "side": "away",
     "spare": [],
     "stale": [],
@@ -24406,11 +24452,239 @@
   ],
   "midday": true,
   "p_hit": 0.3477,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-19T19:22Z",
   "round": 1,
+  "settled": "2026-11-20T03:40Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
+ },
+ {
+  "american": 102,
+  "date": "2026-11-19",
+  "dec": 2.02,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "b2b_me": false,
+    "bd_tags": [
+     "hot:8",
+     "latest:5",
+     "h2h:4",
+     "momentum:3",
+     "w_their_loss:11",
+     "m_h2h:2",
+     "f_pts:2",
+     "fill_star:1",
+     "deep_late:0",
+     "deep_start:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83c\udd9a New Mexico St already saw UTEP this year and took the L - a 60-58 win for UTEP at home on 11/12.",
+     "\ud83d\udd25 UTEP is on a heater - 3 straight, 3-1 on the year.",
+     "\ud83d\udcca Scoreboard lately - UTEP: 73 scored, 55 allowed a game (last 3). New Mexico St: 62 and 81.",
+     "\u23f1\ufe0f UTEP outscored teams 141 to 120 in the second half over their last 4 games. They close.",
+     "\ud83c\udfc1 The first half, last 4 games: 153 points for UTEP, 128 against.",
+     "\ud83d\ude80 Florida A&M got their cheeks clapped by UTEP last time out, 79-46.",
+     "\ud83d\udcaf UTEP's top scorer Cam McDaniels is putting up 20 a night lately (4 games).",
+     "\u2705 Bottom line: UTEP (+102). Let it ride."
+    ],
+    "bv": 75,
+    "coach": [
+     7,
+     false
+    ],
+    "coach_name": "Joe Golding",
+    "coach_tenure": 6,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.02,
+    "decider": {},
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 1,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_good": [],
+    "dog_more": {},
+    "dog_p": 0.5139,
+    "dog_read": 4.0,
+    "dog_read_parts": {
+     "facts": [],
+     "games_ok": true,
+     "knowledge": 0,
+     "ratings": 2,
+     "weights": 2.0
+    },
+    "dog_score": 4.0,
+    "drift": -0.0299,
+    "edge": -0.05206499197517933,
+    "edge_own": -0.051305592048558335,
+    "eff_p": 0.5143,
+    "elo_edge": -70.3,
+    "elo_raw": 9.7,
+    "fact": "UTEP just rolled to a 79-46 win over Florida A&M.",
+    "facts": [
+     [
+      "UTEP just rolled to a 79-46 win over Florida A&M.",
+      "UTEP blew out Florida A&M 79-46 last time out.",
+      "79-46 over Florida A&M last time out for UTEP.",
+      "UTEP beat the brakes off Florida A&M, 79-46.",
+      "UTEP smacked Florida A&M 79-46 last time out.",
+      "Florida A&M got their cheeks clapped 79-46 by UTEP last time out."
+     ],
+     [
+      "UTEP have won 3 straight.",
+      "3 straight wins for UTEP.",
+      "UTEP are on a 3-game winning streak.",
+      "UTEP haven't lost in 3."
+     ],
+     [
+      "New Mexico St just got beat 73-61 by San Diego St.",
+      "New Mexico St are coming off a 73-61 beating from San Diego St.",
+      "Last time out New Mexico St took a 73-61 L to San Diego St.",
+      "New Mexico St got handled 73-61 by San Diego St last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "flow": {
+     "a": "41,43",
+     "h": "34,35"
+    },
+    "form_state": [
+     33.0,
+     3,
+     -4000,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401911534",
+    "games_in": 4,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0381,
+    "ncaab_fired": [
+     "the favorite lost its last"
+    ],
+    "ncaab_read": 0.5139,
+    "ncaab_score": 4.0,
+    "ncaab_skid": 0,
+    "ncaab_slot": "dog",
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 102,
+    "off_wait": {},
+    "on_report": [
+     "G. Warren",
+     "S. Payne"
+    ],
+    "opp": "New Mexico St",
+    "opp_games_in": 4,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "S. Payne (F)",
+     "G. Warren (G)"
+    ],
+    "opp_roster_new": 0.13,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.46927475644793104,
+    "p_market": 0.4739134147382803,
+    "pdo": null,
+    "pdo_parts": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.4173,
+    "reasons": [
+     "sharp money moving this way",
+     "rolling off a blowout win",
+     "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
+    ],
+    "rep_off_wait": {},
+    "rep_status": {
+     "G. Warren": "out",
+     "S. Payne": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": "won",
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.406,
+    "roster_tin": 0.594,
+    "score": "UTEP 84 @ New Mexico St 69",
+    "season_games": null,
+    "settled": "2026-11-20T04:43Z",
+    "side": "away",
+    "spare": [],
+    "start": "2026-11-20T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "UTEP",
+    "team_id": "2638",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udd4a UTEP the side: New Mexico St just got beat 73-61 by San Diego St, UTEP about to spank 'em."
+   }
+  ],
+  "midday": true,
+  "ncaab_play": {
+   "dog_read": 4.0,
+   "edge": 0.0381,
+   "fired": [
+    "the favorite lost its last"
+   ],
+   "read": 0.5139,
+   "score": 4.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.4693,
+  "pnl": 102.0,
+  "posted": "2026-11-19T23:15Z",
+  "round": 1,
+  "settled": "2026-11-20T04:43Z",
+  "stake": 100.0,
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  }
 ]
