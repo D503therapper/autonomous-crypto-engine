@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T02:10Z",
+ "updated": "2026-11-20T02:29Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -86,8 +86,8 @@
    "away": "Buffalo",
    "home": "St Bonaventure",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -173,8 +173,8 @@
    "away": "Little Rock",
    "home": "Jacksonville",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -188,8 +188,8 @@
    "away": "Maine",
    "home": "Quinnipiac",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -218,8 +218,8 @@
    "away": "Montana St",
    "home": "High Point",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -263,8 +263,8 @@
    "away": "Northeastern",
    "home": "Butler",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -338,8 +338,8 @@
    "away": "Charleston",
    "home": "Drake",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -685,6 +685,36 @@
    }
   },
   {
+   "id": "ncaab:401930884",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T02:00Z",
+   "away": "Oregon St",
+   "home": "Oregon",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928354",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T02:00Z",
+   "away": "Santa Barbara",
+   "home": "Pepperdine",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401911534",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -714,88 +744,19 @@
    }
   },
   {
-   "id": "ncaab:401918056",
+   "id": "ncaab:401925941",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "California",
-    "p": 0.829,
-    "tie": 0.026,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-20T03:00Z",
-   "away": "East Texas A&M",
-   "home": "California",
-   "why": "coin_flip",
+   "start": "2026-11-20T02:00Z",
+   "away": "Utah Tech",
+   "home": "Washington",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "East Texas A&M",
-    "opp": "California",
-    "market": "spread",
-    "line": 14.5,
-    "odds": -115,
-    "p": 0.507,
-    "win_p": 0.094,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401920349",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Stanford",
-    "p": 0.85,
-    "tie": 0.024,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-20T03:00Z",
-   "away": "Sacramento St",
-   "home": "Stanford",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Sacramento St",
-    "opp": "Stanford",
-    "market": "spread",
-    "line": 16.5,
-    "odds": -105,
-    "p": 0.509,
-    "win_p": 0.077,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401892753",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.365,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-20T03:00Z",
-   "away": "Stars",
-   "home": "Golden Knights",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Stars",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -245,
-    "p": 0.689,
-    "win_p": 0.472,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401917536",
@@ -1371,7 +1332,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Jax State",
-    "p": 0.535,
+    "p": 0.518,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1387,12 +1348,11 @@
     "opp": "Georgia St",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.575,
-    "win_p": 0.575,
+    "odds": -130,
+    "p": 0.553,
+    "win_p": 0.553,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
      "coughing it up 1.0 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
@@ -1522,7 +1482,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Richmond",
-    "p": 0.49,
+    "p": 0.481,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1538,9 +1498,9 @@
     "opp": "Western KY",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.516,
-    "win_p": 0.516,
+    "odds": -115,
+    "p": 0.504,
+    "win_p": 0.504,
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
@@ -1598,12 +1558,12 @@
     "team": "Mount St Marys",
     "opp": "W Michigan",
     "market": "spread",
-    "line": 8.5,
-    "odds": -110,
+    "line": 7.5,
+    "odds": -102,
     "p": 0.501,
     "win_p": 0.254,
     "reasons": [
-     "W Michigan are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+     "W Michigan are laying 7.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -1867,12 +1827,12 @@
     "team": "Georgia Tech",
     "opp": "Georgia",
     "market": "spread",
-    "line": 8.5,
-    "odds": -110,
-    "p": 0.501,
+    "line": 9.5,
+    "odds": -118,
+    "p": 0.503,
     "win_p": 0.249,
     "reasons": [
-     "Georgia are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+     "Georgia are laying 9.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -2063,8 +2023,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bulls",
-    "p": 0.525,
-    "tie": 0.036,
+    "p": 0.52,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2079,9 +2039,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -143,
-    "p": 0.564,
-    "win_p": 0.564,
+    "odds": -138,
+    "p": 0.557,
+    "win_p": 0.557,
     "reasons": [
      "the stronger team"
     ]
