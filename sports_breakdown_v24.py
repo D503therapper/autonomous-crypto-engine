@@ -4167,6 +4167,12 @@ def nba_lines(us, them, nba_f, why_low=""):
                 f" {us} picked up {nm} - {mpg} minutes per game with the {frm} a year ago."]
     if ru.lower() in why_low:
         return [f"🏀{a}" for a in adds if a]
+    try:                                                  # (11/20, the Niagara +2.5 card: "Niagara got outscored by the
+        w_, l_ = (int(x) for x in str(ru).split("-")[:2])   #  other side by 7.4 nightly" - our side's losing year is a
+        if (du is not None and float(du) < 0) or w_ < l_:   #  knock, never a line; the man we added can still be said)
+            return [f"🏀{a}" for a in adds if a]
+    except (ValueError, TypeError):
+        pass
     G = _nr._gap
     return [f"🏀 Last season {us} went {ru} and {G(du, 0)}; {them} went {rt} and {G(dt, 1)}.{adds[0]}",
             f"🏀 {us} were {ru} last year ({G(du, 2)}), {them} {rt} ({G(dt, 3)}).{adds[1]}",
