@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T11:57Z",
+ "updated": "2026-11-20T12:21Z",
  "games": [
   {
    "id": "ncaab:401909698",
@@ -189,8 +189,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UAlbany",
-    "p": 0.671,
-    "tie": 0.039,
+    "p": 0.645,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -198,17 +198,20 @@
    "start": "2026-11-20T20:00Z",
    "away": "W Illinois",
    "home": "UAlbany",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "W Illinois",
-    "opp": "UAlbany",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -115,
-    "p": 0.504,
-    "win_p": 0.259,
-    "reasons": []
+    "team": "UAlbany",
+    "opp": "W Illinois",
+    "market": "ml",
+    "line": null,
+    "odds": -258,
+    "p": 0.715,
+    "win_p": 0.715,
+    "reasons": [
+     "the stronger team",
+     "out-rebounding people by +5.6 a game to their -0.8 - the books don't price the glass (5 of 5 seasons)"
+    ]
    }
   },
   {
@@ -619,7 +622,7 @@
     "opp": "Harvard",
     "market": "spread",
     "line": 13.5,
-    "odds": -105,
+    "odds": -115,
     "p": 0.507,
     "win_p": 0.11,
     "reasons": [
@@ -1588,7 +1591,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bulls",
-    "p": 0.524,
+    "p": 0.516,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1604,9 +1607,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team"
     ]
@@ -1781,9 +1784,9 @@
     "team": "Alabama St",
     "opp": "Fresno St",
     "market": "spread",
-    "line": 10.5,
+    "line": 9.5,
     "odds": -112,
-    "p": 0.504,
+    "p": 0.503,
     "win_p": 0.167,
     "reasons": []
    }
@@ -2847,9 +2850,9 @@
     "team": "Penn State",
     "opp": "Rutgers",
     "market": "spread",
-    "line": -26.5,
-    "odds": -108,
-    "p": 0.528,
+    "line": -25.5,
+    "odds": -115,
+    "p": 0.53,
     "win_p": 0.878,
     "reasons": [
      "the stronger team",
