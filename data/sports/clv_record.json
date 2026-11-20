@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 122,
-  "beat": 41,
+  "n": 123,
+  "beat": 42,
   "same": 54,
   "worse": 27,
-  "avg_pts": 0.25
+  "avg_pts": 0.26
  },
  "unit_plays": {
-  "n": 122,
-  "beat": 41,
+  "n": 123,
+  "beat": 42,
   "same": 54,
   "worse": 27,
-  "avg_pts": 0.25
+  "avg_pts": 0.26
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 75,
-   "beat": 25,
+   "n": 76,
+   "beat": 26,
    "same": 34,
    "worse": 16,
-   "avg_pts": 0.25
+   "avg_pts": 0.26
   }
  },
  "by_sport": {
@@ -45,11 +45,11 @@
    "avg_pts": 0.55
   },
   "nba": {
-   "n": 15,
-   "beat": 8,
+   "n": 16,
+   "beat": 9,
    "same": 5,
    "worse": 2,
-   "avg_pts": 0.3
+   "avg_pts": 0.36
   },
   "ncaab": {
    "n": 3,
@@ -1818,6 +1818,20 @@
    "pts": 3.5,
    "units": 2.0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-19",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Warriors",
+   "market": "ml",
+   "line": null,
+   "odds": 180,
+   "close": 171,
+   "pts": 1.2,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }

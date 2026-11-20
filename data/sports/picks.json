@@ -24312,6 +24312,12 @@
      "us:road3in6"
     ],
     "dec": 2.8,
+    "decider": {
+     "h": "55-47",
+     "s": "126-98",
+     "type": "blowout",
+     "win": "home"
+    },
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -24371,6 +24377,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 0.26,
+    "flow": {
+     "a": "24,23,26,25",
+     "h": "31,24,37,34"
+    },
     "form_state": [
      -22.0,
      -4,
@@ -24462,10 +24472,12 @@
      "Zach Edey": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Warriors 98 @ Grizzlies 126",
     "season_games": 15,
+    "settled": "2026-11-20T03:40Z",
     "side": "away",
     "spare": [],
     "stale": [],
@@ -24485,12 +24497,14 @@
   ],
   "midday": true,
   "p_hit": 0.3477,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-19T19:22Z",
   "round": 1,
+  "settled": "2026-11-20T03:40Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 102,
