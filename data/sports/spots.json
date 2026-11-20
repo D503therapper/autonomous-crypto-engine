@@ -2,8 +2,8 @@
  "_meta": {
   "expected_luck_nominal_max": 5.2,
   "min_n_each_half": 150,
-  "null_bonferroni_avg": 0.0,
-  "null_nominal_avg": 1.5,
+  "null_bonferroni_avg": 0.05,
+  "null_nominal_avg": 2.0,
   "null_sims": 20,
   "spots": {
    "3in4": "3rd game in 4 nights (nba/nhl/ncaab)",
@@ -2131,59 +2131,59 @@
    },
    "revenge|ml|fade": {
     "candidate": false,
-    "edge_new": 0.0068,
+    "edge_new": 0.0069,
     "edge_old": 0.003,
-    "hit_new": 0.587,
+    "hit_new": 0.5871,
     "hit_old": 0.5917,
-    "n_new": 11134,
+    "n_new": 11135,
     "n_old": 10826,
-    "profit_new": -4.97,
+    "profit_new": -4.96,
     "profit_old": -5.22,
     "proven": false,
     "tested": true,
-    "z": 1.65
+    "z": 1.66
    },
    "revenge|ml|team": {
     "candidate": false,
-    "edge_new": -0.0068,
+    "edge_new": -0.0069,
     "edge_old": -0.003,
-    "hit_new": 0.413,
+    "hit_new": 0.4129,
     "hit_old": 0.4083,
-    "n_new": 11134,
+    "n_new": 11135,
     "n_old": 10826,
-    "profit_new": -10.49,
+    "profit_new": -10.5,
     "profit_old": -9.47,
     "proven": false,
     "tested": true,
-    "z": -1.65
+    "z": -1.66
    },
    "revenge|spread|fade": {
     "candidate": false,
     "edge_new": -0.0079,
-    "edge_old": -0.0029,
+    "edge_old": -0.0028,
     "hit_new": 0.4921,
-    "hit_old": 0.4971,
+    "hit_old": 0.4972,
     "n_new": 10973,
-    "n_old": 10681,
+    "n_old": 10682,
     "profit_new": -5.95,
-    "profit_old": -5.04,
+    "profit_old": -5.03,
     "proven": false,
     "tested": true,
-    "z": -1.59
+    "z": -1.58
    },
    "revenge|spread|team": {
     "candidate": false,
     "edge_new": 0.0079,
-    "edge_old": 0.0029,
+    "edge_old": 0.0028,
     "hit_new": 0.5079,
-    "hit_old": 0.5029,
+    "hit_old": 0.5028,
     "n_new": 10973,
-    "n_old": 10681,
+    "n_old": 10682,
     "profit_new": -2.9,
-    "profit_old": -3.95,
+    "profit_old": -3.96,
     "proven": false,
     "tested": true,
-    "z": 1.59
+    "z": 1.58
    },
    "road_fav|ml|fade": {
     "candidate": false,
@@ -2362,7 +2362,7 @@
    "ml": "2023-01-02",
    "spread": "2023-01-05"
   },
-  "games": 60163,
+  "games": 60164,
   "proven": [],
   "shifts": {
    "ml": {},
