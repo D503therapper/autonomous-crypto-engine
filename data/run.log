@@ -25142,3 +25142,38 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-20 18:47 UTC] stocks/trend     equity $443.95 (-11.2%) 1 open  market DOWN
 [2026-11-20 18:47 UTC] stocks/hold_spy  equity $459.71 (-8.1%) 1 open  market DOWN
    social heat top: BTC 34 (29/0/5), TRUMP 32 (32/0/0), HYPE 27 (27/0/0), SOL 21 (21/0/0), PENGU 19 (19/0/0)
+   scanner: 967 tickers, sample: {'i': 'BTC_USD', 'h': '62966.00', 'l': '58159.28', 'a': '58162.01', 'v': '10536.1369', 'vv': '643895766.38', 'c': '-0.0762', 'b': '58162.00', 'k': '58162.01', 'oi': '0', 't': 1795200433076}
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex scanner: 2,182 pools (solana 1,632 / base 313 / ethereum 237), refresh cycle 85s (hot 82s), 682 calls (29 feed, 429s 1, failed 1), 19,574 refreshed (3887 no pair), +54 added / -24 dropped (dead 18, stale 6, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-20 19:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/mover     equity $143.68 (-71.3%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/social_heat equity $312.00 (-37.6%) 2 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-20 19:05 UTC] crypto/hold_btc  equity $362.14 (-27.6%) 1 open  market DOWN
+$BITF: possibly delisted; no price data found  (period=407d)
+$SAVA: No data found, symbol may be delisted
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF']: possibly delisted; no price data found  (period=407d)
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+[2026-11-20 19:06 UTC] stocks/rsi2      equity $441.65 (-11.7%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 0, XLB 0, GLD 1, DIA 1
+[2026-11-20 19:06 UTC] stocks/breakout52 equity $449.60 (-10.1%) 3 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-20 19:06 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 49.01 vs its 200-day average 65.67: BELOW (cash)
+[2026-11-20 19:06 UTC] stocks/dual_momentum equity $429.09 (-14.2%) 2 open  market DOWN
+[2026-11-20 19:06 UTC] stocks/trend_ensemble equity $488.35 (-2.3%) 5 open  market DOWN
+[2026-11-20 19:06 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-20 19:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-20 19:06 UTC] stocks/trend     equity $443.79 (-11.2%) 1 open  market DOWN
+[2026-11-20 19:06 UTC] stocks/hold_spy  equity $459.97 (-8.0%) 1 open  market DOWN
+   social heat top: BTC 37 (32/0/5), TRUMP 29 (29/0/0), HYPE 24 (24/0/0), ETH 21 (21/0/0), PENGU 19 (19/0/0)
