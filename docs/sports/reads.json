@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T20:11Z",
+ "updated": "2026-11-20T20:25Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -92,34 +92,49 @@
    "lean": null
   },
   {
-   "id": "ncaab:401922022",
+   "id": "ncaab:401916123",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "S Dakota St",
-    "p": 0.621,
-    "tie": 0.041,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-20T21:00Z",
-   "away": "S Dakota St",
-   "home": "Idaho St",
-   "why": "tight",
+   "start": "2026-11-20T20:00Z",
+   "away": "Indiana St",
+   "home": "SF Austin",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "S Dakota St",
-    "opp": "Idaho St",
-    "market": "ml",
-    "line": null,
-    "odds": -245,
-    "p": 0.691,
-    "win_p": 0.691,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920380",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T20:00Z",
+   "away": "Northwestern",
+   "home": "Virginia Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401919826",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T20:00Z",
+   "away": "UAlbany",
+   "home": "W Illinois",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401920066",
@@ -334,7 +349,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "North Texas",
-    "p": 0.519,
+    "p": 0.52,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -3031,8 +3046,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Mississippi St",
-    "p": 0.854,
-    "tie": 0.019,
+    "p": 0.841,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -3040,17 +3055,19 @@
    "start": "2026-11-21T18:00Z",
    "away": "Tennessee Tech",
    "home": "Mississippi St",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Tennessee Tech",
     "opp": "Mississippi St",
     "market": "spread",
-    "line": 39.5,
-    "odds": -106,
-    "p": 0.593,
-    "win_p": 0.054,
-    "reasons": []
+    "line": 34.5,
+    "odds": -120,
+    "p": 0.585,
+    "win_p": 0.066,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -4424,7 +4441,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Alabama",
-    "p": 0.559,
+    "p": 0.573,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -4440,9 +4457,9 @@
     "opp": "Southern Miss",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": -198,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team"
     ]
@@ -4825,7 +4842,7 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
+    "odds": -238,
     "p": 0.658,
     "win_p": 0.44,
     "reasons": []
