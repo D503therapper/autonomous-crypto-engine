@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T22:12Z",
+ "updated": "2026-11-20T22:15Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -131,6 +131,21 @@
    "away": "UAlbany",
    "home": "W Illinois",
    "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401922022",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T21:00Z",
+   "away": "S Dakota St",
+   "home": "Idaho St",
+   "h1": null,
    "why": "started",
    "done": false,
    "board": null,
@@ -160,6 +175,21 @@
    "start": "2026-11-20T21:30Z",
    "away": "Rhode Island",
    "home": "Liberty",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921723",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T22:00Z",
+   "away": "Manhattan",
+   "home": "Miami",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1611,7 +1641,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Fresno St",
-    "p": 0.74,
+    "p": 0.744,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1626,10 +1656,10 @@
     "team": "Alabama St",
     "opp": "Fresno St",
     "market": "spread",
-    "line": 9.5,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.182,
+    "line": 10.5,
+    "odds": -112,
+    "p": 0.504,
+    "win_p": 0.178,
     "reasons": []
    }
   },
@@ -2298,7 +2328,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Merrimack",
-    "p": 0.497,
+    "p": 0.493,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2312,15 +2342,14 @@
    "lean": {
     "team": "Merrimack",
     "opp": "Sacred Heart",
-    "market": "ml",
-    "line": null,
-    "odds": -132,
-    "p": 0.517,
-    "win_p": 0.517,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -111,
+    "p": 0.516,
+    "win_p": 0.512,
     "reasons": [
      "the stronger team",
-     "opponent's body clock is off",
-     "off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"
+     "opponent's body clock is off"
     ]
    }
   },
@@ -2330,7 +2359,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Syracuse",
-    "p": 0.519,
+    "p": 0.511,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2346,9 +2375,9 @@
     "opp": "Boston College",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.521,
-    "win_p": 0.521,
+    "odds": -135,
+    "p": 0.516,
+    "win_p": 0.516,
     "reasons": [
      "better QB play lately"
     ]
@@ -2407,7 +2436,7 @@
     "market": "spread",
     "line": 13.5,
     "odds": -110,
-    "p": 0.513,
+    "p": 0.512,
     "win_p": 0.213,
     "reasons": []
    }
@@ -2465,7 +2494,7 @@
     "market": "spread",
     "line": -20.5,
     "odds": -112,
-    "p": 0.515,
+    "p": 0.514,
     "win_p": 0.84,
     "reasons": [
      "the stronger team",
@@ -4156,7 +4185,7 @@
     "market": "spread",
     "line": 10.5,
     "odds": -112,
-    "p": 0.503,
+    "p": 0.504,
     "win_p": 0.257,
     "reasons": [
      "opponent drama: coach fired"
@@ -4215,9 +4244,9 @@
     "team": "Penn State",
     "opp": "Rutgers",
     "market": "spread",
-    "line": -26.5,
-    "odds": -105,
-    "p": 0.521,
+    "line": -25.5,
+    "odds": -115,
+    "p": 0.523,
     "win_p": 0.882,
     "reasons": [
      "the stronger team",
@@ -4601,7 +4630,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Alabama",
-    "p": 0.573,
+    "p": 0.559,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -4617,9 +4646,9 @@
     "opp": "Southern Miss",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -180,
+    "p": 0.555,
+    "win_p": 0.555,
     "reasons": [
      "the stronger team"
     ]
@@ -5522,7 +5551,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Stanford",
-    "p": 0.512,
+    "p": 0.506,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -5539,8 +5568,8 @@
     "market": "spread",
     "line": -2.5,
     "odds": -110,
-    "p": 0.522,
-    "win_p": 0.517,
+    "p": 0.521,
+    "win_p": 0.514,
     "reasons": [
      "the stronger team",
      "better QB play lately"
