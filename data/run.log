@@ -24828,3 +24828,14 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-20 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-20 12:06 UTC] crypto/hold_btc  equity $380.33 (-23.9%) 1 open  market DOWN
    social heat top: TRUMP 32 (32/0/0), BTC 29 (29/0/0), HYPE 24 (24/0/0), ETH 19 (19/0/0), XRP 16 (16/0/0)
+   dex screen: REJECT VELVET@solana liq $82,327,977 - top-10 holders 100%
+   dex screen: REJECT VELVET@base liq $1,111,454 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT SPX@solana liq $1,507,750 - mint authority
+   dex screen: PASS CATE@solana liq $1,231,236
+   dex screen: REJECT FET@ethereum liq $98,055 - liquidity $98,055 < $100,000; 24h volume $11,646 < $100,000
+   dex screen: PASS PUPPIES@ethereum liq $697,702
+   dex screen: UNREACHABLE MIHAO@ethereum liq $309,862 - honeypot.is unreachable
+   dex screen: PASS SPX@ethereum liq $8,170,875
+   dex screen: UNREACHABLE PIPI@ethereum liq $104,691 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CRVUSD@ethereum liq $8,977,420 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 80%
+   dex screen: REJECT WPRL@ethereum liq $1,155,399 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy
