@@ -1,13 +1,13 @@
 {
- "at": "2026-11-20T18:12Z",
+ "at": "2026-11-20T18:17Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Strakhova vs Bronzetti: no points for 2354s",
+  "live tennis scores: tennis Strakhova vs Bronzetti: no points for 2609s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (56s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 0h ago",
-  "engine ran 7 min ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-20T18:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Strakhova vs Bronzetti: no points for 2609s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-20T18:12Z",
    "fixes": [],
@@ -566,18 +575,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Samson vs Geerlings: no points for 2040s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-18T23:11Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Samson vs Geerlings: no points for 554s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
     "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
