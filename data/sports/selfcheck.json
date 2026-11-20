@@ -3,16 +3,16 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.525,
-   "n": 183,
+   "hit": 0.524,
+   "n": 185,
    "said": 0.486,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.437,
-   "n": 71,
-   "said": 0.451,
+   "hit": 0.438,
+   "n": 73,
+   "said": 0.452,
    "verdict": "a little below what we said - within noise (report only: forward-only tag)"
   },
   "ctx:game:div": {
@@ -186,7 +186,7 @@
   "drama:none": {
    "extra_edge": 0.0,
    "hit": 0.547,
-   "n": 159,
+   "n": 161,
    "said": 0.486,
    "verdict": "hitting at or above what we said"
   },
@@ -206,10 +206,10 @@
   },
   "label:dog": {
    "extra_edge": 0.0,
-   "hit": 0.471,
-   "n": 34,
-   "said": 0.415,
-   "verdict": "only 34 graded - report only"
+   "hit": 0.457,
+   "n": 35,
+   "said": 0.417,
+   "verdict": "only 35 graded - report only"
   },
   "label:live": {
    "extra_edge": 0.0,
@@ -227,8 +227,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.533,
-   "n": 107,
+   "hit": 0.537,
+   "n": 108,
    "said": 0.477,
    "verdict": "hitting at or above what we said"
   },
@@ -255,10 +255,10 @@
   },
   "league:ncaab": {
    "extra_edge": 0.0,
-   "hit": 0.333,
-   "n": 3,
-   "said": 0.46,
-   "verdict": "only 3 graded - report only"
+   "hit": 0.5,
+   "n": 4,
+   "said": 0.463,
+   "verdict": "only 4 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -276,9 +276,9 @@
   },
   "league:nhl": {
    "extra_edge": 0.0,
-   "hit": 0.534,
-   "n": 58,
-   "said": 0.477,
+   "hit": 0.525,
+   "n": 59,
+   "said": 0.478,
    "verdict": "hitting at or above what we said"
   },
   "league:tennis": {
@@ -290,8 +290,8 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.534,
-   "n": 178,
+   "hit": 0.533,
+   "n": 180,
    "said": 0.485,
    "verdict": "hitting at or above what we said"
   },
@@ -304,8 +304,8 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.443,
-   "n": 106,
+   "hit": 0.444,
+   "n": 108,
    "said": 0.47,
    "verdict": "a little below what we said - within noise"
   },
@@ -340,8 +340,8 @@
   "source:pregame": {
    "extra_edge": 0.0,
    "hit": 0.528,
-   "n": 159,
-   "said": 0.473,
+   "n": 161,
+   "said": 0.474,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:contract year": {
@@ -423,5 +423,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-20T04:50Z"
+ "updated": "2026-11-20T06:58Z"
 }

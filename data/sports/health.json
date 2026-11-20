@@ -1,29 +1,87 @@
 {
- "at": "2026-11-20T04:54Z",
+ "at": "2026-11-20T12:37Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (135s)",
+  "live watcher fresh (133s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "card audit: 6 live cards, 9 lines - nothing false, outdated or senseless",
   "card quality: 100/100 on 6 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
-  "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 16 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 23 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-20T12:37Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T12:36Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T12:09Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T10:35Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T10:21Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T10:20Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T09:35Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T08:04Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T08:02Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T06:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T06:30Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-20T06:27Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-20T04:54Z",
    "fixes": [],
@@ -545,116 +603,6 @@
     "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
     "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
    ]
-  },
-  {
-   "at": "2026-11-18T19:21Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Podoroska vs Gormaz: no points for 2093s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-18T17:49Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Masarova: no points for 2586s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
-    "workflow failed: layout-check 2026-11-18T17:32 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/44359762140",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T17:48Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Masarova: no points for 2586s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
-    "workflow failed: layout-check 2026-11-18T17:32 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/44359762140",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T17:46Z",
-   "fixes": [
-    "live watch 44353717491 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - started sports.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Masarova: no points for 2424s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
-    "workflow failed: layout-check 2026-11-18T17:32 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/44359762140",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T16:15Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs De Reales: no points for 2605s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T16:14Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs De Reales: no points for 2605s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T15:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs De Reales: no points for 2575s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T13:57Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T13:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T13:30Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T13:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T11:40Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
