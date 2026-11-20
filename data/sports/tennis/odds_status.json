@@ -1,16 +1,17 @@
 {
- "at": "2026-11-20T22:17Z",
- "src": null,
+ "at": "2026-11-20T23:23Z",
+ "src": "oddsapi",
  "oddsapi": {
-  "pulled": false,
-  "why": "not due (pulled since the 07:00 PT slot)",
-  "remaining": 3325
+  "pulled": true,
+  "credits_used": 1,
+  "keys": [
+   "tennis_atp_finals 2"
+  ],
+  "remaining": 3324,
+  "today": 2,
+  "month": 56,
+  "tournaments": 1
  },
- "bovada": {
-  "lines": 0,
-  "url": "coupon",
-  "raw": "list 0"
- },
- "lines": 0,
+ "lines": 2,
  "cached": 3
 }
