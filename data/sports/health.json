@@ -1,9 +1,9 @@
 {
- "at": "2026-11-20T10:20Z",
+ "at": "2026-11-20T10:21Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (189s)",
+  "live watcher fresh (133s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 17 min ago",
+  "engine ran 18 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-20T10:21Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-20T10:20Z",
    "fixes": [],
@@ -634,15 +639,6 @@
     "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
     "workflow failed: layout-check 2026-11-18T17:32 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/44359762140",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T16:15Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs De Reales: no points for 2605s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
