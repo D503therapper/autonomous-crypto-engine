@@ -1,14 +1,16 @@
 {
- "at": "2026-11-20T16:31Z",
- "fixes": [],
+ "at": "2026-11-20T18:06Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Burillo vs Gormaz: no points for 2614s",
+  "live tennis scores: tennis Strakhova vs Bronzetti: no points for 1971s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-  "studies last ran 10h ago - restarted"
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (141s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,13 +22,25 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 9h ago",
-  "engine ran 3 min ago",
+  "studies ran 2h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-20T18:06Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Strakhova vs Bronzetti: no points for 1971s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-20T16:31Z",
    "fixes": [],
@@ -570,16 +584,6 @@
    "problems": [
     "live tennis scores: tennis Samson vs Geerlings: no points for 455s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-18T21:38Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
     "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
     "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
    ]
