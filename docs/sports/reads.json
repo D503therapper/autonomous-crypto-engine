@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T21:34Z",
+ "updated": "2026-11-20T21:36Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -3357,6 +3357,36 @@
    }
   },
   {
+   "id": "ncaab:401911022",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Bowling Green",
+    "p": 0.621,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-21T19:00Z",
+   "away": "N Illinois",
+   "home": "Bowling Green",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Bowling Green",
+    "opp": "N Illinois",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.686,
+    "win_p": 0.686,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401919031",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -3785,7 +3815,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Alabama St",
-    "p": 0.489,
+    "p": 0.496,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3799,13 +3829,14 @@
    "lean": {
     "team": "Alabama St",
     "opp": "Prairie View",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -106,
+    "market": "ml",
+    "line": null,
+    "odds": -131,
     "p": 0.516,
-    "win_p": 0.507,
+    "win_p": 0.516,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
