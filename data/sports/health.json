@@ -1,5 +1,5 @@
 {
- "at": "2026-11-20T22:11Z",
+ "at": "2026-11-20T22:13Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Garcia vs De Reales: no points for 2790s",
@@ -7,7 +7,7 @@
   "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (44s)",
+  "live watcher fresh (144s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 1 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-20T22:13Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Garcia vs De Reales: no points for 2790s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-20T22:11Z",
    "fixes": [],
@@ -544,16 +553,6 @@
   },
   {
    "at": "2026-11-19T02:52Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-19T02:51Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
    ],
