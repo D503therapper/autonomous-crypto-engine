@@ -1,9 +1,9 @@
 {
- "at": "2026-11-20T09:35Z",
+ "at": "2026-11-20T10:20Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (189s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +16,17 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 38 min ago",
+  "simulator ran 3h ago",
+  "engine ran 17 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-20T10:20Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-20T09:35Z",
    "fixes": [],
@@ -634,17 +639,6 @@
   {
    "at": "2026-11-18T16:15Z",
    "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs De Reales: no points for 2605s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-18T16:14Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
    "problems": [
     "live tennis scores: tennis Costoulas vs De Reales: no points for 2605s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
