@@ -25216,3 +25216,28 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-20 20:06 UTC] stocks/trend     equity $443.15 (-11.4%) 1 open  market DOWN
 [2026-11-20 20:06 UTC] stocks/hold_spy  equity $456.15 (-8.8%) 1 open  market DOWN
    social heat top: BTC 37 (32/0/5), TRUMP 29 (29/0/0), HYPE 27 (27/0/0), SUI 19 (19/0/0), ETH 16 (16/0/0)
+   dex screen: REJECT SQQQ@solana liq $109,282 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 66%; lp holders unknown
+   dex screen: PASS TIBBIR@base liq $1,756,429
+   dex screen: REJECT CBBTC@ethereum liq $10,403,048 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%
+   dex screen: REJECT MIHAO@solana liq $301,874 - lp holders unknown; rugcheck lp locked 47% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT NIO@solana liq $153,001 - lp holders unknown; rugcheck lp locked 60% < 95%
+   dex screen: PASS CYBERLEEK@solana liq $388,417
+   dex screen: REJECT ANTC@base liq $508 - liquidity $508 < $100,000; 24h volume $704 < $100,000
+   dex screen: REJECT RNDR@ethereum liq $168,398 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 94%; lp locked 0% < 95%
+   >> stocks/trend: SELL $132.07 of COST @ 1101.83, P/L $-1.03 (stop hit (live check))
+   dex scanner: 2,102 pools (solana 1,574 / base 304 / ethereum 224), refresh cycle 99s (hot 95s), 2678 calls (108 feed, 429s 0, failed 2), 76,993 refreshed (15076 no pair), +58 added / -90 dropped (dead 89, stale 1, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listings: coinbase_products failed (1x, retry in 30s): URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1018)>
+[2026-11-20 21:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/mover     equity $143.68 (-71.3%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/social_heat equity $310.23 (-38.0%) 2 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-20 21:05 UTC] crypto/hold_btc  equity $362.33 (-27.5%) 1 open  market DOWN
+   social heat top: TRUMP 37 (37/0/0), BTC 37 (32/0/5), HYPE 32 (29/0/2), PENGU 24 (24/0/0), ETH 21 (21/0/0)
