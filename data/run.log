@@ -24855,3 +24855,21 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-20 12:55 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-20 12:55 UTC] crypto/hold_btc  equity $380.21 (-24.0%) 1 open  market DOWN
    social heat top: TRUMP 29 (29/0/0), BTC 27 (27/0/0), VVV 24 (24/0/0), HYPE 21 (21/0/0), G 16 (16/0/0)
+   scanner: 967 tickers, sample: {'i': 'BTC_USD', 'h': '64023.00', 'l': '61159.03', 'a': '61621.91', 'v': '9459.7193', 'vv': '590313636.98', 'c': '-0.0350', 'b': '61625.73', 'k': '61625.74', 'oi': '0', 't': 1795179359033}
+   dex screen: PASS JOB@solana liq $149,697
+   dex screen: REJECT HOGE@solana liq $127,771 - lp holders unknown; rugcheck lp locked 86% < 95%
+   dex screen: REJECT XTO@solana liq $1,184,981 - lp holders unknown; rugcheck score 54
+   dex screen: REJECT XTO@solana liq $1,255,782 - lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   dex screen: UNREACHABLE XTO@solana liq $1,214,324 - goplus unreachable
+   dex screen: UNREACHABLE XTO@solana liq $298,698 - goplus unreachable
+   dex scanner: 2,338 pools (solana 1,675 / base 369 / ethereum 294), refresh cycle 90s (hot 89s), 213 calls (11 feed, 429s 1, failed 1), 6,021 refreshed (735 no pair), +50 added / -18 dropped (dead 13, stale 5, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-20 13:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/mover     equity $150.65 (-69.9%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/social_heat equity $316.75 (-36.6%) 2 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-20 13:05 UTC] crypto/hold_btc  equity $379.53 (-24.1%) 1 open  market DOWN
+   social heat top: TRUMP 29 (29/0/0), BTC 27 (27/0/0), VVV 24 (24/0/0), HYPE 21 (21/0/0), G 16 (16/0/0)
