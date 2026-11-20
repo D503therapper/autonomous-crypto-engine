@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T23:34Z",
+ "updated": "2026-11-20T23:50Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -161,8 +161,8 @@
    "away": "Rhode Island",
    "home": "Liberty",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -280,6 +280,21 @@
    "start": "2026-11-20T23:00Z",
    "away": "Worcester St",
    "home": "Bryant",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401925828",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T23:30Z",
+   "away": "North Texas",
+   "home": "App State",
    "h1": null,
    "why": "started",
    "done": false,
@@ -410,8 +425,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.621,
-    "tie": 0.034,
+    "p": 0.613,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -426,9 +441,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -264,
-    "p": 0.697,
-    "win_p": 0.697,
+    "odds": -249,
+    "p": 0.686,
+    "win_p": 0.686,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -738,8 +753,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.771,
-    "tie": 0.025,
+    "p": 0.791,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -754,9 +769,9 @@
     "opp": "Michigan St",
     "market": "spread",
     "line": -17.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.521,
-    "win_p": 0.795,
+    "win_p": 0.814,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -770,8 +785,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.696,
-    "tie": 0.031,
+    "p": 0.676,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -786,12 +801,11 @@
     "opp": "Pelicans",
     "market": "spread",
     "line": -11.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.501,
-    "win_p": 0.799,
+    "win_p": 0.775,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
      "opponent drama: trade drama"
     ]
    }
@@ -982,8 +996,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "North Carolina",
-    "p": 0.893,
-    "tie": 0.019,
+    "p": 0.884,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1000,8 +1014,9 @@
     "line": 18.5,
     "odds": -115,
     "p": 0.512,
-    "win_p": 0.047,
+    "win_p": 0.054,
     "reasons": [
+     "sharp money moving this way",
      "North Carolina haven't played in 7 days, we played 3 days ago - a home team off a week-plus hosting a team in rhythm lost -14% against the number (8 of 8 seasons)"
     ]
    }
@@ -1133,8 +1148,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Fresno St",
-    "p": 0.744,
-    "tie": 0.034,
+    "p": 0.751,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1151,7 +1166,7 @@
     "line": 10.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.178,
+    "win_p": 0.17,
     "reasons": []
    }
   },
