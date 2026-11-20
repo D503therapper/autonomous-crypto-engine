@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T23:54Z",
+ "updated": "2026-11-20T00:03Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -74,123 +74,19 @@
    }
   },
   {
-   "id": "ncaab:401926814",
+   "id": "ncaab:401916318",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Drake",
-    "p": 0.5,
-    "tie": 0.044,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-20T00:30Z",
-   "away": "Charleston",
-   "home": "Drake",
-   "why": "coin_flip",
+   "start": "2026-11-20T00:00Z",
+   "away": "UMBC",
+   "home": "Ohio State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Drake",
-    "opp": "Charleston",
-    "market": "ml",
-    "line": null,
-    "odds": -122,
-    "p": 0.528,
-    "win_p": 0.528,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401892744",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.381,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-20T00:30Z",
-   "away": "Oilers",
-   "home": "Lightning",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Oilers",
-    "opp": "Lightning",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.658,
-    "win_p": 0.441,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401862830",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Temple",
-    "p": 0.54,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-20T00:30Z",
-   "away": "Rice",
-   "home": "Temple",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Temple",
-    "opp": "Rice",
-    "market": "ml",
-    "line": null,
-    "odds": -148,
-    "p": 0.569,
-    "win_p": 0.569,
-    "reasons": [
-     "the stronger team",
-     "opponent's body clock is off",
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401919005",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Louisiana Tech",
-    "p": 0.516,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-20T00:30Z",
-   "away": "Tulane",
-   "home": "Louisiana Tech",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Louisiana Tech",
-    "opp": "Tulane",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.55,
-    "win_p": 0.55,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892748",
@@ -524,7 +420,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.734,
+    "p": 0.74,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -541,8 +437,8 @@
     "market": "spread",
     "line": 12.5,
     "odds": -114,
-    "p": 0.504,
-    "win_p": 0.156,
+    "p": 0.503,
+    "win_p": 0.148,
     "reasons": []
    }
   },
@@ -735,7 +631,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.503,
+    "p": 0.499,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -751,9 +647,9 @@
     "opp": "UTEP",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.533,
-    "win_p": 0.533,
+    "odds": -120,
+    "p": 0.528,
+    "win_p": 0.528,
     "reasons": [
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
