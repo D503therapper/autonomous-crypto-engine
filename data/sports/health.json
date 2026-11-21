@@ -1,9 +1,9 @@
 {
- "at": "2026-11-21T04:21Z",
+ "at": "2026-11-21T04:22Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (57s)",
+  "live watcher fresh (133s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,17 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 41 min ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-21T04:22Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-21T04:21Z",
    "fixes": [],
@@ -510,16 +515,6 @@
    "at": "2026-11-19T07:36Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
-   ]
-  },
-  {
-   "at": "2026-11-19T07:35Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
