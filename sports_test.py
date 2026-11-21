@@ -27848,7 +27848,7 @@ def test_cards_1118_the_early_rows_argue_for_us_too_and_the_card_quality_score_w
     leg = {"team": "Pelicans", "opp": "Clippers", "league": "nba"}
     new, w = cc.early_for_us("🧠 The open sells Pelicans short at -112: our whole read says more. Pelicans are 4-5, Clippers 1-7; "
                              "Pelicans lost their last by 6; 2 days off to Clippers's 4.", leg)
-    assert new == "🧠 The open sells Pelicans short at -112: our whole read says more. Pelicans are 4-5, Clippers 1-7." and w, new
+    assert new == "🧠 Pelicans are 4-5, Clippers 1-7." and w, new   # (11/21: "sells short ... our whole read" is our number vs the books' - cut too)
     tot = {"team": "Over 153.5", "opp": "Portland @ Colorado", "league": "ncaab"}
     assert cc.early_for_us("0-1 since we started betting it", tot)[0] == ""
     assert cc.early_for_us("Good to 155, 3-1 since we started betting it", tot)[0] == "Good to 155, 3-1 since we started betting it"
@@ -28801,7 +28801,7 @@ def test_sweep_1119_an_early_row_is_healed_once_stays_on_the_page_after_midnight
     st = {"picks": [wy, ov, done]}
     keep_log = len(cc.CAUGHT)
     assert se.heal(st) == 2
-    assert wy["why"] == "🧠 The books got Wyoming as the dog; our read says they're better than that."
+    assert "our read" not in wy["why"] and "money" not in wy["why"], wy["why"]   # (11/21: our number vs the books' + money talk - cut)
     assert ov["facts"][0] == "Overs on college floors 4,600+ feet up are 499-342 since 2018" and len(ov["facts"]) == 2
     assert "moved Wyoming shorter" in done["why"], "a graded row is history - left as it posted"
     assert (wy["odds"], wy["units"], wy["side"], ov["line"], ov["odds"], ov["units"]) == (245, 0.5, "home", 153.5, -115, 1.0)
@@ -29025,6 +29025,20 @@ def test_cards_1121_no_lean_words_on_a_unit_play_and_no_beatdown_talk_on_a_long_
     assert v24.long_dog(sm) and v24.long_dog({**sm, "edge_own": None})          # 44% weighed: a price play
     assert not v24.long_dog({**sm, "p": 0.52, "edge_own": 0.5 * 2.64 - 1})     # a +164 dog read over 50%: not long
     assert not any("spanked" in t or "cheeks" in t for t in v24._tails(False, "Southern Miss", "South Alabama", long=True))
+
+
+def test_early_1121_no_money_talk_and_no_gift_on_our_read_on_an_early_row():
+    """11/21, the owner on the Tulane +195 early card ("🧠 Tulane at +195 is a gift on our read. Early money already came
+    in on Tulane."): "it says money came in on Tulane ... but if you look at the line, it went the other way." Money /
+    line-move talk and our number against the books' come off every early row."""
+    import sports_card_check as cc
+    leg = {"team": "Tulane", "league": "ncaaf", "side": "away", "market": "ml", "odds": 195}
+    new, why = cc.early_for_us("🧠 Tulane at +195 is a gift on our read. Early money already came in on Tulane.", leg)
+    assert "money" not in new.lower() and "gift" not in new.lower() and "our read" not in new.lower(), new
+    keep = "🧠 Tulane beat Rice 31-10 last time out."
+    assert cc.early_for_us(keep, leg)[0] == keep
+    assert cc._early_noise("the sharps hammered it") and cc._early_noise("steam on Tulane")
+    assert not cc._early_noise("Tulane run for 210 a game")
 
 
 def inspect_source(obj):

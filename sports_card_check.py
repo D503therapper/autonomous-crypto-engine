@@ -1744,7 +1744,8 @@ def early_for_us(line, leg, games=None):
     for sent in parts:
         end = "." if sent.rstrip().endswith(".") else ""
         cl = [c for c in sent.rstrip().rstrip(".").split("; ")]
-        ok = [c for c in cl if not knocks_us(c, leg) and not (b2b_league(leg) and REST_TALK.search(c) and not B2B_ANY.search(c))]
+        ok = [c for c in cl if not knocks_us(c, leg) and not (b2b_league(leg) and REST_TALK.search(c) and not B2B_ANY.search(c))
+              and not _early_noise(c)]
         if len(ok) != len(cl):
             cut = True
             if ok:
@@ -1756,6 +1757,25 @@ def early_for_us(line, leg, games=None):
         why.append(Q_KNOCK)
     return t, "; ".join(why)
 
+
+# 💸 11/21, the owner on the Tulane +195 early card ("🧠 Tulane at +195 is a gift on our read. Early money already came in
+# on Tulane."): "it says money came in on Tulane ... but if you look at the line, it went the other way." The money talk
+# was true the day it posted (+425 -> +195) and stale the day he read it (+205); it is line-move talk, which the owner
+# banned on every card (10/23), and "a gift on our read" is our number against the books' (11/19). Both come off every
+# early row on render.
+_MONEY_TALK = re.compile(r"\bmoney (?:already )?(?:came|come|coming|is coming|has come|'s come|poured|pouring) in\b|"
+                         r"\b(?:early|sharp|smart|big) money\b|\bsteam\w*\b|\bhammered\b|\bbet (?:it )?down\b", re.I)
+
+
+def _early_noise(clause):
+    """A clause an early row never says: money / line-move talk, or our number against the books'."""
+    if _MONEY_TALK.search(clause):
+        return True
+    try:
+        import sports_owner_lingo as ol
+        return any(re.search(p, clause, re.I) for p in ol.PRICE_CLAIM)
+    except Exception:                                        # noqa: BLE001
+        return False
 
 def b2b_league(leg):
     try:
