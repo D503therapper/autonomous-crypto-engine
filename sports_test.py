@@ -29025,6 +29025,14 @@ def test_cards_1121_no_lean_words_on_a_unit_play_and_no_beatdown_talk_on_a_long_
     assert v24.long_dog(sm) and v24.long_dog({**sm, "edge_own": None})          # 44% weighed: a price play
     assert not v24.long_dog({**sm, "p": 0.52, "edge_own": 0.5 * 2.64 - 1})     # a +164 dog read over 50%: not long
     assert not any("spanked" in t or "cheeks" in t for t in v24._tails(False, "Southern Miss", "South Alabama", long=True))
+    import sports_card_check as cc
+    sports.LEANS_GONE = True
+    try:
+        leg2 = {"team": "LSU N Orleans", "opp": "Texas Southern", "league": "ncaab", "tier": "lean"}
+        out = cc.side_first("🥊 Texas Southern got handled 97-51 by San Diego St last time out.", leg2, lean=True)
+        assert not re.search(r"\blean\b", out, re.I) and "LSU N Orleans" in out, out   # ("Orleans" holds "lean")
+    finally:
+        sports.LEANS_GONE = keep
 
 
 def test_early_1121_no_money_talk_and_no_gift_on_our_read_on_an_early_row():

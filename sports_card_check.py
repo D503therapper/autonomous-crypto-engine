@@ -2462,6 +2462,11 @@ def side_first(line, leg, lean=False):
             if body and body[-1] not in ".!?":
                 body += "."
     if not head:
+        try:                                              # (11/21 pre-board: "Lean LSU N Orleans:" on a 1u play -
+            import sports as _s                           #  leans are gone, the owner 11/16)
+            lean = lean and not getattr(_s, "LEANS_GONE", True)
+        except Exception:                                 # noqa: BLE001
+            lean = False
         pool = SIDE_HEADS_LEAN if lean else SIDE_HEADS
         head = pool[sum(map(ord, us + opp)) % len(pool)].format(us=us)
     head = head[:1].upper() + head[1:]

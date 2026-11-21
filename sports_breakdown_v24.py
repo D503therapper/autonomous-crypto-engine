@@ -4574,7 +4574,7 @@ def whole_card(lines, leg, v, us, lg, g, side, games):
     day = str((g or {}).get("start") or "")[:10]
     if not lines or not _cc.coherent_on(leg, day):
         return lines
-    lean_ = bool(leg.get("is_lean") or leg.get("tier") in ("lean", "strong"))
+    lean_ = bool(leg.get("is_lean") or leg.get("tier") in ("lean", "strong")) and not _no_leans()   # (11/21: no "Lean X:")
     cx = {"lean": lean_, "thin": leg.get("floor_score") is not None and not lean_, "market": leg.get("market")}
     why, lines, _ = _cc.coherent(leg, str(leg.get("why_line") or ""), lines, games, day, cx)
     st = _cc.card_state(leg, games)
