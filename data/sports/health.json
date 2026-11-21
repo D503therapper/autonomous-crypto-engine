@@ -1,5 +1,5 @@
 {
- "at": "2026-11-21T19:08Z",
+ "at": "2026-11-21T19:18Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -9,7 +9,7 @@
   "card audit: SHORT CARD - Indiana St (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (26s)",
+  "live watcher fresh (96s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,16 +18,27 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
+  "studies ran 0h ago",
   "simulator ran 2h ago",
-  "engine ran 11 min ago",
+  "engine ran 6 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-21T19:18Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "card audit: SHORT CARD - Southern Miss (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "card audit: SHORT CARD - UT Rio Grande (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "card audit: SHORT CARD - Indiana St (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-21T19:08Z",
    "fixes": [
@@ -490,15 +501,6 @@
    "problems": [
     "live tennis scores: tennis Garcia vs Labrana: no points for 206s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-19T21:44Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - sports.yml already running"
-   ],
-   "problems": [
     "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
    ]
   }
