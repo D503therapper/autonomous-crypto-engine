@@ -1,4 +1,57 @@
 {
- "updated": "2026-11-20T19:13Z",
- "games": []
+ "updated": "2026-11-21T05:55Z",
+ "games": [
+  {
+   "id": "tennis:atp:187528",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-21T13:30Z",
+   "away": "Ben Shelton",
+   "home": "Carlos Alcaraz",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Ben Shelton",
+    "opp": "Carlos Alcaraz",
+    "market": "ml",
+    "line": null,
+    "odds": 300,
+    "p": 0.24,
+    "win_p": 0.24,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187527",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-21T19:30Z",
+   "away": "Alexander Zverev",
+   "home": "Daniil Medvedev",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alexander Zverev",
+    "opp": "Daniil Medvedev",
+    "market": "ml",
+    "line": null,
+    "odds": -189,
+    "p": 0.617,
+    "win_p": 0.617,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  }
+ ]
 }

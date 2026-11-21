@@ -1797,7 +1797,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         lines = body + [bottom]
     short_floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
     if not str(leg.get("why_line") or "").strip():        # (10/27: the Blues lean posted with NO line under the pick -
-        lean_ = leg.get("is_lean") or leg.get("tier") in ("lean", "strong")   # no reason matched a fact; the card's
+        lean_ = (leg.get("is_lean") or leg.get("tier") in ("lean", "strong")) and not _no_leans()   # no reason matched a fact; the card's
         top = lead_line(lines, v, us, lg)                 #  best line FOR US leads instead (10/29: never a line that
         if top:                                           #  argues for the other side - the Hawks lean led with "2-3 for
             _tails_ = [f"We lean {us}.", f"Lean {us}.", f"{us} if you're playing it."] if lean_ else \
@@ -3619,6 +3619,7 @@ def _score_gap(way):
 
 
 LONG_DOG_ODDS = 150    # 11/17 sweep (the dry run's Ball State +350, a 23% read, two straight losses: "Ball State about to beat
+LONG_DOG_SAFE = 0.45   # (11/21) a +150 dog read under 45% is a price play too
 LONG_DOG_READ = 0.40   # the brakes off 'em"): a moneyline dog at +150 or longer that the engine's own read has winning under
 #   40% of the time is a price play - its line never calls a blowout or a sure thing ("beat the brakes off", "cheeks
 #   clapped", "easy call", "ain't a question", "all day"). The owner's lingo the way he uses it: "beat the brakes off" is
@@ -3631,7 +3632,13 @@ def long_dog(leg, read=None):
         if leg.get("market") != "ml" or (leg.get("odds") or 0) < LONG_DOG_ODDS:
             return False
         r = read if read is not None else leg.get("p")
-        return r is not None and r < LONG_DOG_READ
+        own = leg.get("own_p")
+        if own is None and leg.get("edge_own") is not None and leg.get("dec"):
+            own = (leg["edge_own"] + 1) / leg["dec"]
+        #   (11/21 pre-board: "South Alabama fin to get spanked" on Southern Miss +164 - a weighed read of 44%, its own
+        #    read 39%: a dog either read has under 45% never calls a beatdown)
+        return (r is not None and r < LONG_DOG_READ) or (own is not None and own < LONG_DOG_READ) \
+            or (r is not None and r < LONG_DOG_SAFE)
     except (TypeError, AttributeError):
         return False
 
@@ -3775,6 +3782,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     lean = leg.get("is_lean")
     if lean is None:                                      # (an old pick / the question box: the tier stands in)
         lean = leg.get("tier") in ("lean", "strong")
+    if lean and _no_leans():                              # (11/21 pre-board: "Lean LSU N Orleans" on a 1u play - leans are
+        lean = False                                      #  gone, the owner 11/16; no card says "lean" again)
     if whyf is None:                                      # called on its own (an old pick, the question box): the fact
         pub = None                                        # map from what it was handed
         try:
@@ -4591,3 +4600,12 @@ def even_records(text, gap=0.10):
         return False
     (a1, b1), (a2, b2) = recs[:2]
     return abs(a1 / (a1 + b1) - a2 / (a2 + b2)) < gap
+
+
+def _no_leans():
+    """True once the owner's 11/16 'no leans' is in force (sports.LEANS_GONE) - no card says 'lean' after that."""
+    try:
+        import sports
+        return bool(getattr(sports, "LEANS_GONE", True))
+    except Exception:                                     # noqa: BLE001
+        return True

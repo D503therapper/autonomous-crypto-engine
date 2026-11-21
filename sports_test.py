@@ -29004,6 +29004,29 @@ def test_cards_1120_a_spread_stack_card_never_runs_itself_down_or_leads_on_even_
     assert good and "20-11" in good[0]
 
 
+def test_cards_1121_no_lean_words_on_a_unit_play_and_no_beatdown_talk_on_a_long_dog():
+    """11/21 pre-board check: "📊 On the year Indiana St scores 79 points a game and gives up 70. Lean Indiana St." and
+    "Lean LSU N Orleans" on 1u plays (leans are gone - the owner 11/16), and "South Alabama fin to get spanked" on
+    Southern Miss +164 (weighed read 44%, own read 39%)."""
+    import sports, sports_breakdown_v24 as v24
+    keep = sports.LEANS_GONE
+    sports.LEANS_GONE = True
+    try:
+        g = {"id": "ncaab:1", "league": "ncaab", "start": "2026-11-21T20:00Z", "home": "1", "away": "2"}
+        leg = {"team": "Indiana St", "league": "ncaab", "side": "home", "p": 0.47, "dec": 2.2, "tier": "lean", "ctx": [],
+               "reasons": [], "market": "ml", "odds": 120}
+        for i in range(8):
+            w = v24.why_line(leg, v24.Voice(f"l{i}", set()), g, "Indiana St", "MTSU", "Indiana St", "MTSU",
+                             whyf={"last game": ["Indiana St beat Valpo 88-70 last time out"]})
+            assert "lean" not in w.lower(), w
+    finally:
+        sports.LEANS_GONE = keep
+    sm = {"market": "ml", "odds": 164, "p": 0.44, "edge_own": 0.39 * 2.64 - 1, "dec": 2.64}
+    assert v24.long_dog(sm) and v24.long_dog({**sm, "edge_own": None})          # 44% weighed: a price play
+    assert not v24.long_dog({**sm, "p": 0.52, "edge_own": 0.5 * 2.64 - 1})     # a +164 dog read over 50%: not long
+    assert not any("spanked" in t or "cheeks" in t for t in v24._tails(False, "Southern Miss", "South Alabama", long=True))
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)

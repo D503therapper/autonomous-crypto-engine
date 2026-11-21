@@ -1649,7 +1649,7 @@
     "hammered"
    ],
    "fades": [],
-   "score": 0.085,
+   "score": "New Mexico 24 @ Wyoming 17",
    "why": "\ud83e\udde0 The books got Wyoming as the dog; our read says they're better than that.",
    "mkt": 0.2779,
    "own": 0.4073,
@@ -1658,7 +1658,7 @@
    "main": 0.3123,
    "main_need": 0.2899,
    "posted": "2026-11-16T17:47Z",
-   "result": null,
+   "result": "lost",
    "why_t": 2,
    "units": 0.5,
    "out_at_post": [],
@@ -1682,7 +1682,11 @@
      "st": "out",
      "odds": 245
     }
-   ]
+   ],
+   "graded_at": "2026-11-21T05:55Z",
+   "close": 310,
+   "close_opp": -395,
+   "clv": -4.4
   },
   {
    "game_id": "ncaab:401924922",
@@ -1869,12 +1873,16 @@
    ],
    "why": "\ud83c\udfc0 Three of the six guys who play the most in this one are out (Cade Cunningham, Duncan Robinson, RJ Barrett), and NBA overs are 267-182 since 2018 when that many of the main guys sit.",
    "posted": "2026-11-19T02:21Z",
-   "result": null,
+   "result": "lost",
    "units": 0.5,
    "back_wait": {},
    "back": [
     "Cade Cunningham"
-   ]
+   ],
+   "graded_at": "2026-11-21T03:36Z",
+   "score": "Raptors 105 @ Pistons 102",
+   "close": 216.0,
+   "clv": -11.5
   }
  ],
  "first_seen": {
@@ -2885,6 +2893,18 @@
    "ml_away": 900,
    "src": "betrivers",
    "at": "2026-11-18T01:02Z"
+  },
+  "ncaaf:401869946": {
+   "ml_home": -455,
+   "ml_away": 335,
+   "src": "betrivers",
+   "at": "2026-11-21T01:31Z"
+  },
+  "ncaaf:401871077": {
+   "ml_home": 128,
+   "ml_away": -159,
+   "src": "betrivers",
+   "at": "2026-11-21T02:36Z"
   }
  },
  "launched": "2026-09-30T12:56Z",
@@ -3375,14 +3395,5 @@
    "pulled_why": "11/16 Fable - why we lose (10/17: an early play a Fable audit says should come off gets pulled without asking): posted 11/15 on the hammered spot while Wyoming's REGULAR QB Tyler Hughes (9 of 10 starts) was OUT on the Mountain West's official report (Landon Sims started the 27-15 win at UTEP); the read stood on the raw college home-dog read 15.8 points over the price - under the 11/16 QB rule the regular out = the starting QB out = the market, and the play would not post. The hammered spot is 1-4 live."
   }
  ],
- "nba_out_seen": {
-  "nba:401909308": [
-   "2026-11-19T00:46Z",
-   [
-    "Cade Cunningham",
-    "Duncan Robinson",
-    "RJ Barrett"
-   ]
-  ]
- }
+ "nba_out_seen": {}
 }
