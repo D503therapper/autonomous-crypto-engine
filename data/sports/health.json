@@ -1,9 +1,9 @@
 {
- "at": "2026-11-21T10:44Z",
+ "at": "2026-11-21T10:45Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (64s)",
+  "live watcher fresh (136s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 48 min ago",
+  "engine ran 50 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-21T10:45Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-21T10:44Z",
    "fixes": [],
@@ -494,16 +499,6 @@
    ],
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-19T15:20Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Bronzetti: no points for 2373s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
  ]
