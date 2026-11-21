@@ -1,32 +1,41 @@
 {
- "at": "2026-11-21T21:02Z",
+ "at": "2026-11-21T21:12Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Bronzetti vs Gormaz: no points for 1139s",
+  "live tennis scores: tennis Bronzetti vs Gormaz: no points for 1749s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
   "card audit: SHORT CARD - Southern Miss (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (39s)",
+  "live watcher fresh (33s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 2.8, unit cards under the floor: 1)",
   "slate check: all 192 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 10 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 13 min ago",
+  "engine ran 10 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-21T21:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bronzetti vs Gormaz: no points for 1749s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Southern Miss (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-21T21:02Z",
    "fixes": [],
@@ -501,11 +510,6 @@
   },
   {
    "at": "2026-11-20T03:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-20T02:40Z",
    "fixes": [],
    "problems": []
   }
