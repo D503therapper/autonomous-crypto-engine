@@ -29060,6 +29060,14 @@ def test_best_1121_the_star_is_the_biggest_bet_on_the_board():
         fl = {**mk("play", "Flyers", 136, 2.0, date), "dog_play": True}
         ranked = sorted([dog, fl], key=sports.best_rank)
         assert ranked[0]["legs"][0]["team"] == want, (date, [p["legs"][0]["team"] for p in ranked])
+    a = {**mk("play", "Flyers", 136, 2.0, "2026-11-22"), "dog_play": True}
+    b = mk("play", "UT Rio Grande", 160, 2.0, "2026-11-22")
+    keep_dv = sports.dog_value
+    sports.dog_value = lambda p: {"Flyers": 0.11, "UT Rio Grande": 0.16}.get(p["legs"][0]["team"])
+    try:
+        assert sorted([a, b], key=sports.best_rank)[0]["legs"][0]["team"] == "UT Rio Grande"   # same size: the most confident
+    finally:
+        sports.dog_value = keep_dv
     mp = {**mk("dog", "Ducks", 110, 3.0, "2026-11-22"), "max_play": True}
     assert sorted([fl, mp], key=sports.best_rank)[0]["legs"][0]["team"] == "Ducks"   # the max play still first
 
