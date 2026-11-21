@@ -1,18 +1,73 @@
 {
- "at": "2026-11-21T15:28Z",
- "bad_cards": 0,
- "by_class": {},
- "cards": 4,
- "lines": 2,
- "problems": [],
+ "at": "2026-11-21T16:03Z",
+ "bad_cards": 3,
+ "by_class": {
+  "short": 3
+ },
+ "cards": 8,
+ "lines": 29,
+ "problems": [
+  {
+   "class": "short",
+   "date": "2026-11-21",
+   "kind": "dog",
+   "league": "ncaaf",
+   "line": "",
+   "team": "Southern Miss",
+   "why": "a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  },
+  {
+   "class": "short",
+   "date": "2026-11-21",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "UT Rio Grande",
+   "why": "a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  },
+  {
+   "class": "short",
+   "date": "2026-11-21",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "Indiana St",
+   "why": "a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  }
+ ],
  "quality": {
-  "avg_facts": 0.0,
-  "cards": 4,
-  "score": 96,
-  "short": [],
+  "avg_facts": 2.4,
+  "cards": 8,
+  "score": 98,
+  "short": [
+   {
+    "date": "2026-11-21",
+    "facts": 4,
+    "floor": 6,
+    "league": "ncaaf",
+    "team": "Southern Miss",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   },
+   {
+    "date": "2026-11-21",
+    "facts": 4,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "UT Rio Grande",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   },
+   {
+    "date": "2026-11-21",
+    "facts": 4,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "Indiana St",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   }
+  ],
   "shown": {},
   "thin": 0,
-  "under_floor": 0,
+  "under_floor": 3,
   "worst": [
    {
     "date": "2026-11-21",
