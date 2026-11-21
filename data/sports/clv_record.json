@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 126,
+  "n": 127,
   "beat": 43,
   "same": 55,
-  "worse": 28,
-  "avg_pts": 0.25
+  "worse": 29,
+  "avg_pts": 0.23
  },
  "unit_plays": {
-  "n": 126,
+  "n": 127,
   "beat": 43,
   "same": 55,
-  "worse": 28,
-  "avg_pts": 0.25
+  "worse": 29,
+  "avg_pts": 0.23
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 78,
+   "n": 79,
    "beat": 27,
    "same": 34,
-   "worse": 17,
-   "avg_pts": 0.26
+   "worse": 18,
+   "avg_pts": 0.22
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.36
   },
   "ncaab": {
-   "n": 5,
+   "n": 6,
    "beat": 3,
    "same": 1,
-   "worse": 1,
-   "avg_pts": 1.26
+   "worse": 2,
+   "avg_pts": 0.6
   },
   "ncaaf": {
    "n": 42,
@@ -1859,6 +1859,20 @@
    "close": 105,
    "pts": -0.7,
    "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-21",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "UT Rio Grande",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 180,
+   "pts": -2.7,
+   "units": 2.0,
    "result": "won"
   },
   {
