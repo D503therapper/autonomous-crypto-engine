@@ -29048,6 +29048,21 @@ def test_early_1121_no_money_talk_and_no_gift_on_our_read_on_an_early_row():
     assert not cc._early_noise("Tulane run for 210 a game")
 
 
+def test_best_1121_the_star_is_the_biggest_bet_on_the_board():
+    """11/21, the owner: the ⭐ sat on Southern Miss +164 1u (the Dog) next to the Flyers +136 2u and UT Rio Grande +160
+    2u - "this makes 0 sense". From BEST_SIZE_FIRST_FROM the ⭐ goes on the biggest play in its pool."""
+    import sports
+    mk = lambda kind, team, odds, units, date: {"kind": kind, "date": date, "status": "open", "units_posted": units,   # noqa: E731
+                                                "legs": [{"team": team, "odds": odds, "market": "ml"}]}
+    for date, want in (("2026-11-22", "Flyers"), ("2026-11-21", "Southern Miss")):
+        dog = mk("dog", "Southern Miss", 164, 1.0, date)
+        fl = {**mk("play", "Flyers", 136, 2.0, date), "dog_play": True}
+        ranked = sorted([dog, fl], key=sports.best_rank)
+        assert ranked[0]["legs"][0]["team"] == want, (date, [p["legs"][0]["team"] for p in ranked])
+    mp = {**mk("dog", "Ducks", 110, 3.0, "2026-11-22"), "max_play": True}
+    assert sorted([fl, mp], key=sports.best_rank)[0]["legs"][0]["team"] == "Ducks"   # the max play still first
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)

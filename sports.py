@@ -3541,7 +3541,17 @@ def best_rank(pk):
     v = dog_value(pk)
     if pk.get("max_play") and (pk.get("date") or "") >= MAX_PLAY_FROM:   # 💎 11/16: the max play IS the engine's best pick
         return (-1, -u, -(v if v is not None else -9))
+    if BEST_SIZE_FIRST_FROM and (pk.get("date") or "") >= BEST_SIZE_FIRST_FROM:
+        return (0, -u, BEST_KIND_RANK.get(k, 9), -(v if v is not None else -9))   # (the biggest play first - see below)
     return (BEST_KIND_RANK.get(k, 9), -u, -(v if v is not None else -9))
+
+
+BEST_SIZE_FIRST_FROM = "2026-11-22"   # ⭐ 11/21, the owner on the board's ⭐ Southern Miss +164 at 1u next to two 2u plays (the
+#   Flyers +136, UT Rio Grande +160): "this makes 0 sense that we got 2 units on these other value plays, but the engine's
+#   best pick, the engine's #1 value play, we have 1 unit on it." From this Pacific day the ⭐ goes on the BIGGEST unit
+#   play its pool holds (the max play still first); the kind the replay trusts breaks a tie, then the edge. The ⭐'s own
+#   rules (its read over its price, -150..+350, never the stack play) and its 2u raise are unchanged. None = the old
+#   kind-first order. The Monday Fable sizing review checks the ⭐ record under it.
 
 
 def best_pool(picks, iso):
