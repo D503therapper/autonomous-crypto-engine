@@ -2377,6 +2377,44 @@ def queue_next():
     return r.returncode == 0
 
 
+OVERDUE_EVERY_S = 5 * 60     # 🏁 11/21: how often an overdue open pick is re-graded (see overdue_picks)
+GAME_LEN_MIN = {"ncaab": 120, "nba": 150, "nhl": 160, "ncaaf": 215, "nfl": 205, "mlb": 200, "tennis": 240}
+OVERDUE_WINDOW_MIN = 240     # ...for this long after the game should have ended (a postponed game stops asking)
+
+
+def overdue_picks(now=None, picks_path=None, early_path=None):
+    """Open picks (the board's and the early box's) whose game should be over by now - its start + GAME_LEN_MIN for
+    the league - and still sit ungraded, inside OVERDUE_WINDOW_MIN. [(game id, team)]."""
+    now = now or datetime.now(timezone.utc)
+    out = []
+
+    def check(gid, team, start, lg):
+        try:
+            t = datetime.strptime(str(start)[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        except ValueError:
+            return
+        late = (now - t).total_seconds() / 60 - GAME_LEN_MIN.get(lg, 180)
+        if 0 <= late <= OVERDUE_WINDOW_MIN:
+            out.append((gid, team))
+    try:
+        d = json.load(open(picks_path or os.path.join(sd.DATA, "picks.json")))
+        for p in (d.get("picks") if isinstance(d, dict) else d) or []:
+            if p.get("status") != "open":
+                continue
+            for l in p.get("legs") or []:
+                if l.get("result") in (None, "") and l.get("start"):
+                    check(l.get("game_id"), l.get("team"), l["start"], l.get("league") or str(l.get("game_id", "")).split(":")[0])
+    except (OSError, ValueError, AttributeError):
+        pass
+    try:
+        e = json.load(open(early_path or os.path.join(sd.DATA, "early.json")))
+        for p in e.get("picks") or []:
+            if not p.get("result") and p.get("start"):
+                check(p.get("game_id"), p.get("team"), p["start"], p.get("league") or "")
+    except (OSError, ValueError, AttributeError):
+        pass
+    return out
+
 REGRADE_S = 60 * 60   # after a game ends: re-grade every 2 min for this long (the results feed lags the live one -
 #                       10/2: ESPN still had Blues-Stars 'live' 20+ min after the 4-0 final; the 20-minute window ran out
 #                       and the Dog sat ungraded, so TODAY'S RESULTS never showed till a manual run)
@@ -2533,6 +2571,13 @@ def loop(minutes, every_s=1):
         elif time.time() < regrade_until and time.time() - last_grade > 120 and not grading():
             # the results feed can lag the live feed: keep grading every 2 min for an hour after a
             # game ends, so a pick never sits ungraded (the owner, 9/28: graded right away)
+            if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):
+                last_grade = time.time()
+        elif time.time() - last_grade > OVERDUE_EVERY_S and not grading() and overdue_picks():
+            # 🏁 11/21 (the owner, on UT Rio Grande +160 2u: "The Rio game finished over 15 mins ago" / "Fix this bug
+            # permanently"): a small-school game the live feeds don't carry never reaches FINALS, so its pick waited for
+            # the hourly run. Any open pick whose game should be over is graded every few minutes until it is.
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} a pick's game should be over: grading", flush=True)
             if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):
                 last_grade = time.time()
         time.sleep(max(0.2, every_s - (time.time() - t0)))    # as tight as the feeds allow: a fresh look every second

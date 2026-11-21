@@ -2692,6 +2692,7 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
                     + news_html(p, E)                        # ⚠️ 11/18: the injury news since we posted, loud
+                    + (f'<span class="egres">{E(graded_line(p, g))}</span>' if p.get("result") and graded_line(p, g) else "")
                     + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     out = ""
@@ -2705,6 +2706,37 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                 + "".join(day_rows) + '</section>')   # (the board's 🔥 VALUE PLAY colors - sports_dashboard.KIND "play")
     return out
 
+
+
+def graded_line(p, g=None):
+    """🏁 11/21 (the owner, on the Minnesota +114 2u early play that cashed: "Game not reflecting units" / "Fix this bug
+    permanently"): a graded early row says what it did - the units won or lost at its posted size and price, and the
+    final score when the games file holds it ("✅ Cashed +2.28 units · Final: Minnesota 31, Northwestern 20")."""
+    r = p.get("result")
+    if r not in ("won", "lost", "push"):
+        return ""
+    try:
+        u = float(units(p) or 0)
+        o = int(p.get("odds") or -110)
+    except (TypeError, ValueError):
+        return ""
+    if r == "won":
+        amt = u * (o / 100 if o > 0 else 100 / abs(o))
+        head = f"✅ Cashed +{amt:.2f} units"
+    elif r == "lost":
+        head = f"❌ -{u:g} unit{'s' if u != 1 else ''}"
+    else:
+        head = "➖ Push - no units moved"
+    g = g or {}
+    try:
+        hs, as_ = int(float(g.get("home_score"))), int(float(g.get("away_score")))
+        hn, an = g.get("home_name") or "", g.get("away_name") or ""
+        if hn and an:
+            hi, lo = ((hn, hs), (an, as_)) if hs >= as_ else ((an, as_), (hn, hs))
+            return f"{head} · Final: {hi[0]} {hi[1]}, {lo[0]} {lo[1]}"
+    except (TypeError, ValueError):
+        pass
+    return head
 
 GAMEDAY_BOX = "VALUE PLAY"   # (11/15, the owner: "It should just be value play regular unless it was posted live") - the
 #   ⛰️ altitude over / 🏀 main-guys-sit over posted on the day of the game read as a regular 🔥 VALUE PLAY

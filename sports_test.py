@@ -29071,6 +29071,48 @@ def test_best_1121_the_star_is_the_biggest_bet_on_the_board():
     assert sorted([fl, mp], key=sports.best_rank)[0]["legs"][0]["team"] == "Ducks"   # the max play still first
 
 
+def test_early_1121_a_graded_early_row_says_the_units_and_the_score():
+    """11/21, the owner on the Minnesota +114 2u early play that cashed: "Game not reflecting units" / "Fix this bug
+    permanently" - the graded row showed only ✅."""
+    import sports_early as se
+    g = {"home_name": "Minnesota", "away_name": "Northwestern", "home_score": "31", "away_score": "20"}
+    won = {"result": "won", "odds": 114, "units": 2.0, "team": "Minnesota"}
+    keep = se.units
+    se.units = lambda p: p.get("units")
+    try:
+        assert se.graded_line(won, g) == "✅ Cashed +2.28 units · Final: Minnesota 31, Northwestern 20"
+        assert se.graded_line({**won, "result": "lost", "units": 0.5}, g).startswith("❌ -0.5 units")
+        assert se.graded_line({**won, "result": None}, g) == ""
+        assert se.graded_line(won, {}) == "✅ Cashed +2.28 units"
+    finally:
+        se.units = keep
+    assert "graded_line(p, g)" in open(se.__file__, encoding="utf-8").read()
+
+
+def test_live_1121_an_open_pick_whose_game_should_be_over_is_graded_without_waiting_for_the_hour():
+    """11/21, the owner on UT Rio Grande +160 2u: "The Rio game finished over 15 mins ago" / "Fix this bug permanently" -
+    a small-school game the live feeds don't carry never reached the watcher's finals; its pick waited for the hourly run."""
+    import sports_live as sl
+    from datetime import datetime, timezone
+    d = tempfile.mkdtemp()
+    pp, ep = os.path.join(d, "picks.json"), os.path.join(d, "early.json")
+    with open(pp, "w") as f:
+        json.dump({"picks": [{"status": "open", "legs": [{"game_id": "ncaab:401917953", "team": "UT Rio Grande",
+                                                            "league": "ncaab", "start": "2026-11-21T20:00Z", "result": None}]},
+                             {"status": "won", "legs": [{"game_id": "ncaab:1", "team": "X", "league": "ncaab",
+                                                          "start": "2026-11-21T18:00Z", "result": "won"}]}]}, f)
+    with open(ep, "w") as f:
+        json.dump({"picks": [{"game_id": "ncaaf:2", "team": "Minnesota", "league": "ncaaf", "start": "2026-11-21T17:00Z",
+                              "result": None}]}, f)
+    at = lambda h, m: datetime(2026, 11, 21, h, m, tzinfo=timezone.utc)   # noqa: E731
+    assert ("ncaab:401917953", "UT Rio Grande") not in sl.overdue_picks(at(21, 30), pp, ep)   # still playing
+    got = sl.overdue_picks(at(22, 50), pp, ep)
+    assert ("ncaab:401917953", "UT Rio Grande") in got and ("ncaaf:2", "Minnesota") in got, got
+    assert sl.overdue_picks(at(23, 59).replace(day=22, hour=6), pp, ep) == []             # long past: a postponed game stops
+    src = open(sl.__file__, encoding="utf-8").read()
+    assert "and overdue_picks():" in src
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)
