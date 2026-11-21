@@ -2595,7 +2595,8 @@
    }
   ],
   "skipped": {
-   "line moved / no closing price": 1
+   "line moved / no closing price": 1,
+   "not closed yet": 4
   },
   "summary": {
    "all": {
@@ -2804,19 +2805,19 @@
   "all": {
    "cells": {
     "ml|reverse move": {
-     "edge_new": 0.0108,
+     "edge_new": 0.0106,
      "edge_old": -0.0114,
      "from": "2023-10-08",
-     "n_new": 3831,
+     "n_new": 3832,
      "n_old": 3384,
      "proven": false,
-     "roi_new": -0.0762,
+     "roi_new": -0.0764,
      "roi_old": -0.1123,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.3429,
-     "z": 0.07,
-     "z_profit": -5.41
+     "win": 0.3428,
+     "z": 0.06,
+     "z_profit": -5.42
     },
     "ml|reverse move + big-bettor money": {
      "edge_new": 0.001,
@@ -2969,19 +2970,19 @@
   "ncaab": {
    "cells": {
     "ml|reverse move": {
-     "edge_new": 0.0025,
+     "edge_new": 0.0023,
      "edge_old": -0.0272,
      "from": "2024-11-04",
-     "n_new": 1671,
+     "n_new": 1672,
      "n_old": 1198,
      "proven": false,
-     "roi_new": -0.15,
+     "roi_new": -0.1505,
      "roi_old": -0.2554,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.2646,
-     "z": -1.29,
-     "z_profit": -6.55
+     "win": 0.2645,
+     "z": -1.31,
+     "z_profit": -6.56
     },
     "ml|reverse move + big-bettor money": {
      "edge_new": -0.0166,
@@ -4293,34 +4294,34 @@
   "ncaab": {
    "cells": {
     "ml|fade|any size|all": {
-     "edge_new": -0.0021,
+     "edge_new": -0.002,
      "edge_old": 0.0053,
      "from": "2023-11-06",
-     "n_new": 6039,
+     "n_new": 6040,
      "n_old": 6033,
      "proven": false,
-     "roi_new": -0.0922,
+     "roi_new": -0.0921,
      "roi_old": -0.0791,
      "to": "2026-11-21",
      "watch_only": false,
      "win": 0.4576,
-     "z": 0.41,
+     "z": 0.42,
      "z_profit": -6.6
     },
     "ml|fade|any size|toward the dog": {
-     "edge_new": 0.0048,
+     "edge_new": 0.005,
      "edge_old": 0.0205,
      "from": "2023-11-06",
-     "n_new": 2522,
+     "n_new": 2523,
      "n_old": 2142,
      "proven": false,
-     "roi_new": -0.0398,
+     "roi_new": -0.0394,
      "roi_old": -0.0167,
      "to": "2026-11-21",
      "watch_only": false,
      "win": 0.7376,
-     "z": 2.0,
-     "z_profit": -3.21
+     "z": 2.01,
+     "z_profit": -3.19
     },
     "ml|fade|any size|toward the favorite": {
      "edge_new": -0.007,
@@ -4428,34 +4429,34 @@
      "z_profit": -5.07
     },
     "ml|fade|small|all": {
-     "edge_new": 0.0041,
+     "edge_new": 0.0043,
      "edge_old": 0.0034,
      "from": "2023-11-06",
-     "n_new": 2161,
+     "n_new": 2162,
      "n_old": 2138,
      "proven": false,
-     "roi_new": -0.0537,
+     "roi_new": -0.0533,
      "roi_old": -0.089,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.4834,
-     "z": 0.57,
-     "z_profit": -3.56
+     "win": 0.4835,
+     "z": 0.58,
+     "z_profit": -3.55
     },
     "ml|fade|small|toward the dog": {
-     "edge_new": 0.0077,
+     "edge_new": 0.0082,
      "edge_old": 0.0186,
      "from": "2023-11-06",
-     "n_new": 995,
+     "n_new": 996,
      "n_old": 897,
      "proven": false,
-     "roi_new": -0.0311,
+     "roi_new": -0.0303,
      "roi_old": -0.019,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.7109,
-     "z": 1.3,
-     "z_profit": -1.68
+     "win": 0.711,
+     "z": 1.32,
+     "z_profit": -1.65
     },
     "ml|fade|small|toward the favorite": {
      "edge_new": 0.001,
@@ -4473,34 +4474,34 @@
      "z_profit": -3.19
     },
     "ml|follow|any size|all": {
-     "edge_new": 0.0021,
+     "edge_new": 0.002,
      "edge_old": -0.0053,
      "from": "2023-11-06",
-     "n_new": 6039,
+     "n_new": 6040,
      "n_old": 6033,
      "proven": false,
-     "roi_new": -0.0891,
+     "roi_new": -0.0893,
      "roi_old": -0.0946,
      "to": "2026-11-21",
      "watch_only": false,
      "win": 0.5424,
-     "z": -0.41,
-     "z_profit": -8.63
+     "z": -0.42,
+     "z_profit": -8.64
     },
     "ml|follow|any size|toward the dog": {
-     "edge_new": -0.0048,
+     "edge_new": -0.005,
      "edge_old": -0.0205,
      "from": "2023-11-06",
-     "n_new": 2522,
+     "n_new": 2523,
      "n_old": 2142,
      "proven": false,
-     "roi_new": -0.1668,
+     "roi_new": -0.1671,
      "roi_old": -0.1954,
      "to": "2026-11-21",
      "watch_only": false,
      "win": 0.2624,
-     "z": -2.0,
-     "z_profit": -7.24
+     "z": -2.01,
+     "z_profit": -7.25
     },
     "ml|follow|any size|toward the favorite": {
      "edge_new": 0.007,
@@ -4608,34 +4609,34 @@
      "z_profit": -2.93
     },
     "ml|follow|small|all": {
-     "edge_new": -0.0041,
+     "edge_new": -0.0043,
      "edge_old": -0.0034,
      "from": "2023-11-06",
-     "n_new": 2161,
+     "n_new": 2162,
      "n_old": 2138,
      "proven": false,
-     "roi_new": -0.0769,
+     "roi_new": -0.0773,
      "roi_old": -0.0826,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.5166,
-     "z": -0.57,
-     "z_profit": -4.47
+     "win": 0.5165,
+     "z": -0.58,
+     "z_profit": -4.48
     },
     "ml|follow|small|toward the dog": {
-     "edge_new": -0.0077,
+     "edge_new": -0.0082,
      "edge_old": -0.0186,
      "from": "2023-11-06",
-     "n_new": 995,
+     "n_new": 996,
      "n_old": 897,
      "proven": false,
-     "roi_new": -0.1165,
+     "roi_new": -0.1174,
      "roi_old": -0.147,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.2891,
-     "z": -1.3,
-     "z_profit": -3.58
+     "win": 0.289,
+     "z": -1.32,
+     "z_profit": -3.59
     },
     "ml|follow|small|toward the favorite": {
      "edge_new": -0.001,
@@ -4653,34 +4654,34 @@
      "z_profit": -2.89
     },
     "spread|fade|any size|all": {
-     "edge_new": -0.0072,
+     "edge_new": -0.0071,
      "edge_old": -0.0001,
      "from": "2023-11-06",
-     "n_new": 6009,
+     "n_new": 6010,
      "n_old": 5952,
      "proven": false,
-     "roi_new": -0.0571,
+     "roi_new": -0.0569,
      "roi_old": -0.0453,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.4961,
-     "z": -0.8,
-     "z_profit": -5.86
+     "win": 0.4962,
+     "z": -0.79,
+     "z_profit": -5.85
     },
     "spread|fade|any size|toward the dog": {
-     "edge_new": -0.0234,
+     "edge_new": -0.0231,
      "edge_old": -0.0043,
      "from": "2023-11-06",
-     "n_new": 2511,
+     "n_new": 2512,
      "n_old": 2111,
      "proven": false,
-     "roi_new": -0.0877,
+     "roi_new": -0.0873,
      "roi_old": -0.0533,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.4851,
-     "z": -1.99,
-     "z_profit": -5.12
+     "win": 0.4852,
+     "z": -1.97,
+     "z_profit": -5.1
     },
     "spread|fade|any size|toward the favorite": {
      "edge_new": 0.0044,
@@ -4788,34 +4789,34 @@
      "z_profit": -2.67
     },
     "spread|fade|small|all": {
-     "edge_new": -0.0026,
+     "edge_new": -0.0024,
      "edge_old": 0.001,
      "from": "2023-11-06",
-     "n_new": 2148,
+     "n_new": 2149,
      "n_old": 2112,
      "proven": false,
-     "roi_new": -0.0483,
+     "roi_new": -0.0479,
      "roi_old": -0.0436,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.4991,
-     "z": -0.11,
-     "z_profit": -3.14
+     "win": 0.4992,
+     "z": -0.09,
+     "z_profit": -3.12
     },
     "spread|fade|small|toward the dog": {
-     "edge_new": -0.0088,
+     "edge_new": -0.0083,
      "edge_old": -0.0046,
      "from": "2023-11-06",
-     "n_new": 989,
+     "n_new": 990,
      "n_old": 888,
      "proven": false,
-     "roi_new": -0.0597,
+     "roi_new": -0.0587,
      "roi_old": -0.0542,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.4928,
-     "z": -0.59,
-     "z_profit": -2.58
+     "win": 0.4931,
+     "z": -0.57,
+     "z_profit": -2.56
     },
     "spread|fade|small|toward the favorite": {
      "edge_new": 0.0026,
@@ -4833,34 +4834,34 @@
      "z_profit": -1.9
     },
     "spread|follow|any size|all": {
-     "edge_new": 0.0072,
+     "edge_new": 0.0071,
      "edge_old": 0.0001,
      "from": "2023-11-06",
-     "n_new": 6009,
+     "n_new": 6010,
      "n_old": 5952,
      "proven": false,
-     "roi_new": -0.0296,
+     "roi_new": -0.0298,
      "roi_old": -0.045,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.5039,
-     "z": 0.8,
-     "z_profit": -4.27
+     "win": 0.5038,
+     "z": 0.79,
+     "z_profit": -4.28
     },
     "spread|follow|any size|toward the dog": {
-     "edge_new": 0.0234,
+     "edge_new": 0.0231,
      "edge_old": 0.0043,
      "from": "2023-11-06",
-     "n_new": 2511,
+     "n_new": 2512,
      "n_old": 2111,
      "proven": false,
-     "roi_new": 0.0016,
+     "roi_new": 0.0012,
      "roi_old": -0.0368,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.5149,
-     "z": 1.99,
-     "z_profit": -1.14
+     "win": 0.5148,
+     "z": 1.97,
+     "z_profit": -1.15
     },
     "spread|follow|any size|toward the favorite": {
      "edge_new": -0.0044,
@@ -4968,34 +4969,34 @@
      "z_profit": -2.97
     },
     "spread|follow|small|all": {
-     "edge_new": 0.0026,
+     "edge_new": 0.0024,
      "edge_old": -0.001,
      "from": "2023-11-06",
-     "n_new": 2148,
+     "n_new": 2149,
      "n_old": 2112,
      "proven": false,
-     "roi_new": -0.0381,
+     "roi_new": -0.0386,
      "roi_old": -0.0474,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.5009,
-     "z": 0.11,
-     "z_profit": -2.92
+     "win": 0.5008,
+     "z": 0.09,
+     "z_profit": -2.93
     },
     "spread|follow|small|toward the dog": {
-     "edge_new": 0.0088,
+     "edge_new": 0.0083,
      "edge_old": 0.0046,
      "from": "2023-11-06",
-     "n_new": 989,
+     "n_new": 990,
      "n_old": 888,
      "proven": false,
-     "roi_new": -0.0258,
+     "roi_new": -0.0267,
      "roi_old": -0.0366,
      "to": "2026-11-21",
      "watch_only": false,
-     "win": 0.5072,
-     "z": 0.59,
-     "z_profit": -1.4
+     "win": 0.5069,
+     "z": 0.57,
+     "z_profit": -1.42
     },
     "spread|follow|small|toward the favorite": {
      "edge_new": -0.0026,
@@ -5013,7 +5014,7 @@
      "z_profit": -2.66
     }
    },
-   "moved_games": 12072,
+   "moved_games": 12073,
    "proven": []
   },
   "ncaaf": {

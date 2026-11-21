@@ -29643,7 +29643,7 @@ def test_daily_1120_a_non_d1_tune_up_is_rest_not_an_absence_and_a_spread_rank_we
         assert sports.ncaab_tuneup_spread_w(sp_a) == 0.02 and sports.ncaab_tuneup_spread_w(sp_h) == -0.02
         assert sports.ncaab_tuneup_spread_w(ml_a) == 0.0                  # a moneyline: no weight (the dog is a lead)
         assert abs(sports.spread_weights(sp_a) - 0.02) < 1e-9 and abs(sports.spread_weights(sp_h) + 0.02) < 1e-9   # rank_p reads it
-        assert sports.ncaab_spread_stack(sp_a) == (0.0, 0)                # NOT in the stack: the ½u stack play never reads it
+        assert sports.ncaab_spread_stack(sp_a) == (0.0, 0)                # NOT in the stack on the 11/21 slate (in from 11/22)
         assert not sports.ncaab_stack_play_ok({**sp_a, "spread_stack": None})
         plain = {k: v for k, v in ml_a.items() if k != "tuneup"}
         assert sports.dog_spots({**ml_a, "dog_ctx": {}}) == sports.dog_spots({**plain, "dog_ctx": {}})   # no dog weight
@@ -29652,7 +29652,7 @@ def test_daily_1120_a_non_d1_tune_up_is_rest_not_an_absence_and_a_spread_rank_we
         src = inspect.getsource(sports)
         assert src.index("mark_ncaab_top_out(games, out)") < src.index("mark_ncaab_tuneup(games, out)") < src.index("    weigh_favorites(out)")
         assert "+ ncaab_tuneup_spread_w(c)" in inspect.getsource(sports.rank_p)
-        assert "tuneup" not in inspect.getsource(sports.ncaab_spread_stack) and "tuneup" not in inspect.getsource(sports.dog_spots)
+        assert "tuneup" not in inspect.getsource(sports.dog_spots)         # (the stack reads it from the 11/22 games - 11/21 daily S3)
         # never at a neutral site, never before the date, never when both are off a tune-up
         games["ncaab:9"]["neutral"] = "1"
         n1 = mk("away", "spread", line=3.5)
@@ -29827,6 +29827,111 @@ def test_early_thin_1120_the_hammered_spot_is_paused_and_nothing_is_loosened_for
     assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf", "ncaab") and sports.FLOOR_FALLBACK_MIN == 1
     assert sports.NCAAB_PLAY_SLOT_MAX == {"fav": 1, "dog": 2} and sports.NCAAB_STACK_PLAY_MIN == 0.05 and sports.DOG_PLAY_MAX == 1
     assert sports.DOG_PLAY_LEAGUES_1113 == ("nfl", "nhl") and sports.VALUE_EDGE_MIN == 0.01
+
+
+def test_daily_1121_the_tune_up_weight_is_in_the_spread_stack_from_the_11_22_games():
+    """11/21 daily studies S3 (results/studies/daily_1121/s_cbb.py s3) - the 11/20 run's "next money step": the ½u college
+    hoops spread stack play's replay with the tune-up flag added. A side at a stack of +0.03..+0.04 that is also off a
+    non-D1 tune-up against a team off a D1 game: ATS +45.4% on 42 (train +48.7% / held +42.9%, placebo 1 of 2,000); the
+    mirror across -27.0% on 68; the play pool with the weight in +7.9% on 1,401 (train +2.5% / held +11.4%) vs +6.6% on
+    1,373 without. From the 11/22 Pacific games the stack reads +/-0.02 for it - a weight in a sum, never a play alone."""
+    assert sports.NCAAB_STACK_TUNEUP_FROM == "2026-11-22" and sports.NCAAB_TUNEUP_W == 0.02
+    new, old = "2026-11-22T20:00Z", "2026-11-21T20:00Z"                    # (the 11/22 Pacific slate / the posted 11/21 one)
+    mk = lambda **kw: {"league": "ncaab", "market": "spread", "game_id": "ncaab:9", "side": "away", "line": 3.5,   # noqa: E731
+                       "start": new, "odds": -110, "dec": 1.909, "p": 0.5, "reasons": [], **kw}
+    alone = mk(tuneup=True)
+    assert sports.ncaab_spread_stack(alone) == (0.02, 1)                  # a tune-up alone: +0.02 ...
+    assert not sports.ncaab_stack_play_ok(alone)                          # ... never the +0.05 a play needs
+    assert sports.ncaab_spread_stack(mk(vs_tuneup=True)) == (-0.02, 1)
+    three = mk(opp_top_out=True)                                          # across a top scorer out: +0.03
+    assert sports.ncaab_spread_stack(three) == (0.03, 1) and not sports.ncaab_stack_play_ok(three)
+    both = mk(opp_top_out=True, tuneup=True)                              # +0.03 and off the tune-up: the play's bar
+    assert sports.ncaab_spread_stack(both) == (0.05, 2) and sports.ncaab_stack_play_ok(both)
+    drop = mk(opp_top_out=True, opp_tp_net=0.08, vs_tuneup=True)          # +0.05 across a tune-up team: under the bar
+    assert sports.ncaab_spread_stack(drop) == (0.03, 3) and not sports.ncaab_stack_play_ok(drop)
+    assert sports.ncaab_stack_play_ok(mk(opp_top_out=True, opp_tp_net=0.08))
+    # the 11/21 slate (posted) reads the stack without it; the switch takes it out again
+    assert sports.ncaab_spread_stack(mk(opp_top_out=True, tuneup=True, start=old)) == (0.03, 1)
+    assert sports.ncaab_spread_stack(mk(opp_top_out=True, opp_tp_net=0.08, vs_tuneup=True, start=old)) == (0.05, 2)
+    keep = sports.NCAAB_STACK_TUNEUP_FROM
+    try:
+        sports.NCAAB_STACK_TUNEUP_FROM = "9999"
+        assert sports.ncaab_spread_stack(both) == (0.03, 1)
+    finally:
+        sports.NCAAB_STACK_TUNEUP_FROM = keep
+    # the stack is still the spread rank's own weights added up (the 11/11 pin, with the tune-up in)
+    for c in (alone, three, both, drop):
+        want = (sports.ncaab_top_out_spread_w(c) + sports.ncaab_fable_spread_w(c) + sports.ncaab_across_spread_w(c)
+                + sports.ncaab_tuneup_spread_w(c))
+        assert abs(sports.ncaab_spread_stack(c)[0] - want) < 1e-9
+    # a moneyline side reads the same stack (the tracker's read) and no dog weight comes from the tune-up
+    ml = mk(market="ml", odds=140, dec=2.4, line=None, tuneup=True)
+    assert sports.ncaab_spread_stack(ml) == (0.02, 1)
+    plain = {k: v for k, v in ml.items() if k != "tuneup"}
+    assert sports.dog_spots({**ml, "dog_ctx": {}}) == sports.dog_spots({**plain, "dog_ctx": {}})
+    # the named reason: the SPREAD side off the tune-up, from the 11/22 games only - never a moneyline side's reason
+    import sports_ncaab_roster as nr
+    keep_lt = nr.last_tuneup
+    try:
+        nr.last_tuneup = lambda games, team, start: team == "10"
+        games = {"ncaab:9": {"id": "ncaab:9", "start": new, "home": "20", "away": "10", "neutral": "0"},
+                 "ncaab:8": {"id": "ncaab:8", "start": old, "home": "20", "away": "10", "neutral": "0"}}
+        sp, sph, m = mk(opp="Home U"), mk(side="home", line=-3.5), mk(market="ml", odds=140, dec=2.4, line=None)
+        early = mk(game_id="ncaab:8", start=old)
+        sports.mark_ncaab_tuneup(games, [sp, sph, m, early])
+        assert sp.get("tuneup") and m.get("tuneup") and sph.get("vs_tuneup") and early.get("tuneup")
+        assert len(sp["reasons"]) == 1 and "isn't Division I" in sp["reasons"][0] and "Home U" in sp["reasons"][0]
+        assert "8 of 9 seasons" in sp["reasons"][0]
+        assert m["reasons"] == [] and sph["reasons"] == [] and early["reasons"] == []
+    finally:
+        nr.last_tuneup = keep_lt
+    import inspect
+    src = inspect.getsource(sports)
+    assert src.index("mark_ncaab_tuneup(games, out)") < src.index("mark_ncaab_spread_stack(out)")
+
+
+def test_daily_1121_the_dog_under_its_prices_is_a_tracker_lead_only():
+    """11/21 daily studies S9: wins minus what the closing no-vig prices expected over the last 10 priced games - a dog
+    +100..+350 at -2.0 or worse against a team at +2.0 or better: the NBA +40.6% on 54, the NHL +7.8% on 96, college
+    hoops +11.0% on 84 (dog bases -4.7% / -5.5% / -8.5%) - three leagues one way, every cell under 100. A LEAD: on the
+    tracker from the 11/22 games, never read by the board."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        G = {}
+
+        def fg(i, day, home, away, hs, as_, mh="-110", ma="-110"):
+            return {"id": f"nba:{i}", "start": f"2026-11-{day:02d}T00:00Z", "status": "final", "stype": "2", "home": home,
+                    "away": away, "home_score": str(hs), "away_score": str(as_), "ml_home": mh, "ml_away": ma}
+        for k in range(10):                                               # U loses ten coin flips, O wins ten
+            G[f"nba:u{k}"] = fg(f"u{k}", 1 + k, "U", f"x{k}", 90, 100)
+            G[f"nba:o{k}"] = fg(f"o{k}", 1 + k, f"y{k}", "O", 90, 100)
+        G["nba:now"] = {"id": "nba:now", "start": "2026-11-23T00:00Z", "status": "pre", "stype": "2", "home": "O", "away": "U"}
+        sl._GAMES["nba"] = G
+        sl._SURPLUS.clear()
+        c = {"market": "ml", "league": "nba", "game_id": "nba:now", "side": "away", "odds": 180, "start": "2026-11-23T00:00Z"}
+        assert sl.price_surplus(c) == -5.0 and sl.price_surplus({**c, "side": "home"}) == 5.0
+        assert sl.under_prices_dog(c) is True and sl.under_prices_dog({**c, "side": "home"}) is False
+        assert sl.daily_1121_tags(c, sports) == [sl.UNDER_PRICES_DOG_TAG] and sl.UNDER_PRICES_DOG_TAG in sl.tags(c, sports)
+        assert sl.daily_1121_tags({**c, "odds": 400}, sports) == [] and sl.daily_1121_tags({**c, "odds": -120}, sports) == []
+        assert sl.daily_1121_tags({**c, "market": "spread", "line": 5.5, "odds": -110}, sports) == []
+        assert sl.daily_1121_tags({**c, "start": "2026-11-21T20:00Z"}, sports) == []     # before the 11/22 games
+        assert sl.daily_1121_tags({**c, "league": "nfl"}, sports) == []                   # football: too few rows to track
+        # a team that lost as a -300 favorite sits further under its prices than a coin that lost
+        G["nba:u9"]["ml_home"], G["nba:u9"]["ml_away"] = "-300", "250"
+        sl._SURPLUS.clear()
+        assert sl.price_surplus(c) < -5.0
+        # nine priced games: unread, no tag; an unpriced game never counts
+        G["nba:u0"]["ml_home"] = ""
+        sl._SURPLUS.clear()
+        assert sl.price_surplus(c) is None and sl.daily_1121_tags(c, sports) == []
+        import inspect
+        src = inspect.getsource(sports)
+        assert "under_prices" not in src and "UNDER_PRICES" not in src and "price_surplus" not in src   # the board never reads the lead
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+        sl._SURPLUS.clear()
 
 
 if __name__ == "__main__":

@@ -561,6 +561,7 @@ def tags(c, sports):
     t += goalie_1119_tags(c, sports)                         # 11/19 FABLE - HOCKEY GOALIES: the dog across a net that
     #                                                          isn't the favorite's #1, and its control (a LEAD)
     t += daily_1120_tags(c, sports)                          # 11/20 daily studies: the non-D1 tune-up, the late-quarter closer
+    t += daily_1121_tags(c, sports)                          # 11/21 daily studies: the dog under its prices vs a team over them
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1043,6 +1044,82 @@ def daily_1120_tags(c, sports):
         if c.get("market") == "spread" and c.get("league") in LATE_CLOSER and late_closer_vs_fader(c):
             t.append(LATE_CLOSER_TAG)
         return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+DAILY_1121_FROM = "2026-11-22"   # 11/21 daily studies (results/studies/daily_1121/): logs from the 11/22 games
+UNDER_PRICES_DOG_TAG = "dog under its prices vs a team over its prices, last 10 (lead)"   # a LEAD, tracked only (S9): wins
+#   minus what the closing no-vig prices expected over the last 10 priced games this season - a dog +100..+350 at -2.0
+#   or worse against a team at +2.0 or better: the NBA +40.6% on 54 (train +49.4% 4 of 4 / held +33.0%), the NHL +7.8%
+#   on 96 (+13.3% / +3.9%), college hoops +11.0% on 84 (+5.4% / +14.6%) against dog bases of -4.7% / -5.5% / -8.5% -
+#   three leagues one way, every cell under 100 and z 2.2 at best. The market leans on the last ten results after the
+#   prices already had them. Judge at 60 graded: +10% or better = the five checks as a +1 dog weight.
+UNDER_PRICES = {"nba": (10, 2.0), "nhl": (10, 2.0), "ncaab": (10, 2.0)}   # league: (priced games back, the surplus)
+
+
+def price_surplus(c):
+    """The side's wins minus the closing no-vig chances over its last N priced games this season (finals before
+    tonight, from the games file) - None under N priced games."""
+    cfg = UNDER_PRICES.get(c.get("league"))
+    if not cfg:
+        return None
+    key = (c.get("league"), c.get("game_id"), c.get("side"), id(_GAMES.get(c.get("league"))))
+    if key in _SURPLUS:
+        return _SURPLUS[key]
+    if len(_SURPLUS) > 4000:
+        _SURPLUS.clear()
+    _SURPLUS[key] = v = _price_surplus(c, cfg)
+    return v
+
+
+_SURPLUS = {}                # (league, game, side, the games file in memory) -> the surplus, one pass a run
+
+
+def _price_surplus(c, cfg):
+    team, rows = _season_before(c)
+    if not team:
+        return None
+    got = []
+    for x in rows:
+        try:
+            h_, a_ = float(x.get("ml_home")), float(x.get("ml_away"))
+            hs, as_ = float(x["home_score"]), float(x["away_score"])
+        except (TypeError, ValueError, KeyError):
+            continue
+        if not h_ or not a_ or hs == as_:
+            continue
+        ph, pa = 1 / (1 + (h_ / 100 if h_ > 0 else 100 / -h_)), 1 / (1 + (a_ / 100 if a_ > 0 else 100 / -a_))
+        p = ph / (ph + pa)
+        home = x.get("home") == team
+        got.append((1.0 if (hs > as_) == home else 0.0) - (p if home else 1 - p))
+    if len(got) < cfg[0]:
+        return None
+    return round(sum(got[-cfg[0]:]), 3)
+
+
+def under_prices_dog(c):
+    """True when this side sits UNDER_PRICES' surplus or worse under its prices and the other side as far over them."""
+    cfg = UNDER_PRICES.get(c.get("league"))
+    other = {"home": "away", "away": "home"}.get(c.get("side") or "")
+    if not cfg or not other:
+        return None
+    me, op = price_surplus(c), price_surplus({**c, "side": other})
+    if me is None or op is None:
+        return None
+    return me <= -cfg[1] and op >= cfg[1]
+
+
+def daily_1121_tags(c, sports):
+    """11/21 daily studies: the dog that has won less than its closing prices said against a team that has won more
+    (S9) - a lead, logged from the 11/22 games, never read by the board."""
+    try:
+        if not DAILY_1121_FROM or sports.pt_day(c) < DAILY_1121_FROM:
+            return []
+        if c.get("market") == "ml" and c.get("league") in UNDER_PRICES and 100 <= (c.get("odds") or 0) <= 350 \
+                and under_prices_dog(c):
+            return [UNDER_PRICES_DOG_TAG]
+        return []
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 
