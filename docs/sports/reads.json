@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T11:11Z",
+ "updated": "2026-11-21T11:32Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -992,9 +992,9 @@
     "team": "76ers",
     "opp": "Bucks",
     "market": "spread",
-    "line": -12.5,
-    "odds": -103,
-    "p": 0.502,
+    "line": -11.5,
+    "odds": -115,
+    "p": 0.501,
     "win_p": 0.808,
     "reasons": [
      "the stronger team"
@@ -1007,7 +1007,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "E Illinois",
-    "p": 0.49,
+    "p": 0.495,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1021,14 +1021,15 @@
    "lean": {
     "team": "E Illinois",
     "opp": "Charleston So",
-    "market": "spread",
-    "line": -1.5,
-    "odds": 100,
-    "p": 0.514,
-    "win_p": 0.508,
+    "market": "ml",
+    "line": null,
+    "odds": -126,
+    "p": 0.515,
+    "win_p": 0.515,
     "reasons": [
      "the stronger team",
-     "opponent's body clock is off"
+     "opponent's body clock is off",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
   },
@@ -1116,7 +1117,7 @@
     "opp": "E Michigan",
     "market": "spread",
     "line": 7.5,
-    "odds": -118,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.252,
     "reasons": []
