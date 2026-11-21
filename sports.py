@@ -5564,8 +5564,9 @@ def ncaab_across_spread_w(c):
 def ncaab_spread_stack(c):
     """(stack, weights firing) for a college hoops side - the study's sum, whatever the side's market: the top scorer
     out (-/+0.03), lucky from three (-/+0.02), the hot-ATS gap (-/+0.03), the glass (+/-0.02), the top-25 road team
-    in Nov-Dec (-/+0.03). On a spread side it equals ncaab_top_out_spread_w + ncaab_fable_spread_w +
-    ncaab_across_spread_w (pinned by the regression test)."""
+    in Nov-Dec (-/+0.03) - and, from NCAAB_STACK_TUNEUP_FROM, the non-D1 tune-up (+/-0.02, the 11/21 daily S3). On a
+    spread side it equals ncaab_top_out_spread_w + ncaab_fable_spread_w + ncaab_across_spread_w (+
+    ncaab_tuneup_spread_w from that day) (pinned by the regression tests)."""
     if c.get("league") != "ncaab":
         return 0.0, 0
     sp = dict(c, market="spread")
@@ -5581,6 +5582,8 @@ def ncaab_spread_stack(c):
     rg = sp.get("reb_gap")
     if rg is not None:
         parts.append(NCAAB_REB_W if rg >= NCAAB_REB_GAP else -NCAAB_REB_W if rg <= -NCAAB_REB_GAP else 0.0)
+    if pt_day(sp) >= NCAAB_STACK_TUNEUP_FROM:                # 🏀 11/21 daily S3: the non-D1 tune-up weight is IN the stack
+        parts.append(ncaab_tuneup_spread_w(sp))              # (the stack play's replay with it added - see the constant)
     return round(sum(parts), 3), sum(1 for x in parts if x)
 
 
@@ -5772,10 +5775,24 @@ NCAAB_TUNEUP_W = 0.02              # "11/20 - DAILY STUDIES"): THE GAME AFTER A 
 #   +4.1% on 233 at ESPN's open 2023-26 with 2023 and 2026 down, and past +350 it loses like every long dog - the DOG is
 #   a tracker LEAD, not a weight. At a neutral site the sign flips (-11.7% on 110) - never there. A WEIGHT on the spread
 #   RANK only (rank_p: +NCAAB_TUNEUP_W on that side, - on the side across) - so a college hoops spread LEAN has a studied
-#   reason; it is NOT in the stack (ncaab_spread_stack - the ½u stack play's own replay never saw it), nothing is picked
+#   reason; it was NOT in the stack (ncaab_spread_stack) until the stack play's own replay saw it - IN from NCAAB_STACK_TUNEUP_FROM (11/21 daily S3), nothing is picked
 #   off it alone. With leans off (LEANS_GONE, 11/16) it changes no pick today: it orders equal stacks on a night with
 #   more stack plays than the cap (ncaab_stack_plays' third key) and runs on the tracker. From the games of this Pacific day ("9999" = off). Tracker tags
 #   sports_leads.NCAAB_TUNEUP_ATS_TAG / NCAAB_TUNEUP_DOG_TAG.
+NCAAB_STACK_TUNEUP_FROM = "2026-11-22"   # 🏀 11/21 DAILY STUDIES - S3 (results/studies/daily_1121/s_cbb.py s3; SPORTS_FINDINGS
+#   "11/21 - DAILY STUDIES"): THE TUNE-UP WEIGHT GOES INTO THE STACK - the 11/20 run's "next money step", the ½u spread
+#   stack play's own replay with the flag added (the 11/16 replay rows: every college hoops spread side and its stack at
+#   ESPN's close, train 2018-22 / held 2023-26). A side at a stack of +0.03..+0.04 that is ALSO off a non-D1 tune-up
+#   against a team off a D1 game (the weight lifts it to +0.05, the play's bar): ATS +45.4% on 42 (train +48.7% on 18,
+#   4 of 4 seasons / held +42.9% on 24; a random same-size set of +0.03..+0.04 sides as good 1 of 2,000); the mirror -
+#   a +0.03..+0.04 side ACROSS a tune-up team - -27.0% on 68 (train -45.4% / held -14.1%). The play pool with the weight
+#   in: +7.9% on 1,401 (train +2.5% / held +11.4%) against +6.6% on 1,373 (train +0.6% / held +10.4%) without; the best
+#   three a night +5.5% on 945 (train -0.2% / held +9.0%) against +4.6% on 924 (-2.5% / +9.1%). Small (about 7 plays a
+#   season added, 2 dropped - the 14 dropped rows -10.0%, too few to read alone) and judged by the play's own quit rule
+#   (100 graded, under 52.4% covered = off). From the games of this Pacific day ("9999" = out of the stack again): the
+#   stack reads +/-NCAAB_TUNEUP_W (ncaab_spread_stack) and the spread side off the tune-up gets its named reason
+#   (mark_ncaab_tuneup). A WEIGHT in a sum - a tune-up alone is +0.02, never the +0.05 a play needs. The 11/21 board
+#   and every posted play are untouched.
 
 
 def mark_ncaab_tuneup(games, cands):
@@ -5809,6 +5826,10 @@ def mark_ncaab_tuneup(games, cands):
         me, op = t.get(c["side"]), t.get("away" if c["side"] == "home" else "home")
         if me is True and op is False:
             c["tuneup"] = True
+            if c.get("market") == "spread" and pt_day(c) >= NCAAB_STACK_TUNEUP_FROM:   # in the stack = a named reason
+                c["reasons"] = c.get("reasons", []) + [
+                    f"off a tune-up against a school that isn't Division I while {c.get('opp') or 'the other team'} just "
+                    "played a real game - teams in that spot beat the spread in 8 of 9 seasons"]
         elif me is False and op is True:
             c["vs_tuneup"] = True
 
