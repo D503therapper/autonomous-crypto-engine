@@ -25286,6 +25286,15 @@
      "game:nonconf"
     ],
     "dec": 2.6,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": null,
+     "s": "79-73",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "def_first": true,
     "dog_bad": [],
     "dog_ctx": {
@@ -25323,6 +25332,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "30,37,12",
+     "h": "36,31,6"
+    },
     "form_state": [
      58.0,
      1,
@@ -25397,7 +25410,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -25406,7 +25419,9 @@
     ],
     "roster_new": 0.479,
     "roster_tin": 0.371,
+    "score": "UT Rio Grande 79 @ Austin Peay 73",
     "season_games": null,
+    "settled": "2026-11-21T23:07Z",
     "side": "away",
     "spare": [],
     "spread_stack": 0.02,
@@ -25448,12 +25463,14 @@
    "two_at": 5
   },
   "p_hit": 0.3559,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-21T16:00Z",
   "round": 1,
+  "settled": "2026-11-21T23:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 124,
@@ -25501,6 +25518,7 @@
      "us:week3000"
     ],
     "dec": 2.24,
+    "decider": {},
     "def_first": true,
     "dog_bad": [],
     "dog_ctx": {
@@ -25533,6 +25551,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "32,37",
+     "h": "30,29"
+    },
     "form_state": [
      -10.0,
      -1,
@@ -25604,7 +25626,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -25613,7 +25635,9 @@
     ],
     "roster_new": 0.201,
     "roster_tin": 0.602,
+    "score": "MTSU 69 @ Indiana St 59",
     "season_games": null,
+    "settled": "2026-11-21T22:16Z",
     "side": "home",
     "spare": [],
     "spread_stack": 0.02,
@@ -25655,11 +25679,13 @@
    "two_at": 5
   },
   "p_hit": 0.4281,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-21T16:00Z",
   "round": 1,
+  "settled": "2026-11-21T22:16Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  }
 ]
