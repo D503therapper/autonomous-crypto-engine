@@ -21843,7 +21843,7 @@ def test_early_1111_one_voice_and_the_blowout_spot_paused():
     posted play changes; the pause list the owner set (SPOTS_OFF) is untouched."""
     import json as _j
     import sports_early as se, sports_go4
-    assert se.ONE_VOICE_FROM == "2026-11-12" and se.SPOTS_OFF_FROM == {"blowout": "2026-11-12"}
+    assert se.ONE_VOICE_FROM == "2026-11-12" and se.SPOTS_OFF_FROM["blowout"] == "2026-11-12"
     assert se.SPOTS_OFF == {"engine"}                                             # the owner's own pause list: as it was
     # (2) the dated pause
     assert se.spot_off("blowout", "2026-11-14T18:00Z") and not se.spot_off("blowout", "2026-11-12T03:00Z")   # 7 PM PT 11/11
@@ -29759,6 +29759,73 @@ def test_daily_1120_a_spread_card_says_its_covers_and_a_record_built_on_non_d1_s
     finally:
         v24._D1.clear()
         v24._D1.update(keep)
+
+
+def test_early_thin_1120_the_hammered_spot_is_paused_and_nothing_is_loosened_for_a_thin_day():
+    """11/20 FABLE - EARLY PLAYS + THIN BOARD DAYS (results/studies/early_thin_1120/).
+    (1) THE HAMMERED SPOT IS PAUSED for games from the 11/22 Pacific day - dated, so no posted play changes: the study's
+    cell is Tuesday -> Thursday money (25-23 +23.0% on 48); the live spot fires Saturday night -> Tuesday, 2-27 hours
+    after the book's first number of the week (11 of 11 on our tape) - not the bet that was studied; live 1-5, 5 of 6
+    closed worse than we paid. A paused spot posts nothing and adds no weight to another spot; the open plays stay.
+    (2) every other spot is on at the size it had; (3) THIN DAYS: nothing next in line clears the bar on the replay
+    board - the floor's fill, its score bar, the leagues it skips and the slots' caps are as they were."""
+    import sports_early as se, sports_go4
+    assert se.SPOTS_OFF_FROM == {"blowout": "2026-11-12", "hammered": "2026-11-22"} and se.SPOTS_OFF == {"engine"}
+    assert se.spot_off("hammered", "2026-11-22T20:00Z") and se.spot_off("hammered", "2026-11-28T17:00Z")
+    assert not se.spot_off("hammered", "2026-11-22T03:15Z")          # 7:15 PM PT 11/21 (Arizona St, open): before the date
+    assert not se.spot_off("hammered", "2026-11-21T17:00Z")
+    for k in ("bye", "mnf", "eastwest", "euro_under", "alt_over", "nba_out_over", "nba_open"):
+        assert not se.spot_off(k, "2026-11-29T18:00Z"), k            # (2) the rest stay on ...
+    assert se.SPOTS["alt_over"][1] == 1.0 and all(se.SPOTS[k][1] == 0.5 for k in se.SPOTS if k != "alt_over")   # ... at their sizes
+    assert se.SPOT_QUIT == {"blowout": (25, 0.35), "nba_open": (20, 0.40), "hammered": (20, 0.25)}
+    # a posted hammered play keeps its units and its place in the record
+    row = {"spot": "hammered", "odds": 245, "units": 0.5, "result": "lost", "posted": "2026-11-16T17:47Z", "start": "2026-11-21T02:00Z"}
+    assert se.units(row) == 0.5 and se.spot_record({"picks": [row]})["hammered"] == (0, 1, -0.5)
+
+    def gm(gid, start, home, away, hn, an, mh="", ma="", status="pre", hs="", as_=""):
+        return {"id": gid, "league": "nfl", "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "home_name": hn, "away_name": an, "ml_home": mh, "ml_away": ma, "home_score": hs, "away_score": as_,
+                "tzo": "-5.0", "neutral": "0"}
+    # the Bills sat 11/22 (last game 11/15), the Jets played 11/22; Sunday 11/29: Bills +150 - and the Rams +150 at the
+    # Packers the same day, both off 11/22 games (no bye): the price came 4+ points to both since the first fair number
+    G = {"n1": gm("n1", "2026-11-15T18:00Z", "B", "X", "Bills", "X", status="final", hs="20", as_="17"),
+         "n2": gm("n2", "2026-11-22T18:00Z", "J", "Y", "Jets", "Y", status="final", hs="24", as_="10"),
+         "n3": gm("n3", "2026-11-29T18:00Z", "J", "B", "Jets", "Bills", "-170", "150"),
+         "m0": gm("m0", "2026-11-22T18:00Z", "R", "Z", "Rams", "Z", status="final", hs="20", as_="17"),
+         "m1": gm("m1", "2026-11-22T18:00Z", "P", "W", "Packers", "W", status="final", hs="10", as_="13"),
+         "m2": gm("m2", "2026-11-29T18:00Z", "P", "R", "Packers", "Rams", "-170", "150")}
+    d = tempfile.mkdtemp()
+    with open(os.path.join(d, "2026-11.jsonl"), "w") as f:
+        for gid in ("n3", "m2"):
+            f.write(json.dumps({"g": gid, "t": "2026-11-23T06:00Z", "s": "2026-11-29T18:00Z", "h": -260, "a": 210}) + "\n")
+            f.write(json.dumps({"g": gid, "t": "2026-11-24T06:00Z", "s": "2026-11-29T18:00Z", "h": -170, "a": 150}) + "\n")
+    now = datetime(2026, 11, 24, 18, 0, tzinfo=timezone.utc)
+
+    def own(g, side):
+        h, a = se._imp(int(g["ml_home"])), se._imp(int(g["ml_away"]))
+        return (h if side == "home" else a) / (h + a) + 0.04
+    _go4, keep_c, keep_from = dict(sports_go4._CACHE), dict(se._COACH), dict(se.SPOTS_OFF_FROM)
+    sports_go4._CACHE["d"] = {}
+    se._COACH["exp"] = {}
+    try:
+        got = {c["team"]: c for c in se.spot_scan(G, now, own_of=own, hist_dir=d)}
+        assert "Rams" not in got, got                                # hammered alone: paused - no play
+        assert got["Bills"]["spot"] == "bye" and got["Bills"]["spots"] == ["bye"]   # the bye stands on its own weight
+        assert got["Bills"]["moved"] >= se.HAMMER_PTS                # (the move still rides on the play - a stamp)
+        paused_score = got["Bills"]["score"]
+        del se.SPOTS_OFF_FROM["hammered"]                            # the switch: the spot itself still works
+        got = {c["team"]: c for c in se.spot_scan(G, now, own_of=own, hist_dir=d)}
+        assert got["Rams"]["spot"] == "hammered" and "hammered" in got["Bills"]["spots"]
+        assert round(got["Bills"]["score"] - paused_score, 4) == se.SPOT_WEIGHT["hammered"]
+    finally:
+        se.SPOTS_OFF_FROM.clear(); se.SPOTS_OFF_FROM.update(keep_from)
+        se._COACH.clear(); se._COACH.update(keep_c)
+        sports_go4._CACHE.clear(); sports_go4._CACHE.update(_go4)
+    # (3) thin days: nothing loosened
+    assert sports.FLOOR_MIN == 2 and sports.FLOOR_SECOND_SCORE == 0.0 and sports.NBA_FLOOR_SCORE == 0.0 and sports.FLOOR_THIN_ONLY
+    assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf", "ncaab") and sports.FLOOR_FALLBACK_MIN == 1
+    assert sports.NCAAB_PLAY_SLOT_MAX == {"fav": 1, "dog": 2} and sports.NCAAB_STACK_PLAY_MIN == 0.05 and sports.DOG_PLAY_MAX == 1
+    assert sports.DOG_PLAY_LEAGUES_1113 == ("nfl", "nhl") and sports.VALUE_EDGE_MIN == 0.01
 
 
 if __name__ == "__main__":
