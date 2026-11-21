@@ -25372,3 +25372,31 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-21 02:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-21 02:05 UTC] crypto/hold_btc  equity $365.62 (-26.9%) 1 open  market DOWN
    social heat top: BTC 45 (40/0/5), HYPE 37 (37/0/0), NEAR 35 (35/0/0), VVV 31 (21/0/10), XRP 29 (29/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT VVV@base liq $6,319,364 - is_mintable; owner_percent 30%; top-10 holders 61%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $207,720 - honeypot.is unreachable
+   dex screen: REJECT SOL@base liq $251,240 - pool age unknown
+   dex screen: REJECT MAX@solana liq $100,776 - lp holders unknown; rugcheck lp locked 88% < 95%
+   dex screen: REJECT DRV@base liq $2,197,447 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 56%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $189,855 - honeypot.is unreachable
+   dex screen: REJECT ANSEM@solana liq $317,701,557 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,315 - top-10 holders 100%
+   dex screen: REJECT NVDAC@base liq $1,388,917 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 78%; lp holders unknown
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       bb29ad03b24af6e858f541bacba54f6d51a634d1 -> main (cannot lock ref 'refs/heads/main': is at 60941601fd8bed0962a96
+   dex screen: REJECT SPCXC@base liq $884,503 - pool age unknown
+   dex screen: REJECT TBTC@ethereum liq $8,502,339 - is_mintable; honeypot_with_same_creator; top-10 holders 77%
+   dex scanner: 2,349 pools (solana 1,694 / base 378 / ethereum 277), refresh cycle 98s (hot 94s), 3012 calls (116 feed, 429s 0, failed 0), 86,879 refreshed (15305 no pair), +138 added / -96 dropped (dead 88, stale 8, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-21 03:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/mover     equity $143.68 (-71.3%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/social_heat equity $311.76 (-37.6%) 2 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-21 03:05 UTC] crypto/hold_btc  equity $362.71 (-27.5%) 1 open  market DOWN
+   social heat top: BTC 42 (37/0/5), NEAR 35 (35/0/0), ETH 32 (32/0/0), XRP 29 (29/0/0), VVV 29 (24/0/5)
