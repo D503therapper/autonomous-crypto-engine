@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T02:57Z",
+ "updated": "2026-11-21T03:37Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -668,8 +668,8 @@
    "away": "Magic",
    "home": "Nets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -683,8 +683,8 @@
    "away": "Pacers",
    "home": "Cavaliers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -698,8 +698,8 @@
    "away": "Raptors",
    "home": "Pistons",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -743,8 +743,8 @@
    "away": "Campbell",
    "home": "Kansas St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -758,8 +758,8 @@
    "away": "East Carolina",
    "home": "Utah Valley",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -773,8 +773,8 @@
    "away": "Georgia",
    "home": "Georgia Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -788,8 +788,8 @@
    "away": "Kentucky",
    "home": "Indiana",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -803,8 +803,8 @@
    "away": "Le Moyne",
    "home": "Missouri",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -818,8 +818,8 @@
    "away": "Lipscomb",
    "home": "Alabama A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -848,8 +848,8 @@
    "away": "Neumann",
    "home": "Lehigh",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -878,8 +878,8 @@
    "away": "Pelicans",
    "home": "Thunder",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -908,8 +908,8 @@
    "away": "UCF",
    "home": "Vanderbilt",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -953,8 +953,8 @@
    "away": "Wizards",
    "home": "Bulls",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1064,35 +1064,49 @@
    "lean": null
   },
   {
-   "id": "ncaab:401911252",
+   "id": "ncaab:401925664",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Saint Mary's",
-    "p": 0.51,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-21T04:00Z",
-   "away": "Saint Louis",
-   "home": "Saint Mary's",
-   "why": "coin_flip",
+   "start": "2026-11-21T03:00Z",
+   "away": "Alabama St",
+   "home": "Fresno St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Saint Mary's",
-    "opp": "Saint Louis",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.542,
-    "win_p": 0.542,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nba:401909313",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-21T03:00Z",
+   "away": "Kings",
+   "home": "Lakers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909312",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-21T03:00Z",
+   "away": "Rockets",
+   "home": "Nuggets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401922284",
@@ -5798,9 +5812,10 @@
     "line": -16.5,
     "odds": -110,
     "p": 0.503,
-    "win_p": 0.878,
+    "win_p": 0.879,
     "reasons": [
      "the stronger team",
+     "opponent on a back-to-back",
      "opponent drama: trade drama"
     ]
    }
