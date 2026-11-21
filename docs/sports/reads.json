@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T17:31Z",
+ "updated": "2026-11-21T17:42Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -452,6 +452,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401868032",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-21T17:30Z",
+   "away": "Lehigh",
+   "home": "Lafayette",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401866696",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -837,7 +852,7 @@
     "opp": "Montana",
     "market": "spread",
     "line": -7.5,
-    "odds": -117,
+    "odds": -131,
     "p": 0.505,
     "win_p": 0.681,
     "reasons": [
@@ -1201,7 +1216,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -108,
-    "p": 0.51,
+    "p": 0.509,
     "win_p": 0.501,
     "reasons": []
    }
@@ -1975,7 +1990,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Harvard",
-    "p": 0.612,
+    "p": 0.606,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1991,9 +2006,9 @@
     "opp": "Yale",
     "market": "ml",
     "line": null,
-    "odds": -275,
-    "p": 0.655,
-    "win_p": 0.655,
+    "odds": -263,
+    "p": 0.648,
+    "win_p": 0.648,
     "reasons": [
      "the stronger team"
     ]
@@ -2434,8 +2449,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UAlbany",
-    "p": 0.507,
-    "tie": 0.044,
+    "p": 0.523,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2443,17 +2458,18 @@
    "start": "2026-11-21T21:00Z",
    "away": "UAlbany",
    "home": "Canisius",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "UAlbany",
     "opp": "Canisius",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.541,
-    "win_p": 0.541,
+    "odds": -148,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
+     "sharp money moving this way",
      "out-rebounding people by +3.8 a game to their -6.8 - the books don't price the glass (5 of 5 seasons)",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
@@ -3215,8 +3231,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "VMI",
-    "p": 0.692,
-    "tie": 0.037,
+    "p": 0.686,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3231,9 +3247,9 @@
     "opp": "VMI",
     "market": "spread",
     "line": 7.5,
-    "odds": -115,
+    "odds": -108,
     "p": 0.501,
-    "win_p": 0.235,
+    "win_p": 0.241,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3584,7 +3600,7 @@
     "market": "spread",
     "line": -14.5,
     "odds": -115,
-    "p": 0.518,
+    "p": 0.519,
     "win_p": 0.779,
     "reasons": [
      "the stronger team",
@@ -3783,7 +3799,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.581,
+    "p": 0.573,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3799,9 +3815,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -217,
-    "p": 0.647,
-    "win_p": 0.647,
+    "odds": -204,
+    "p": 0.634,
+    "win_p": 0.634,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -3878,7 +3894,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "San Diego",
-    "p": 0.801,
+    "p": 0.8,
     "tie": 0.023,
     "name": "1st half"
    },
@@ -3896,7 +3912,7 @@
     "line": -20.5,
     "odds": -111,
     "p": 0.531,
-    "win_p": 0.861,
+    "win_p": 0.859,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -4212,8 +4228,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.46,
-    "tie": 0.288,
+    "p": 0.465,
+    "tie": 0.287,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4221,16 +4237,16 @@
    "start": "2026-11-22T03:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Wild",
     "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.724,
-    "win_p": 0.724,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -118,
+    "p": 0.522,
+    "win_p": 0.732,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -4428,7 +4444,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.762,
+    "p": 0.76,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -4446,7 +4462,7 @@
     "line": 15.5,
     "odds": -108,
     "p": 0.507,
-    "win_p": 0.114,
+    "win_p": 0.115,
     "reasons": []
    }
   },
@@ -4518,7 +4534,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.718,
+    "p": 0.719,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -4536,7 +4552,7 @@
     "line": -11.5,
     "odds": -107,
     "p": 0.502,
-    "win_p": 0.823,
+    "win_p": 0.824,
     "reasons": [
      "the stronger team",
      "better rested",
