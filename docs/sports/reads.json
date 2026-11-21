@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T19:09Z",
+ "updated": "2026-11-21T19:22Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -71,8 +71,8 @@
    "away": "Columbia",
    "home": "Boston U",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -101,8 +101,8 @@
    "away": "Detroit Mercy",
    "home": "Michigan St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -917,21 +917,6 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401868059",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-21T19:00Z",
-   "away": "E Kentucky",
-   "home": "Abilene Chrstn",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
    "id": "ncaab:401911199",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -962,6 +947,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401922222",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-21T19:00Z",
+   "away": "Little Rock",
+   "home": "North Florida",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401871081",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -985,6 +985,21 @@
    "start": "2026-11-21T19:00Z",
    "away": "Missouri St",
    "home": "Jax State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868117",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-21T19:00Z",
+   "away": "Montana",
+   "home": "Montana St",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1052,6 +1067,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401867873",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-21T19:00Z",
+   "away": "Northern Iowa",
+   "home": "Murray St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401920773",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1082,6 +1112,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401868283",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-21T19:00Z",
+   "away": "St Thomas",
+   "home": "Valparaiso",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401924882",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1090,21 +1135,6 @@
    "start": "2026-11-21T19:00Z",
    "away": "Stony Brook",
    "home": "Saint Peter's",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "ncaaf:401868203",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-21T19:00Z",
-   "away": "UT Martin",
-   "home": "SE Missouri",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1210,7 +1240,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Delaware",
-    "p": 0.524,
+    "p": 0.516,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1226,9 +1256,9 @@
     "opp": "New Mexico St",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.53,
-    "win_p": 0.53,
+    "odds": -135,
+    "p": 0.524,
+    "win_p": 0.524,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1774,14 +1804,11 @@
     "team": "UConn",
     "opp": "Old Dominion",
     "market": "spread",
-    "line": -14.0,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.775,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
+    "line": 14.0,
+    "odds": -112,
+    "p": 0.503,
+    "win_p": 0.198,
+    "reasons": []
    }
   },
   {
