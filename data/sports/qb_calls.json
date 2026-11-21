@@ -1,4 +1,19 @@
 {
+ "ncaaf:401856868": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Conner Weigman",
+    "Conner Weigman"
+   ],
+   "called": null,
+   "chart": null,
+   "chart_top": null,
+   "how": "questionable",
+   "start": "2026-11-21T18:00Z",
+   "team": "Houston"
+  }
+ },
  "ncaaf:401856870": {
   "away": {
    "at": "2026-11-20T21:17Z",
@@ -12,6 +27,21 @@
    "how": "questionable",
    "start": "2026-11-22T03:15Z",
    "team": "Oklahoma St"
+  }
+ },
+ "ncaaf:401856872": {
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Jaden Craig",
+    "Jaden Craig"
+   ],
+   "called": null,
+   "chart": null,
+   "chart_top": null,
+   "how": "out",
+   "start": "2026-11-22T02:00Z",
+   "team": "TCU"
   }
  },
  "ncaaf:401858305": {
@@ -180,6 +210,363 @@
    "how": "chart + box",
    "start": "2026-11-20T01:15Z",
    "team": "Texans"
+  }
+ },
+ "nfl:401873067": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Carson Beck",
+    "Gardner Minshew II"
+   ],
+   "called": null,
+   "chart": [
+    "Carson Beck",
+    "Josh Johnson",
+    "Joey Aguilar",
+    "Gardner Minshew II"
+   ],
+   "chart_top": "Carson Beck",
+   "how": "questionable",
+   "start": "2026-11-22T18:00Z",
+   "team": "Cardinals"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Patrick Mahomes",
+    "Patrick Mahomes"
+   ],
+   "called": "Patrick Mahomes",
+   "chart": [
+    "Patrick Mahomes",
+    "Justin Fields",
+    "Garrett Nussmeier"
+   ],
+   "chart_top": "Patrick Mahomes",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Chiefs"
+  }
+ },
+ "nfl:401873068": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Jacoby Brissett",
+    "Joe Fagnano"
+   ],
+   "called": "Jacoby Brissett",
+   "chart": [
+    "Jacoby Brissett",
+    "Joe Fagnano",
+    "Kedon Slovis",
+    "Lamar Jackson"
+   ],
+   "chart_top": "Jacoby Brissett",
+   "how": "chart + last start",
+   "start": "2026-11-22T18:00Z",
+   "team": "Ravens"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Bryce Young",
+    "Bryce Young"
+   ],
+   "called": "Bryce Young",
+   "chart": [
+    "Bryce Young",
+    "Kenny Pickett",
+    "Haynes King"
+   ],
+   "chart_top": "Bryce Young",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Panthers"
+  }
+ },
+ "nfl:401873069": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Trevor Lawrence",
+    "Trevor Lawrence"
+   ],
+   "called": "Trevor Lawrence",
+   "chart": [
+    "Trevor Lawrence",
+    "Quinn Ewers"
+   ],
+   "chart_top": "Trevor Lawrence",
+   "how": "chart + box",
+   "start": "2026-11-22T21:25Z",
+   "team": "Jaguars"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "J.J. McCarthy",
+    "J.J. McCarthy"
+   ],
+   "called": "J.J. McCarthy",
+   "chart": [
+    "J.J. McCarthy",
+    "Jameis Winston",
+    "Jaxson Dart"
+   ],
+   "chart_top": "J.J. McCarthy",
+   "how": "chart + box",
+   "start": "2026-11-22T21:25Z",
+   "team": "Giants"
+  }
+ },
+ "nfl:401873070": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Kyle McCord",
+    "Malik Willis"
+   ],
+   "called": "Kyle McCord",
+   "chart": [
+    "Kyle McCord",
+    "Brady Cook",
+    "Malik Willis"
+   ],
+   "chart_top": "Kyle McCord",
+   "how": "chart + last start",
+   "start": "2026-11-22T18:00Z",
+   "team": "Dolphins"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Josh Allen",
+    "Josh Allen"
+   ],
+   "called": "Josh Allen",
+   "chart": [
+    "Josh Allen",
+    "Kyle Allen"
+   ],
+   "chart_top": "Josh Allen",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Bills"
+  }
+ },
+ "nfl:401873071": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Tyler Shough",
+    "Tyler Shough"
+   ],
+   "called": "Tyler Shough",
+   "chart": [
+    "Tyler Shough",
+    "Spencer Rattler",
+    "Zach Wilson"
+   ],
+   "chart_top": "Tyler Shough",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Saints"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Caleb Williams",
+    "Caleb Williams"
+   ],
+   "called": "Caleb Williams",
+   "chart": [
+    "Caleb Williams",
+    "Tyson Bagent",
+    "Case Keenum"
+   ],
+   "chart_top": "Caleb Williams",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Bears"
+  }
+ },
+ "nfl:401873072": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Baker Mayfield",
+    "Baker Mayfield"
+   ],
+   "called": null,
+   "chart": [
+    "Baker Mayfield",
+    "Jalon Daniels",
+    "Easton Stick"
+   ],
+   "chart_top": "Baker Mayfield",
+   "how": "questionable",
+   "start": "2026-11-22T18:00Z",
+   "team": "Buccaneers"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Jared Goff",
+    "Jared Goff"
+   ],
+   "called": "Jared Goff",
+   "chart": [
+    "Jared Goff",
+    "Joshua Dobbs"
+   ],
+   "chart_top": "Jared Goff",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Lions"
+  }
+ },
+ "nfl:401873073": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Cam Ward",
+    "Cam Ward"
+   ],
+   "called": "Cam Ward",
+   "chart": [
+    "Cam Ward",
+    "Mitchell Trubisky"
+   ],
+   "chart_top": "Cam Ward",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Titans"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Dak Prescott",
+    "Dak Prescott"
+   ],
+   "called": "Dak Prescott",
+   "chart": [
+    "Dak Prescott",
+    "Sam Howell"
+   ],
+   "chart_top": "Dak Prescott",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Cowboys"
+  }
+ },
+ "nfl:401873074": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Geno Smith",
+    "Geno Smith"
+   ],
+   "called": "Geno Smith",
+   "chart": [
+    "Geno Smith",
+    "Cade Klubnik"
+   ],
+   "chart_top": "Geno Smith",
+   "how": "chart + box",
+   "start": "2026-11-22T21:05Z",
+   "team": "Jets"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Justin Herbert",
+    "Justin Herbert"
+   ],
+   "called": "Justin Herbert",
+   "chart": [
+    "Justin Herbert",
+    "DJ Uiagalelei",
+    "Trey Lance"
+   ],
+   "chart_top": "Justin Herbert",
+   "how": "chart + box",
+   "start": "2026-11-22T21:05Z",
+   "team": "Chargers"
+  }
+ },
+ "nfl:401873075": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Fernando Mendoza",
+    "Kirk Cousins"
+   ],
+   "called": "Fernando Mendoza",
+   "chart": [
+    "Fernando Mendoza",
+    "Aidan O'Connell"
+   ],
+   "chart_top": "Fernando Mendoza",
+   "how": "chart + last start",
+   "start": "2026-11-22T21:25Z",
+   "team": "Raiders"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Bo Nix",
+    "Bo Nix"
+   ],
+   "called": "Bo Nix",
+   "chart": [
+    "Bo Nix",
+    "Jarrett Stidham",
+    "Sam Ehlinger"
+   ],
+   "chart_top": "Bo Nix",
+   "how": "chart + box",
+   "start": "2026-11-22T21:25Z",
+   "team": "Broncos"
+  }
+ },
+ "nfl:401873076": {
+  "away": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Aaron Rodgers",
+    "Aaron Rodgers"
+   ],
+   "called": "Aaron Rodgers",
+   "chart": [
+    "Aaron Rodgers",
+    "Mason Rudolph",
+    "Will Howard",
+    "Drew Allar"
+   ],
+   "chart_top": "Aaron Rodgers",
+   "how": "chart + box",
+   "start": "2026-11-22T18:00Z",
+   "team": "Steelers"
+  },
+  "home": {
+   "at": "2026-11-21T16:00Z",
+   "box": [
+    "Joe Milton",
+    "Tanner McKee"
+   ],
+   "called": "Joe Milton",
+   "chart": [
+    "Joe Milton",
+    "Tanner McKee",
+    "Cole Payton",
+    "Jalen Hurts"
+   ],
+   "chart_top": "Joe Milton",
+   "how": "chart + last start",
+   "start": "2026-11-22T18:00Z",
+   "team": "Eagles"
   }
  }
 }

@@ -1461,7 +1461,7 @@ SPOTS = {   # key: (label, units, leagues)
     "bye":       ("🛌 Off a bye vs a team that played", 0.5, ("nfl", "ncaaf")),   # NFL +29% / college +16% (fair); ½u for
     #                                                                              plays posted from 11/17 (BYE_HALF_FROM -
     #                                                                              was 1u; units())
-    "hammered":  ("🔨 Hammered early", 0.5, ("nfl", "ncaaf")),                  # in 4+ win-% pts since the first fair price
+    "hammered":  ("🔨 Hammered early", 0.5, ("nfl", "ncaaf")),                  # in 4+ win-% pts since the first fair price - PAUSED 11/22 (SPOTS_OFF_FROM)
     "mnf":       ("🏈 Monday night dog", 0.5, ("nfl",)),                          # NFL +21%, 5 of 6
     "eastwest":  ("✈️ East Coast team flying West", 0.5, ("nfl",)),              # NFL +17%, 6 of 6
     "blowout":   ("💥 Blew somebody out last week", 0.5, ("ncaaf",)),           # (10/17 the owner: off in the NFL -
@@ -1496,7 +1496,7 @@ SPOTS_OFF = {"engine"}                   # ⏸️ paused spots. 10/14 the owner 
 #                                         (15+ points, rating-backed) - one bet on that read, not two. "blowout" stays ON,
 #                                         FBS wins only (BLOWOUT_FBS_ONLY). Turning "engine" back on = the owner's call.
 #                                         A paused spot's pulled plays can come back once it's on (repost_ok).
-SPOTS_OFF_FROM = {"blowout": "2026-11-12"}   # ⏸️ 11/11 FABLE: BEATING THE LINE (results/studies/early_1111/ s5b / s3b / s11; the
+SPOTS_OFF_FROM = {"blowout": "2026-11-12", "hammered": "2026-11-22"}   # ⏸️ ("hammered": 11/20 audit - below.) 11/11 FABLE: BEATING THE LINE (results/studies/early_1111/ s5b / s3b / s11; the
 #   owner, 11/11: "tighten the engine up ... on the early plays ... don't ask me anything, just fix what needs to be
 #   fixed") - THE BLOWOUT SPOT IS PAUSED for games from this Pacific day. He kept it 10/15 on "if the test looked good
 #   we keep it"; split by season the test doesn't: under the live bar the college dog off a 17+ win is +21.4% on 112
@@ -1505,6 +1505,17 @@ SPOTS_OFF_FROM = {"blowout": "2026-11-12"}   # ⏸️ 11/11 FABLE: BEATING THE L
 #   anyway - the money that comes to it is the public chasing last week's score: this season's 25 college dogs off a
 #   17+ win went 5-20 on our tape, live the spot is 3-11 (five of those posted on a stale number). Its quit rule
 #   (SPOT_QUIT, 25 graded under 35%) would have let it run 11 more. Back on = the owner's call.
+#   ⏸️ THE HAMMERED SPOT IS PAUSED for games from the 11/22 Pacific day (11/20 FABLE - EARLY PLAYS + THIN DAYS, the owner:
+#   "early plays have been trash"; results/studies/early_thin_1120/ e1_hammered_tape). NOT THE BET THAT WAS STUDIED: the
+#   study's cell (10/1 study 4, early_1111 s3 / s6d on the paid history) is a dog the money came 4+ points to between
+#   TUESDAY's first fair look and a look two days later - 25-23 +23.0% on 48 (NFL 26 / college 22, z 1.3). The owner's
+#   3-day rule has the live spot fire Saturday night -> Tuesday, a stretch the paid history can't see: on our tape all
+#   11 live fires came 2-27 hours after the book's FIRST number of the week, 7 of them measured off that opener itself
+#   (Tulane's "+14.2 points" was +425 -> +195 in 8 hours of a Sunday) - the opener settling, not money. The only record
+#   of THAT window is one season of our own tape (10-14 +13.0% on 24, z 0.45, our own plays in it). Live 1-5, -1.0u, all
+#   college, 5 of 6 closed WORSE than we paid (Wyoming +245 closed +310). Its judge (20 graded) would not read before
+#   next season. The open plays stay as posted (nothing is pulled); a paused spot adds no weight to another spot's total
+#   either. Back on = the owner's call, or a study of the Sunday window once the tape holds a second season.
 BLOWOUT_FBS_ONLY = True                  # 💥 the blowout spot counts a college team's blowout only over an FBS team (the
 #                                         10/16 finding: 104 of 250 FBS blowout wins this season were vs FCS tune-ups - a
 #                                         52-0 over an FCS school says nothing the books missed; the 10/1 study's +4.4% on
