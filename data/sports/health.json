@@ -1,5 +1,5 @@
 {
- "at": "2026-11-21T16:58Z",
+ "at": "2026-11-21T17:34Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -9,25 +9,36 @@
   "card audit: SHORT CARD - Indiana St (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (61s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card quality: 98/100 on 8 live cards (bad lines the write-up put on them: 1, thin cards: 0, fact lines a card: 2.4, unit cards under the floor: 3)",
+  "card quality: 100/100 on 6 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 3.2, unit cards under the floor: 3)",
   "slate check: all 192 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
-  "simulator ran 0h ago",
-  "engine ran 3 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-21T17:34Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "card audit: SHORT CARD - Southern Miss (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "card audit: SHORT CARD - UT Rio Grande (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "card audit: SHORT CARD - Indiana St (2026-11-21): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-21T16:58Z",
    "fixes": [
@@ -481,13 +492,6 @@
    "fixes": [
     "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - started sports.yml"
    ],
-   "problems": [
-    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-19T21:00Z",
-   "fixes": [],
    "problems": [
     "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
    ]
