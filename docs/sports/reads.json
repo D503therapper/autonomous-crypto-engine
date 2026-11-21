@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T02:43Z",
+ "updated": "2026-11-21T02:52Z",
  "games": [
   {
    "id": "ncaab:401918454",
@@ -462,7 +462,7 @@
    "home": "Delaware St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Niagara",
@@ -475,7 +475,7 @@
     "reasons": [
      "their top scorer Nehemiah Reedus (16.2 a game) missed their last game - the books under-price that (4 of 4 seasons)"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -833,8 +833,8 @@
    "away": "Miss Valley St",
    "home": "Arkansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -893,8 +893,8 @@
    "away": "South Alabama",
    "home": "SMU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -938,8 +938,8 @@
    "away": "West Coast",
    "home": "Pepperdine",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1027,6 +1027,36 @@
    "start": "2026-11-21T02:00Z",
    "away": "Sam Houston",
    "home": "Boise St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921691",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-21T02:30Z",
+   "away": "Seton Hall",
+   "home": "NC State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909311",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-21T02:30Z",
+   "away": "Suns",
+   "home": "Jazz",
    "h1": null,
    "why": "started",
    "done": false,
