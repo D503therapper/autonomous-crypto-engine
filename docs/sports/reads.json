@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T18:35Z",
+ "updated": "2026-11-21T18:47Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -812,6 +812,51 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401867959",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-21T18:30Z",
+   "away": "Delaware St",
+   "home": "SC State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868193",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-21T18:30Z",
+   "away": "Tennessee St",
+   "home": "Gardner-Webb",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401919828",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-21T18:30Z",
+   "away": "W Illinois",
+   "home": "Mercyhurst",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401858527",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -844,8 +889,8 @@
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
-    "team": "FAU",
-    "p": 0.484,
+    "team": "South Florida",
+    "p": 0.487,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -860,10 +905,10 @@
     "team": "FAU",
     "opp": "South Florida",
     "market": "spread",
-    "line": 1.5,
-    "odds": -108,
-    "p": 0.509,
-    "win_p": 0.501,
+    "line": 2.5,
+    "odds": -115,
+    "p": 0.513,
+    "win_p": 0.495,
     "reasons": []
    }
   },
@@ -889,7 +934,7 @@
     "opp": "UL Monroe",
     "market": "spread",
     "line": -14.0,
-    "odds": -108,
+    "odds": -110,
     "p": 0.518,
     "win_p": 0.778,
     "reasons": [
@@ -2189,7 +2234,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Austin Peay",
-    "p": 0.696,
+    "p": 0.692,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2205,9 +2250,9 @@
     "opp": "Austin Peay",
     "market": "spread",
     "line": 12.5,
-    "odds": -111,
+    "odds": -117,
     "p": 0.511,
-    "win_p": 0.249,
+    "win_p": 0.253,
     "reasons": []
    }
   },
@@ -3511,8 +3556,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.774,
-    "tie": 0.027,
+    "p": 0.779,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -3527,9 +3572,9 @@
     "opp": "Pelicans",
     "market": "spread",
     "line": -18.5,
-    "odds": -106,
+    "odds": -116,
     "p": 0.503,
-    "win_p": 0.884,
+    "win_p": 0.889,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back",
@@ -3971,7 +4016,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.629,
+    "p": 0.623,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -3987,9 +4032,9 @@
     "opp": "Utah State",
     "market": "ml",
     "line": null,
-    "odds": -290,
-    "p": 0.675,
-    "win_p": 0.675,
+    "odds": -278,
+    "p": 0.668,
+    "win_p": 0.668,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off"
@@ -4033,7 +4078,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.384,
+    "p": 0.388,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -4049,9 +4094,9 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.648,
-    "win_p": 0.428,
+    "odds": -205,
+    "p": 0.639,
+    "win_p": 0.42,
     "reasons": []
    }
   },
@@ -4077,9 +4122,9 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -220,
-    "p": 0.661,
-    "win_p": 0.661,
+    "odds": -219,
+    "p": 0.66,
+    "win_p": 0.66,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -4183,7 +4228,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.718,
+    "p": 0.719,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -4201,7 +4246,7 @@
     "line": -11.5,
     "odds": -107,
     "p": 0.502,
-    "win_p": 0.823,
+    "win_p": 0.824,
     "reasons": [
      "the stronger team",
      "better rested",
@@ -4245,7 +4290,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.659,
+    "p": 0.66,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -4263,7 +4308,7 @@
     "line": -7.5,
     "odds": -106,
     "p": 0.502,
-    "win_p": 0.752,
+    "win_p": 0.753,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -4308,7 +4353,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.653,
+    "p": 0.652,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -4324,9 +4369,9 @@
     "opp": "Giants",
     "market": "ml",
     "line": null,
-    "odds": -256,
-    "p": 0.727,
-    "win_p": 0.727,
+    "odds": -255,
+    "p": 0.726,
+    "win_p": 0.726,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -4430,8 +4475,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.438,
-    "tie": 0.292,
+    "p": 0.432,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4446,9 +4491,9 @@
     "opp": "Penguins",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.677,
-    "win_p": 0.677,
+    "odds": -225,
+    "p": 0.666,
+    "win_p": 0.666,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
