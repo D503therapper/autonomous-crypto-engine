@@ -25344,6 +25344,15 @@
      "game:nonconf"
     ],
     "dec": 2.6,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": null,
+     "s": "79-73",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "def_first": true,
     "dog_bad": [],
     "dog_ctx": {
@@ -25381,6 +25390,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "30,37,12",
+     "h": "36,31,6"
+    },
     "form_state": [
      58.0,
      1,
@@ -25455,7 +25468,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -25464,7 +25477,9 @@
     ],
     "roster_new": 0.479,
     "roster_tin": 0.371,
+    "score": "UT Rio Grande 79 @ Austin Peay 73",
     "season_games": null,
+    "settled": "2026-11-21T23:07Z",
     "side": "away",
     "spare": [],
     "spread_stack": 0.02,
@@ -25506,12 +25521,14 @@
    "two_at": 5
   },
   "p_hit": 0.3559,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-21T16:00Z",
   "round": 1,
+  "settled": "2026-11-21T23:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 124,
