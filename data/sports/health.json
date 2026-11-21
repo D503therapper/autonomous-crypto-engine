@@ -1,9 +1,9 @@
 {
- "at": "2026-11-21T13:01Z",
+ "at": "2026-11-21T13:02Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (73s)",
+  "live watcher fresh (142s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 30 min ago",
+  "engine ran 31 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-21T13:02Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-21T13:01Z",
    "fixes": [],
@@ -478,16 +483,6 @@
    ],
    "problems": [
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-19T16:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
