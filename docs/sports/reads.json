@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T13:46Z",
+ "updated": "2026-11-21T13:49Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -7,8 +7,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UNC Greensboro",
-    "p": 0.696,
-    "tie": 0.037,
+    "p": 0.665,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -19,14 +19,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "SC Upstate",
-    "opp": "UNC Greensboro",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -102,
-    "p": 0.501,
-    "win_p": 0.229,
-    "reasons": []
+    "team": "UNC Greensboro",
+    "opp": "SC Upstate",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.739,
+    "win_p": 0.739,
+    "reasons": [
+     "the stronger team",
+     "the turnover matchup is ours by 5.4 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+    ]
    }
   },
   {
@@ -35,8 +38,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Siena",
-    "p": 0.624,
-    "tie": 0.041,
+    "p": 0.64,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -51,9 +54,9 @@
     "opp": "Bucknell",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.694,
-    "win_p": 0.694,
+    "odds": -258,
+    "p": 0.714,
+    "win_p": 0.714,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -128,7 +131,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Columbia",
-    "p": 0.494,
+    "p": 0.486,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -144,9 +147,9 @@
     "opp": "Boston U",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.523,
-    "win_p": 0.523,
+    "odds": -120,
+    "p": 0.511,
+    "win_p": 0.511,
     "reasons": [
      "rolling off a blowout win",
      "the turnover matchup is ours by 5.6 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
@@ -1469,9 +1472,9 @@
     "team": "Tennessee Tech",
     "opp": "Mississippi St",
     "market": "spread",
-    "line": 31.5,
-    "odds": -118,
-    "p": 0.579,
+    "line": 30.5,
+    "odds": -105,
+    "p": 0.578,
     "win_p": 0.085,
     "reasons": [
      "sharp money moving this way"
@@ -1998,7 +2001,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Navy",
-    "p": 0.626,
+    "p": 0.607,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -2014,9 +2017,9 @@
     "opp": "Rider",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.696,
-    "win_p": 0.696,
+    "odds": -218,
+    "p": 0.672,
+    "win_p": 0.672,
     "reasons": [
      "the stronger team"
     ]
@@ -3097,7 +3100,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "C Arkansas",
-    "p": 0.528,
+    "p": 0.537,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -3106,20 +3109,18 @@
    "start": "2026-11-21T21:00Z",
    "away": "C Arkansas",
    "home": "Jacksonville",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "C Arkansas",
     "opp": "Jacksonville",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.571,
-    "win_p": 0.571,
+    "odds": -155,
+    "p": 0.582,
+    "win_p": 0.582,
     "reasons": [
-     "the stronger team",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "coughing it up 1.0 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
+     "the stronger team"
     ]
    }
   },
@@ -3328,7 +3329,7 @@
     "opp": "N Illinois",
     "market": "spread",
     "line": -25.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.563,
     "win_p": 0.894,
     "reasons": [
@@ -4842,7 +4843,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.581,
+    "p": 0.582,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -4858,9 +4859,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -216,
-    "p": 0.646,
-    "win_p": 0.646,
+    "odds": -217,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
