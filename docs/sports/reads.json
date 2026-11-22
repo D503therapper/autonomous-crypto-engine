@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T03:57Z",
+ "updated": "2026-11-22T04:14Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -2611,8 +2611,8 @@
    "away": "SMU",
    "home": "Notre Dame",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2626,8 +2626,8 @@
    "away": "Stanford",
    "home": "California",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2932,6 +2932,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401909567",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T04:00Z",
+   "away": "Washington St",
+   "home": "Duke",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401911024",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2969,8 +2984,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nebraska",
-    "p": 0.809,
-    "tie": 0.028,
+    "p": 0.791,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2987,7 +3002,7 @@
     "line": 11.5,
     "odds": -105,
     "p": 0.505,
-    "win_p": 0.108,
+    "win_p": 0.125,
     "reasons": []
    }
   },
@@ -3059,7 +3074,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.766,
+    "p": 0.761,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -3075,9 +3090,9 @@
     "opp": "Chiefs",
     "market": "spread",
     "line": 15.5,
-    "odds": -108,
+    "odds": -113,
     "p": 0.507,
-    "win_p": 0.109,
+    "win_p": 0.115,
     "reasons": []
    }
   },
@@ -3237,7 +3252,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.725,
+    "p": 0.726,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -3255,7 +3270,7 @@
     "line": -11.5,
     "odds": -107,
     "p": 0.502,
-    "win_p": 0.831,
+    "win_p": 0.832,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3546,8 +3561,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wyoming",
-    "p": 0.582,
-    "tie": 0.042,
+    "p": 0.565,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3562,9 +3577,9 @@
     "opp": "Duquesne",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.642,
-    "win_p": 0.642,
+    "odds": -175,
+    "p": 0.62,
+    "win_p": 0.62,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +14.2 a game to their +7.2 - the books don't price the glass (5 of 5 seasons)"
@@ -3639,7 +3654,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Alabama",
-    "p": 0.67,
+    "p": 0.66,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -3648,20 +3663,17 @@
    "start": "2026-11-22T20:00Z",
    "away": "West Florida",
    "home": "South Alabama",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "West Florida",
-    "opp": "South Alabama",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -105,
-    "p": 0.5,
-    "win_p": 0.26,
-    "reasons": [
-     "out-rebounding people by +5.5 a game to their -3.7 - the books don't price the glass (5 of 5 seasons)",
-     "they've lost 1 rotation man in the last three weeks - Aaron Goldstein (35 minutes a game)"
-    ]
+    "team": "South Alabama",
+    "opp": "West Florida",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.733,
+    "win_p": 0.733,
+    "reasons": []
    }
   },
   {
@@ -4458,7 +4470,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.535,
+    "p": 0.538,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -4474,9 +4486,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -167,
-    "p": 0.58,
-    "win_p": 0.58,
+    "odds": -170,
+    "p": 0.584,
+    "win_p": 0.584,
     "reasons": [
      "better QB play lately",
      "the stronger team"
