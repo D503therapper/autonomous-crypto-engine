@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 130,
+  "n": 132,
   "beat": 43,
-  "same": 57,
-  "worse": 30,
-  "avg_pts": 0.22
+  "same": 58,
+  "worse": 31,
+  "avg_pts": 0.21
  },
  "unit_plays": {
-  "n": 130,
+  "n": 132,
   "beat": 43,
-  "same": 57,
-  "worse": 30,
-  "avg_pts": 0.22
+  "same": 58,
+  "worse": 31,
+  "avg_pts": 0.21
  },
  "by_kind": {
   "dog": {
@@ -22,18 +22,18 @@
    "avg_pts": -0.21
   },
   "lock": {
-   "n": 15,
+   "n": 16,
    "beat": 9,
    "same": 4,
-   "worse": 2,
-   "avg_pts": 1.21
+   "worse": 3,
+   "avg_pts": 1.11
   },
   "play": {
-   "n": 81,
+   "n": 82,
    "beat": 27,
-   "same": 36,
+   "same": 37,
    "worse": 18,
-   "avg_pts": 0.22
+   "avg_pts": 0.21
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.36
   },
   "ncaab": {
-   "n": 7,
+   "n": 8,
    "beat": 3,
-   "same": 2,
+   "same": 3,
    "worse": 2,
-   "avg_pts": 0.51
+   "avg_pts": 0.45
   },
   "ncaaf": {
    "n": 43,
@@ -66,11 +66,11 @@
    "avg_pts": 0.01
   },
   "nfl": {
-   "n": 11,
+   "n": 12,
    "beat": 6,
    "same": 4,
-   "worse": 1,
-   "avg_pts": 0.85
+   "worse": 2,
+   "avg_pts": 0.73
   },
   "nhl": {
    "n": 51,
@@ -82,11 +82,11 @@
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 9,
+   "n": 10,
    "beat": 5,
    "same": 3,
-   "worse": 1,
-   "avg_pts": 0.88
+   "worse": 2,
+   "avg_pts": 0.74
   },
   "1-2u": {
    "n": 3,
@@ -1916,6 +1916,34 @@
    "pts": 0.8,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "Panthers",
+   "market": "ml",
+   "line": null,
+   "odds": -145,
+   "close": -142,
+   "pts": -0.5,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Robert Morris",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
   },
   {
    "date": "2026-11-22",

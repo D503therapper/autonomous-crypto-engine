@@ -30157,6 +30157,393 @@ def test_daily_1122_the_nba_team_that_shuts_the_paint_is_a_weight_on_the_dog_fro
     assert "mark_nba_paint(games, out, now)" in inspect.getsource(sports)
 
 
+# ---- 🗣️ 11/22 THE CARD SELLS THE PICK (results/studies/cards_1122) ----------------------------------------------------------
+_BOX_KEYS_1122 = ("fieldGoalsMade-fieldGoalsAttempted", "threePointFieldGoalsMade-threePointFieldGoalsAttempted",
+                  "freeThrowsMade-freeThrowsAttempted", "totalRebounds", "offensiveRebounds", "totalTurnovers", "pointsInPaint",
+                  "fastBreakPoints", "assists", "steals", "blocks")
+# the real 2026-27 games and team box lines going into 11/22 (data/sports/games/ncaab, data/sports/teamstats/ncaab):
+# start | away id | away | score | home id | home | score | neutral | the away box | the home box
+_RM_NMSU_1122 = (
+    "2026-11-04T01:30|2703|Western NM|66|166|New Mexico St|73|0|24-68 5-23 13-16 46 19 14 30 2 8 5 4|24-58 7-21 18-22 37 10 10 32 11 13 8 3",
+    "2026-11-07T22:00|166|New Mexico St|68|2250|Gonzaga|109|0|21-48 4-14 22-24 26 9 19 34 4 6 3 1|38-62 13-24 20-29 30 11 6 42 20 23 10 3",
+    "2026-11-13T02:00|166|New Mexico St|58|2638|UTEP|60|0|19-48 10-26 10-18 37 16 18 12 1 12 7 2|21-55 8-30 10-14 34 15 14 22 3 14 10 5",
+    "2026-11-15T21:00|166|New Mexico St|61|21|San Diego St|73|1|19-48 7-23 16-17 34 10 23 12 8 6 3 1|24-56 4-23 21-32 25 10 6 32 13 18 10 4",
+    "2026-11-20T02:00|2638|UTEP|84|166|New Mexico St|69|0|24-55 10-27 26-38 34 9 7 24 17 16 12 1|15-44 9-23 30-36 36 8 15 8 7 11 3 3",
+    "2026-11-03T03:00|2523|Robert Morris|49|2440|Nevada|86|0|13-49 3-18 20-23 32 11 19 16 2 6 2 3|32-68 8-26 14-23 47 21 8 46 14 22 8 2",
+    "2026-11-07T01:00|2523|Robert Morris|56|82|UIC|79|0|19-48 8-24 10-13 27 7 20 20 0 16 5 1|29-60 9-21 12-21 31 9 12 38 11 17 13 5",
+    "2026-11-12T01:00|2523|Robert Morris|53|8|Arkansas|76|0|19-51 8-27 7-12 21 3 10 20 8 11 8 2|31-62 5-15 9-17 45 14 10 44 18 25 5 5",
+    "2026-11-15T19:00|424|Capital|45|2523|Robert Morris|94|0|14-52 5-25 12-19 23 9 15 14 4 8 6 1|35-58 7-20 17-23 45 13 12 54 13 26 10 8",
+    "2026-11-20T00:00|2523|Robert Morris|76|2649|Toledo|83|0|32-73 9-31 3-10 42 16 9 42 12 18 3 4|30-65 5-21 18-23 41 12 6 40 18 15 5 5")
+_NICH_TROY_1122 = (
+    "2026-11-02T17:00|126750|N American|56|2447|Nicholls|110|0|23-66 5-25 5-8 36 11 23 26 11 9 6 3|43-74 13-30 11-14 40 8 10 58 33 26 16 5",
+    "2026-11-07T00:30|2447|Nicholls|63|5|UAB|70|0|23-72 8-35 9-16 38 15 8 30 15 15 12 1|21-55 6-25 22-28 50 12 17 26 22 10 5 3",
+    "2026-11-11T00:30|2447|Nicholls|63|2655|Tulane|77|0|23-53 4-19 13-17 29 8 12 34 5 7 7 4|19-44 9-18 30-38 34 9 12 18 5 10 6 2",
+    "2026-11-15T01:00|2348|Louisiana Tech|68|2447|Nicholls|71|0|22-54 5-17 19-23 37 10 19 30 19 9 10 1|22-53 16-34 11-20 30 7 17 12 13 17 11 4",
+    "2026-11-18T01:30|2447|Nicholls|41|145|Ole Miss|76|0|14-46 6-25 7-13 32 4 21 16 2 9 3 5|31-74 3-20 11-14 49 18 9 54 22 19 14 2",
+    "2026-11-21T22:00|2572|Southern Miss|80|2447|Nicholls|69|1|27-55 6-18 20-31 44 16 15 40 13 7 6 4|27-58 7-24 8-16 21 5 10 40 16 9 14 4",
+    "2026-11-03T00:00|113|UMass|71|2653|Troy|60|0|28-65 7-24 8-15 47 16 13 36 18 16 5 10|22-64 7-28 9-14 40 12 9 28 4 10 10 1",
+    "2026-11-07T00:00|2653|Troy|68|52|Florida St|91|0|23-55 9-26 13-21 21 5 11 24 4 15 7 3|25-58 7-28 34-39 46 18 12 26 7 17 5 1",
+    "2026-11-11T00:00|2351|LMU|69|2653|Troy|74|0|27-74 8-40 7-13 44 17 7 36 16 14 7 4|25-56 7-25 17-27 44 11 13 36 14 8 5 5",
+    "2026-11-14T00:00|2653|Troy|62|152|NC State|81|0|20-58 8-24 14-19 31 11 7 24 10 9 4 4|25-58 11-33 20-24 44 15 7 28 9 19 4 7",
+    "2026-11-18T00:00|2463|CSU Northridge|74|2653|Troy|84|0|25-63 6-25 18-23 45 22 17 36 8 16 3 7|25-57 9-25 25-30 31 12 10 32 15 14 13 10",
+    "2026-11-22T01:00|2674|Valparaiso|77|2653|Troy|72|1|27-60 6-21 17-25 32 12 11 42 18 9 10 2|26-43 8-13 12-17 26 1 16 30 6 9 4 1")
+_ELO_1122 = {"166": 1394, "2703": 1500, "2250": 1824, "2638": 1518, "21": 1751, "2440": 1616, "2523": 1488, "82": 1572, "8": 1760,
+             "424": 1500, "2649": 1603, "2447": 1353, "126750": 1500, "5": 1616, "2655": 1436, "2348": 1532, "145": 1668,
+             "2572": 1505, "2653": 1491, "113": 1478, "52": 1722, "2351": 1454, "152": 1698, "2463": 1389, "2674": 1586}
+
+
+class _Fx1122:
+    """A slate off real rows: the games dict, the team boxes in a temp data folder (sports_card_sell.DATA), the D1 set
+    and the ratings - and everything put back after."""
+
+    def __init__(self, lg, rows, pre, non_d1=(), ratings=None, keys=_BOX_KEYS_1122):
+        self.lg, self.rows, self.pre, self.non_d1, self.ratings, self.keys = lg, rows, pre, set(non_d1), ratings or {}, keys
+
+    def __enter__(self):
+        import sports_card_sell as cs, sports_card_check as cc, sports_breakdown_v24 as v24, sports_model as sm_
+        self.keep = (cs.DATA, sm_.ncaab_d1, dict(v24._D1), cs.SELL, v24.SELL_FROM)
+        d = tempfile.mkdtemp()
+        os.makedirs(os.path.join(d, "teamstats"))
+        G, teams = {}, set()
+        with open(os.path.join(d, "teamstats", f"{self.lg}.jsonl"), "w") as fh:
+            for i, row in enumerate(self.rows):
+                st, a, an, as_, h, hn, hs, neu, ba, bh = row.split("|")
+                gid = f"{self.lg}:fx{i}"
+                G[gid] = {"id": gid, "league": self.lg, "start": st + "Z", "status": "final", "home": h, "away": a, "home_name": hn,
+                          "away_name": an, "home_score": hs, "away_score": as_, "stype": "2", "neutral": neu, "elev": "100"}
+                teams |= {a, h}
+                if ba and bh:
+                    fh.write(json.dumps({"gid": gid, "start": st + "Z", "teams": {a: dict(zip(self.keys, ba.split())),
+                                                                                 h: dict(zip(self.keys, bh.split()))}}) + "\n")
+        G[self.pre["id"]] = dict({"league": self.lg, "status": "pre", "home_score": "", "away_score": "", "stype": "2", "elev": "100"}, **self.pre)
+        d1 = teams - self.non_d1
+        sm_.ncaab_d1 = lambda fin: set(d1)
+        cs.DATA, cs.SELL, v24.SELL_FROM = d, True, "2026-11-22"
+        cs._BOX.clear()
+        cc.reset()
+        e = sm_.Elo(20, 60, self.lg)
+        e.r.update({k: float(x) for k, x in self.ratings.items()})
+        self.G, self.elo = G, {self.lg: e}
+        return self
+
+    def __exit__(self, *a):
+        import sports_card_sell as cs, sports_card_check as cc, sports_breakdown_v24 as v24, sports_model as sm_
+        cs.DATA, sm_.ncaab_d1, d1, cs.SELL, v24.SELL_FROM = self.keep
+        v24._D1.clear()
+        v24._D1.update(d1)
+        cs._BOX.clear()
+        cc.reset()
+
+    def card(self, leg, used=None):
+        """(the leg after the write-up, its fact lines incl. the line under the pick, the card as the page shows it)."""
+        import sports_breakdown_v24 as v24, sports_card_check as cc, sports_card_guard as gd
+        leg = dict(leg)
+        leg["breakdown"] = v24.breakdown(leg, self.G, self.elo, {}, used if used is not None else set())
+        pk = {"date": "2026-11-22", "kind": "play", "tier": "value", "status": "open", "american": leg["odds"], "legs": [leg]}
+        quiet, cc.note = cc.note, (lambda *a, **k: self.caught.append(a[2:4]))
+        self.caught = []
+        try:
+            why = cc.check_one(pk, leg, leg.get("why_line") or "", self.G)
+            why = why[0] if isinstance(why, tuple) else why
+            lines = cc.check(pk, leg, gd.clean(list(leg["breakdown"]), self.lg, leg["team"], leg["opp"]), self.G, why=why or "")
+        finally:
+            cc.note = quiet
+        body = [x for x in lines if not cc.BOTTOM.match(x)]
+        return leg, ([why] if why else []) + body, lines
+
+
+def _leg_rm_1122():
+    return {"game_id": "ncaab:rm", "league": "ncaab", "side": "away", "home": False, "neutral": True, "team": "Robert Morris",
+            "opp": "New Mexico St", "market": "ml", "odds": 102, "dec": 2.02, "p": 0.4726, "p_market": 0.4739, "edge_own": -0.0438,
+            "tier": "value", "is_lean": False, "ncaab_slot": "dog", "dog_read": 4.0, "eff_p": 0.606, "to_net": 0.0585,
+            "opp_tp_net": 0.031, "reb_gap": -4.4, "dog_ctx": {"cw5": 0, "hits_top": False, "opp_won": False, "won": False},
+            "dog_read_parts": {"facts": [], "games_ok": True, "knowledge": 0, "ratings": 2, "weights": 2.0},
+            "ncaab_fired": ["the favorite lost its last"], "games_in": 5, "opp_games_in": 5,
+            "reasons": ["sharp money moving this way", "the dog read is 4 (our efficiency ratings have them the better team on this "
+                        "floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"]}
+
+
+def _leg_nich_1122():
+    return {"game_id": "ncaab:nich", "league": "ncaab", "side": "home", "home": True, "neutral": True, "team": "Nicholls",
+            "opp": "Troy", "market": "ml", "odds": 195, "dec": 2.95, "p": 0.3135, "p_market": 0.325, "edge_own": -0.0763,
+            "tier": "value", "is_lean": False, "ncaab_slot": "dog", "dog_read": 4.0, "eff_p": 0.4268, "to_net": 0.0372,
+            "opp_tp_net": 0.077, "reb_gap": -0.17, "def_first": True, "opp_off_low": True, "dog_good": ["def_first_vs_bad_offense"],
+            "dog_ctx": {"cw5": 1, "hits_top": False, "opp_won": False, "won": False},
+            "dog_read_parts": {"facts": ["def_first_vs_bad_off"], "games_ok": True, "knowledge": 2, "ratings": 0, "weights": 2.0},
+            "ncaab_fired": ["the favorite lost its last"], "games_in": 6, "opp_games_in": 6,
+            "reasons": ["1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337",
+                        "the dog read is 4 (the study angles add 2 points, a defense-first team against a bottom-third offense) - "
+                        "dogs reading 4+ beat their price every season 2018-25"]}
+
+
+_BAD_TALK_1122 = re.compile(r"our ratings|the ratings like|our read|our number|we price|we make|on our sheet|real talk|\bchalk\b|"
+                            r"that's just facts|\d+% (?:chance|to win)|paid \+\d|beat their price|every season", re.I)
+
+
+def test_cards_1122_the_card_sells_the_pick_the_robert_morris_card():
+    """11/22, the owner after four card passes: "The breakdowns are short and vague" / "the breakdowns basically need to
+    sell our picks why we taking them and needs to be in our lingo". The Robert Morris +102 1u card (the college hoops
+    dog slot, a dog read of 4) posted with three body lines - New Mexico St's season points and their last-3 points (the
+    same stat twice), the schedule line - under "New Mexico St got handled 84-69 by UTEP last time out", and not a word
+    of what the read saw on the floor. The box scores held it: New Mexico St turn it over 19 times a game against D1
+    teams (Robert Morris 14), get 9 assists, get outscored 30-16 in the paint and 13-5 on the break, and their one win
+    is over Western NM, a non-D1 school. Now the card says it (sports_card_sell.sell_facts), the turnover line - the
+    one the leg's own reason (to_net) points at - leads, and nothing is said twice."""
+    import sports_card_sell as cs, sports_card_check as cc
+    pre = {"id": "ncaab:rm", "start": "2026-11-22T19:30Z", "home": "166", "away": "2523", "home_name": "New Mexico St",
+           "away_name": "Robert Morris", "neutral": "1"}
+    with _Fx1122("ncaab", _RM_NMSU_1122, pre, non_d1=("2703", "424"), ratings=_ELO_1122) as fx:
+        leg, facts, page = fx.card(_leg_rm_1122())
+        txt = "\n".join(page + [leg["why_line"]])
+        assert len(facts) >= 6, txt                                                     # the owner's floor, on the page
+        why = leg["why_line"]
+        assert why.startswith("🧤") and "Robert Morris" in why and "19" in why and "14" in why, why   # the reason leads, both numbers
+        assert leg["why_key"] == "w_sell" and cs.reason_backed(why, leg) == "reason"
+        assert why.index("Robert Morris") < why.index("New Mexico St") or why.startswith("🧤 Robert Morris"), why   # our side first
+        assert facts[0] == why, (facts[0], why)                                         # the page keeps it
+        kinds = [cs.reason_backed(x, leg) for x in facts]
+        assert kinds.count("reason") >= 2 and kinds.count("reason") + kinds.count("matchup") >= 4, list(zip(kinds, facts))
+        assert cs.dedupe(facts[1:], "Robert Morris", "New Mexico St", why)[1] == [], txt   # NO REPEATS: one stat a team
+        score = [x for x in facts if str(cs.stat_of(x) or "").startswith("score")]
+        assert len(score) == 1 and "against d1 teams" in score[0].lower() and "82" in score[0] and "64" in score[0], score   # D1 games only
+        assert "78" not in score[0] and "66" not in score[0]                            # (never the number with the tune-up in it)
+        assert any(x.startswith("🎨") and ("30" in x or "16" in x) for x in facts), txt  # the paint
+        assert any(x.startswith("🤝") and "assists" in x and "9" in x and "13" in x for x in facts), txt
+        assert any(x.startswith("📋") and "Western NM" in x and "Division I" in x and "73-66" in x for x in facts), txt
+        assert any(x.startswith("📅") and "84-69" in x and "UTEP" in x for x in facts), txt   # the fired angle: the favorite's last loss
+        assert not _BAD_TALK_1122.search(txt), txt                                      # never "our ratings", a price claim, a study's rate
+        assert not any(cc.knocks_us(x, leg) for x in facts[1:] if not x.startswith("⚖️")), txt
+        assert not [c for c in fx.caught if c[0] in (cc.Q_BOX, cc.Q_SAME) or str(c[0]).startswith(cc.Q_BOX)], fx.caught
+        # the standing check re-derives every box-score number: a wrong one is cut, the same stat twice is cut
+        pk = {"date": "2026-11-22", "kind": "play", "tier": "value", "status": "open", "american": 102, "legs": [leg]}
+        bad = "🧤 New Mexico St cough it up 25 times a game against D1 teams. Robert Morris: 14."
+        assert cc.sell_numbers(bad, leg, fx.G).startswith(cc.Q_BOX) and cc.sell_numbers(why, leg, fx.G) == ""
+        twice = ["📊 Against D1 teams New Mexico St gives up 82 points a game and scores 64.",
+                 "📊 New Mexico St have been outscored 72 to 63 a game over their last 3.", "✅ Bottom line: Robert Morris (+102). Give me Robert Morris."]
+        got = cc.check(pk, leg, twice, fx.G, why=why)
+        assert twice[0] in got and twice[1] not in got, got
+        assert ("repeats", twice[1]) in cc.quality(leg, why, twice, fx.G)
+        # ... but only on a card the sell writer wrote: an older card (the posted 11/22 one, its game already started) can't
+        # be re-written, so the page leaves its lines alone rather than make it shorter
+        old = dict(leg, bv=82)
+        assert not cc.same_on(old) and cc.same_on(dict(leg, bv=83)) and cc.same_on(leg)
+        assert twice[1] in cc.check({**pk, "legs": [old]}, old, twice, fx.G, why=why)
+        # the switch: off = the 11/19 card (no sell line, the same stat said twice again)
+        cs.SELL = False
+        old_leg, old_facts, _ = fx.card(_leg_rm_1122())
+        assert not any(cs.is_sell(x) for x in old_facts), old_facts
+        cs.SELL = True
+
+
+def test_cards_1122_the_nicholls_card_says_what_the_files_hold_and_never_more():
+    """The Nicholls +195 1u card (11/22) was two body lines - Troy's last 3 on the scoreboard under the pick, Troy's season on
+    the scoreboard in the body (the same stat twice) and Troy's last game. The leg's reasons: a defense-first dog against
+    a bottom-third offense, and a favorite whose three-point defense is luck (opp_tp_net +0.077). Said as facts: D1 teams
+    are 45 for 171 from three against Troy (26% - that comes back), Nicholls come up with 9 steals a game, and Nicholls
+    already beat Louisiana Tech 71-68. Every Troy loss came to a team rated above Nicholls, so no record / skid line
+    (SCHEDULE_FAIR), and Nicholls get out-rebounded worse than Troy do, so no glass line: the files hold five facts for
+    this side and the card says five - never padding."""
+    import sports_card_sell as cs, sports_card_check as cc
+    pre = {"id": "ncaab:nich", "start": "2026-11-22T20:00Z", "home": "2447", "away": "2653", "home_name": "Nicholls",
+           "away_name": "Troy", "neutral": "1"}
+    with _Fx1122("ncaab", _NICH_TROY_1122, pre, non_d1=("126750",), ratings=_ELO_1122) as fx:
+        leg, facts, page = fx.card(_leg_nich_1122())
+        txt = "\n".join(page + [leg["why_line"]])
+        why = leg["why_line"]
+        assert why.startswith("👌") and "Nicholls" in why and "45 for 171" in why and "26%" in why, why   # the luck, as counts
+        assert cs.reason_backed(why, leg) == "reason" and leg["why_key"] == "w_sell"
+        assert not re.search(r"Troy (?:guard|defend|lock)", why), why                    # said as it coming back - never praise
+        steals = next(x for x in facts if x.startswith("🥷"))
+        assert "9 steals" in steals and cs.reason_backed(steals, leg) == "reason", steals   # the defense-first reason, as a count
+        win = next(x for x in facts if x.startswith("🏆"))
+        assert "Louisiana Tech" in win and "71-68" in win, win
+        assert len(facts) >= 5, txt
+        assert sum(1 for x in facts if cs.reason_backed(x, leg) == "reason") >= 3, txt   # 👌 + 🥷 + the favorite's last loss
+        assert cs.dedupe(facts[1:], "Nicholls", "Troy", why)[1] == [], txt
+        assert sum(1 for x in facts if str(cs.stat_of(x) or "").startswith("score")) <= 1, txt   # Troy's scoreboard once
+        assert not any(x.startswith("🧲") for x in facts), txt                           # we rebound worse than they do: no glass line
+        assert not any(re.search(r"\b2-4\b|straight L|skid", x) for x in facts), txt     # their losses came to better teams
+        assert not _BAD_TALK_1122.search(txt), txt
+        # the schedule guard: with Troy's schedule 60+ points tougher than ours the box-score comparisons go quiet -
+        # only the line that isn't about the schedule (the three-point luck) is left
+        gu = [g for g in fx.G.values() if g["status"] == "final" and "2447" in (g["home"], g["away"]) and "126750" not in (g["home"], g["away"])]
+        gt = [g for g in fx.G.values() if g["status"] == "final" and "2653" in (g["home"], g["away"])]
+        e = fx.elo["ncaab"]
+        assert cs.fair_cmp(gu, gt, "2447", "2653", e)
+        for k in ("113", "52", "2351", "152", "2463", "2674"):
+            e.r[k] += 80.0
+        assert not cs.fair_cmp(gu, gt, "2447", "2653", e)
+        only = cs.sell_facts(_leg_nich_1122(), None, fx.G["ncaab:nich"], "Nicholls", "Troy", "2447", "2653", "ncaab", gu, gt, e=e, fair=True)
+        assert [s[2] for s in only if s[2] != "best_win"] == ["three_luck"], only
+
+
+_WIZ_1122 = (   # six games a side shaped like the 11/22 Wizards +170 card: a win over this opponent this year, the Magic
+    #             on their 3rd road game in 6 days, the Wizards living at the line (FTA 26-27, the Magic 22)
+    "2026-11-03T00:00|27|Wizards|103|19|Magic|94|0|38-85 9-30 18-27 44 10 13 48 12 24 8 5|34-86 12-40 14-22 42 11 17 40 10 22 7 4",
+    "2026-11-08T00:00|5|Cavaliers|118|27|Wizards|109|0|44-90 14-36 16-20 46 11 12 52 15 28 8 4|39-87 10-32 21-26 41 10 15 48 11 23 7 5",
+    "2026-11-11T00:00|27|Wizards|104|2|Celtics|121|0|37-88 9-33 21-27 40 9 16 44 9 22 6 4|45-91 16-40 15-19 47 12 11 50 17 29 9 6",
+    "2026-11-14T00:00|17|Nets|112|27|Wizards|101|0|36-88 11-37 18-22 42 10 15 40 11 23 8 3|41-86 10-30 20-26 45 11 13 52 14 26 9 6",
+    "2026-11-18T00:00|27|Wizards|110|1|Hawks|107|0|40-87 10-31 20-27 44 12 14 50 13 25 8 6|39-90 12-38 17-21 43 11 13 46 12 24 7 4",
+    "2026-11-21T00:00|4|Bulls|94|27|Wizards|98|0|35-89 9-34 15-19 44 12 15 40 10 21 7 3|36-84 8-29 18-25 46 11 14 46 9 22 8 7",
+    "2026-11-06T00:00|19|Magic|108|15|Bucks|117|0|38-84 14-41 18-23 41 10 16 42 11 25 7 4|43-88 13-36 18-24 44 9 12 50 14 27 9 5",
+    "2026-11-09T00:00|20|76ers|105|19|Magic|113|0|38-87 11-35 18-24 40 9 15 44 10 23 8 4|41-86 15-42 16-21 45 11 14 44 13 27 8 5",
+    "2026-11-13T00:00|19|Magic|112|18|Knicks|120|0|40-86 15-40 17-22 42 11 16 44 12 26 7 4|44-88 14-37 18-25 43 10 12 50 13 28 9 5",
+    "2026-11-18T00:00|19|Magic|115|11|Pacers|111|0|41-85 15-41 18-23 44 11 15 46 13 28 8 5|40-89 12-36 19-26 42 10 14 48 12 25 8 4",
+    "2026-11-20T00:00|19|Magic|113|14|Heat|111|0|40-84 14-40 19-24 43 11 16 46 12 27 8 4|40-88 13-37 18-27 41 10 13 46 13 26 9 5")
+
+
+def test_cards_1122_the_nba_floor_card_leads_with_the_game_they_already_won_and_says_the_size_right():
+    """The 11/22 Wizards +170 ½u card (the 🏀 NBA floor) was the good one - and still led with "The Wizards are on a 2-game
+    winning streak" while its body held a 103-94 win over the Magic this year. A fallback line under the pick (a streak,
+    a last game - WEAK_LEAD) gives way to the game these two already played (sports_breakdown_v24.lead_upgrade); the box
+    scores add the matchup (the Wizards at the line); a ½u says thin edge / tread lightly, never "the best dog"."""
+    import sports_card_sell as cs, sports_card_check as cc, sports_breakdown_v24 as v24, sports_card_guard as gd
+    pre = {"id": "nba:wiz", "start": "2026-11-23T00:00Z", "home": "27", "away": "19", "home_name": "Wizards", "away_name": "Magic", "neutral": "0"}
+    leg0 = {"game_id": "nba:wiz", "league": "nba", "side": "home", "home": True, "team": "Wizards", "opp": "Magic", "market": "ml",
+            "odds": 170, "dec": 2.7, "p": 0.351, "p_market": 0.356, "edge_own": -0.054, "tier": "value", "is_lean": False,
+            "floor_score": 1.48, "reasons": ["sharp money moving this way"],
+            "ctx": [{"k": "trip", "who": "them", "mi": 0, "road6": 3, "wk": 3372}]}
+    with _Fx1122("nba", _WIZ_1122, pre, ratings={"27": 1335, "19": 1513}) as fx:
+        leg, facts, page = fx.card(leg0)
+        txt = "\n".join(page + [leg["why_line"]])
+        why = leg["why_line"]
+        assert why.startswith("🆚") and "103-94" in why and "Wizards" in why and "this year" in why, why
+        assert leg["why_key"] == "w_up" and "winning streak" not in why and "won 2 straight" not in why, why
+        assert gd.problem(why, "nba") == "" and facts[0] == why, (why, facts[0])           # it passes the guard and the page
+        assert not any(x.startswith("🆚") for x in facts[1:]), txt                          # said once - under the pick
+        line = next(x for x in facts if x.startswith("🎁"))
+        assert "Wizards" in line and cs.reason_backed(line, leg) == "matchup", line          # the free-throw line, off the boxes
+        assert cc.sell_numbers(line, leg, fx.G) == "", cc.sell_numbers(line, leg, fx.G)
+        assert len(facts) >= 6 and cs.dedupe(facts[1:], "Wizards", "Magic", why)[1] == [], txt
+        bottom = page[-1]
+        assert re.search(r"thin edge|small edge|tread light|half a unit", bottom, re.I) and "best dog" not in bottom.lower(), bottom
+        assert not _BAD_TALK_1122.search(txt), txt
+    # every wording of the meeting passes the guard (11/22: "These two met on 11/2 this year and X got a 103-94 win" - the
+    # day before "this year" - was dropped by THIS_YEAR_GAME every time the Voice picked it)
+    import inspect
+    src = inspect.getsource(v24.matchup_facts)
+    assert "These two met this year and {us} got a {sc(m)} win {where(m)} on {_md(m)}." in src
+    assert gd.problem("🆚 These two met this year and Wizards got a 103-94 win on the road on 11/2.", "nba") == ""
+    assert gd.problem("🆚 Wizards own this matchup.", "nba") == "head-to-head history"
+    # a named reason still leads: the upgrade never touches a back-to-back / men-out / goalie / quarterback line
+    lg_ = {"why_key": "w_rest", "why_line": "😮‍💨 The Magic played last night."}
+    sold = [("🎁 Wizards get to the line 26 times a game this year; Magic 22.", True, "line", [])]
+    assert v24.lead_upgrade(lg_, sold, "Wizards", "Magic", {"id": "g"}, "home", body=["🆚 Wizards already beat the Magic this year - a 103-94 win on the road on 11/2."]) is None
+    lg_ = {"why_key": "w_their_loss", "why_line": "🥊 Give me Wizards: the Magic got handled."}
+    assert v24.lead_upgrade(lg_, sold, "Wizards", "Magic", {"id": "g"}, "home", body=None)[1] == sold[0][0]   # a reason line beats their last loss
+    assert v24.lead_upgrade(lg_, [(sold[0][0], False, "line", [])], "Wizards", "Magic", {"id": "g"}, "home", body=[]) is None   # a plain stat doesn't
+
+
+_NHL_KEYS_1122 = ("shotsTotal", "powerPlayGoals", "powerPlayOpportunities", "faceoffPercent", "giveaways", "takeaways", "penaltyMinutes", "hits")
+_CAPS_1122 = tuple(   # eight games a side: the Capitals outshoot teams 32-27 and score on 2 of 4 power plays a night; the
+    #                   Senators get outshot 25-31 and give up 1 on 4 kills (8 on 32)
+    f"2026-11-{d:02d}T00:00|{a}|{an}|{sa}|{h}|{hn}|{sh}|0|{ba}|{bh}" for d, a, an, sa, h, hn, sh, ba, bh in (
+        [(1 + 2 * i, "23", "Capitals", 4, f"X{i}", f"Team{i}", 2, "32 2 4 52 10 5 8 20", "27 0 3 48 12 4 10 22") for i in range(4)]
+        + [(2 + 2 * i, f"Y{i}", f"Club{i}", 2, "23", "Capitals", 3, "27 0 3 49 11 5 8 21", "32 2 4 51 9 6 8 19") for i in range(4)]
+        + [(1 + 2 * i, "14", "Senators", 2, f"Z{i}", f"Side{i}", 4, "25 0 3 47 14 4 10 20", "31 1 4 53 9 5 6 22") for i in range(4)]
+        + [(2 + 2 * i, f"W{i}", f"Crew{i}", 2, "14", "Senators", 3, "31 1 4 52 10 5 8 21", "25 1 3 48 13 4 8 23") for i in range(4)]))
+
+
+def test_cards_1122_a_hockey_card_says_the_shots_and_the_power_play_as_counts():
+    """Hockey's matchup on the ice, off the team boxes (sports_card_sell.hockey_lines): who outshoots who on the year and
+    our power play against their kill - as COUNTS a bettor can check ("scored on 16 of 32 power plays", never a rate),
+    each only when it argues for us; the page's check re-derives every number."""
+    import sports_card_sell as cs, sports_card_check as cc
+    pre = {"id": "nhl:caps", "start": "2026-11-23T00:00Z", "home": "14", "away": "23", "home_name": "Senators", "away_name": "Capitals", "neutral": "0"}
+    leg0 = {"game_id": "nhl:caps", "league": "nhl", "side": "away", "home": False, "team": "Capitals", "opp": "Senators", "market": "ml",
+            "odds": 105, "dec": 2.05, "p": 0.49, "p_market": 0.47, "edge_own": 0.005, "tier": "value", "is_lean": False, "reasons": []}
+    with _Fx1122("nhl", _CAPS_1122, pre, ratings={"23": 1540, "14": 1500}, keys=_NHL_KEYS_1122) as fx:
+        gu = [g for g in fx.G.values() if g["status"] == "final" and "23" in (g["home"], g["away"])]
+        gt = [g for g in fx.G.values() if g["status"] == "final" and "14" in (g["home"], g["away"])]
+        pu, pt = cs.profile("nhl", gu, "23"), cs.profile("nhl", gt, "14")
+        assert (pu["n"], pu["shots"], pu["o_shots"], pu["ppg"], pu["ppo"]) == (8, 256, 216, 16, 32), pu
+        assert (pt["shots"], pt["o_shots"], pt["o_ppg"], pt["o_ppo"]) == (200, 248, 8, 32), pt
+        made = {k: (ways, r) for k, ways, r, _ in cs.hockey_lines("Capitals", "Senators", pu, pt, leg0)}
+        assert "outshoot teams by 5" in made["shots"][0][0] and "outshot by 6" in made["shots"][0][0], made["shots"]
+        assert "16 of 32 power plays" in made["pp"][0][0] and "8 goals on 32 kills" in made["pp"][0][0], made["pp"]
+        assert not any("%" in w for ways, _ in made.values() for w in ways)                  # counts, never a rate
+        assert cs.hockey_lines("Senators", "Capitals", pt, pu, leg0) == []                   # nothing argues for the other side
+        leg, facts, page = fx.card(leg0)
+        txt = "\n".join(page + [leg["why_line"]])
+        assert any(x.startswith("🏹") and "outsho" in x for x in facts) and any(x.startswith("⚡") for x in facts), txt
+        assert leg["why_line"].startswith(("🏹", "⚡")) and "Capitals" in leg["why_line"], leg["why_line"]   # the best stat leads a card with no named reason
+        assert cs.dedupe(facts[1:], "Capitals", "Senators", leg["why_line"])[1] == [], txt
+        assert cc.sell_numbers("⚡ Capitals scored on 16 of 32 power plays this year. Senators gave up 8 goals on 32 kills.", leg, fx.G) == ""
+        assert cc.sell_numbers("⚡ Capitals scored on 21 of 32 power plays this year. Senators gave up 8 goals on 32 kills.", leg, fx.G).startswith(cc.Q_BOX)
+        assert not _BAD_TALK_1122.search(txt), txt
+        # a puck-luck leg: the shots line is the reason said (reason-backed)
+        luck = cs.hockey_lines("Capitals", "Senators", pu, pt, dict(leg0, pdo=0.97))
+        assert next(r for k, _, r, _ in luck if k == "shots") is True
+
+
+def test_cards_1122_one_stat_a_team_and_the_pools_say_facts_never_our_ratings():
+    """The standing rules behind the 11/22 pass: (1) the same stat about the same team is one fact - what a team scores and
+    what it allows are two, the margin line is either one again; (2) no card says "our ratings" / "the ratings like"; (3)
+    a non-D1 tune-up never leads a card and never sits in a season number; (4) the generic tail "Not us. We got X." is
+    gone ("William & Mary just beat Averett 85-39, not us."); (5) the audit counts the lines that say why and names a
+    unit card with none."""
+    import inspect, sports_card_sell as cs, sports_card_check as cc, sports_breakdown_v24 as v24
+    S = lambda a, b, us, them: cs.same_stat(a, b, us, them)   # noqa: E731
+    assert S("📊 New Mexico St this season: 78 points a game allowed, 66 scored. They get outscored.",
+             "📊 New Mexico St have been outscored 72 to 63 a game over their last 3.", "Robert Morris", "New Mexico St")
+    assert S("📊 Last 3 for Troy: 73 scored a game, 77 given up.", "📊 On the year Troy gives up 77 points a game and scores 70.", "Nicholls", "Troy")
+    assert S("📊 Offense: Pacers are putting up 112 a game on the season, Knicks 109.", "📊 On the year Pacers put up 112 a game, Knicks 109.", "Pacers", "Knicks")
+    assert S("📊 On the year Magic gives up 113 points a game and scores 110.", "🛡️ Magic give up 113 points a game this year. Wizards give up 110.", "Wizards", "Magic")
+    assert not S("🛡️ Celtics give up 104 points a game this year; 76ers give up 108. Our D is the better one.",
+                 "📊 Celtics score 114 points a game this year; 76ers manage 110.", "Celtics", "76ers")       # the D and the O: two facts
+    assert not S("📊 William & Mary this season: 86 points a game scored, 78 allowed.", "📊 Last 3 for Youngstown St: 69 scored a game, 84 given up.",
+                 "William & Mary", "Youngstown St")                                                          # two teams
+    assert S("🧲 Oregon out-rebound teams by 7 a game this year.", "🧲 Oregon been owning the glass: 41 rebounds a night over their last 5, Oregon St 33.", "Oregon", "Oregon St")
+    assert not S("🧲 Oregon St get beat on the glass by 6 a game this year.", "🧲 Oregon out-rebound teams by 7 a game this year.", "Oregon", "Oregon St")
+    assert cs.stat_of("📅 Troy comes in off a 77-72 loss to Valparaiso.") is None and cs.stat_of("🚪 Grizzlies gave up 120 or more points in 3 of their last 5 games.") is None
+    kept, gone = cs.dedupe(["📊 A", "📊 Troy this season: 77 points a game allowed, 70 scored.", "📅 x", "📊 Last 3 for Troy: 73 scored a game, 77 given up."],
+                           "Nicholls", "Troy")
+    assert len(gone) == 1 and "Last 3" in gone[0]
+    # (2) "our ratings" is in no pool and the page cuts it
+    src = inspect.getsource(v24)
+    assert "our ratings have {us} ahead" not in src and "the ratings like {us}" not in src and "our ratings got {us}" not in src
+    leg = {"team": "UC Irvine", "opp": "LMU", "league": "ncaab", "market": "ml", "odds": -125}
+    assert cc.for_us("💪 UC Irvine 3-2, LMU 3-3 — close on paper, but our ratings have UC Irvine ahead.", leg) == cc.Q_RATINGS
+    assert cc.for_us("💪 Records are tight (3-2 / 3-3); the ratings like UC Irvine.", leg) == cc.Q_RATINGS
+    assert cc.for_us("🧲 UC Irvine out-rebound teams by 10 a game against D1 teams.", leg) == ""
+    assert cc.Q_SAME in cc.QUALITY["repeats"] and cc.Q_RATINGS in cc.QUALITY["jargon"]
+    # (3) a tune-up never leads and never sits in the season number
+    assert 'and not non_d1(lg, _opp_id(s_ours[-1], tid))' in inspect.getsource(v24.why_map)
+    fsrc = inspect.getsource(v24.fill_facts)
+    assert "_per_game(d1_u, tid)" in fsrc and "_per_game(d1_t, oid)" in fsrc and "_per_game(r_ours, tid)" not in fsrc
+    assert cc.ON_YEAR.search("📊 Against D1 teams New Mexico St gives up 82 points a game and scores 64.")
+    # (4) the tail that answered a public line
+    assert not any("Not us" in t for t in v24._tails(False, "A", "B")), v24._tails(False, "A", "B")
+    # (5) the count the audit keeps: reason-backed / matchup / neither
+    L = {"team": "Ducks", "opp": "Avalanche", "league": "nhl", "reasons": ["opponent missing key players: Cale Makar (their read -7)", "opponent on a back-to-back"],
+         "sold": [cs.sig("🏹 Ducks outshoot teams by 4 a night this year. Avalanche get outshot by 2.")], "odds": 110}
+    assert cs.reason_backed("🚑 The Avalanche is without Cale Makar.", L) == "reason"
+    assert cs.reason_backed("😴 Avalanche played last night; Ducks had 2 days off.", L) == "reason"
+    assert cs.reason_backed("🏹 Ducks outshoot teams by 4 a night this year. Avalanche get outshot by 2.", L) == "reason"
+    assert cs.reason_backed("🆚 Ducks already beat the Avalanche this year - a 4-2 win at home on 10/30.", L) == "matchup"
+    assert cs.reason_backed("⚡ Ducks scored on 12 of 40 power plays this year. Avalanche gave up 11 goals on 38 kills.", L) == "matchup"
+    assert cs.reason_backed("💯 Leo Carlsson has 12 points in Ducks' last 10 games.", L) == "" and cs.reason_backed("🗓️ Ducks won 6 of their last 10.", L) == ""
+    assert cc.says_why(L, "🚑 The Avalanche is without Cale Makar.", ["🆚 Ducks already beat the Avalanche this year - a 4-2 win at home on 10/30.",
+                                                                    "💯 Leo Carlsson has 12 points in Ducks' last 10 games.", "✅ Bottom line: Ducks (+110)."]) == (1, 1)
+    assert cs.reason_backed("🧠 The Celtics gotta breathe 5,300 feet up, we got Nuggets.", {"reasons": ["altitude edge"]}) == "reason"
+    asrc = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "card_audit.py")).read()
+    assert '"no why"' in asrc and "cc.says_why(leg, s_why, s_lines)" in asrc and "cards_that_say_why" in asrc and 'NO_WHY_FROM = "2026-11-22"' in asrc
+    import sports_owner_lingo as ol                       # the new pool sits under the lingo tests, and passes them
+    assert "sports_card_sell.py" in ol.SOURCES
+    ssrc = inspect.getsource(cs).lower()
+    assert not [w for w in ol.NEVER + ol.STIFF if w in ssrc], [w for w in ol.NEVER + ol.STIFF if w in ssrc]
+    # the lead off a sell line: our side first, one colon at most, one line
+    t = cs.lead_from(("🧲 The glass is ours: Celtics plus 2 rebounds a game this year, 76ers minus 4.", True, "glass",
+                      ["🧲 Celtics out-rebound teams by 2 a game this year. 76ers get beat on the glass by 4.",
+                       "🧲 The glass is ours: Celtics plus 2 rebounds a game this year, 76ers minus 4."]), "Celtics")
+    assert t.startswith("🧲 Celtics out-rebound") and t.count(":") == 0 and len(t) <= cs.LEAD_MAX, t
+    t = cs.lead_from(("🧤 76ers cough it up 17 times a game this year. Celtics: 13.", True, "to", ["🧤 76ers cough it up 17 times a game this year. Celtics: 13."]), "Celtics")
+    assert re.match(r"🧤 (?:Give me|We on|Riding) Celtics: 76ers cough|🧤 Celtics the side: 76ers cough", t), t
+    import sports_breakdown
+    assert sports_breakdown.VERSION >= 83 and v24.SELL_FROM == "2026-11-22" and cs.SELL
+
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

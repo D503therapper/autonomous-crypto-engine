@@ -127,7 +127,7 @@ MATH_TALK = ("and you get", "add their", "added up", "100 is normal", "100 is av
 STIFF = STIFF + MATH_TALK
 
 # where the write-ups live (what the test searches)
-SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py",
+SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_card_sell.py", "sports_tennis.py", "sports_dashboard.py",
            "sports_decider.py")
 
 

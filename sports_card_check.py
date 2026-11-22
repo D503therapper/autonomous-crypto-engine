@@ -509,6 +509,7 @@ def reset():
     _IDX.clear()
     _BOXP.clear()
     _MAT.clear()
+    _D1S.clear()
 
 
 def _team_index(games, lg):
@@ -765,7 +766,9 @@ def facts(line, leg, games):
             #   (📖 11/19: a matchup line names a game from anywhere in the season - "got run in their own building
             #    twice already this year - 7-2 by the Blues" - so its score is checked against the whole season)
             got = [x for x in (f["lines"] if wide else f["lines"][-6:]) if sc(x) == win]
-            if LASTGAME.search(before[-80:] + after[:30]) and not re.search(r"last 5|within|inside|in one of|not long ago", t, re.I):
+            if LASTGAME.search(before[-80:] + after[:30]) and not re.search(r"last 5|within|inside|in one of|not long ago", t, re.I) \
+                    and not t.lstrip().startswith("🆚"):     # (11/22: "took the last one from the Senators this year - a 3-1
+                #   win on 10/17" is the last MEETING, not their last game - last_meeting reads the 🆚 line)
                 lastg = f["lines"][-1:]
                 if not [x for x in lastg if sc(x) == win]:
                     return f"says {names[i]}'s last game ended {a}-{b} - the games say {lastg[0] if lastg else 'none'}"
@@ -977,7 +980,7 @@ DERIVED_CHECK = True
 _NUM = re.compile(r"(?<![\w.,])[+-]?\d+(?:\.\d+)?(?![\w]|\.\d|,\d)")
 PER_GAME = re.compile(r"\ba game\b(?!-)|\bfor ?[,/] ?\d|\d+ for,? ", re.I)
 LAST_N = re.compile(r"\blast (\d)\b|\blately\b", re.I)
-ON_YEAR = re.compile(r"this (?:year|season)|on the (?:year|season)", re.I)
+ON_YEAR = re.compile(r"this (?:year|season)|on the (?:year|season)|against D1 teams", re.I)
 NOT_STATS = re.compile(r"%|\bTDs?\b|per 48|minutes|\bmin a night|last (?:season|year)|a year ago|\bshots?\b|points? better|"
                        r"\bwent \d|per game\)|\d-\d|rebound|turnover|assist|\byards\b|\bsacks?\b|\bglass\b|free throws?|"
                        r"\b3s\b|threes|three-point|possessions|\bpace\b|penalt|power play|face-?off", re.I)
@@ -1012,6 +1015,70 @@ def _strip_names(t, names):
     return t
 
 
+_D1S = {}
+
+
+def d1_set(games):
+    """College hoops' Division I teams off the whole games file (sports_model.ncaab_d1), once a games file."""
+    key = (id(games), len(games or {}))
+    if _D1S.get("key") != key:
+        try:
+            import sports_model as _sm
+            _D1S["key"], _D1S["set"] = key, _sm.ncaab_d1(_finals(games, "ncaab"))
+        except Exception:                                    # noqa: BLE001 - can't tell = every team counts
+            _D1S["key"], _D1S["set"] = key, None
+    return _D1S.get("set")
+
+
+def d1_only(games, gs, tid, leg):
+    """A college hoops team's games without its non-D1 tune-ups (every other league: as is)."""
+    if (leg or {}).get("league") != "ncaab":
+        return gs
+    d1 = d1_set(games)
+    if d1 is None:
+        return gs
+    return [x for x in gs or [] if str(x["away"] if x["home"] == tid else x["home"]) in d1]
+
+
+Q_SAME = "the same stat about the same team twice on the card"
+SAME_BV = 83                    # ... on cards the sell writer wrote (breakdown VERSION 83+; a card with no stamp is a fresh
+#                                 one). An older card whose game already started can't be re-written - cutting its second
+#                                 scoreboard line on the page would only leave it shorter (the 11/22 Robert Morris card).
+
+
+def same_on(leg):
+    """Does the one-stat-a-team cut apply to this card? (sports_card_sell.SELL, and a card written by VERSION 83+)"""
+    try:
+        import sports_card_sell as _cs
+        bv = (leg or {}).get("bv")
+        return bool(_cs.SELL) and (bv is None or bv >= SAME_BV)
+    except Exception:                                        # noqa: BLE001
+        return False
+Q_RATINGS = "says 'our ratings' / 'the ratings like' instead of a fact"
+RATINGS_TALK = re.compile(r"\b(?:our|the) ratings (?:have|like|got|make|say|put)\b|\bour ratings\b|\bratings like\b", re.I)
+Q_BOX = "a box-score number the files don't back"
+
+
+def sell_numbers(line, leg, games):
+    """🗣️ 11/22 THE CARD SELLS THE PICK: a box-score matchup line (sports_card_sell) says only numbers the two teams' box
+    scores hold - re-derived here on every render. -> why it can't stand, or ''."""
+    if not games:
+        return ""
+    try:
+        import sports_card_sell as cs
+        if not cs.is_sell(line):
+            return ""
+        fu, ft = team_facts(games, leg, "us"), team_facts(games, leg, "them")
+        if not fu or not ft or fu.get("unseen") or ft.get("unseen"):
+            return ""
+        bad = cs.numbers_wrong(line, leg.get("team") or "", leg.get("opp") or "", leg.get("league"),
+                               d1_only(games, fu["season"], fu["tid"], leg), d1_only(games, ft["season"], ft["tid"], leg),
+                               fu["tid"], ft["tid"])
+    except Exception:                                        # noqa: BLE001 - the check never breaks a card
+        return ""
+    return f"{Q_BOX}: {bad}" if bad else ""
+
+
 def stats(line, leg, games):
     """'' when every scoring number in a points-a-game line is what the game files say, else why not - the breakdown's
     own arithmetic (sports_breakdown_v24._pts3 / _per_game) on the games before this one."""
@@ -1020,6 +1087,12 @@ def stats(line, leg, games):
     t = str(line or "")
     if not PER_GAME.search(t) or NOT_STATS.search(t) or '"' in t or "“" in t:
         return ""
+    try:
+        import sports_card_sell as _cs
+        if _cs.is_sell(t):                                   # (a box-score line: sell_numbers reads it)
+            return ""
+    except Exception:                                        # noqa: BLE001
+        pass
     lastn, year = LAST_N.search(t), ON_YEAR.search(t)
     if not (lastn or year) or (lastn and year) or (lastn and lastn.group(1) and lastn.group(1) not in "23"):
         return ""                                            # (the pool says the last 3 - or 2, early in a season)
@@ -1038,14 +1111,15 @@ def stats(line, leg, games):
         if f.get("unseen"):
             return f"points a game for {us if which == 'us' else them}, whose games we don't all hold"
         tid = f["tid"]
-        if lastn:
-            for gs in (f["season"], f["reg"]):
+        d1s, d1r = d1_only(games, f["season"], tid, leg), d1_only(games, f["reg"], tid, leg)   # (11/22: college hoops
+        if lastn:                                            #  form reads D1 games only - both readings stand)
+            for gs in (f["season"], f["reg"], d1s, d1r):
                 for n in (3, 2):
                     for p in (v._pts3(gs, tid, n), v._pts3(gs, tid, n, 1)):
                         if p:
                             ok |= {float(p[0]), float(p[1]), round(abs(p[0] - p[1]), 1), float(p[2])}
         else:
-            for gs in (f["reg"], f["season"]):
+            for gs in (f["reg"], f["season"], d1r, d1s):
                 pg = v._per_game(gs, tid)
                 if pg:
                     ok |= {float(round(pg[0])), float(round(pg[1])), round(pg[0], 1), round(pg[1], 1),
@@ -1347,7 +1421,8 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             if pw:
                 new, w = "", "; ".join(y for y in (w, pw) if y)
         if new and not BOTTOM.match(new):                   # (11/17: the derived facts + the sense check)
-            dw = sense(new, leg) or derived(new, leg, games) or contra.get(x) or contra.get(new)
+            dw = sense(new, leg) or derived(new, leg, games) or contra.get(x) or contra.get(new) \
+                or sell_numbers(new, leg, games)             # (🗣️ 11/22: a box-score line's numbers, re-derived)
             if dw:
                 new, w = "", "; ".join(y for y in (w, dw) if y)
         if new and not BOTTOM.match(new):                   # 👍 11/18 (the owner on the Nuggets card: "a few things in
@@ -1383,6 +1458,14 @@ def check(pk, leg, lines, games=None, why="", where="render"):
                 note(cx["date"], leg, Q_REPEAT, x, where)
         out = kept
     except Exception:                                        # noqa: BLE001 - the check never breaks a card
+        pass
+    try:                                                     # 🗣️ 11/22 NO REPEATS (the Robert Morris card: "New Mexico St
+        import sports_card_sell as _cs                       #  this season: 78 points a game allowed, 66 scored" above
+        kept, gone = _cs.dedupe(out, leg.get("team") or "", leg.get("opp") or "", why) if same_on(leg) else (out, [])   # "outscored 72 to 63
+        for x in gone:                                       #  over their last 3"): the same stat about the same team
+            note(cx["date"], leg, Q_SAME, x, where)          #  is one fact - the first said stays
+        out = kept
+    except Exception:                                        # noqa: BLE001
         pass
     try:                                                     # 🧱 11/18 (night): a cut is never the end - the card's
         out = refill(leg, out, one, cx, why, games)          #  spare facts come in until it's back at its floor
@@ -1435,6 +1518,9 @@ def refill(leg, out, one, cx, why="", games=None):
         try:
             if len(said_twice(leg, cand, why, games)) != len(cand):
                 continue                                     # (it says what the card already says)
+            import sports_card_sell as _cs
+            if same_on(leg) and _cs.dedupe(cand, leg.get("team") or "", leg.get("opp") or "", why)[1]:
+                continue                                     # (🗣️ 11/22: the same stat about the same team again)
         except Exception:                                    # noqa: BLE001
             continue
         out = cand
@@ -1940,6 +2026,8 @@ def for_us(line, leg, why=""):
         return ""
     if knocks_us(t, leg) or our_bad_numbers(t, leg):
         return Q_KNOCK
+    if RATINGS_TALK.search(t) and '"' not in t and "“" not in t:   # (🗣️ 11/22: a card says the fact, never "our ratings")
+        return Q_RATINGS
     sig = _sig_numbers(t)
     if why and sig and sig <= _sig_numbers(why):
         return "the one-liner's fact said again"
@@ -1974,9 +2062,9 @@ Q_REPEAT = "said twice on the card"
 Q_JARGON = "jargon / a stat a bettor doesn't use"
 Q_ABSENT = "names a man out who doesn't matter"
 QUALITY = {"filler": (Q_FILLER, Q_STAR2, Q_PRICE, Q_LEAD), "knocks us": (Q_KNOCK,), "argues for them": (Q_OPP,), "says nothing": (Q_NOTHING,),
-           "repeats": (Q_REPEAT, "the one-liner's fact said again", "the same line twice on the card",
+           "repeats": (Q_REPEAT, Q_SAME, "the one-liner's fact said again", "the same line twice on the card",
                        "the 🚑 chip's names again"),
-           "jargon": (Q_JARGON,), "non-key absence": (Q_ABSENT,)}
+           "jargon": (Q_JARGON, Q_RATINGS), "non-key absence": (Q_ABSENT,)}
 OPP_UP = re.compile(r"won their last one too|feeling themselves|both won last|both teams are rolling|heater vs heater|"
                     r"neither team has lost|both feeling good|\bare off an? [\w.' -]*\bwin\b[^.]* themselves", re.I)
 NOTHING = re.compile(r"a wash (?:on the records|in net)|dead even on the record|nothing in it on paper|"
@@ -2663,9 +2751,20 @@ def quality(leg, why, lines, games=None):
     try:
         kept = said_twice(leg, body, wl, games)
         out += [("repeats", x) for x in body if x not in kept]
+        import sports_card_sell as _cs                       # (🗣️ 11/22: the same stat about the same team twice)
+        if same_on(leg):
+            out += [("repeats", x) for x in _cs.dedupe(kept, leg.get("team") or "", leg.get("opp") or "", wl)[1]]
     except Exception:                                        # noqa: BLE001
         pass
     return out
+
+
+def says_why(leg, why, lines):
+    """🗣️ 11/22 THE CARD SELLS THE PICK: (reason-backed lines, matchup lines) on a card - the line under the pick counts.
+    sports_card_sell.reason_backed says which is which."""
+    import sports_card_sell as _cs
+    ks = [_cs.reason_backed(x, leg) for x in ([why] if why else []) + [y for y in lines or [] if isinstance(y, str) and not BOTTOM.match(y)]]
+    return ks.count("reason"), ks.count("matchup")
 
 
 def fact_lines(lines):

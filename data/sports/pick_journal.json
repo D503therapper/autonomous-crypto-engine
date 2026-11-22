@@ -7713,6 +7713,113 @@
  },
  {
   "date": "2026-11-22",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "nfl",
+  "game_id": "nfl:401873068",
+  "team": "Panthers",
+  "opp": "Ravens",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -145,
+  "posted": "2026-11-22T16:00Z",
+  "price_says": 0.592,
+  "win_p": 0.575275850638962,
+  "own_read": 0.619,
+  "weighed": 0.6189,
+  "dog_p": null,
+  "edge_own": -0.021811990547349613,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "opponent missing key players",
+   "opponent the more banged-up side: 1 regulars out to 0 for us"
+  ],
+  "angles": {
+   "fades": [],
+   "go4_gap": 0.0468,
+   "last_margin": 3.0,
+   "last_pts": 20.0,
+   "neutral": false,
+   "record": [
+    4,
+    5
+   ],
+   "win_pct": 0.444,
+   "win_streak": 1
+  },
+  "injuries_seen": {
+   "Lamar Jackson (Ravens QB)": "Injured Reserve"
+  },
+  "ours_out": [
+   "Bobby Okereke (LB)"
+  ],
+  "theirs_out": [
+   "Nnamdi Madubuike (DT)",
+   "Marlon Humphrey (CB)",
+   "Jaylinn Hawkins (S)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -142,
+  "beat_close_pts": -0.5,
+  "result": "won",
+  "score": "35-33",
+  "margin": 2.0,
+  "pnl_units": 0.34
+ },
+ {
+  "date": "2026-11-22",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaab",
+  "game_id": "ncaab:401928790",
+  "team": "Robert Morris",
+  "opp": "New Mexico St",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 102,
+  "posted": "2026-11-22T16:00Z",
+  "price_says": 0.495,
+  "win_p": 0.472596175587517,
+  "own_read": 0.514,
+  "weighed": null,
+  "dog_p": 0.5139,
+  "edge_own": -0.043763597484699934,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "sharp money moving this way",
+   "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
+  ],
+  "angles": [
+   "sched:2",
+   "w_their_loss:125",
+   "fill_pts:0",
+   "fill_year_t:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "S. Payne (F)",
+   "G. Warren (G)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": 102,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "84-79",
+  "margin": 5.0,
+  "pnl_units": 1.02
+ },
+ {
+  "date": "2026-11-22",
   "kind": "play",
   "lean": false,
   "tier": "value",

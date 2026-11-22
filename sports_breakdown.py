@@ -10,7 +10,11 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 82          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 83          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+#   (83 - 11/22 THE CARD SELLS THE PICK, the owner: "The breakdowns are short and vague ... the breakdowns basically need
+#    to sell our picks why we taking them and needs to be in our lingo" - the matchup on the floor off both teams' box
+#    scores (sports_card_sell), the reason-backed line leads, one stat a team, college hoops season lines D1 games only;
+#    results/studies/cards_1122)
 #   (62 - 11/4 lingo pass, the owner: "I have not liked the damn lingo" - the risk / outs / last-game / site / bottom-line /
 #    lean / units-line pools rewritten in his voice; the stiff frames are in sports_owner_lingo.STIFF and can't come back)
 #   (61 - 10/30 weekend sweep: team verbs agree on every body line (the guard), the coin-flip lean closer's verb, the
