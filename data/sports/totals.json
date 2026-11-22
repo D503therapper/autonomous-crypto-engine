@@ -246,13 +246,13 @@
   }
  },
  "ncaab": {
-  "games": 30230,
+  "games": 30233,
   "grade": {
    "all": {
-    "hit": 0.5127,
-    "low80": 0.5063,
-    "n": 10077,
-    "roi": -0.0214
+    "hit": 0.5128,
+    "low80": 0.5064,
+    "n": 10078,
+    "roi": -0.0211
    },
    "top10": {
     "hit": 0.5303,
@@ -261,47 +261,47 @@
     "roi": 0.0108
    },
    "top20": {
-    "hit": 0.5231,
-    "low80": 0.5088,
+    "hit": 0.5236,
+    "low80": 0.5093,
     "n": 2015,
-    "roi": -0.0028
+    "roi": -0.0019
    },
    "top30": {
-    "hit": 0.5203,
-    "low80": 0.5087,
+    "hit": 0.52,
+    "low80": 0.5084,
     "n": 3023,
-    "roi": -0.0073
+    "roi": -0.008
    }
   },
-  "hit_all": 0.5127,
-  "hit_top": 0.5203,
-  "intercept": 0.01148,
+  "hit_all": 0.5128,
+  "hit_top": 0.52,
+  "intercept": 0.01154,
   "kept": [
    "lg_trend",
    "thin_air",
    "ou_away"
   ],
   "ll_test_base": 0.69314,
-  "ll_test_kept": 0.69277,
+  "ll_test_kept": 0.69279,
   "ll_val_base": 0.69339,
-  "ll_val_kept": 0.69227,
+  "ll_val_kept": 0.69223,
   "n_top": 3023,
   "norm": {
    "lg_trend": [
-    0.65146,
-    1.39903
+    0.65158,
+    1.39901
    ],
    "ou_away": [
-    0.42543,
-    5.57838
+    0.42565,
+    5.57818
    ],
    "thin_air": [
     0.03166,
-    0.14225
+    0.14224
    ]
   },
   "proven": false,
-  "roi_top": -0.0073,
+  "roi_top": -0.008,
   "screen": {
    "b2b": {
     "gain": 3e-05,
@@ -316,8 +316,8 @@
     "note": "no data"
    },
    "form": {
-    "gain": -0.00095,
-    "ll": 0.69434
+    "gain": -0.00096,
+    "ll": 0.69436
    },
    "inj": {
     "ll": null,
@@ -352,19 +352,19 @@
     "note": "no data"
    },
    "rest": {
-    "gain": -1e-05,
-    "ll": 0.6934
+    "gain": -0.0,
+    "ll": 0.69339
    },
    "starter": {
     "ll": null,
     "note": "no data"
    },
    "thin_air": {
-    "gain": 0.00042,
-    "ll": 0.69297
+    "gain": 0.00046,
+    "ll": 0.69293
    },
    "travel": {
-    "gain": -9e-05,
+    "gain": -0.0001,
     "ll": 0.69349
    },
    "wind": {
@@ -373,11 +373,11 @@
    }
   },
   "test_from": "2024-02-07",
-  "test_games": 10077,
+  "test_games": 10078,
   "weights": {
-   "lg_trend": 0.03093,
-   "ou_away": 0.02125,
-   "thin_air": 0.07369
+   "lg_trend": 0.03098,
+   "ou_away": 0.0212,
+   "thin_air": 0.07368
   }
  },
  "ncaaf": {
