@@ -1653,13 +1653,12 @@ def breakdown(leg, games, elo, injuries, used=None):
                    _short(v, price, False, "Half a unit."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
         out.append(v.say("bottom_floor", [                                # play - the dog angles put it up, not the price
-            f"✅ Bottom line: {price}. {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate, that's why it's up. Half a unit.",
-            f"✅ Bottom line: {price}. Every angle we grade a dog on likes {us} here. Half a unit.",
-            f"✅ Bottom line: {price}. {us} {vb(us, 'are', 'is')} the best dog on the board today. Small bet.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. The dog angles like it. Half a unit.",
-            f"✅ Bottom line: {price}. Half a unit - the dog angles say {us}. You can't win if you don't play.",
-            f"✅ Bottom line: {price}. Best dog on the slate by our angles. Half a unit.",
-            f"✅ Bottom line: {price}. Half a unit on {us} - small money, real shot."]) or
+            #   (11/22, the owner on the Wizards +170 ½u: "We can't say best dog on the slate but it's a half unit makes no
+            #    sense. Half unit is a thin edge tread lightly" - a ½u play says it's a thin edge, never "the best dog")
+            f"✅ Bottom line: {price}. Thin edge - half a unit. Tread lightly.",
+            f"✅ Bottom line: {price}. Half a unit on {us}. Thin edge, tread lightly.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin edge - go light, half a unit.",
+            f"✅ Bottom line: {price}. Small edge, small bet - half a unit."]) or
                    _short(v, price, False, "The dog angles like it."))
     elif leg.get("near_price"):                                          # the always-a-Lock backup (the owner, 10/1):
         out.append(v.say("bottom_near", [                                # the likeliest winner, priced about right -
