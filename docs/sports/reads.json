@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T02:24Z",
+ "updated": "2026-11-22T02:39Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -2119,8 +2119,8 @@
    "away": "Idaho",
    "home": "Idaho St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2194,8 +2194,8 @@
    "away": "Washington St",
    "home": "Texas St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2299,8 +2299,8 @@
    "away": "Charleston So",
    "home": "Mercer",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2356,8 +2356,8 @@
    "away": "Gardner-Webb",
    "home": "VMI",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2446,8 +2446,8 @@
    "away": "Michigan",
    "home": "Villanova",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2797,124 +2797,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401917537",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pacific",
-    "p": 0.708,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "ncaaf:401856872",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
    "season": "regular season",
-   "start": "2026-11-22T03:00Z",
-   "away": "Bradley",
-   "home": "Pacific",
-   "why": "coin_flip",
+   "start": "2026-11-22T02:00Z",
+   "away": "Utah",
+   "home": "TCU",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Bradley",
-    "opp": "Pacific",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -108,
-    "p": 0.502,
-    "win_p": 0.216,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nba:401910028",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Celtics",
-    "p": 0.726,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-22T03:00Z",
-   "away": "Celtics",
-   "home": "Kings",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Celtics",
-    "opp": "Kings",
-    "market": "spread",
-    "line": -12.5,
-    "odds": -108,
-    "p": 0.501,
-    "win_p": 0.832,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892767",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Sharks",
-    "p": 0.359,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-22T03:00Z",
-   "away": "Kraken",
-   "home": "Sharks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Kraken",
-    "opp": "Sharks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.7,
-    "win_p": 0.483,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401892766",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.464,
-    "tie": 0.287,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-22T03:00Z",
-   "away": "Wild",
-   "home": "Canucks",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Wild",
-    "opp": "Canucks",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -122,
-    "p": 0.522,
-    "win_p": 0.732,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401856870",
@@ -2922,7 +2817,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oklahoma St",
-    "p": 0.519,
+    "p": 0.522,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2937,10 +2832,10 @@
     "team": "Arizona St",
     "opp": "Oklahoma St",
     "market": "spread",
-    "line": 2.5,
-    "odds": -105,
-    "p": 0.533,
-    "win_p": 0.457,
+    "line": 3.0,
+    "odds": -115,
+    "p": 0.535,
+    "win_p": 0.453,
     "reasons": [
      "sharp money moving this way",
      "opponent's body clock is off"
@@ -2970,8 +2865,8 @@
     "market": "ml",
     "line": null,
     "odds": -278,
-    "p": 0.641,
-    "win_p": 0.641,
+    "p": 0.642,
+    "win_p": 0.642,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -3167,7 +3062,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.766,
+    "p": 0.767,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -3195,7 +3090,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Marquette",
-    "p": 0.937,
+    "p": 0.938,
     "tie": 0.012,
     "name": "1st half"
    },
@@ -3240,8 +3135,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.59,
-    "win_p": 0.59,
+    "p": 0.589,
+    "win_p": 0.589,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -3315,7 +3210,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Panthers",
-    "p": 0.521,
+    "p": 0.522,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -3332,8 +3227,8 @@
     "market": "ml",
     "line": null,
     "odds": -152,
-    "p": 0.559,
-    "win_p": 0.559,
+    "p": 0.56,
+    "win_p": 0.56,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3363,7 +3258,7 @@
     "line": -11.5,
     "odds": -107,
     "p": 0.502,
-    "win_p": 0.83,
+    "win_p": 0.829,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3686,8 +3581,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.53,
-    "tie": 0.043,
+    "p": 0.505,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3695,16 +3590,16 @@
    "start": "2026-11-22T19:30Z",
    "away": "Robert Morris",
    "home": "New Mexico St",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "New Mexico St",
     "opp": "Robert Morris",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -125,
+    "p": 0.535,
+    "win_p": 0.535,
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
@@ -4014,8 +3909,8 @@
     "market": "ml",
     "line": null,
     "odds": -130,
-    "p": 0.554,
-    "win_p": 0.554,
+    "p": 0.553,
+    "win_p": 0.553,
     "reasons": [
      "the stronger team",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
@@ -4058,7 +3953,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Portland St",
-    "p": 0.573,
+    "p": 0.594,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -4067,17 +3962,19 @@
    "start": "2026-11-22T22:00Z",
    "away": "Fullerton",
    "home": "Portland St",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Portland St",
     "opp": "Fullerton",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.624,
-    "win_p": 0.624,
-    "reasons": []
+    "odds": -198,
+    "p": 0.652,
+    "win_p": 0.652,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -4254,7 +4151,7 @@
     "opp": "Valparaiso",
     "market": "spread",
     "line": 7.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.239,
     "reasons": []
