@@ -1,11 +1,11 @@
 {
- "at": "2026-11-22T04:56Z",
+ "at": "2026-11-22T06:28Z",
  "fixes": [
-  "live board 8 min stale with games on - sports-live.yml already running",
-  "tennis slate due (8am PT) and not up - started sports.yml"
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
+  "live watcher fresh (79s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,16 +14,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 17 min ago",
+  "studies ran 7h ago",
+  "simulator ran 7h ago",
+  "engine ran 14 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-22T06:28Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-22T04:56Z",
    "fixes": [
@@ -544,11 +551,6 @@
     "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
     "studies last ran 10h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-11-20T14:54Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
