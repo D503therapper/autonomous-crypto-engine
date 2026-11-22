@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T00:00Z",
+ "updated": "2026-11-22T00:09Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -1597,8 +1597,8 @@
    "away": "NC State",
    "home": "Florida St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1642,8 +1642,8 @@
    "away": "Samford",
    "home": "Auburn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1657,8 +1657,8 @@
    "away": "Texas Tech",
    "home": "Baylor",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2044,8 +2044,8 @@
    "away": "Southern Miss",
    "home": "Nicholls",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2215,6 +2215,36 @@
    "lean": null
   },
   {
+   "id": "ncaab:401911310",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Brown",
+   "home": "Vermont",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401911378",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Charleston So",
+   "home": "Mercer",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892760",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2240,6 +2270,111 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaab:401911394",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Gardner-Webb",
+   "home": "VMI",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401869141",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Lamar",
+   "home": "McNeese",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921776",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Michigan",
+   "home": "Villanova",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920964",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Morehead St",
+   "home": "Elon",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920125",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "N Arizona",
+   "home": "Cal Poly",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920975",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "Radford",
+   "home": "Chattanooga",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401864544",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:00Z",
+   "away": "UNLV",
+   "home": "San Jos\u00e9 St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401910025",
@@ -2434,7 +2569,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UTSA",
-    "p": 0.568,
+    "p": 0.575,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2451,8 +2586,8 @@
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.576,
-    "win_p": 0.576,
+    "p": 0.589,
+    "win_p": 0.589,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -2675,8 +2810,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.46,
-    "tie": 0.288,
+    "p": 0.464,
+    "tie": 0.287,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2684,16 +2819,16 @@
    "start": "2026-11-22T03:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Wild",
     "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.724,
-    "win_p": 0.724,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -122,
+    "p": 0.522,
+    "win_p": 0.732,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2861,7 +2996,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nebraska",
-    "p": 0.796,
+    "p": 0.791,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2879,7 +3014,7 @@
     "line": 11.5,
     "odds": -105,
     "p": 0.505,
-    "win_p": 0.12,
+    "win_p": 0.124,
     "reasons": []
    }
   },
@@ -3973,7 +4108,10 @@
     "odds": -110,
     "p": 0.507,
     "win_p": 0.099,
-    "reasons": []
+    "reasons": [
+     "their top scorer James O'Donnell (18.0 a game) missed their last game - the books under-price that (4 of 4 seasons)",
+     "they're shooting 4 points under their season clip over the last five (56% effective) - a cold-shooting dog lost -15% in Jan-Mar"
+    ]
    }
   },
   {
@@ -4026,7 +4164,7 @@
     "opp": "Oilers",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
+    "odds": -230,
     "p": 0.676,
     "win_p": 0.459,
     "reasons": []
