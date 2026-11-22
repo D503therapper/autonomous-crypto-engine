@@ -25195,6 +25195,7 @@
      "them:road3in6"
     ],
     "dec": 2.3600000000000003,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -25215,6 +25216,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,1",
+     "h": "1,0,2"
+    },
     "form_state": [
      1.0,
      2,
@@ -25282,10 +25287,12 @@
      "Mike Matheson": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Flyers 4 @ Canadiens 3",
     "season_games": null,
+    "settled": "2026-11-22T02:46Z",
     "side": "away",
     "spare": [
      "\ud83d\udcaf Jamie Drysdale has 12 points in Flyers' last 10 games."
@@ -25305,12 +25312,14 @@
    }
   ],
   "p_hit": 0.4115,
-  "pnl": 0.0,
+  "pnl": 136.0,
   "posted": "2026-11-21T16:00Z",
   "round": 1,
+  "settled": "2026-11-22T02:46Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 160,
