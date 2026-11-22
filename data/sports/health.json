@@ -1,16 +1,15 @@
 {
- "at": "2026-11-22T02:41Z",
+ "at": "2026-11-22T04:14Z",
  "fixes": [
-  "live board 5 min stale with games on - sports-live.yml already running",
-  "tennis slate due (8am PT) and not up - started sports.yml"
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 2 live cards, 2 lines - nothing false, outdated or senseless",
-  "card quality: 100/100 on 2 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
+  "card audit: 0 live cards, 0 lines - nothing false, outdated or senseless",
   "slate check: all 192 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -18,13 +17,20 @@
   "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 14 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 15 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-22T04:14Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-22T02:41Z",
    "fixes": [
@@ -530,11 +536,6 @@
   },
   {
    "at": "2026-11-20T12:09Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-20T10:35Z",
    "fixes": [],
    "problems": []
   }
