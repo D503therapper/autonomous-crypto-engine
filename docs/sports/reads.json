@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T20:16Z",
+ "updated": "2026-11-22T21:00Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -71,8 +71,8 @@
    "away": "Cardinals",
    "home": "Chiefs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -235,8 +235,8 @@
    "away": "Towson",
    "home": "American",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -369,8 +369,8 @@
    "away": "Wyoming",
    "home": "Duquesne",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -461,189 +461,64 @@
    "lean": null
   },
   {
-   "id": "nfl:401873074",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Chargers",
-    "p": 0.54,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-22T21:05Z",
-   "away": "Jets",
-   "home": "Chargers",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Chargers",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -179,
-    "p": 0.588,
-    "win_p": 0.588,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873069",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jaguars",
-    "p": 0.66,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-22T21:25Z",
-   "away": "Jaguars",
-   "home": "Giants",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Jaguars",
-    "opp": "Giants",
-    "market": "ml",
-    "line": null,
-    "odds": -269,
-    "p": 0.736,
-    "win_p": 0.736,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873075",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Broncos",
-    "p": 0.731,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-22T21:25Z",
-   "away": "Raiders",
-   "home": "Broncos",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Broncos",
-    "opp": "Raiders",
-    "market": "spread",
-    "line": -10.5,
-    "odds": -111,
-    "p": 0.508,
-    "win_p": 0.838,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921176",
+   "id": "ncaab:401929202",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "IU Indy",
-    "p": 0.755,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-22T21:30Z",
-   "away": "IU Indy",
-   "home": "MD Eastern",
-   "why": "coin_flip",
+   "start": "2026-11-22T20:30Z",
+   "away": "McNeese",
+   "home": "Texas St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "MD Eastern",
-    "opp": "IU Indy",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -110,
-    "p": 0.504,
-    "win_p": 0.161,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401926795",
+   "id": "ncaab:401923323",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Liberty",
-    "p": 0.48,
-    "tie": 0.044,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-22T21:30Z",
-   "away": "Richmond",
-   "home": "Liberty",
-   "why": "coin_flip",
+   "start": "2026-11-22T20:30Z",
+   "away": "Mercyhurst",
+   "home": "UAlbany",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Liberty",
-    "opp": "Richmond",
-    "market": "ml",
-    "line": null,
-    "odds": -108,
-    "p": 0.502,
-    "win_p": 0.502,
-    "reasons": [
-     "the stronger team",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401917540",
+   "id": "nba:401910029",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-22T20:30Z",
+   "away": "Pistons",
+   "home": "Hawks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920381",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UC Irvine",
-    "p": 0.502,
-    "tie": 0.044,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-22T21:30Z",
-   "away": "UC Irvine",
-   "home": "LMU",
-   "why": "coin_flip",
+   "start": "2026-11-22T20:30Z",
+   "away": "Virginia Tech",
+   "home": "Oklahoma St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "UC Irvine",
-    "opp": "LMU",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.534,
-    "win_p": 0.534,
-    "reasons": [
-     "the stronger team",
-     "out-rebounding people by +19.4 a game to their +8.7 - the books don't price the glass (5 of 5 seasons)",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401920159",
@@ -742,8 +617,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.444,
-    "tie": 0.291,
+    "p": 0.438,
+    "tie": 0.292,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -758,13 +633,13 @@
     "opp": "Sabres",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.689,
-    "win_p": 0.689,
+    "odds": -205,
+    "p": 0.677,
+    "win_p": 0.677,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
+     "opponent on a back-to-back",
+     "sharp money moving this way"
     ]
    }
   },
@@ -921,7 +796,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Portland",
-    "p": 0.706,
+    "p": 0.698,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -937,9 +812,9 @@
     "opp": "Portland",
     "market": "spread",
     "line": 7.5,
-    "odds": -108,
+    "odds": -118,
     "p": 0.501,
-    "win_p": 0.219,
+    "win_p": 0.228,
     "reasons": [
      "sharp money moving this way",
      "their top scorer James O'Donnell (18.0 a game) missed their last game - the books under-price that (4 of 4 seasons)",
@@ -1011,7 +886,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.514,
+    "p": 0.52,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1027,9 +902,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.553,
-    "win_p": 0.553,
+    "odds": -135,
+    "p": 0.561,
+    "win_p": 0.561,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1258,7 +1133,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.557,
+    "p": 0.555,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1274,9 +1149,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -194,
-    "p": 0.612,
-    "win_p": 0.612,
+    "odds": -190,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
      "better QB play lately",
      "the stronger team"
@@ -1527,7 +1402,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.669,
+    "p": 0.67,
     "tie": 0.035,
     "name": "1st half"
    },
