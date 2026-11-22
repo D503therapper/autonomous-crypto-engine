@@ -2,37 +2,37 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-22T08:00Z",
+   "at": "2026-11-22T08:20Z",
    "how": "plain request",
-   "n": 0,
+   "n": 8,
    "ok": true
   },
   "actionnetwork_odds": {
-   "at": "2026-11-22T07:54Z",
+   "at": "2026-11-22T08:18Z",
    "how": "plain request (v2 scoreboard)",
-   "n": 1114,
+   "n": 1116,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-22T07:58Z",
+   "at": "2026-11-22T08:19Z",
    "how": "plain request",
    "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-22T08:00Z",
+   "at": "2026-11-22T08:20Z",
    "how": "plain request",
    "n": 7,
    "ok": true
   },
   "betrivers:pre:ncaaf": {
-   "at": "2026-11-22T07:58Z",
+   "at": "2026-11-22T08:19Z",
    "err": null,
    "n": 0,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027025285": {
-   "at": "2026-11-22T07:58Z",
+   "at": "2026-11-22T08:19Z",
    "err": null,
    "n": 0,
    "ok": true
@@ -680,22 +680,22 @@
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-22T08:00Z",
+   "at": "2026-11-22T08:20Z",
    "how": "plain request",
    "n": 28,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-22T08:00Z",
+   "at": "2026-11-22T08:20Z",
    "how": "plain request - answered EMPTY (no events: refused or down)",
    "n": 0,
    "ok": false
   },
   "bovada_nfl": {
-   "at": "2026-11-22T08:00Z",
-   "how": "plain request",
-   "n": 12,
-   "ok": true
+   "at": "2026-11-22T08:20Z",
+   "how": "plain request - answered EMPTY (no events: refused or down)",
+   "n": 0,
+   "ok": false
   },
   "covers_ncaab": {
    "at": "2026-11-22T07:59Z",
@@ -704,13 +704,13 @@
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-22T07:59Z",
+   "at": "2026-11-22T08:19Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-22T07:58Z",
+   "at": "2026-11-22T08:18Z",
    "how": "plain request",
    "n": 5,
    "ok": true
@@ -746,12 +746,12 @@
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-22T07:59Z",
+   "at": "2026-11-22T08:19Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-22T08:00Z"
+ "updated": "2026-11-22T08:20Z"
 }
