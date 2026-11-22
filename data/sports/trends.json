@@ -375,40 +375,18 @@
   },
   {
    "families": [
-    "streak"
-   ],
-   "league": "ncaaf",
-   "outcome": "home",
-   "price_said": 13.1,
-   "record": "15-16",
-   "season": 2026,
-   "side": 0,
-   "situation": "thursday night",
-   "streak": 6,
-   "strength": 3.83,
-   "trend": "road team wins",
-   "upcoming": [
-    "ncaaf:401856879"
-   ],
-   "upcoming_names": [
-    "TCU @ Texas Tech"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
     "streak",
     "rate"
    ],
    "league": "ncaaf",
    "outcome": "fav_ml",
-   "price_said": 298.2,
-   "record": "294-140",
+   "price_said": 298.8,
+   "record": "295-140",
    "season": 2026,
    "side": 1,
    "situation": "away favorite",
-   "streak": 8,
-   "strength": 3.55,
+   "streak": 9,
+   "strength": 4.09,
    "trend": "favorites win",
    "upcoming": [
     "ncaaf:401866472",
@@ -431,6 +409,28 @@
     "South Carolina @ Clemson",
     "USC @ UCLA",
     "Tennessee @ Vanderbilt"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak"
+   ],
+   "league": "ncaaf",
+   "outcome": "home",
+   "price_said": 13.1,
+   "record": "15-16",
+   "season": 2026,
+   "side": 0,
+   "situation": "thursday night",
+   "streak": 6,
+   "strength": 3.83,
+   "trend": "road team wins",
+   "upcoming": [
+    "ncaaf:401856879"
+   ],
+   "upcoming_names": [
+    "TCU @ Texas Tech"
    ],
    "verdict": "coin flip"
   },
@@ -1783,13 +1783,13 @@
    ],
    "league": "ncaaf",
    "outcome": "fav_ml",
-   "price_said": 745.6,
-   "record": "745-278",
+   "price_said": 746.2,
+   "record": "746-278",
    "season": 2026,
    "side": 1,
    "situation": "saturday",
-   "streak": 2,
-   "strength": -0.04,
+   "streak": 3,
+   "strength": -0.01,
    "trend": "favorites win",
    "upcoming": [
     "ncaaf:401860926",
@@ -2821,13 +2821,13 @@
    "hit": 0.69,
    "hit_new": 0.6923,
    "hit_old": 0.6876,
-   "n": 240686,
-   "n_new": 120343,
-   "n_old": 120343,
+   "n": 240689,
+   "n_new": 120345,
+   "n_old": 120344,
    "said": 0.6813,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 9.92
+   "z": 9.93
   },
   "mlb|all": {
    "edge": 0.0043,
@@ -3330,16 +3330,16 @@
    "edge_new": 0.0069,
    "edge_old": 0.0051,
    "from": "2018-08-31",
-   "hit": 0.7164,
-   "hit_new": 0.7098,
+   "hit": 0.7165,
+   "hit_new": 0.7099,
    "hit_old": 0.723,
-   "n": 31618,
-   "n_new": 15809,
-   "n_old": 15809,
+   "n": 31621,
+   "n_new": 15811,
+   "n_old": 15810,
    "said": 0.7104,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 2.62
+   "z": 2.64
   },
   "ncaaf|rate": {
    "edge": 0.0063,
@@ -3347,15 +3347,15 @@
    "edge_old": 0.0084,
    "from": "2018-09-01",
    "hit": 0.7217,
-   "hit_new": 0.711,
+   "hit_new": 0.7111,
    "hit_old": 0.7324,
-   "n": 23962,
-   "n_new": 11981,
-   "n_old": 11981,
-   "said": 0.7155,
+   "n": 23964,
+   "n_new": 11982,
+   "n_old": 11982,
+   "said": 0.7154,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 2.42
+   "z": 2.43
   },
   "ncaaf|rate|fav_cover": {
    "edge": 0.0084,
@@ -3374,20 +3374,20 @@
    "z": 0.39
   },
   "ncaaf|rate|fav_ml": {
-   "edge": 0.0032,
-   "edge_new": 0.0013,
+   "edge": 0.0033,
+   "edge_new": 0.0014,
    "edge_old": 0.0051,
    "from": "2018-09-01",
    "hit": 0.768,
    "hit_new": 0.756,
-   "hit_old": 0.7799,
-   "n": 16368,
-   "n_new": 8184,
-   "n_old": 8184,
+   "hit_old": 0.78,
+   "n": 16370,
+   "n_new": 8185,
+   "n_old": 8185,
    "said": 0.7647,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 1.02
+   "z": 1.04
   },
   "ncaaf|rate|home": {
    "edge": 0.0107,
@@ -3423,19 +3423,19 @@
   },
   "ncaaf|streak": {
    "edge": 0.0051,
-   "edge_new": 0.0137,
+   "edge_new": 0.0138,
    "edge_old": -0.0035,
    "from": "2018-08-31",
-   "hit": 0.6998,
-   "hit_new": 0.6998,
+   "hit": 0.6999,
+   "hit_new": 0.6999,
    "hit_old": 0.6998,
-   "n": 7656,
-   "n_new": 3828,
+   "n": 7657,
+   "n_new": 3829,
    "n_old": 3828,
-   "said": 0.6948,
+   "said": 0.6947,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 1.07
+   "z": 1.08
   },
   "ncaaf|streak|fav_cover": {
    "edge": -0.0024,
@@ -3454,20 +3454,20 @@
    "z": -0.17
   },
   "ncaaf|streak|fav_ml": {
-   "edge": 0.0092,
-   "edge_new": 0.0098,
-   "edge_old": 0.0086,
+   "edge": 0.0093,
+   "edge_new": 0.01,
+   "edge_old": 0.0087,
    "from": "2018-08-31",
    "hit": 0.7952,
    "hit_new": 0.7958,
-   "hit_old": 0.7945,
-   "n": 4799,
+   "hit_old": 0.7946,
+   "n": 4800,
    "n_new": 2400,
-   "n_old": 2399,
+   "n_old": 2400,
    "said": 0.7859,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 1.66
+   "z": 1.67
   },
   "ncaaf|streak|home": {
    "edge": 0.0027,
@@ -3823,15 +3823,15 @@
   },
   "rate": {
    "edge": 0.0098,
-   "edge_new": 0.0101,
+   "edge_new": 0.0102,
    "edge_old": 0.0094,
    "from": "2018-03-31",
    "hit": 0.7106,
    "hit_new": 0.7128,
    "hit_old": 0.7084,
-   "n": 168288,
-   "n_new": 84144,
-   "n_old": 84144,
+   "n": 168290,
+   "n_new": 84145,
+   "n_old": 84145,
    "said": 0.7008,
    "status": "watch only",
    "to": "2026-11-21",
@@ -3855,19 +3855,19 @@
   },
   "rate|fav_ml": {
    "edge": 0.0098,
-   "edge_new": 0.0104,
+   "edge_new": 0.0105,
    "edge_old": 0.0091,
    "from": "2018-03-31",
    "hit": 0.7381,
-   "hit_new": 0.7388,
+   "hit_new": 0.7389,
    "hit_old": 0.7374,
-   "n": 118129,
-   "n_new": 59065,
-   "n_old": 59064,
+   "n": 118131,
+   "n_new": 59066,
+   "n_old": 59065,
    "said": 0.7284,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 7.88
+   "z": 7.89
   },
   "rate|home": {
    "edge": 0.0109,
@@ -3909,8 +3909,8 @@
    "hit": 0.6421,
    "hit_new": 0.6453,
    "hit_old": 0.6388,
-   "n": 72398,
-   "n_new": 36199,
+   "n": 72399,
+   "n_new": 36200,
    "n_old": 36199,
    "said": 0.6358,
    "status": "watch only",
@@ -3935,15 +3935,15 @@
   },
   "streak|fav_ml": {
    "edge": 0.0097,
-   "edge_new": 0.0105,
-   "edge_old": 0.0089,
+   "edge_new": 0.0106,
+   "edge_old": 0.0088,
    "from": "2018-04-08",
    "hit": 0.7268,
-   "hit_new": 0.7307,
-   "hit_old": 0.7229,
-   "n": 38027,
+   "hit_new": 0.7308,
+   "hit_old": 0.7228,
+   "n": 38028,
    "n_new": 19014,
-   "n_old": 19013,
+   "n_old": 19014,
    "said": 0.7171,
    "status": "watch only",
    "to": "2026-11-21",
@@ -3986,7 +3986,7 @@
   "mlb": 16135,
   "nba": 34433,
   "ncaab": 141928,
-  "ncaaf": 31618,
+  "ncaaf": 31621,
   "nfl": 5833,
   "nhl": 10739
  },
@@ -4001,5 +4001,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-11-22T07:22Z"
+ "updated": "2026-11-22T07:43Z"
 }

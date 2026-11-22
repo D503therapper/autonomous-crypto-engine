@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T07:23Z",
+ "updated": "2026-11-22T07:45Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -2911,8 +2911,8 @@
    "away": "Oklahoma St",
    "home": "Arizona St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3177,9 +3177,9 @@
     "team": "Bills",
     "opp": "Dolphins",
     "market": "spread",
-    "line": -15.5,
-    "odds": -113,
-    "p": 0.505,
+    "line": -16.5,
+    "odds": -105,
+    "p": 0.504,
     "win_p": 0.899,
     "reasons": [
      "the stronger team",
@@ -3194,7 +3194,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Long Island",
-    "p": 0.523,
+    "p": 0.549,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -3203,19 +3203,17 @@
    "start": "2026-11-22T18:00Z",
    "away": "Fairfield",
    "home": "Long Island",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Long Island",
     "opp": "Fairfield",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.56,
-    "win_p": 0.56,
-    "reasons": [
-     "coughing it up 1.9 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
-    ]
+    "odds": -155,
+    "p": 0.593,
+    "win_p": 0.593,
+    "reasons": []
    }
   },
   {
@@ -3646,7 +3644,8 @@
     "p": 0.68,
     "win_p": 0.68,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "they're shooting 4 points under their season clip over the last five (46% effective) - a cold-shooting dog lost -15% in Jan-Mar"
     ]
    }
   },
@@ -3735,7 +3734,7 @@
     "p": 0.526,
     "win_p": 0.526,
     "reasons": [
-     "out-rebounding people by +3.8 a game to their -6.3 - the books don't price the glass (5 of 5 seasons)",
+     "out-rebounding people by +3.9 a game to their -6.3 - the books don't price the glass (5 of 5 seasons)",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
@@ -3982,7 +3981,8 @@
     "p": 0.589,
     "win_p": 0.589,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "out-rebounding people by +19.4 a game to their +8.7 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
   },
@@ -4448,7 +4448,7 @@
    "start": "2026-11-23T00:00Z",
    "away": "Penguins",
    "home": "Stars",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Stars",
