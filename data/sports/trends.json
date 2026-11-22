@@ -358,6 +358,44 @@
    "families": [
     "streak"
    ],
+   "league": "nhl",
+   "outcome": "total",
+   "price_said": 112.5,
+   "record": "123-102",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 5,
+   "strength": 3.9,
+   "trend": "over",
+   "upcoming": [
+    "nhl:401892767",
+    "nhl:401892769",
+    "nhl:401892771",
+    "nhl:401892772",
+    "nhl:401892773",
+    "nhl:401892774",
+    "nhl:401892775",
+    "nhl:401892776",
+    "nhl:401892778"
+   ],
+   "upcoming_names": [
+    "Kraken @ Sharks",
+    "Sabres @ Lightning",
+    "Penguins @ Stars",
+    "Blackhawks @ Canucks",
+    "Blue Jackets @ Devils",
+    "Kings @ Canadiens",
+    "Flames @ Senators",
+    "Maple Leafs @ Islanders",
+    "Ducks @ Kraken"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak"
+   ],
    "league": "ncaaf",
    "outcome": "home",
    "price_said": 13.1,
@@ -407,7 +445,8 @@
     "ncaaf:401858537",
     "ncaaf:401858317",
     "ncaaf:401858543",
-    "ncaaf:401856763"
+    "ncaaf:401856763",
+    "ncaaf:401856873"
    ],
    "upcoming_names": [
     "San Diego St @ Boise St",
@@ -426,7 +465,8 @@
     "Illinois @ Northwestern",
     "Virginia @ Virginia Tech",
     "USC @ UCLA",
-    "Oklahoma @ Missouri"
+    "Oklahoma @ Missouri",
+    "Arizona St @ Arizona"
    ],
    "verdict": "coin flip"
   },
@@ -468,12 +508,16 @@
    "trend": "under",
    "upcoming": [
     "nhl:401892768",
+    "nhl:401892769",
     "nhl:401892770",
+    "nhl:401892771",
     "nhl:401892772"
    ],
    "upcoming_names": [
     "Hurricanes @ Rangers",
+    "Sabres @ Lightning",
     "Oilers @ Blues",
+    "Penguins @ Stars",
     "Blackhawks @ Canucks"
    ],
    "verdict": "coin flip"
@@ -589,6 +633,30 @@
   },
   {
    "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 54.6,
+   "record": "66-27",
+   "season": 2026,
+   "side": 1,
+   "situation": "saturday",
+   "streak": 2,
+   "strength": 2.42,
+   "trend": "favorites win",
+   "upcoming": [
+    "nhl:401892766",
+    "nhl:401892767"
+   ],
+   "upcoming_names": [
+    "Wild @ Canucks",
+    "Kraken @ Sharks"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
     "streak"
    ],
    "league": "ncaab",
@@ -606,32 +674,6 @@
    ],
    "upcoming_names": [
     "TBD @ TBD"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "nhl",
-   "outcome": "fav_ml",
-   "price_said": 53.5,
-   "record": "64-27",
-   "season": 2026,
-   "side": 1,
-   "situation": "saturday",
-   "streak": 0,
-   "strength": 2.25,
-   "trend": "favorites win",
-   "upcoming": [
-    "nhl:401892765",
-    "nhl:401892766",
-    "nhl:401892767"
-   ],
-   "upcoming_names": [
-    "Ducks @ Mammoth",
-    "Wild @ Canucks",
-    "Kraken @ Sharks"
    ],
    "verdict": "coin flip"
   },
@@ -838,6 +880,7 @@
     "ncaab:401918988",
     "ncaab:401928790",
     "ncaab:401922252",
+    "ncaab:401923323",
     "ncaab:401929202",
     "ncaab:401926795",
     "ncaab:401909556",
@@ -863,6 +906,7 @@
     "Evansville @ Memphis",
     "Robert Morris @ New Mexico St",
     "West Florida @ South Alabama",
+    "Mercyhurst @ UAlbany",
     "McNeese @ Texas St",
     "Richmond @ Liberty",
     "NJIT @ Boston College",
@@ -997,7 +1041,6 @@
    "strength": 1.25,
    "trend": "home team wins",
    "upcoming": [
-    "ncaaf:401856872",
     "ncaaf:401860925",
     "ncaaf:401860919",
     "ncaaf:401864541",
@@ -1010,10 +1053,10 @@
     "ncaaf:401858312",
     "ncaaf:401858541",
     "ncaaf:401858314",
-    "ncaaf:401858540"
+    "ncaaf:401858540",
+    "ncaaf:401856873"
    ],
    "upcoming_names": [
-    "Utah @ TCU",
     "San Diego St @ Boise St",
     "Utah State @ Oregon St",
     "Hawai'i @ Nevada",
@@ -1026,7 +1069,8 @@
     "Duke @ Wake Forest",
     "Washington @ Oregon",
     "Notre Dame @ Syracuse",
-    "Michigan @ Ohio State"
+    "Michigan @ Ohio State",
+    "Arizona St @ Arizona"
    ],
    "verdict": "coin flip"
   },
@@ -1353,7 +1397,7 @@
     "Akron @ Wright St",
     "Tulsa @ Oregon St",
     "Ole Miss @ Clemson",
-    "TBD @ TBD",
+    "MTSU @ S Illinois",
     "William & Mary @ IU Indy",
     "Arkansas St @ Southern Utah",
     "Tulane @ Georgia St",
@@ -1973,7 +2017,8 @@
     "ncaaf:401858537",
     "ncaaf:401858317",
     "ncaaf:401858543",
-    "ncaaf:401856763"
+    "ncaaf:401856763",
+    "ncaaf:401856873"
    ],
    "upcoming_names": [
     "San Diego St @ Boise St",
@@ -1992,7 +2037,8 @@
     "Illinois @ Northwestern",
     "Virginia @ Virginia Tech",
     "USC @ UCLA",
-    "Oklahoma @ Missouri"
+    "Oklahoma @ Missouri",
+    "Arizona St @ Arizona"
    ],
    "verdict": "coin flip"
   },
@@ -2187,7 +2233,6 @@
    "strength": -0.3,
    "trend": "favorites win",
    "upcoming": [
-    "ncaaf:401856872",
     "ncaaf:401860925",
     "ncaaf:401856870",
     "ncaaf:401860919",
@@ -2249,10 +2294,11 @@
     "ncaaf:401856763",
     "ncaaf:401858542",
     "ncaaf:401856877",
-    "ncaaf:401858315"
+    "ncaaf:401858315",
+    "ncaaf:401856873",
+    "ncaaf:401864548"
    ],
    "upcoming_names": [
-    "Utah @ TCU",
     "San Diego St @ Boise St",
     "Oklahoma St @ Arizona St",
     "Utah State @ Oregon St",
@@ -2314,7 +2360,9 @@
     "Oklahoma @ Missouri",
     "Michigan St @ Rutgers",
     "Kansas @ Oklahoma St",
-    "Pitt @ California"
+    "Pitt @ California",
+    "Arizona St @ Arizona",
+    "Nevada @ UNLV"
    ],
    "verdict": "coin flip"
   },
@@ -2395,7 +2443,6 @@
    "strength": -0.66,
    "trend": "favorites win",
    "upcoming": [
-    "ncaaf:401856872",
     "ncaaf:401856870",
     "ncaaf:401866472",
     "ncaaf:401856759",
@@ -2403,7 +2450,6 @@
     "ncaaf:401858314"
    ],
    "upcoming_names": [
-    "Utah @ TCU",
     "Oklahoma St @ Arizona St",
     "Buffalo @ Akron",
     "Florida @ Florida St",
@@ -2449,7 +2495,6 @@
    "strength": -0.91,
    "trend": "favorites win",
    "upcoming": [
-    "ncaaf:401856872",
     "ncaaf:401860925",
     "ncaaf:401860919",
     "ncaaf:401864541",
@@ -2462,10 +2507,10 @@
     "ncaaf:401858312",
     "ncaaf:401858541",
     "ncaaf:401858314",
-    "ncaaf:401858540"
+    "ncaaf:401858540",
+    "ncaaf:401856873"
    ],
    "upcoming_names": [
-    "Utah @ TCU",
     "San Diego St @ Boise St",
     "Utah State @ Oregon St",
     "Hawai'i @ Nevada",
@@ -2478,7 +2523,8 @@
     "Duke @ Wake Forest",
     "Washington @ Oregon",
     "Notre Dame @ Syracuse",
-    "Michigan @ Ohio State"
+    "Michigan @ Ohio State",
+    "Arizona St @ Arizona"
    ],
    "verdict": "coin flip"
   },
@@ -2555,7 +2601,7 @@
     "Akron @ Wright St",
     "Tulsa @ Oregon St",
     "Ole Miss @ Clemson",
-    "TBD @ TBD",
+    "MTSU @ S Illinois",
     "William & Mary @ IU Indy",
     "Arkansas St @ Southern Utah",
     "Tulane @ Georgia St",
@@ -2836,9 +2882,9 @@
    "hit": 0.6899,
    "hit_new": 0.6921,
    "hit_old": 0.6877,
-   "n": 240508,
-   "n_new": 120254,
-   "n_old": 120254,
+   "n": 240510,
+   "n_new": 120255,
+   "n_old": 120255,
    "said": 0.6812,
    "status": "watch only",
    "to": "2026-11-21",
@@ -3693,52 +3739,52 @@
    "z": -1.92
   },
   "nhl|all": {
-   "edge": 0.0102,
-   "edge_new": 0.013,
-   "edge_old": 0.0074,
+   "edge": 0.0103,
+   "edge_new": 0.0133,
+   "edge_old": 0.0073,
    "from": "2018-10-06",
-   "hit": 0.5927,
-   "hit_new": 0.6004,
-   "hit_old": 0.585,
-   "n": 10725,
-   "n_new": 5363,
-   "n_old": 5362,
+   "hit": 0.5928,
+   "hit_new": 0.6007,
+   "hit_old": 0.5849,
+   "n": 10727,
+   "n_new": 5364,
+   "n_old": 5363,
    "said": 0.5825,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 2.2
+   "z": 2.22
   },
   "nhl|rate": {
-   "edge": 0.0073,
-   "edge_new": 0.0131,
-   "edge_old": 0.0016,
+   "edge": 0.0075,
+   "edge_new": 0.0135,
+   "edge_old": 0.0015,
    "from": "2018-10-06",
-   "hit": 0.6159,
-   "hit_new": 0.6277,
-   "hit_old": 0.604,
-   "n": 5537,
-   "n_new": 2769,
-   "n_old": 2768,
+   "hit": 0.616,
+   "hit_new": 0.6282,
+   "hit_old": 0.6038,
+   "n": 5539,
+   "n_new": 2770,
+   "n_old": 2769,
    "said": 0.6085,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 1.15
+   "z": 1.17
   },
   "nhl|rate|fav_ml": {
-   "edge": 0.0147,
-   "edge_new": 0.0177,
-   "edge_old": 0.0117,
+   "edge": 0.0149,
+   "edge_new": 0.018,
+   "edge_old": 0.0118,
    "from": "2018-10-06",
-   "hit": 0.6485,
-   "hit_new": 0.6594,
-   "hit_old": 0.6375,
-   "n": 3593,
-   "n_new": 1797,
-   "n_old": 1796,
-   "said": 0.6338,
+   "hit": 0.6487,
+   "hit_new": 0.6596,
+   "hit_old": 0.6377,
+   "n": 3595,
+   "n_new": 1798,
+   "n_old": 1797,
+   "said": 0.6337,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 1.86
+   "z": 1.89
   },
   "nhl|rate|home": {
    "edge": -0.0059,
@@ -3844,13 +3890,13 @@
    "hit": 0.7105,
    "hit_new": 0.713,
    "hit_old": 0.7081,
-   "n": 168131,
-   "n_new": 84066,
-   "n_old": 84065,
+   "n": 168133,
+   "n_new": 84067,
+   "n_old": 84066,
    "said": 0.7008,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 9.46
+   "z": 9.47
   },
   "rate|fav_cover": {
    "edge": -0.0112,
@@ -3876,13 +3922,13 @@
    "hit": 0.7381,
    "hit_new": 0.7388,
    "hit_old": 0.7374,
-   "n": 118011,
-   "n_new": 59006,
-   "n_old": 59005,
+   "n": 118013,
+   "n_new": 59007,
+   "n_old": 59006,
    "said": 0.7283,
    "status": "watch only",
    "to": "2026-11-21",
-   "z": 7.86
+   "z": 7.87
   },
   "rate|home": {
    "edge": 0.0109,
@@ -4003,7 +4049,7 @@
   "ncaab": 141868,
   "ncaaf": 31528,
   "nfl": 5833,
-  "nhl": 10725
+  "nhl": 10727
  },
  "proven": [
   "ncaab|rate|fav_cover",
@@ -4016,5 +4062,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-11-22T01:40Z"
+ "updated": "2026-11-22T02:00Z"
 }
