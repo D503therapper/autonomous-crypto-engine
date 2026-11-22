@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T19:16Z",
+ "updated": "2026-11-22T20:07Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -11,8 +11,8 @@
    "away": "Miami OH",
    "home": "UIC",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -86,8 +86,8 @@
    "away": "Chicago St",
    "home": "Marquette",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -101,8 +101,8 @@
    "away": "Dayton",
    "home": "Northwestern",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -131,8 +131,8 @@
    "away": "Fairfield",
    "home": "Long Island",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -146,8 +146,8 @@
    "away": "Lncstr Bible",
    "home": "UMBC",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -250,8 +250,8 @@
    "away": "W Illinois",
    "home": "Canisius",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -403,189 +403,62 @@
    }
   },
   {
+   "id": "ncaab:401906868",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T20:00Z",
+   "away": "S Indiana",
+   "home": "Texas",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401925066",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Troy",
-    "p": 0.626,
-    "tie": 0.041,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-22T20:00Z",
    "away": "Troy",
    "home": "Nicholls",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Troy",
-    "opp": "Nicholls",
+    "team": "Nicholls",
+    "opp": "Troy",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.697,
-    "win_p": 0.697,
+    "odds": 195,
+    "p": 0.313,
+    "win_p": 0.313,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "they're shooting 4 points under their season clip over the last five (46% effective) - a cold-shooting dog lost -15% in Jan-Mar"
-    ]
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337",
+     "the dog read is 4 (the study angles add 2 points, a defense-first team against a bottom-third offense) - dogs reading 4+ beat their price every season 2018-25"
+    ],
+    "result": null
    }
   },
   {
    "id": "ncaab:401922252",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "South Alabama",
-    "p": 0.635,
-    "tie": 0.04,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-22T20:00Z",
    "away": "West Florida",
    "home": "South Alabama",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "South Alabama",
-    "opp": "West Florida",
-    "market": "ml",
-    "line": null,
-    "odds": -245,
-    "p": 0.703,
-    "win_p": 0.703,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401929202",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Texas St",
-    "p": 0.533,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-22T20:30Z",
-   "away": "McNeese",
-   "home": "Texas St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Texas St",
-    "opp": "McNeese",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.573,
-    "win_p": 0.573,
-    "reasons": [
-     "rolling off a blowout win",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401923323",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Mercyhurst",
-    "p": 0.488,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-22T20:30Z",
-   "away": "Mercyhurst",
-   "home": "UAlbany",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Mercyhurst",
-    "opp": "UAlbany",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.514,
-    "win_p": 0.514,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "nba:401910029",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pistons",
-    "p": 0.507,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-22T20:30Z",
-   "away": "Pistons",
-   "home": "Hawks",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Pistons",
-    "opp": "Hawks",
-    "market": "ml",
-    "line": null,
-    "odds": -124,
-    "p": 0.532,
-    "win_p": 0.532,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920381",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Virginia Tech",
-    "p": 0.501,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-22T20:30Z",
-   "away": "Virginia Tech",
-   "home": "Oklahoma St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Virginia Tech",
-    "opp": "Oklahoma St",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.533,
-    "win_p": 0.533,
-    "reasons": [
-     "rolling off a blowout win",
-     "sharp money moving this way",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873074",
@@ -609,7 +482,7 @@
     "opp": "Jets",
     "market": "ml",
     "line": null,
-    "odds": -178,
+    "odds": -179,
     "p": 0.588,
     "win_p": 0.588,
     "reasons": [
@@ -1137,8 +1010,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Jazz",
-    "p": 0.483,
+    "team": "Mavericks",
+    "p": 0.502,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1154,10 +1027,11 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -108,
-    "p": 0.508,
-    "win_p": 0.508,
+    "odds": -121,
+    "p": 0.535,
+    "win_p": 0.535,
     "reasons": [
+     "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -1183,8 +1057,8 @@
     "team": "Nuggets",
     "opp": "Bulls",
     "market": "spread",
-    "line": -10.5,
-    "odds": -105,
+    "line": -9.5,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.782,
     "reasons": [
@@ -1381,7 +1255,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.544,
+    "p": 0.557,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1397,9 +1271,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -176,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -194,
+    "p": 0.612,
+    "win_p": 0.612,
     "reasons": [
      "better QB play lately",
      "the stronger team"
