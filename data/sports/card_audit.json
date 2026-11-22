@@ -1,18 +1,56 @@
 {
- "at": "2026-11-22T15:40Z",
- "bad_cards": 0,
- "by_class": {},
- "cards": 0,
- "lines": 0,
- "problems": [],
+ "at": "2026-11-22T16:03Z",
+ "bad_cards": 2,
+ "by_class": {
+  "short": 2
+ },
+ "cards": 5,
+ "lines": 35,
+ "problems": [
+  {
+   "class": "short",
+   "date": "2026-11-22",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "Robert Morris",
+   "why": "a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  },
+  {
+   "class": "short",
+   "date": "2026-11-22",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "Nicholls",
+   "why": "a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  }
+ ],
  "quality": {
-  "avg_facts": 0,
-  "cards": 0,
+  "avg_facts": 5.0,
+  "cards": 5,
   "score": 100,
-  "short": [],
+  "short": [
+   {
+    "date": "2026-11-22",
+    "facts": 3,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "Robert Morris",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   },
+   {
+    "date": "2026-11-22",
+    "facts": 2,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "Nicholls",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   }
+  ],
   "shown": {},
   "thin": 0,
-  "under_floor": 0,
+  "under_floor": 2,
   "worst": [],
   "written": {}
  },
