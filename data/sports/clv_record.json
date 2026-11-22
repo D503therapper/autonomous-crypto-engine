@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 129,
+  "n": 130,
   "beat": 43,
-  "same": 56,
+  "same": 57,
   "worse": 30,
   "avg_pts": 0.22
  },
  "unit_plays": {
-  "n": 129,
+  "n": 130,
   "beat": 43,
-  "same": 56,
+  "same": 57,
   "worse": 30,
   "avg_pts": 0.22
  },
@@ -29,9 +29,9 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 80,
+   "n": 81,
    "beat": 27,
-   "same": 35,
+   "same": 36,
    "worse": 18,
    "avg_pts": 0.22
   }
@@ -52,11 +52,11 @@
    "avg_pts": 0.36
   },
   "ncaab": {
-   "n": 6,
+   "n": 7,
    "beat": 3,
-   "same": 1,
+   "same": 2,
    "worse": 2,
-   "avg_pts": 0.6
+   "avg_pts": 0.51
   },
   "ncaaf": {
    "n": 43,
@@ -1916,6 +1916,20 @@
    "pts": 0.8,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "William & Mary",
+   "market": "spread",
+   "line": -2.5,
+   "odds": -110,
+   "close": -110,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }

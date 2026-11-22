@@ -25950,18 +25950,17 @@
     "bd_tags": [
      "sched:2",
      "w_their_loss:125",
-     "f_pts:3",
-     "bottom_c:2",
+     "fill_pts:0",
      "fill_year_t:1"
     ],
     "big_cover": false,
     "breakdown": [
      "\ud83d\udcca New Mexico St this season: 78 points a game allowed, 66 scored. They get outscored.",
-     "\ud83d\udcca Over their last 3 Robert Morris win by 6 a game (74 for, 68 against). New Mexico St loses by 9 (63 for, 72 against).",
+     "\ud83d\udcca New Mexico St have been outscored 72 to 63 a game over their last 3.",
      "\u2696\ufe0f Don't let 1-4 fool you \u2014 Robert Morris took those L's from Nevada, UIC, Arkansas and Toledo.",
-     "\u2705 Bottom line: Robert Morris (+102)."
+     "\u2705 Bottom line: Robert Morris (+102). Let it ride."
     ],
-    "bv": 80,
+    "bv": 81,
     "coach": [
      10,
      false
@@ -26166,7 +26165,6 @@
     "b2b_me": false,
     "bd_tags": [
      "f_last:0",
-     "bottom_n:0",
      "fill_pts:1",
      "fill_year_t:0"
     ],
@@ -26174,9 +26172,9 @@
     "breakdown": [
      "\ud83d\udcca On the year Troy gives up 77 points a game and scores 70.",
      "\ud83d\udcc5 Troy comes in off a 77-72 loss to Valparaiso.",
-     "\u2705 Bottom line: Nicholls (+195)."
+     "\u2705 Bottom line: Nicholls (+195). Get in."
     ],
-    "bv": 80,
+    "bv": 81,
     "coach": null,
     "coach_name": "Darion Brown",
     "coach_tenure": 1,
@@ -26369,27 +26367,27 @@
     "bd_tags": [
      "rec:0",
      "latest:2",
-     "w_their_loss:122",
-     "f_pts:0",
+     "w_their_loss:0",
      "bottom_unit_fair:0",
-     "fill_star:2",
-     "fill_year:2",
+     "fill_star:1",
+     "fill_pts:1",
+     "fill_year:1",
      "fill_year_t:0",
      "deep_big:1",
      "deep_start:1"
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83d\udcca 86 a game for William & Mary this year, 78 against. They outscore people.",
-     "\ud83d\udcca Last 3: William & Mary is outscoring teams 80 to 78 a game; Youngstown St is getting outscored 84 to 69.",
+     "\ud83d\udcca William & Mary this season: 86 points a game scored, 78 allowed.",
+     "\ud83d\udcca Last 3 for Youngstown St: 69 scored a game, 84 given up.",
      "\ud83d\udcca On the year Youngstown St gives up 83 points a game and scores 70.",
-     "\ud83d\udcaf Brian Carter Jr. been cooking for William & Mary - 16 a night over his last 5.",
+     "\ud83d\udcaf William & Mary's top scorer Brian Carter Jr. is putting up 16 a night lately (5 games).",
      "\ud83d\udccb William & Mary is 4-2 on the year.",
      "\ud83d\udca3 80+ points for William & Mary in 3 of their last 5. They can score.",
      "\ud83c\udfc1 The first half, last 5 games: 214 points for William & Mary, 177 against.",
      "\u2705 Bottom line: William & Mary -2.5 (-110). William & Mary the side today."
     ],
-    "bv": 80,
+    "bv": 81,
     "coach": [
      null,
      false
@@ -26403,6 +26401,7 @@
      "game:nonconf"
     ],
     "dec": 1.9090909090909092,
+    "decider": {},
     "def_first": false,
     "dog_ctx": {
      "cw5": 0,
@@ -26440,6 +26439,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "35,40",
+     "h": "27,36"
+    },
     "form_state": [
      46.0,
      2,
@@ -26495,7 +26498,7 @@
     "p_market": 0.5238095238095238,
     "pdo": null,
     "pdo_parts": null,
-    "public": "fade",
+    "public": null,
     "pyth_luck": null,
     "raw_own": 0.5342,
     "reasons": [
@@ -26507,7 +26510,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -26516,7 +26519,9 @@
     ],
     "roster_new": 0.482,
     "roster_tin": 0.518,
+    "score": "William & Mary 75 @ Youngstown St 63",
     "season_games": null,
+    "settled": "2026-11-22T21:06Z",
     "side": "away",
     "spare": [],
     "spread_stack": 0.05,
@@ -26543,21 +26548,23 @@
     "turmoil": 0,
     "turmoil_who": [],
     "waiting": [],
-    "why_line": "\ud83e\udd4a Give me William & Mary: Youngstown St got handled 91-54 by Cincinnati last time out, William & Mary takes this one."
+    "why_line": "\ud83e\udd4a Give me William & Mary: Youngstown St just got beat 91-54 by Cincinnati. Tap in."
    }
   ],
   "p_hit": 0.5,
-  "pnl": 0.0,
+  "pnl": 90.91,
   "posted": "2026-11-22T16:00Z",
   "round": 1,
+  "settled": "2026-11-22T21:06Z",
   "stack_play": {
    "line": -2.5,
    "n": 2,
    "stack": 0.05
   },
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 170,
@@ -26576,29 +26583,29 @@
     "bd_tags": [
      "f_last:2",
      "cx_trip:1",
-     "w_num:4",
-     "m_h2h:2",
-     "f_theirrec:0",
-     "bottom_floor:2",
+     "w_num:5",
+     "m_h2h:0",
+     "f_theirrec:1",
      "fill_star:2",
      "fill_year_t:0",
      "deep_role_t:1",
-     "deep_win_t:0",
-     "deep_close:0",
-     "deep_cover_t:2"
+     "deep_win_t:2",
+     "deep_close:1",
+     "deep_cover_t:0"
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83c\udd9a The Magic already saw Wizards this year and took the L - a 103-94 win for Wizards on the road on 11/2.",
+     "\ud83c\udd9a Wizards already beat the Magic this year - a 103-94 win on the road on 11/2.",
      "\ud83e\uddf3 Travel check on the Magic: 3rd road game in 6 days.",
      "\ud83d\udcca On the year Magic gives up 113 points a game and scores 110.",
-     "\ud83d\udccb Magic comes in 7-8 on the year.",
+     "\ud83e\uddfe Magic only got 2 wins in 7 games against winning teams this year.",
+     "\ud83d\udccb 7-8 for Magic this season - more L's than W's.",
      "\ud83d\udcc5 Fresh off a 98-94 win over the Bulls for Wizards.",
      "\ud83d\udcb8 When the book makes Magic the favorite, they lost 4 of 8 this year.",
      "\ud83c\udfc0 Wizards: 8 guys play real minutes.",
-     "\u2705 Bottom line: Wizards (+170). Wizards are the best dog on the board today. Small bet."
+     "\u2705 Bottom line: Wizards (+170). The dog angles like it. Ride it."
     ],
-    "bv": 80,
+    "bv": 81,
     "coach": [
      0,
      false
@@ -26773,9 +26780,8 @@
     "season_games": 17,
     "side": "home",
     "spare": [
-     "\ud83e\uddfe Magic won 2 of 7 against teams with a winning record this year.",
-     "\ud83c\udfac Wizards won 3 of their 4 games decided by 5 or less this year. They finish.",
-     "\ud83c\udf9f\ufe0f 6 of the last 10 times out, Magic didn't cover.",
+     "\ud83c\udfac In games decided by 5 or less this year Wizards won 3 of 4.",
+     "\ud83c\udf9f\ufe0f Magic failed to cover in 6 of their last 10 games.",
      "\ud83d\udcaf Anthony Davis been cooking for Wizards - 27 a night over his last 8."
     ],
     "start": "2026-11-23T00:00Z",
@@ -26789,7 +26795,7 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83e\udde0 The Wizards are on a 2-game winning streak. Wizards the side tonight."
+    "why_line": "\ud83e\udde0 The Wizards are on a 2-game winning streak. We on Wizards."
    }
   ],
   "p_hit": 0.3509,

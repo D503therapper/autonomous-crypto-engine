@@ -14507,7 +14507,7 @@ def test_floor_play_card_never_says_no_units_or_a_price_against_it_10_27():
     assert 'leg.get("floor_score") is not None' in src
     leg = {"team": "Wild", "odds": 102, "dec": 2.02, "p": 0.478, "floor_score": -0.6, "market": "ml"}
     html = sdb._units_line(0.5, "Wild", 102, leg=leg)
-    assert "We make" not in html and "best dog" in html.lower(), html   # (11/4 lingo pass: what put it up, said his way)
+    assert "We make" not in html and "thin edge" in html.lower() and "best dog" not in html.lower(), html   # (11/22: a ½u says thin edge, never "best dog")
     import sports_breakdown_v24 as v24
     bsrc = open(v24.__file__).read()
     assert '"bottom_floor"' in bsrc and bsrc.index('"bottom_floor"') < bsrc.index('"bottom_c"')

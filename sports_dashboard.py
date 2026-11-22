@@ -267,11 +267,10 @@ NUM_WHY = {   # (11/4) the size line with our number next to the book's - a few 
                "The book hangs {o}, we make 'em {f}. Bigger bet."),
     "big": ("We make 'em {f}, the book's at {o}. Big bet.", "{f} for us, {o} at the book. Load up.",
             "Our number's {f} and they're hanging {o}. We going big.")}
-FLOOR_WHY = ("Best dog on the slate by our angles. Half a unit.",    # 🧩 11/19 (the owner on the Warriors card: the size
-             "Half a unit on the best dog on today's board.",         #  line never runs our own pick down - it was "the
-             "Half a unit - the best dog on the board.",              #  best dog we found today. Small swing." / "not a
-             "Our best dog on the slate today. Half a unit.")         #  monster edge" / "and we'll see")
-
+FLOOR_WHY = ("Thin edge - half a unit. Tread lightly.",              # 🧩 11/22 (the owner on the Wizards +170 ½u: "We can't
+             "Half a unit. Thin edge, tread lightly.",               #  say best dog on the slate but it's a half unit makes no
+             "Thin edge - go light, half a unit.",                   #  sense. Half unit is a thin edge tread lightly")
+             "Small edge, small bet - half a unit.")
 
 def _pick_why(pool, key=""):
     """A size line not on the page yet this build (rolls by the pick)."""
@@ -1077,11 +1076,11 @@ def _dog_note(day, day_picks):
         half = all((_sp.units_for(p) or 0) <= 0.5 for p in dogs_up)   #  bet - a 1u 🔍 gap play or an NBA floor dog
         #                                                      whose read clears the price by 5 points is no thin edge)
         if half:
-            msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'half-unit plays' if n > 1 else 'a half-unit play'} below.",
+            msg = [f"No Dog of the Day - nothing cleared the full Dog bar. {'Thin-edge dogs are' if n > 1 else 'A thin-edge dog is'} up as {'half-unit plays' if n > 1 else 'a half-unit play'} below.",
                    f"No Dog of the Day today. The best {'dog' if n == 1 else str(n) + ' dogs'} by our angles still made the board below - small bets, half a unit each.",
-                   f"Dog of the Day's empty - no dog earned the full spot. {'Our best dog rides' if n == 1 else 'Our best dogs ride'} below as half-unit value plays."][k]
+                   f"Dog of the Day's empty - no dog earned the full spot. {'A thin-edge dog rides' if n == 1 else 'Thin-edge dogs ride'} below as half-unit value plays."][k]
         else:
-            msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'value plays' if n > 1 else 'a value play'} below, with {'their' if n > 1 else 'its'} own units.",
+            msg = [f"No Dog of the Day - nothing cleared the full Dog bar. {'Thin-edge dogs are' if n > 1 else 'A thin-edge dog is'} up as {'value plays' if n > 1 else 'a value play'} below, with {'their' if n > 1 else 'its'} own units.",
                    f"No Dog of the Day today. {'The dogs' if n > 1 else 'The dog'} that made the board {'ride' if n > 1 else 'rides'} below as {'value plays' if n > 1 else 'a value play'} - each sized on its own rule.",
                    f"Dog of the Day's empty - no dog earned the full spot. {'Our dogs ride' if n > 1 else 'Our dog rides'} below as {'value plays' if n > 1 else 'a value play'}."][k]
         return f'<div class="drop leanday">🐺 {E(msg)}</div>'

@@ -2161,7 +2161,7 @@ Q_SIDE = "the line under the pick didn't say our side first"
 QUALITY["incoherent"] = (Q_INJ, Q_PLAYS, Q_OURS, Q_SELF, Q_FIGHTS, Q_SIDE)
 SELF_KNOCK = re.compile(
     r"not a great one|not a great|not a monster|no monster edge|no big edge|not a big edge|just the best dog left|best dog left|"
-    r"best dog we (?:could find|found)|angles are mixed|don'?t (?:get|go) crazy|small swing|and we'?ll see|no gift in|"
+    r"best dog we (?:could find|found)|best dog on the (?:slate|board)|best of every dog|angles are mixed|don'?t (?:get|go) crazy|small swing|and we'?ll see|no gift in|"
     r"not (?:on )?a gift|price is about (?:fair|right)|priced about right|about fair|nothing extra in it|not a big one|"
     r"still (?:proving|earning)|till it proves|till the live record|builds its live record", re.I)
 INJ_TALK = re.compile(r"short[- ]handed|banged[- ]up|missing bodies|trainer'?s room|injury list|dealing with injuries|"
