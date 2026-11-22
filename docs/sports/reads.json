@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T02:54Z",
+ "updated": "2026-11-22T03:11Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -2254,8 +2254,8 @@
    "away": "Blue Jackets",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2284,8 +2284,8 @@
    "away": "Capitals",
    "home": "Bruins",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2401,8 +2401,8 @@
    "away": "Kings",
    "home": "Senators",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2641,8 +2641,8 @@
    "away": "Trail Blazers",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2701,8 +2701,8 @@
    "away": "SW Adventist",
    "home": "Abilene Chrstn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2827,69 +2827,6 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401864541",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Nevada",
-    "p": 0.601,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-22T03:30Z",
-   "away": "Hawai'i",
-   "home": "Nevada",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Nevada",
-    "opp": "Hawai'i",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.642,
-    "win_p": 0.642,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "altitude edge"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401860919",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Oregon St",
-    "p": 0.615,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-22T03:30Z",
-   "away": "Utah State",
-   "home": "Oregon St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Oregon St",
-    "opp": "Utah State",
-    "market": "ml",
-    "line": null,
-    "odds": -258,
-    "p": 0.659,
-    "win_p": 0.659,
-    "reasons": [
-     "the stronger team",
-     "opponent's body clock is off"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401909567",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2925,8 +2862,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "UIC",
-    "p": 0.484,
+    "team": "Miami OH",
+    "p": 0.493,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -2938,15 +2875,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "UIC",
-    "opp": "Miami OH",
+    "team": "Miami OH",
+    "opp": "UIC",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.507,
-    "win_p": 0.507,
+    "odds": -120,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "sharp money moving this way",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -3102,7 +3041,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Dayton",
-    "p": 0.542,
+    "p": 0.556,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -3118,9 +3057,9 @@
     "opp": "Northwestern",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.589,
-    "win_p": 0.589,
+    "odds": -162,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -3194,7 +3133,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Panthers",
-    "p": 0.522,
+    "p": 0.512,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -3203,16 +3142,16 @@
    "start": "2026-11-22T18:00Z",
    "away": "Ravens",
    "home": "Panthers",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Panthers",
     "opp": "Ravens",
     "market": "ml",
     "line": null,
-    "odds": -152,
-    "p": 0.56,
-    "win_p": 0.56,
+    "odds": -141,
+    "p": 0.546,
+    "win_p": 0.546,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3627,8 +3566,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Alabama",
-    "p": 0.68,
-    "tie": 0.038,
+    "p": 0.67,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3643,9 +3582,9 @@
     "opp": "South Alabama",
     "market": "spread",
     "line": 7.5,
-    "odds": -105,
+    "odds": -115,
     "p": 0.501,
-    "win_p": 0.249,
+    "win_p": 0.26,
     "reasons": [
      "out-rebounding people by +5.5 a game to their -3.7 - the books don't price the glass (5 of 5 seasons)",
      "they've lost 1 rotation man in the last three weeks - Aaron Goldstein (35 minutes a game)"
@@ -4445,8 +4384,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.539,
-    "tie": 0.038,
+    "p": 0.535,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -4461,9 +4400,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -172,
-    "p": 0.586,
-    "win_p": 0.586,
+    "odds": -167,
+    "p": 0.58,
+    "win_p": 0.58,
     "reasons": [
      "better QB play lately",
      "the stronger team"
