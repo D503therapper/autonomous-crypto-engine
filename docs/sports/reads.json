@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T03:11Z",
+ "updated": "2026-11-22T03:23Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -2239,8 +2239,8 @@
    "away": "Arkansas St",
    "home": "Louisiana Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2371,8 +2371,8 @@
    "away": "Golden Knights",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2431,8 +2431,8 @@
    "away": "Lamar",
    "home": "McNeese",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2671,8 +2671,8 @@
    "away": "Grizzlies",
    "home": "Timberwolves",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2761,8 +2761,8 @@
    "away": "Valparaiso",
    "home": "Troy",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2820,6 +2820,66 @@
    "start": "2026-11-22T02:30Z",
    "away": "San Diego St",
    "home": "Boise St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917537",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T03:00Z",
+   "away": "Bradley",
+   "home": "Pacific",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401910028",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-22T03:00Z",
+   "away": "Celtics",
+   "home": "Kings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892767",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-22T03:00Z",
+   "away": "Kraken",
+   "home": "Sharks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892766",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-22T03:00Z",
+   "away": "Wild",
+   "home": "Canucks",
    "h1": null,
    "why": "started",
    "done": false,
@@ -3150,8 +3210,8 @@
     "market": "ml",
     "line": null,
     "odds": -141,
-    "p": 0.546,
-    "win_p": 0.546,
+    "p": 0.547,
+    "win_p": 0.547,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3503,7 +3563,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.505,
+    "p": 0.5,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -3519,9 +3579,9 @@
     "opp": "Robert Morris",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.535,
-    "win_p": 0.535,
+    "odds": -122,
+    "p": 0.528,
+    "win_p": 0.528,
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
@@ -3555,8 +3615,7 @@
     "p": 0.68,
     "win_p": 0.68,
     "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back"
+     "the stronger team"
     ]
    }
   },
@@ -3689,7 +3748,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.484,
+    "p": 0.493,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -3705,12 +3764,13 @@
     "opp": "Oklahoma St",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.509,
-    "win_p": 0.509,
+    "odds": -120,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
      "rolling off a blowout win",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -3814,8 +3874,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Liberty",
-    "p": 0.518,
-    "tie": 0.043,
+    "p": 0.505,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3823,16 +3883,16 @@
    "start": "2026-11-22T21:30Z",
    "away": "Richmond",
    "home": "Liberty",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Liberty",
     "opp": "Richmond",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.553,
-    "win_p": 0.553,
+    "odds": -122,
+    "p": 0.535,
+    "win_p": 0.535,
     "reasons": [
      "the stronger team",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
@@ -4057,8 +4117,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Valparaiso",
-    "p": 0.688,
-    "tie": 0.038,
+    "p": 0.691,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4075,7 +4135,7 @@
     "line": 7.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.239,
+    "win_p": 0.236,
     "reasons": []
    }
   },
@@ -4415,7 +4475,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.672,
+    "p": 0.665,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -4430,10 +4490,10 @@
     "team": "Celtics",
     "opp": "Warriors",
     "market": "spread",
-    "line": -9.5,
-    "odds": -111,
-    "p": 0.501,
-    "win_p": 0.769,
+    "line": -8.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.759,
     "reasons": [
      "the stronger team"
     ]
