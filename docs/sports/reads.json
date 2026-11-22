@@ -1,43 +1,13 @@
 {
- "updated": "2026-11-22T16:47Z",
+ "updated": "2026-11-22T16:59Z",
  "games": [
-  {
-   "id": "nhl:401892768",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.383,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-22T17:30Z",
-   "away": "Hurricanes",
-   "home": "Rangers",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Rangers",
-    "opp": "Hurricanes",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.649,
-    "win_p": 0.43,
-    "reasons": [
-     "opponent on a back-to-back"
-    ]
-   }
-  },
   {
    "id": "nfl:401873072",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.596,
+    "p": 0.594,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -53,9 +23,9 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -220,
-    "p": 0.667,
-    "win_p": 0.667,
+    "odds": -218,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -69,7 +39,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.762,
+    "p": 0.761,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -87,7 +57,7 @@
     "line": 15.5,
     "odds": -110,
     "p": 0.507,
-    "win_p": 0.114,
+    "win_p": 0.115,
     "reasons": []
    }
   },
@@ -217,7 +187,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Panthers",
-    "p": 0.526,
+    "p": 0.524,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -233,9 +203,9 @@
     "opp": "Ravens",
     "market": "ml",
     "line": null,
-    "odds": -144,
-    "p": 0.567,
-    "win_p": 0.567,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -247,7 +217,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.731,
+    "p": 0.73,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -264,12 +234,11 @@
     "market": "spread",
     "line": -11.5,
     "odds": -112,
-    "p": 0.505,
-    "win_p": 0.837,
+    "p": 0.507,
+    "win_p": 0.836,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "better rested"
+     "sharp money moving this way"
     ]
    }
   },
@@ -295,9 +264,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -199,
-    "p": 0.657,
-    "win_p": 0.657,
+    "odds": -198,
+    "p": 0.656,
+    "win_p": 0.656,
     "reasons": [
      "the stronger team"
     ]
@@ -309,7 +278,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.657,
+    "p": 0.654,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -325,10 +294,12 @@
     "opp": "Cowboys",
     "market": "spread",
     "line": 7.5,
-    "odds": -106,
+    "odds": -115,
     "p": 0.5,
-    "win_p": 0.235,
-    "reasons": []
+    "win_p": 0.255,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -643,7 +614,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Troy",
-    "p": 0.622,
+    "p": 0.626,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -659,11 +630,12 @@
     "opp": "Nicholls",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.692,
-    "win_p": 0.692,
+    "odds": -245,
+    "p": 0.697,
+    "win_p": 0.697,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "they're shooting 4 points under their season clip over the last five (46% effective) - a cold-shooting dog lost -15% in Jan-Mar"
     ]
    }
@@ -888,7 +860,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.733,
+    "p": 0.732,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1371,8 +1343,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Mavericks",
-    "p": 0.487,
+    "team": "Jazz",
+    "p": 0.483,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1388,11 +1360,10 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.516,
-    "win_p": 0.516,
+    "odds": -108,
+    "p": 0.508,
+    "win_p": 0.508,
     "reasons": [
-     "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -1419,7 +1390,7 @@
     "opp": "Bulls",
     "market": "spread",
     "line": -9.5,
-    "odds": -115,
+    "odds": -114,
     "p": 0.501,
     "win_p": 0.777,
     "reasons": [
