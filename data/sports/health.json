@@ -1,11 +1,11 @@
 {
- "at": "2026-11-22T06:48Z",
+ "at": "2026-11-22T06:59Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (44s)",
+  "live watcher fresh (54s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,13 +17,20 @@
   "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
+  "studies ran 1h ago",
   "simulator ran 7h ago",
   "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-22T06:59Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-22T06:48Z",
    "fixes": [
@@ -530,18 +537,6 @@
     "live tennis scores: tennis Strakhova vs Bronzetti: no points for 2354s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-20T18:06Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Strakhova vs Bronzetti: no points for 1971s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Niagara (2026-11-20): a short card: 0 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
