@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T00:29Z",
+ "updated": "2026-11-22T00:44Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -1582,8 +1582,8 @@
    "away": "LSU",
    "home": "Tennessee",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1672,8 +1672,8 @@
    "away": "UCLA",
    "home": "Michigan",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1777,8 +1777,8 @@
    "away": "Georgia St",
    "home": "Marshall",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1792,8 +1792,8 @@
    "away": "Incarnate Word",
    "home": "East Texas A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1852,8 +1852,8 @@
    "away": "N Illinois",
    "home": "N Dakota St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1898,7 +1898,7 @@
    "home": "Southern Miss",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Southern Miss",
@@ -1911,7 +1911,7 @@
     "reasons": [
      "the picks have gone against them all year (-0.6 a game over 10 games) - that's in the record the price comes off, and these dogs win more than the number says"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1939,8 +1939,8 @@
    "away": "Tarleton St",
    "home": "North Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2527,6 +2527,111 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401860918",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "Colorado St",
+   "home": "Fresno St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856751",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "Kentucky",
+   "home": "Missouri",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858306",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "Pitt",
+   "home": "Louisville",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926217",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "Presbyterian",
+   "home": "Tennessee Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858307",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "SMU",
+   "home": "Notre Dame",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858308",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "Stanford",
+   "home": "California",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401910024",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-22T00:30Z",
+   "away": "Trail Blazers",
+   "home": "Knicks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401925049",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2928,7 +3033,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nebraska",
-    "p": 0.796,
+    "p": 0.791,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2946,7 +3051,7 @@
     "line": 11.5,
     "odds": -105,
     "p": 0.505,
-    "win_p": 0.12,
+    "win_p": 0.124,
     "reasons": []
    }
   },
@@ -4215,7 +4320,7 @@
     "opp": "Oilers",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
+    "odds": -230,
     "p": 0.676,
     "win_p": 0.459,
     "reasons": []
