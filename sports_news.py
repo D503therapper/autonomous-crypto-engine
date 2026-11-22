@@ -219,12 +219,51 @@ def drama(news, league, team_id, name=None, others=()):
                   key=lambda e: e["date"], reverse=True)
 
 
-def talk(news, league, team_id, days=4, today=None):
-    """The team's pregame talk from the last few days (newest first, one per kind) - display / self-check only."""
+# 📣 11/22 BOARD CHECK - CAMP TALK IS THE CAMP TALKING ABOUT THE GAME (the owner, 10/1: "never vague" / "never false
+# information"). The 11/22 Panthers -145 Lock card carried '📣 Out of the Ravens' camp this week: "Carmelo Anthony calls
+# out Ravens' Humphrey over Baltimore 'criminals' remark"' - a retired NBA player's comment about a Raven's off-field
+# remark: not out of the Ravens' camp and nothing about the matchup. The file held more of it: "Raiders' Mark Davis
+# unhappy with 'unfair' image of his father in 'Madden' movie", "Georgia AG asks SEC to take action against LSU's
+# 'contempt for the rules'" (tagged "unhappy" off the DESCRIPTION, on 14 teams), "Nebraska ends 31-game losing streak ..."
+# (the same), the weekly "... tops college football Week 11 trolls" round-ups. A talk line now stands only when:
+# the kind reads off the HEADLINE itself (the line the card shows - the 11/11 drama rule), the headline names the team,
+# the team is not the TARGET of somebody else's words ("X calls out Ravens' Y", "jab at SMU"), the story isn't
+# off the field (a movie, politics, a city's crime) and it isn't a league round-up. Can't tell = no line.
+_TALK_AT = (r"(?:calls? out|called out|blasts?|blasted|rips?|ripped|slams?|slammed|jabs? at|jabbed at|trolls?|trolled|"
+            r"pokes? fun at|poked fun at|fires? back at|fired back at|takes? (?:a )?(?:shot|aim|jab) at|goes after|"
+            r"went after|criticiz\w+|mocks?|mocked)")
+_OFF_FIELD = re.compile(r"\b(movie|film|documentary|tv show|podcast|commercial|video game|album|rapper|politic\w*|"
+                        r"election|mayor|governor|attorney general|senator|congress\w*|lawmakers?|white house|"
+                        r"criminals?|crime|city council|waiver approved)\b|\bAG\b|'Madden'", re.I)
+_ROUND_UP = re.compile(r"\btrolls\b|\bto headline\b|\banger index\b|\bblock party\b|\bpower rankings\b|"
+                       r"\btakeaways\b|\bwinners and losers\b|\bthings (we|to)\b|\bweek \d+ \w+s\b", re.I)
+
+
+def camp_talk(headline, kind, name, others=(), need_name=True):
+    """Is this pregame-talk headline really talk out of THIS team's camp about football / the game? (see above)"""
+    h = str(headline or "")
+    if not h or kind not in talk_kinds(h):
+        return False                                         # the kind was only in the description: the card can't show it
+    me = _find(h, name)
+    if (me is None and need_name) or (others and not about(h, name, others)):
+        return False                                         # never names the team / another team is the subject
+    if _OFF_FIELD.search(h) or _ROUND_UP.search(h):
+        return False
+    for n in _alts(name):                                    # the team is who the words are aimed AT, not who's talking
+        if re.search(_TALK_AT + r"\s+(?:the\s+)?" + re.escape(n) + r"(?![A-Za-z])", h, re.I):
+            return False
+    return True
+
+
+def talk(news, league, team_id, days=4, today=None, name=None, others=()):
+    """The team's pregame talk from the last few days (newest first, one per kind) - display / self-check only. With
+    the team's `name` only real camp talk counts (camp_talk, 11/22) - a filtered headline never hides an older true one."""
     today = today or datetime.now(timezone.utc).date()
     cut = (today - timedelta(days=days)).isoformat()
     out, kinds = [], set()
     for e in sorted(news.get(f"{league}:{team_id}", []), key=lambda e: e["date"], reverse=True):
+        if name is not None and e.get("talk") and not camp_talk(e.get("headline"), e.get("kind"), name, others):
+            continue
         if e.get("talk") and e["date"] >= cut and e["kind"] not in kinds:
             kinds.add(e["kind"])
             out.append(e)

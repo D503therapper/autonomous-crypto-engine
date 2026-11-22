@@ -1149,7 +1149,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                  for side in ("home", "away")}       # (11/11: ESPN tags every team an article touches - the Kings got
         #                                              "opponent drama: suspension" off a Senators headline and it was
         #                                              the Predators +114 floor play's only named reason)
-        talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
+        talk = {side: sports_news.talk(news, lg, g[side], name=g.get(side + "_name") or "?", others=team_names.get(lg, ()))
+                for side in ("home", "away")}         # (11/22: only real camp talk - sports_news.camp_talk)
         try:                                          # 🥅 hockey: is each side's known (confirmed / likely) starter
             g_roles = sports_goalies.roles(sp.CACHE.get("nhl") or [], g, now) if lg == "nhl" else {}   # its #1?
         except Exception as e:                        # noqa: BLE001 - unknown = no weight, never a blocked board
@@ -1302,6 +1303,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_mlb_drought(out)
     weigh_west_coast_road_fav(games, out)
     weigh_hoops_inside(games, out, now)
+    mark_nba_paint(games, out, now)                   # 🏀 11/22 daily S1: the NBA team that shuts the paint (+1 / -1 on the dog)
     mark_doubleheader_game2(games, out)
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     mark_nba_lost_man(games, out)                     # 🏀 11/3 daily: the NBA team that lost a rotation man (-2 / -0.03)
@@ -2861,6 +2863,7 @@ def dog_spots(c):
         sc += nfl_bye_dog_pts(c) if lg == "nfl" else 2   # off a bye vs a team that played: NFL +26.7% on 49 (5 of 6),
         #                            college +7.5% on 242 (4 of 6) at fair prices - discounted: the line moves to them
         #                            60-65% by kickoff (the NFL +3 is OFF from the 11/16 games - NFL_BYE_DOG_OFF_FROM)
+    sc += nba_paint_pts(c)         # 🏀 11/22 daily S1: the NBA dog that shuts the paint +1 / the dog facing one -1 (NBA_PAINT_FROM)
     if nfl_vs_bye(c):
         sc -= NFL_VS_BYE_PTS       # 11/15 TEN STUDIES S1: the NFL dog on a normal week FACING a team off its bye -18.8% on
         #                            234 at the close 2006-26 (train -15.1% / held -23.5%, 15 of 21 seasons down)
@@ -6252,6 +6255,63 @@ def weigh_hoops_inside(games, cands, now):
                 c["edge_own"] = min(0.95, (c["edge_own"] + 1) / c["dec"] + HOOPS_INSIDE_W) * c["dec"] - 1
             c["hoops_inside"] = True
             c["reasons"] = c["reasons"] + ["wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"]
+
+
+NBA_PAINT_FROM = "2026-11-23"   # 🏀 11/22 DAILY STUDIES S1 (results/studies/daily_1122/s_hoops.py -> s1b_nba_paint.py ->
+NBA_PAINT_PTS = 1               # s1c_nba_paint_controls.py; ESPN's team box 2021-26, the close, train 2021-23 / held 2024-26):
+#   THE NBA TEAM THAT SHUTS THE PAINT IS UNDERPRICED. The share of the points a team gives up that come in the paint
+#   (season to date, 10+ box games), ranked among the league that night - the best fifth: as a DOG +100..+350 +8.5% on
+#   707 against -5.3% for every dog (train +4.5%, 3 of 3 seasons up / held +16.7%: 2024 +20.5, 2025 +8.8; a random
+#   same-size set of dogs as good 2 of 2,000 times; ESPN's open 2023-26 +7.3% on 385 vs -8.0%, the paid morning look
+#   2021-22 +3.3% on 322 vs -7.9%) and the dog ACROSS one -15.5% on 747 (train -19.0%, 0 of 3 up / held -10.5%; as badly
+#   by luck 20 of 2,000). It is not "a good defense" by another name (the dog in the best fifth of points allowed
+#   -9.4% on 511; the paint dog whose team is NOT a best-fifth defense +7.9% on 593, placebo 12) and not three-point
+#   luck (opponents coldest fifth from three: ATS -3.7%, the base). HONEST: 554 cells were read that day (the dog's
+#   placebo of 2 in 2,000 is about one false alarm in two such days), its z against zero is 1.6, its home dogs carry
+#   it (+20.3% on 259 at home, +1.7% on 448 on the road) and 2026 is 6 bets. So HALF the usual NBA dog weight (1, not
+#   2 - like the halved Monday night dog) until the tracker has judged it, never a gate or a pick: +NBA_PAINT_PTS on the dog score's study points (dog_spots, inside STUDY_CAP) for
+#   an NBA moneyline dog whose own team shuts the paint, -NBA_PAINT_PTS for one facing a team that does (and doesn't
+#   itself), games on / after NBA_PAINT_FROM (the Pacific day; "9999" = off). No favorite read, spread or size moves.
+#   Unknown (under 10 box games, under 20 teams read, no box file) = 0. Tracker tags "NBA dog that shuts the paint" /
+#   "NBA dog vs a team that shuts the paint (fade)" are the judge - at 60 graded: the first under -5% or the second
+#   over +5% = that half comes off; both holding (+5% or better / -5% or worse) = the full 2.
+
+
+def mark_nba_paint(games, cands, now):
+    """🏀 11/22 daily S1: stamp every NBA moneyline side with paint_shut (its own team is in the league's best fifth at
+    keeping points out of the paint) / vs_paint_shut (the other team is) - sports_hoops_style.paint_states."""
+    nba = [c for c in cands if c.get("league") == "nba" and c.get("market") == "ml"]
+    if not nba:
+        return
+    try:
+        import sports_hoops_style as hs
+        st = hs.paint_states(now.strftime("%Y-%m-%dT%H:%MZ"), games=games)
+    except Exception as e:                                   # noqa: BLE001 - extra facts never block the board
+        print(f"nba paint failed: {str(e)[:60]}")
+        return
+    for c in nba:
+        g = games.get(c["game_id"]) or {}
+        other = "away" if c["side"] == "home" else "home"
+        me, th = hs.paint_shut(st, g.get(c["side"])), hs.paint_shut(st, g.get(other))
+        if me is not None:
+            c["paint_shut"] = me
+        if th is not None:
+            c["vs_paint_shut"] = th
+
+
+def nba_paint_pts(c):
+    """🏀 11/22 daily S1: the points the paint read puts on an NBA moneyline DOG's study score - +NBA_PAINT_PTS when its
+    own team shuts the paint, -NBA_PAINT_PTS when only the other team does; 0 for a favorite, a spread, an unread team
+    or a game before NBA_PAINT_FROM."""
+    if c.get("league") != "nba" or c.get("market", "ml") != "ml" or (c.get("odds") or 0) < 100:
+        return 0
+    if not NBA_PAINT_FROM or pt_day(c) < NBA_PAINT_FROM:
+        return 0
+    if c.get("paint_shut") is True:
+        return NBA_PAINT_PTS
+    if c.get("vs_paint_shut") is True and c.get("paint_shut") is False:
+        return -NBA_PAINT_PTS
+    return 0
 
 
 def mark_doubleheader_game2(games, cands):

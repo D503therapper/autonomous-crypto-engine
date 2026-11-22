@@ -562,6 +562,7 @@ def tags(c, sports):
     #                                                          isn't the favorite's #1, and its control (a LEAD)
     t += daily_1120_tags(c, sports)                          # 11/20 daily studies: the non-D1 tune-up, the late-quarter closer
     t += daily_1121_tags(c, sports)                          # 11/21 daily studies: the dog under its prices vs a team over them
+    t += daily_1122_tags(c, sports)                          # 11/22 daily studies: the NBA paint weight's two forward records
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1108,6 +1109,22 @@ def under_prices_dog(c):
     if me is None or op is None:
         return None
     return me <= -cfg[1] and op >= cfg[1]
+
+
+NBA_PAINT_DOG_TAG = "NBA dog that shuts the paint"                       # 11/22 daily S1: the built +1 weight's forward record
+NBA_VS_PAINT_DOG_TAG = "NBA dog vs a team that shuts the paint (fade)"    # ... and the built -1's (judge each at 60)
+
+
+def daily_1122_tags(c, sports):
+    """11/22 daily studies S1: the NBA paint weight's judge - the dog +100..+350 the weight lifts / the one it drops,
+    from the same flags the board reads (sports.nba_paint_pts), games from sports.NBA_PAINT_FROM."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "nba" or not 100 <= (c.get("odds") or 0) <= 350:
+            return []
+        p = sports.nba_paint_pts(c)
+        return [NBA_PAINT_DOG_TAG] if p > 0 else [NBA_VS_PAINT_DOG_TAG] if p < 0 else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 def daily_1121_tags(c, sports):
