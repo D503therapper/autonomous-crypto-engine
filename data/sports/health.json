@@ -1,12 +1,12 @@
 {
- "at": "2026-11-22T21:37Z",
+ "at": "2026-11-22T21:45Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Masarova vs Gormaz: no points for 1178s",
+  "live tennis scores: tennis Masarova vs Gormaz: no points for 1447s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (194s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,20 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-22T21:45Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Masarova vs Gormaz: no points for 1447s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-22T21:37Z",
    "fixes": [],
@@ -578,11 +586,6 @@
   },
   {
    "at": "2026-11-21T12:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-21T10:45Z",
    "fixes": [],
    "problems": []
   }
