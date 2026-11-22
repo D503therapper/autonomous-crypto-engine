@@ -26346,3 +26346,29 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-22 14:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-22 14:05 UTC] crypto/hold_btc  equity $374.98 (-25.0%) 1 open  market DOWN
    social heat top: TRUMP 37 (37/0/0), PENGU 35 (35/0/0), BTC 32 (32/0/0), VVV 28 (19/0/10), SOL 24 (24/0/0)
+   dex screen: REJECT MZG@base liq $132,798 - goplus partial data: cannot_sell_all unknown; top-10 holders 99%
+   dex screen: REJECT INFI@base liq $312,940 - pool age unknown
+   dex screen: REJECT EURC@ethereum liq $220,692 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 47%; lp locked 0% < 95%
+   dex screen: REJECT TRAC@ethereum liq $433,705 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT BP@solana liq $2,585,476 - freeze authority; mint authority; top-10 holders 96%
+   dex screen: REJECT $WIF@solana liq $89,626 - top-10 holders 46%; lp locked 0% < 95%
+   dex screen: REJECT SI@solana liq $244,716 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT SI@solana liq $16,944,128 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT MUC@base liq $23,109 - liquidity $23,109 < $100,000; 24h volume $2,959 < $100,000
+   listings: upbit_markets failed (1x, retry in 30s): URLError: <urlopen error timed out>
+   dex screen: UNREACHABLE POPO@ethereum liq $305,685 - honeypot.is unreachable
+   dex screen: REJECT AMZNC@base liq $28,325 - liquidity $28,325 < $100,000; 24h volume $2,254 < $100,000
+   dex screen: REJECT PIPPIN@solana liq $3,208,683 - top-10 holders 71%
+   dex screen: PASS DESSA@solana liq $161,545
+   dex screen: REJECT CIRBTC@ethereum liq $4,908,762 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 80%
+   dex scanner: 2,757 pools (solana 1,954 / base 482 / ethereum 321), refresh cycle 123s (hot 118s), 2823 calls (110 feed, 429s 0, failed 1), 81,360 refreshed (12108 no pair), +95 added / -71 dropped (dead 65, stale 6, cap 0), movers 0 + warming 0 -> queued 0, screened 1 (passed 0), bought 0
+[2026-11-22 15:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/mover     equity $113.87 (-77.2%) 1 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/social_heat equity $315.64 (-36.9%) 3 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-22 15:05 UTC] crypto/hold_btc  equity $375.76 (-24.8%) 1 open  market DOWN
+   social heat top: TRUMP 40 (40/0/0), BTC 32 (32/0/0), CASHCAT 30 (16/0/14), PENGU 29 (29/0/0), VVV 27 (27/0/0)
