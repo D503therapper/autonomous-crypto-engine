@@ -69,3 +69,76 @@ def inside(st, lg, me, them):
     if lg == "ncaab" and b and b["oreb"] >= c["oreb_high"]:
         return 0
     return 1
+
+
+# 🏀 11/22 DAILY STUDIES S1 - THE NBA TEAM THAT SHUTS THE PAINT (results/studies/daily_1122/s_hoops.py / s1b_nba_paint.py /
+# s1c_nba_paint_controls.py; ESPN's team box 2021-26 - pointsInPaint, a column no study had read). The share of the
+# points a team GIVES UP that come in the paint, season to date (10+ box games), ranked among the league's current
+# values (20+ teams read): the bottom fifth "shuts the paint". The read sports.mark_nba_paint / nba_paint_pts weighs.
+PAINT_MIN_G = 10
+PAINT_MIN_TEAMS = 20
+PAINT_FIFTH = 0.2
+_PAINT = {}
+
+
+def _pts(s):
+    """A team's points from its box line (2 a field goal + 1 a three + the free throws), or None."""
+    fgm = _n(s.get("fieldGoalsMade-fieldGoalsAttempted"), 0)
+    tpm = _n(s.get("threePointFieldGoalsMade-threePointFieldGoalsAttempted"), 0)
+    ftm = _n(s.get("freeThrowsMade-freeThrowsAttempted"), 0)
+    if fgm is None or tpm is None or ftm is None:
+        return None
+    return 2 * fgm + tpm + ftm
+
+
+def paint_states(now_iso, rows=None, games=None):
+    """{team id: {"share": the paint's share of the points it gives up, "n": box games, "pct": its place in the league
+    (0 = shuts the paint best)}} - the NBA this season before `now_iso`, regular-season games only when `games` says
+    which they are; a team under PAINT_MIN_G box games isn't read, and under PAINT_MIN_TEAMS teams nobody is ranked."""
+    key = (now_iso[:13], id(rows) if rows is not None else 0)
+    if key in _PAINT:
+        return _PAINT[key]
+    if rows is None:
+        import sports_roster as sr
+        try:
+            rows = sr.team_rows("nba")
+        except Exception:                                    # noqa: BLE001
+            rows = []
+    y, mo = int(now_iso[:4]), int(now_iso[5:7])
+    season0 = f"{y if mo >= 7 else y - 1}-07-01"
+    acc = {}
+    for r in rows:
+        st_ = r.get("start") or ""
+        if not (season0 <= st_ < now_iso):
+            continue
+        if games is not None:
+            g = games.get(r.get("gid")) or {}
+            if str(g.get("stype") or "2") != "2":
+                continue                                     # (preseason boxes are no read)
+        tm = r.get("teams") or {}
+        if len(tm) != 2:
+            continue
+        (ta, sa), (tb_, sb) = tm.items()
+        for me, opp in ((ta, sb), (tb_, sa)):
+            paint, pts = _n(opp.get("pointsInPaint")), _pts(opp)
+            if paint is None or not pts:
+                continue
+            a = acc.setdefault(str(me), [0.0, 0.0, 0])
+            a[0] += paint
+            a[1] += pts
+            a[2] += 1
+    teams = {t: {"share": a[0] / a[1], "n": a[2]} for t, a in acc.items() if a[2] >= PAINT_MIN_G and a[1]}
+    if len(teams) >= PAINT_MIN_TEAMS:
+        for t, v in teams.items():
+            v["pct"] = sum(1 for x in teams.values() if x["share"] < v["share"]) / (len(teams) - 1)
+    _PAINT.clear()
+    _PAINT[key] = teams
+    return teams
+
+
+def paint_shut(st, team):
+    """True = this team is in the league's best fifth at keeping points out of the paint, False = it isn't, None = unread."""
+    v = (st or {}).get(str(team))
+    if not v or v.get("pct") is None:
+        return None
+    return v["pct"] <= PAINT_FIFTH

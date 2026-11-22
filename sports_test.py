@@ -29999,6 +29999,164 @@ def test_daily_1121_the_dog_under_its_prices_is_a_tracker_lead_only():
         sl._SURPLUS.clear()
 
 
+def test_daily_1122_camp_talk_is_the_camp_talking_about_the_game():
+    """11/22 board check: the Panthers -145 Lock card carried '📣 Out of the Ravens' camp this week: "Carmelo Anthony
+    calls out Ravens' Humphrey over Baltimore 'criminals' remark"' - a retired NBA player's words AT a Raven about
+    something off the field. A talk line stands only when the kind reads off the headline, the headline names the team,
+    the team isn't the target of somebody else's words, and the story isn't off the field or a league round-up
+    (sports_news.camp_talk; sports_news.talk with a name; the breakdown's own guard for a leg already stamped)."""
+    import sports_news as sn
+    import sports_breakdown_v24 as v24
+    melo = "Carmelo Anthony calls out Ravens' Humphrey over Baltimore 'criminals' remark"
+    flowers = "Ravens' Flowers 'super frustrated' by latest late-game fumble"
+    assert not sn.camp_talk(melo, "unhappy", "Ravens")
+    assert sn.camp_talk(flowers, "unhappy", "Ravens")
+    assert not sn.camp_talk("Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie", "unhappy", "Raiders")
+    assert not sn.camp_talk("Georgia AG asks SEC to take action against LSU's 'contempt for the rules'", "unhappy", "LSU")
+    assert not sn.camp_talk("Kyle Hamilton says Ravens 'disgracing' standards", "unhappy", "Ravens")    # the kind isn't in the headline
+    assert not sn.camp_talk("Wake Forest's post-blowout jab at SMU tops college football Week 11 trolls", "trash talk", "SMU")
+    assert not sn.camp_talk("49ers poke fun at Cowboys multiple times to headline NFL Week 10 trolls", "trash talk", "Cowboys")
+    assert sn.camp_talk("Schottenheimer 'very disappointed, very frustrated' with Cowboys' porous defense", "unhappy", "Cowboys")
+    assert sn.camp_talk("Ime Udoka frustrated by Rockets' defense: 'No effort or any attention to detail'", "unhappy", "Rockets")
+    assert not sn.camp_talk("Colorado beats No. 14 Houston 42-32 with Sanders on hot seat", "hot seat", "Houston", others=("Colorado", "Houston"))
+    assert not sn.camp_talk(flowers, "unhappy", "Panthers") and not sn.camp_talk("", "unhappy", "Ravens")
+    # the newest (false) headline never hides the older true one
+    import datetime as _dt
+    news = {"nfl:33": [{"id": "1|unhappy", "kind": "unhappy", "date": "2026-11-21", "talk": 1, "headline": melo},
+                       {"id": "2|unhappy", "kind": "unhappy", "date": "2026-11-18", "talk": 1, "headline": flowers}]}
+    day = _dt.date(2026, 11, 22)
+    assert [e["headline"] for e in sn.talk(news, "nfl", "33", today=day)] == [melo]                 # (no name: the old read)
+    assert [e["headline"] for e in sn.talk(news, "nfl", "33", today=day, name="Ravens")] == [flowers]
+    assert 'sports_news.talk(news, lg, g[side], name=' in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    # the card: a leg already stamped with the gossip gets no 📣 line; the true camp line still shows
+    hist = [("2026-11-01T23:00Z", "A", "Ravens", 3, 2), ("2026-11-02T00:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("nfl", hist, "2026-11-22T18:00Z")
+    leg["opp"] = "Ravens"
+    leg["talk_theirs"] = [{"kind": "unhappy", "headline": melo}]
+    assert not any(x.startswith("📣") for x in v24.breakdown(leg, games, elo, None))
+    assert v24.sports_news_camp(flowers, "unhappy", "Ravens") and not v24.sports_news_camp(melo, "unhappy", "Ravens")
+    assert v24.sports_news_camp("A call Thursday a must-win", "must-win", "A")       # (a short test name: the loop's own check names the camp)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index("for key, who, mine, other_nm in ((\"talk_theirs\"")
+    assert "sports_news_camp(hl, t.get(\"kind\"), mine)" in src[i:i + 1500]
+    assert sports.sports_breakdown.VERSION >= 81
+
+
+def test_daily_1122_a_tune_up_is_never_form_in_the_points_lately_line():
+    """11/22 board check: the Robert Morris +102 card said "Over their last 3 Robert Morris win by 6 a game (74 for, 68
+    against)" - a 94-45 win over Capital (a non-D1 school) and two double-digit losses. In college hoops the points-lately
+    lines read real (D1) games only (sports_breakdown_v24._real); every other league as before."""
+    import sports_breakdown_v24 as v24
+    keep = dict(v24._D1)
+    try:
+        v24._D1.clear()
+        v24._D1.update({"key": "t", "set": {"RM", "ARK", "TOL", "UIC"}})
+
+        def gm(home, away, hs, as_):
+            return {"home": home, "away": away, "home_score": str(hs), "away_score": str(as_)}
+        gs = [gm("UIC", "RM", 79, 56), gm("ARK", "RM", 76, 53), gm("RM", "CAPITAL", 94, 45), gm("TOL", "RM", 83, 76)]
+        assert v24._pts3(gs, "RM") == (74, 68, 3)                                   # the line as it posted
+        real = v24._real(gs, "RM", "ncaab")
+        assert len(real) == 3 and all("CAPITAL" not in (x["home"], x["away"]) for x in real)
+        assert v24._pts3(real, "RM") == (62, 79, 3)                                 # what the scoreboard really says
+        assert v24._real(gs, "RM", "nba") == gs                                     # only college hoops has tune-ups
+        v24._D1.update({"set": None})
+        assert v24._real(gs, "RM", "ncaab") == gs                                   # can't tell who's D1 = every game counts
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+        assert src.count("_pts3(_real(s_ours, tid, lg), tid") == 2 and "_pts3(s_ours, tid" not in src
+    finally:
+        v24._D1.clear()
+        v24._D1.update(keep)
+
+
+def test_daily_1122_the_nba_team_that_shuts_the_paint_is_a_weight_on_the_dog_from_the_11_23_games():
+    """11/22 daily studies S1: the share of the points an NBA team gives up that come in the paint (ESPN's team box,
+    season to date, 10+ box games, ranked among the league that night) - the best fifth as a dog +8.5% on 707 (train
+    +4.5% / held +16.7%, placebo 2 of 2,000), the dog across one -15.5% on 747 (-19.0% / -10.5%). A WEIGHT inside
+    STUDY_CAP from the 11/23 games at HALF the usual NBA dog weight (554 cells were read that day): +1 on the dog that
+    shuts the paint, -1 on the dog facing one; never a favorite, a spread, a gate or a size; unread = 0; its two
+    tracker tags are the judge (60 graded each)."""
+    import inspect
+    import sports_hoops_style as hs
+    import sports_leads as sl
+
+    def box(paint):
+        return {"pointsInPaint": str(paint), "fieldGoalsMade-fieldGoalsAttempted": "40-80",
+                "threePointFieldGoalsMade-threePointFieldGoalsAttempted": "10-30", "freeThrowsMade-freeThrowsAttempted": "10-12"}
+    assert hs._pts(box(40)) == 100
+    rows, games = [], {}
+    for rnd in range(10):                                    # 20 teams, 10 games each: team i gives up 30 + i in the paint
+        for i in range(10):
+            a, b = i, 10 + (i + rnd) % 10
+            gid = f"nba:{rnd}_{i}"
+            rows.append({"gid": gid, "start": f"2026-11-{1 + rnd:02d}T00:00Z", "teams": {str(a): box(30 + b), str(b): box(30 + a)}})
+            games[gid] = {"stype": "2"}
+    st = hs.paint_states("2026-11-22T20:00Z", rows=rows, games=games)
+    assert len(st) == 20 and st["0"]["n"] == 10 and abs(st["0"]["share"] - 0.30) < 1e-9 and st["0"]["pct"] == 0.0
+    assert [t for t in map(str, range(20)) if hs.paint_shut(st, t)] == ["0", "1", "2", "3"]       # the league's best fifth
+    assert hs.paint_shut(st, "19") is False and hs.paint_shut(st, "nobody") is None
+    # no look-ahead: a game at / after `now` is not read; under 10 box games = unread; preseason boxes never count
+    early = hs.paint_states("2026-11-09T12:00Z", rows=list(rows), games=games)
+    assert early == {}
+    pre = dict(games)
+    for k in list(pre)[:10]:
+        pre[k] = {"stype": "1"}
+    st2 = hs.paint_states("2026-11-22T20:00Z", rows=rows + [], games=pre)
+    assert all(v["n"] <= 10 for v in st2.values()) and len(st2) < 20 and hs.paint_shut(st2, next(iter(st2), "x")) is None   # under 20 teams: nobody ranked
+    # the weight
+    c = {"league": "nba", "market": "ml", "odds": 150, "start": "2026-11-24T00:30Z", "side": "home", "game_id": "nba:x",
+         "dog_ctx": {}, "dog_more": {}}
+    assert sports.NBA_PAINT_FROM == "2026-11-23" and sports.NBA_PAINT_PTS == 1
+    assert sports.nba_paint_pts({**c, "paint_shut": True}) == 1
+    assert sports.nba_paint_pts({**c, "paint_shut": True, "vs_paint_shut": True}) == 1
+    assert sports.nba_paint_pts({**c, "paint_shut": False, "vs_paint_shut": True}) == -1
+    assert sports.nba_paint_pts({**c, "vs_paint_shut": True}) == 0                                  # our own team unread: no fade
+    assert sports.nba_paint_pts({**c, "paint_shut": False, "vs_paint_shut": False}) == 0 and sports.nba_paint_pts(c) == 0
+    assert sports.nba_paint_pts({**c, "paint_shut": True, "odds": -130}) == 0                       # never a favorite
+    assert sports.nba_paint_pts({**c, "paint_shut": True, "market": "spread", "line": 4.5}) == 0   # never a spread
+    assert sports.nba_paint_pts({**c, "paint_shut": True, "league": "ncaab"}) == 0
+    assert sports.nba_paint_pts({**c, "paint_shut": True, "start": "2026-11-23T00:30Z"}) == 0       # the 11/22 Pacific slate: untouched
+    assert sports.nba_paint_pts({**c, "paint_shut": True, "start": "2026-11-23T20:30Z"}) == 1
+    assert round(sports.dog_spots({**c, "paint_shut": True}) - sports.dog_spots(c), 6) == 1         # in the study points (capped)
+    assert round(sports.dog_spots({**c, "paint_shut": False, "vs_paint_shut": True}) - sports.dog_spots(c), 6) == -1
+    assert "sc += nba_paint_pts(c)" in inspect.getsource(sports.dog_spots)
+    assert "STUDY_CAP" in inspect.getsource(sports.dog_score)
+    keep = sports.NBA_PAINT_FROM
+    try:
+        sports.NBA_PAINT_FROM = "9999"                                                              # the switch
+        assert sports.nba_paint_pts({**c, "paint_shut": True}) == 0
+    finally:
+        sports.NBA_PAINT_FROM = keep
+    # the stamp: both sides of an NBA moneyline, nothing on a spread / another league; a broken read never blocks
+    import datetime as _dt
+    keep_ps = hs.paint_states
+    try:
+        hs.paint_states = lambda now_iso, rows=None, games=None: st
+        gm = {"nba:x": {"home": "0", "away": "19"}}
+        cs = [{"league": "nba", "market": "ml", "side": "home", "game_id": "nba:x"}, {"league": "nba", "market": "ml", "side": "away", "game_id": "nba:x"},
+              {"league": "nba", "market": "spread", "side": "home", "game_id": "nba:x"}, {"league": "nhl", "market": "ml", "side": "home", "game_id": "nba:x"}]
+        sports.mark_nba_paint(gm, cs, _dt.datetime(2026, 11, 23, 16, tzinfo=_dt.timezone.utc))
+        assert cs[0]["paint_shut"] is True and cs[0]["vs_paint_shut"] is False
+        assert cs[1]["paint_shut"] is False and cs[1]["vs_paint_shut"] is True
+        assert "paint_shut" not in cs[2] and "paint_shut" not in cs[3]
+
+        def boom(*a, **k):
+            raise RuntimeError("no file")
+        hs.paint_states = boom
+        cs2 = [{"league": "nba", "market": "ml", "side": "home", "game_id": "nba:x"}]
+        sports.mark_nba_paint(gm, cs2, _dt.datetime(2026, 11, 23, 16, tzinfo=_dt.timezone.utc))
+        assert "paint_shut" not in cs2[0]
+    finally:
+        hs.paint_states = keep_ps
+    # the judge: the two tracker tags, off the same flags
+    assert sl.daily_1122_tags({**c, "paint_shut": True}, sports) == [sl.NBA_PAINT_DOG_TAG]
+    assert sl.daily_1122_tags({**c, "paint_shut": False, "vs_paint_shut": True}, sports) == [sl.NBA_VS_PAINT_DOG_TAG]
+    assert sl.daily_1122_tags(c, sports) == [] and sl.daily_1122_tags({**c, "paint_shut": True, "odds": 400}, sports) == []
+    assert sl.daily_1122_tags({**c, "paint_shut": True, "start": "2026-11-22T20:00Z"}, sports) == []
+    assert sl.NBA_PAINT_DOG_TAG in sl.tags({**c, "paint_shut": True}, sports)
+    assert "mark_nba_paint(games, out, now)" in inspect.getsource(sports)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

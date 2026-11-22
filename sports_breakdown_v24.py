@@ -356,6 +356,15 @@ def names_in(hl, names):
     return [n for _, n in sorted(hits)]
 
 
+def sports_news_camp(hl, kind, mine):
+    """sports_news.camp_talk for a card line (True when the module can't be read - the older checks still run)."""
+    try:
+        import sports_news
+        return sports_news.camp_talk(hl, kind, mine, need_name=False)   # (the loop's own check names the camp)
+    except Exception:                                        # noqa: BLE001
+        return True
+
+
 def someone_elses_story(hl, mine, games, lg, need_mine=False):
     """A headline ESPN tagged on `mine` that is really another team's story: it names another team of the league and
     not ours (10/16 truth audit: "The Sabres dealing with some personal stuff: 'Blackhawks' Bowen Byram to miss Buffalo
@@ -1843,6 +1852,16 @@ HOT_MIN = 3                      # (10/29) a "heater" / "rolling" line needs 3+ 
 FLOOR_UNIT, FLOOR_LEAN = 6, 5    # (10/25, the owner) fact lines a unit pick / a lean posts with, when the facts exist
 
 
+def _real(gs, tid, lg):
+    """🏀 11/22 board check: a team's games WITHOUT its non-D1 tune-ups (college hoops; every other league as is). The
+    Robert Morris +102 card said "Over their last 3 Robert Morris win by 6 a game (74 for, 68 against)" - a 94-45 win
+    over Capital (a non-D1 school) and two double-digit losses; against D1 teams they'd lost every game. A scoreboard
+    "lately" line is read on real games only - a tune-up is never dressed as form (the owner, 11/4: Mount Marty)."""
+    if lg != "ncaab":
+        return gs
+    return [x for x in gs or [] if not non_d1(lg, _opp_id(x, tid))]
+
+
 def _pts3(gs, tid, n=3, dec=0):
     """(scored, allowed) a game over the team's last n games on file, rounded - or None. dec=1: one decimal (hockey /
     baseball - 11/17: whole goals said "Stars average 4 for / 4 against ... Blue Jackets 3 for / 3 against", nothing)."""
@@ -2953,7 +2972,7 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
     except Exception:                                     # noqa: BLE001
         pass
     dec = 1 if nhl or lg == "mlb" else 0
-    pu, pt = _pts3(s_ours, tid, dec=dec), _pts3(s_theirs, oid, dec=dec)
+    pu, pt = _pts3(_real(s_ours, tid, lg), tid, dec=dec), _pts3(_real(s_theirs, oid, lg), oid, dec=dec)   # (11/22: no tune-ups)
     lately = "over their last" in low or "last 3" in low or "last 2" in low or "lately" in low
     _gap = 0.3 if nhl or lg == "mlb" else 2                # (a 1-point edge on the scoreboard says nothing)
     if pu and pu[0] - pu[1] >= _gap and not lately:             # 2. our scoreboard lately, when we're winning it
@@ -3336,7 +3355,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     #   (11/17 THE BREAKDOWN SWEEP: hockey / baseball say one decimal - whole goals read "Stars average 4 for / 4 against;
     #    Blue Jackets 3 for / 3 against" - and a margin of zero is never said as "+0 a game": the plain numbers instead)
     _dec = 1 if nhl or lg == "mlb" else 0
-    pu, pt = _pts3(s_ours, tid, dec=_dec), _pts3(s_theirs, oid, dec=_dec)
+    pu, pt = _pts3(_real(s_ours, tid, lg), tid, dec=_dec), _pts3(_real(s_theirs, oid, lg), oid, dec=_dec)   # (11/22: no tune-ups)
     if pu and pt:
         pu, pt = (f"{pu[0]:g}", f"{pu[1]:g}", pu[2], round(pu[0] - pu[1], 1)), (f"{pt[0]:g}", f"{pt[1]:g}", pt[2], round(pt[0] - pt[1], 1))
     if pu and pt and f"{pu[0]} and " not in body:
@@ -4404,6 +4423,10 @@ def context_lines(leg, v, us, them, the_us, the_them, g, games=None):
                 #   alive'" - ESPN tags a game story with both teams; a headline about the OTHER side isn't this camp's talk)
             if someone_elses_story(hl, mine, games, leg.get("league"), need_mine=True):
                 continue      # (10/16: a league round-up that never names the team is nobody's camp talk)
+            if not sports_news_camp(hl, t.get("kind"), mine):
+                continue      # (11/22 board check: "Out of the Ravens' camp this week: 'Carmelo Anthony calls out Ravens'
+                #   Humphrey over Baltimore 'criminals' remark'" - an outsider's words AT a Raven, off the field; the
+                #   kind has to read off the headline, the team can't be the target - sports_news.camp_talk)
             if key == "talk_ours" and t.get("kind") in TALK_KNOCKS_US:
                 continue      # (11/19 sweep: "📣 The Ravens in the papers: 'Flowers super frustrated by latest late-game
                 #   fumble'" on a RAVENS card - our own side's bad press is a knock on our pick, never a body line)

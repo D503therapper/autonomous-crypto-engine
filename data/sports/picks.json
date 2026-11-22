@@ -24907,6 +24907,7 @@
      "them:bowl5"
     ],
     "dec": 2.6399999999999997,
+    "decider": {},
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -24945,6 +24946,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "13,6,0,21",
+     "h": "7,7,15,6"
+    },
     "form_state": [
      -32.0,
      -2,
@@ -25040,10 +25045,12 @@
      "Jeremiah Dillon": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "South Alabama 40 @ Southern Miss 35",
     "season_games": null,
+    "settled": "2026-11-22T00:42Z",
     "side": "home",
     "spare": [],
     "start": "2026-11-21T21:00Z",
@@ -25063,12 +25070,14 @@
   ],
   "long_1u": true,
   "p_hit": 0.3898,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-21T16:00Z",
   "round": 1,
+  "settled": "2026-11-22T00:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 136,
@@ -25128,6 +25137,7 @@
      "them:road3in6"
     ],
     "dec": 2.3600000000000003,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -25148,6 +25158,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,1",
+     "h": "1,0,2"
+    },
     "form_state": [
      1.0,
      2,
@@ -25215,10 +25229,12 @@
      "Mike Matheson": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Flyers 4 @ Canadiens 3",
     "season_games": null,
+    "settled": "2026-11-22T02:46Z",
     "side": "away",
     "spare": [
      "\ud83d\udcaf Jamie Drysdale has 12 points in Flyers' last 10 games."
@@ -25238,12 +25254,14 @@
    }
   ],
   "p_hit": 0.4115,
-  "pnl": 0.0,
+  "pnl": 136.0,
   "posted": "2026-11-21T16:00Z",
   "round": 1,
+  "settled": "2026-11-22T02:46Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 160,
@@ -25687,5 +25705,1099 @@
   "status": "lost",
   "tier": "value",
   "units": 1.0
+ },
+ {
+  "american": -145,
+  "date": "2026-11-22",
+  "dec": 1.6897,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "b2b_me": false,
+    "bd_tags": [
+     "sched:1",
+     "latest:1",
+     "QB_cold:2",
+     "cx_hotseat:0",
+     "talk_q:0",
+     "w_cold:38",
+     "m_thin:2",
+     "f_pts:0",
+     "f_theirL:2",
+     "f_theirrec:2",
+     "bottom_lo:4",
+     "fill_rushingYards:0",
+     "fill_year_t:0",
+     "fill_l10_t:0",
+     "deep_role_t:0",
+     "deep_late_t:1",
+     "deep_win_t:0",
+     "deep_big_t:2",
+     "deep_romp_t:2",
+     "deep_cover_t:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\udd4a The Ravens got smacked 33-10 by the Jaguars inside their last 5.",
+     "\ud83c\udfac 3 of 4 wins by one score for the Ravens this year (the last two: 24-18 over the Titans and 30-23 over the Falcons). That's a team living on the edge.",
+     "\ud83d\udcca Ravens have been outscored 31 to 13 a game over their last 3.",
+     "\ud83d\udcc5 Last time out: Panthers got a 20-17 win over the Saints \u00b7 Ravens took a 23-20 loss to the Chargers.",
+     "\ud83d\udccb Ravens sit 4-6. Losing record.",
+     "\u2696\ufe0f Same kind of record, tougher schedule: Panthers' L's came against Bears, Browns, Buccaneers, Packers and Broncos.",
+     "\ud83d\udce3 Out of the Ravens' camp this week: \"Carmelo Anthony calls out Ravens' Humphrey over Baltimore 'criminals' remark\"",
+     "\u2705 Bottom line: Panthers (-145). Ravens can't buy a win right now. Strongest favorite on the slate."
+    ],
+    "bv": 80,
+    "coach": [
+     2,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "hotseat",
+      "n": 5,
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:hotseat"
+    ],
+    "dec": 1.6896551724137931,
+    "depth_gap": -1,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [],
+     "go4_gap": 0.0468,
+     "last_margin": 3.0,
+     "last_pts": 20.0,
+     "neutral": false,
+     "record": [
+      4,
+      5
+     ],
+     "win_pct": 0.444,
+     "win_streak": 1
+    },
+    "drift": -0.0175,
+    "edge": -0.027982183403133076,
+    "edge_own": -0.021811990547349613,
+    "elo_edge": 26.2,
+    "elo_raw": -13.8,
+    "fact": "The Panthers are 4-5, the Ravens 4-6.",
+    "facts": [
+     [
+      "The Panthers are 4-5, the Ravens 4-6.",
+      "The Panthers 4-5 on the year, the Ravens 4-6.",
+      "It's 4-5 (the Panthers) against 4-6 (the Ravens).",
+      "The Panthers sit 4-5; the Ravens sit 4-6."
+     ],
+     [
+      "The Ravens have lost 5 straight.",
+      "5 straight losses for the Ravens.",
+      "The Ravens are on a 5-game skid.",
+      "The Ravens haven't won in 5."
+     ],
+     [
+      "The Panthers are fresh off a 20-17 win over the Saints.",
+      "The Panthers just beat the Saints 20-17.",
+      "Last time out the Panthers took the Saints 20-17.",
+      "The Panthers handled the Saints 20-17 last time out."
+     ]
+    ],
+    "fb_thin_lock": true,
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     3.0,
+     1,
+     -118,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873068",
+    "games_in": null,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": false,
+    "intl": false,
+    "is_lean": false,
+    "key_edge": -0.11091044962012697,
+    "key_out_me": false,
+    "key_seen": {
+     "Lamar Jackson (Ravens QB)": "Injured Reserve"
+    },
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": -145,
+    "off_wait": {},
+    "on_report": [
+     "Bobby Okereke",
+     "Jaylinn Hawkins",
+     "Marlon Humphrey",
+     "Nnamdi Madubuike"
+    ],
+    "opp": "Ravens",
+    "opp_dog_pts": -12.0,
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Nnamdi Madubuike (DT)",
+     "Marlon Humphrey (CB)",
+     "Jaylinn Hawkins (S)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "our_q": "TE Tommy Tremble (starter), TE Darren Waller (starter)",
+    "outs": [
+     "Bobby Okereke (LB)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.575275850638962,
+    "p_market": 0.5689275974311604,
+    "pdo": null,
+    "pdo_parts": null,
+    "public": "ride",
+    "pyth_luck": null,
+    "raw_own": 0.5502,
+    "reasons": [
+     "sharp money moving this way",
+     "opponent missing key players",
+     "opponent the more banged-up side: 1 regulars out to 0 for us"
+    ],
+    "rep_off_wait": {},
+    "rep_status": {
+     "Bobby Okereke": "out",
+     "Jaylinn Hawkins": "out",
+     "Marlon Humphrey": "out",
+     "Nnamdi Madubuike": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "spare": [
+     "\ud83d\udcb8 Ravens lost 3 of 4 as the underdog this year.",
+     "\u23f1\ufe0f The second half, last 5 games: Ravens gave up 90 points and scored 20.",
+     "\ud83d\udeaa 28+ points allowed in 3 of the last 5 for Ravens. That defense is giving it away.",
+     "\ud83e\uddf9 Ravens been getting run: 3 losses by 14+ in their last 5 games.",
+     "\ud83d\udcca On the year Ravens give up 26 points a game and score 21.",
+     "\ud83e\uddfe Ravens haven't beaten a team with a winning record this year - 4 tries, 4 losses.",
+     "\ud83d\uddd3\ufe0f Ravens won only 4 of their last 10.",
+     "\ud83c\udf9f\ufe0f Ravens didn't cover the spread in 5 of their last 6. The book keeps asking too much of 'em."
+    ],
+    "start": "2026-11-22T18:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [
+     {
+      "headline": "Carmelo Anthony calls out Ravens' Humphrey over Baltimore 'criminals' remark",
+      "kind": "unhappy"
+     }
+    ],
+    "team": "Panthers",
+    "team_id": "29",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.6189,
+    "waiting": [],
+    "why_line": "\ud83e\uddca Panthers the side: 5 straight losses for the Ravens, that's a shit spot for Ravens.",
+    "yard_luck": -4.0
+   }
+  ],
+  "p_hit": 0.5753,
+  "pnl": 0.0,
+  "posted": "2026-11-22T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": 102,
+  "date": "2026-11-22",
+  "dec": 2.02,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 2,
+    "b2b_me": false,
+    "bd_tags": [
+     "sched:2",
+     "w_their_loss:125",
+     "f_pts:3",
+     "bottom_c:2",
+     "fill_year_t:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcca New Mexico St this season: 78 points a game allowed, 66 scored. They get outscored.",
+     "\ud83d\udcca Over their last 3 Robert Morris win by 6 a game (74 for, 68 against). New Mexico St loses by 9 (63 for, 72 against).",
+     "\u2696\ufe0f Don't let 1-4 fool you \u2014 Robert Morris took those L's from Nevada, UIC, Arkansas and Toledo.",
+     "\u2705 Bottom line: Robert Morris (+102)."
+    ],
+    "bv": 80,
+    "coach": [
+     10,
+     false
+    ],
+    "coach_name": "Andrew Toole",
+    "coach_tenure": null,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 2.02,
+    "def_first": false,
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_good": [],
+    "dog_more": {},
+    "dog_p": 0.5139,
+    "dog_read": 4.0,
+    "dog_read_parts": {
+     "facts": [],
+     "games_ok": true,
+     "knowledge": 0,
+     "ratings": 2,
+     "weights": 2.0
+    },
+    "dog_score": 4.0,
+    "drift": -0.046,
+    "edge": -0.045355725313215633,
+    "edge_own": -0.043763597484699934,
+    "eff_p": 0.606,
+    "efg_gap": 0.0,
+    "elo_edge": 93.1,
+    "elo_raw": 93.1,
+    "fact": "New Mexico St just got beat 84-69 by UTEP.",
+    "facts": [
+     [
+      "New Mexico St just got beat 84-69 by UTEP.",
+      "New Mexico St are coming off a 84-69 beating from UTEP.",
+      "Last time out New Mexico St took a 84-69 L to UTEP.",
+      "New Mexico St got handled 84-69 by UTEP last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -7.0,
+     -1,
+     260,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401928790",
+    "games_in": 5,
+    "home": false,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0381,
+    "ncaab_fired": [
+     "the favorite lost its last"
+    ],
+    "ncaab_read": 0.5139,
+    "ncaab_score": 4.0,
+    "ncaab_skid": 1,
+    "ncaab_slot": "dog",
+    "neutral": true,
+    "neutral_back": null,
+    "odds": 102,
+    "off_first": false,
+    "off_wait": {},
+    "on_report": [
+     "G. Warren",
+     "S. Payne"
+    ],
+    "opp": "New Mexico St",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": 0.0,
+    "opp_games_in": 5,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": true,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "S. Payne (F)",
+     "G. Warren (G)"
+    ],
+    "opp_roster_new": 0.126,
+    "opp_tp_net": 0.031,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.472596175587517,
+    "p_market": 0.4739134147382803,
+    "pdo": null,
+    "pdo_parts": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.5186,
+    "reasons": [
+     "sharp money moving this way",
+     "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
+    ],
+    "reb_gap": -4.4,
+    "rep_off_wait": {},
+    "rep_status": {
+     "G. Warren": "out",
+     "S. Payne": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.062,
+    "roster_tin": 0.437,
+    "season_games": null,
+    "side": "away",
+    "spare": [],
+    "start": "2026-11-22T19:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Robert Morris",
+    "team_id": "2523",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": -3.8,
+    "to_net": 0.0585,
+    "tp_gap": 0.0,
+    "tp_net": -0.005,
+    "tp_net_line": [
+     0.292,
+     0.296
+    ],
+    "tp_share": 0.4301,
+    "trap": false,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "waiting": [],
+    "why_line": "\ud83e\udd4a Give me Robert Morris: New Mexico St got handled 84-69 by UTEP last time out."
+   }
+  ],
+  "ncaab_play": {
+   "dog_read": 4.0,
+   "edge": 0.0381,
+   "fired": [
+    "the favorite lost its last"
+   ],
+   "read": 0.5139,
+   "score": 4.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.4726,
+  "pnl": 0.0,
+  "posted": "2026-11-22T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 195,
+  "best": true,
+  "date": "2026-11-22",
+  "dec": 2.95,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -2,
+    "b2b_me": false,
+    "bd_tags": [
+     "f_last:0",
+     "bottom_n:0",
+     "fill_pts:1",
+     "fill_year_t:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcca On the year Troy gives up 77 points a game and scores 70.",
+     "\ud83d\udcc5 Troy comes in off a 77-72 loss to Valparaiso.",
+     "\u2705 Bottom line: Nicholls (+195)."
+    ],
+    "bv": 80,
+    "coach": null,
+    "coach_name": "Darion Brown",
+    "coach_tenure": 1,
+    "cold_shoot": true,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 2.95,
+    "def_first": true,
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 1,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_good": [
+     "def_first_vs_bad_offense"
+    ],
+    "dog_more": {},
+    "dog_p": 0.365,
+    "dog_read": 4.0,
+    "dog_read_parts": {
+     "facts": [
+      "def_first_vs_bad_off"
+     ],
+     "games_ok": true,
+     "knowledge": 2,
+     "ratings": 0,
+     "weights": 2.0
+    },
+    "dog_score": 4.0,
+    "drift": 0.0176,
+    "edge": -0.0752477042521571,
+    "edge_own": -0.0762711019700072,
+    "eff_p": 0.4268,
+    "efg_gap": -0.044,
+    "elo_edge": -137.3,
+    "elo_raw": -137.3,
+    "fact": "",
+    "facts": [],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -11.0,
+     -2,
+     124,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401925066",
+    "games_in": 6,
+    "home": true,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0767,
+    "ncaab_fired": [
+     "the favorite lost its last"
+    ],
+    "ncaab_new_coach": true,
+    "ncaab_read": 0.365,
+    "ncaab_score": 4.0,
+    "ncaab_skid": 2,
+    "ncaab_slot": "dog",
+    "neutral": true,
+    "neutral_back": 0.92,
+    "odds": 195,
+    "off_first": false,
+    "off_wait": {},
+    "on_report": [],
+    "opp": "Troy",
+    "opp_coach_name": "Adam Howard",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": 0.023,
+    "opp_games_in": 6,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_new_coach": true,
+    "opp_off_low": true,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "opp_roster_new": 0.185,
+    "opp_tp_net": 0.077,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.31347535449079417,
+    "p_market": 0.32496875300451883,
+    "pdo": null,
+    "pdo_parts": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.3375,
+    "reasons": [
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337",
+     "the dog read is 4 (the study angles add 2 points, a defense-first team against a bottom-third offense) - dogs reading 4+ beat their price every season 2018-25"
+    ],
+    "reb_gap": -0.17,
+    "rep_off_wait": {},
+    "rep_status": {},
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.246,
+    "roster_tin": 0.624,
+    "season_games": null,
+    "side": "home",
+    "spare": [],
+    "spread_stack": 0.02,
+    "spread_stack_n": 1,
+    "start": "2026-11-22T20:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Nicholls",
+    "team_id": "2447",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": 2.83,
+    "to_net": 0.0372,
+    "tp_gap": -0.024,
+    "tp_net": 0.047,
+    "tp_net_line": [
+     0.323,
+     0.276
+    ],
+    "tp_share": 0.4691,
+    "trap": true,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "waiting": [],
+    "why_line": "\ud83d\udcca We on Nicholls: Last 3 for Troy: 73 scored a game, 77 given up."
+   }
+  ],
+  "ncaab_play": {
+   "dog_read": 4.0,
+   "edge": 0.0767,
+   "fired": [
+    "the favorite lost its last"
+   ],
+   "read": 0.365,
+   "score": 4.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.3135,
+  "pnl": 0.0,
+  "posted": "2026-11-22T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": -110,
+  "date": "2026-11-22",
+  "dec": 1.9091,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "b2b_me": false,
+    "bd_tags": [
+     "rec:0",
+     "latest:2",
+     "w_their_loss:122",
+     "f_pts:0",
+     "bottom_unit_fair:0",
+     "fill_star:2",
+     "fill_year:2",
+     "fill_year_t:0",
+     "deep_big:1",
+     "deep_start:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcca 86 a game for William & Mary this year, 78 against. They outscore people.",
+     "\ud83d\udcca Last 3: William & Mary is outscoring teams 80 to 78 a game; Youngstown St is getting outscored 84 to 69.",
+     "\ud83d\udcca On the year Youngstown St gives up 83 points a game and scores 70.",
+     "\ud83d\udcaf Brian Carter Jr. been cooking for William & Mary - 16 a night over his last 5.",
+     "\ud83d\udccb William & Mary is 4-2 on the year.",
+     "\ud83d\udca3 80+ points for William & Mary in 3 of their last 5. They can score.",
+     "\ud83c\udfc1 The first half, last 5 games: 214 points for William & Mary, 177 against.",
+     "\u2705 Bottom line: William & Mary -2.5 (-110). William & Mary the side today."
+    ],
+    "bv": 80,
+    "coach": [
+     null,
+     false
+    ],
+    "coach_name": "Brian Earl",
+    "coach_tenure": 3,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.9090909090909092,
+    "def_first": false,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": -0.0157,
+    "edge": -0.045454545454545414,
+    "efg_gap": -0.001,
+    "elo_edge": 16.1,
+    "elo_raw": 96.1,
+    "fact": "William & Mary have won 2 straight.",
+    "facts": [
+     [
+      "William & Mary have won 2 straight.",
+      "2 straight wins for William & Mary.",
+      "William & Mary are on a 2-game winning streak.",
+      "William & Mary haven't lost in 2."
+     ],
+     [
+      "Youngstown St just got beat 91-54 by Cincinnati.",
+      "Youngstown St are coming off a 91-54 beating from Cincinnati.",
+      "Last time out Youngstown St took a 91-54 L to Cincinnati.",
+      "Youngstown St got handled 91-54 by Cincinnati last time out."
+     ],
+     [
+      "William & Mary are fresh off a 85-39 win over Averett.",
+      "William & Mary just beat Averett 85-39.",
+      "Last time out William & Mary took Averett 85-39.",
+      "William & Mary handled Averett 85-39 last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     46.0,
+     2,
+     null,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401918455",
+    "games_in": 6,
+    "home": false,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": -2.5,
+    "lost_last": false,
+    "market": "spread",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "nl_road_fav": true,
+    "odds": -110,
+    "off_first": true,
+    "off_wait": {},
+    "on_report": [],
+    "opp": "Youngstown St",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": 0.0,
+    "opp_games_in": 5,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": true,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "opp_roster_new": 0.176,
+    "opp_top_out": true,
+    "opp_tp_net": -0.017,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5,
+    "p_market": 0.5238095238095238,
+    "pdo": null,
+    "pdo_parts": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.5342,
+    "reasons": [
+     "the stronger team",
+     "their top scorer Linus Holmstrom (14.3 a game) missed their last game - the books under-price that (4 of 4 seasons)",
+     "off a tune-up against a school that isn't Division I while Youngstown St just played a real game - teams in that spot beat the spread in 8 of 9 seasons"
+    ],
+    "reb_gap": 4.77,
+    "rep_off_wait": {},
+    "rep_status": {},
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.482,
+    "roster_tin": 0.518,
+    "season_games": null,
+    "side": "away",
+    "spare": [],
+    "spread_stack": 0.05,
+    "spread_stack_n": 2,
+    "start": "2026-11-22T19:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "William & Mary",
+    "team_id": "2729",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": 0.67,
+    "to_net": 0.018,
+    "tp_gap": -0.006,
+    "tp_net": 0.01,
+    "tp_net_line": [
+     0.34,
+     0.329
+    ],
+    "tp_share": 0.4274,
+    "tuneup": true,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "waiting": [],
+    "why_line": "\ud83e\udd4a Give me William & Mary: Youngstown St got handled 91-54 by Cincinnati last time out, William & Mary takes this one."
+   }
+  ],
+  "p_hit": 0.5,
+  "pnl": 0.0,
+  "posted": "2026-11-22T16:00Z",
+  "round": 1,
+  "stack_play": {
+   "line": -2.5,
+   "n": 2,
+   "stack": 0.05
+  },
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 170,
+  "date": "2026-11-22",
+  "dec": 2.7,
+  "floor": {
+   "dog_score": 1.48,
+   "nba": true
+  },
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 2,
+    "b2b_me": false,
+    "bd_tags": [
+     "f_last:2",
+     "cx_trip:1",
+     "w_num:4",
+     "m_h2h:2",
+     "f_theirrec:0",
+     "bottom_floor:2",
+     "fill_star:2",
+     "fill_year_t:0",
+     "deep_role_t:1",
+     "deep_win_t:0",
+     "deep_close:0",
+     "deep_cover_t:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83c\udd9a The Magic already saw Wizards this year and took the L - a 103-94 win for Wizards on the road on 11/2.",
+     "\ud83e\uddf3 Travel check on the Magic: 3rd road game in 6 days.",
+     "\ud83d\udcca On the year Magic gives up 113 points a game and scores 110.",
+     "\ud83d\udccb Magic comes in 7-8 on the year.",
+     "\ud83d\udcc5 Fresh off a 98-94 win over the Bulls for Wizards.",
+     "\ud83d\udcb8 When the book makes Magic the favorite, they lost 4 of 8 this year.",
+     "\ud83c\udfc0 Wizards: 8 guys play real minutes.",
+     "\u2705 Bottom line: Wizards (+170). Wizards are the best dog on the board today. Small bet."
+    ],
+    "bv": 80,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "",
+    "ctx": [
+     {
+      "k": "div"
+     },
+     {
+      "dir": null,
+      "k": "trip",
+      "mi": 0,
+      "road6": 3,
+      "who": "them",
+      "wk": 3372
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "them:road3in6",
+     "them:week3000"
+    ],
+    "dec": 2.7,
+    "depth_gap": 0,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "blew_lead": false,
+     "comeback": false,
+     "games_in": 17,
+     "home_after_trip": 2,
+     "last_margin": 4.0,
+     "last_ot": false,
+     "last_pts": 98.0,
+     "last_upset": true,
+     "last_year_wp": 0.207,
+     "lose_streak": 0,
+     "meet_margin": 9.0,
+     "opp_blew_lead": false,
+     "opp_comeback": false,
+     "opp_heavy_last": false,
+     "opp_last_margin": 2.0,
+     "opp_last_ot": false,
+     "opp_last_pts": 113.0,
+     "opp_last_upset": false,
+     "opp_next_days": 2,
+     "opp_next_soft": false,
+     "opp_next_wp": 0.667,
+     "opp_pace": 98.57,
+     "opp_rest": 1,
+     "opp_trip_game": 2,
+     "pace": 102.41,
+     "record": [
+      6,
+      11
+     ],
+     "rest": 1,
+     "slate": 7,
+     "spread_gap": -0.0284,
+     "total": 219.5,
+     "total_vs_league": -8.5,
+     "win_streak": 2
+    },
+    "drift": -0.0193,
+    "edge": -0.05256818638109739,
+    "edge_own": -0.05377458840457405,
+    "elo_edge": -137.2,
+    "elo_raw": -177.2,
+    "fact": "The Wizards have won 2 straight.",
+    "facts": [
+     [
+      "The Wizards have won 2 straight.",
+      "2 straight wins for the Wizards.",
+      "The Wizards are on a 2-game winning streak.",
+      "The Wizards haven't lost in 2."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "floor_score": 1.48,
+    "form_state": [
+     4.0,
+     2,
+     110,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401910031",
+    "games_in": null,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": 0.1376,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 170,
+    "off_wait": {},
+    "on_report": [
+     "Izaiyah Nelson",
+     "Jamir Watkins",
+     "Jonathan Isaac",
+     "Justin Champagnie",
+     "Noah Penda",
+     "Paolo Banchero",
+     "Reece Beekman",
+     "Tristan Vukcevic"
+    ],
+    "opp": "Magic",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Jonathan Isaac (F)",
+     "Izaiyah Nelson (F)",
+     "Noah Penda (F)",
+     "Paolo Banchero (F)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Tristan Vukcevic (F)",
+     "Reece Beekman (G)",
+     "Justin Champagnie (F)",
+     "Jamir Watkins (G)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.35090067171070466,
+    "p_market": 0.355638745905475,
+    "pdo": null,
+    "pdo_parts": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.3414,
+    "reasons": [
+     "sharp money moving this way"
+    ],
+    "rep_off_wait": {},
+    "rep_status": {
+     "Izaiyah Nelson": "out",
+     "Jamir Watkins": "out",
+     "Jonathan Isaac": "out",
+     "Justin Champagnie": "out",
+     "Noah Penda": "out",
+     "Paolo Banchero": "out",
+     "Reece Beekman": "out",
+     "Tristan Vukcevic": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": 17,
+    "side": "home",
+    "spare": [
+     "\ud83e\uddfe Magic won 2 of 7 against teams with a winning record this year.",
+     "\ud83c\udfac Wizards won 3 of their 4 games decided by 5 or less this year. They finish.",
+     "\ud83c\udf9f\ufe0f 6 of the last 10 times out, Magic didn't cover.",
+     "\ud83d\udcaf Anthony Davis been cooking for Wizards - 27 a night over his last 8."
+    ],
+    "start": "2026-11-23T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Wizards",
+    "team_id": "27",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 The Wizards are on a 2-game winning streak. Wizards the side tonight."
+   }
+  ],
+  "p_hit": 0.3509,
+  "pnl": 0.0,
+  "posted": "2026-11-22T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]
