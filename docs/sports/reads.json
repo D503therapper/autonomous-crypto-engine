@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T21:14Z",
+ "updated": "2026-11-22T21:54Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -56,8 +56,8 @@
    "away": "Buccaneers",
    "home": "Lions",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -162,7 +162,7 @@
    "home": "Panthers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "Panthers",
@@ -177,7 +177,7 @@
      "opponent missing key players",
      "opponent the more banged-up side: 1 regulars out to 0 for us"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -205,8 +205,8 @@
    "away": "Steelers",
    "home": "Eagles",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -295,8 +295,8 @@
    "away": "G Washington",
    "home": "Western KY",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -551,155 +551,64 @@
    "lean": null
   },
   {
-   "id": "ncaab:401920159",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Portland St",
-    "p": 0.601,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "nfl:401873069",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
    "season": "regular season",
-   "start": "2026-11-22T22:00Z",
-   "away": "Fullerton",
-   "home": "Portland St",
-   "why": "tight",
+   "start": "2026-11-22T21:25Z",
+   "away": "Jaguars",
+   "home": "Giants",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Portland St",
-    "opp": "Fullerton",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.66,
-    "win_p": 0.66,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401909556",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Boston College",
-    "p": 0.917,
-    "tie": 0.015,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "nfl:401873075",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
    "season": "regular season",
-   "start": "2026-11-22T22:00Z",
-   "away": "NJIT",
-   "home": "Boston College",
-   "why": "coin_flip",
+   "start": "2026-11-22T21:25Z",
+   "away": "Raiders",
+   "home": "Broncos",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "NJIT",
-    "opp": "Boston College",
-    "market": "spread",
-    "line": 23.5,
-    "odds": -115,
-    "p": 0.517,
-    "win_p": 0.033,
-    "reasons": [
-     "their top scorer Money Williams (21.7 a game) missed their last game - the books under-price that (4 of 4 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401925013",
+   "id": "ncaab:401921176",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lamar",
-    "p": 0.514,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-22T22:00Z",
-   "away": "Rice",
-   "home": "Lamar",
-   "why": "coin_flip",
+   "start": "2026-11-22T21:30Z",
+   "away": "IU Indy",
+   "home": "MD Eastern",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Lamar",
-    "opp": "Rice",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.548,
-    "win_p": 0.548,
-    "reasons": [
-     "rolling off a blowout win",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "nhl:401892769",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.438,
-    "tie": 0.292,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-22T22:00Z",
-   "away": "Sabres",
-   "home": "Lightning",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lightning",
-    "opp": "Sabres",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.677,
-    "win_p": 0.677,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401922293",
+   "id": "ncaab:401917540",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Samford",
-    "p": 0.749,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-22T22:00Z",
-   "away": "UNC Asheville",
-   "home": "Samford",
-   "why": "coin_flip",
+   "start": "2026-11-22T21:30Z",
+   "away": "LMU",
+   "home": "UC Irvine",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "UNC Asheville",
-    "opp": "Samford",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -108,
-    "p": 0.504,
-    "win_p": 0.172,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401921205",
@@ -754,7 +663,7 @@
     "opp": "Valparaiso",
     "market": "spread",
     "line": 8.5,
-    "odds": -108,
+    "odds": -105,
     "p": 0.502,
     "win_p": 0.218,
     "reasons": []
@@ -766,8 +675,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.539,
-    "tie": 0.036,
+    "p": 0.6,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -775,16 +684,16 @@
    "start": "2026-11-22T23:00Z",
    "away": "Thunder",
    "home": "Heat",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Heat",
     "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -173,
-    "p": 0.586,
-    "win_p": 0.586,
+    "odds": -264,
+    "p": 0.674,
+    "win_p": 0.674,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1097,6 +1006,34 @@
    }
   },
   {
+   "id": "ncaab:401926774",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "USC",
+    "p": 0.945,
+    "tie": 0.011,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T01:00Z",
+   "away": "Louisiana",
+   "home": "USC",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Louisiana",
+    "opp": "USC",
+    "market": "spread",
+    "line": 32.5,
+    "odds": -112,
+    "p": 0.526,
+    "win_p": 0.019,
+    "reasons": []
+   }
+  },
+  {
    "id": "nba:401910034",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -1194,7 +1131,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.636,
+    "p": 0.644,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1212,7 +1149,7 @@
     "line": -7.5,
     "odds": -112,
     "p": 0.5,
-    "win_p": 0.723,
+    "win_p": 0.734,
     "reasons": [
      "the stronger team"
     ]
@@ -1287,7 +1224,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Ole Miss",
-    "p": 0.622,
+    "p": 0.621,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1317,8 +1254,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "BYU",
-    "p": 0.749,
-    "tie": 0.034,
+    "p": 0.752,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1335,7 +1272,7 @@
     "line": 10.5,
     "odds": -108,
     "p": 0.504,
-    "win_p": 0.172,
+    "win_p": 0.169,
     "reasons": [
      "their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)"
     ]
@@ -1492,7 +1429,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.669,
+    "p": 0.67,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1631,9 +1568,9 @@
     "team": "Colorado St",
     "opp": "Arizona",
     "market": "spread",
-    "line": 17.5,
-    "odds": -110,
-    "p": 0.511,
+    "line": 16.5,
+    "odds": -105,
+    "p": 0.51,
     "win_p": 0.06,
     "reasons": []
    }
