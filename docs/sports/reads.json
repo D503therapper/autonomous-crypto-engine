@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T22:49Z",
+ "updated": "2026-11-22T23:00Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -470,8 +470,8 @@
    "away": "McNeese",
    "home": "Texas St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -485,8 +485,8 @@
    "away": "Mercyhurst",
    "home": "UAlbany",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -500,8 +500,8 @@
    "away": "Pistons",
    "home": "Hawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -530,8 +530,8 @@
    "away": "Alice Lloyd",
    "home": "E Kentucky",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1117,9 +1117,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -190,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -189,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
      "better QB play lately",
      "the stronger team"
@@ -1220,6 +1220,157 @@
    }
   },
   {
+   "id": "ncaab:401921700",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Davidson",
+    "p": 0.613,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T16:00Z",
+   "away": "Northern Iowa",
+   "home": "Davidson",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Davidson",
+    "opp": "Northern Iowa",
+    "market": "ml",
+    "line": null,
+    "odds": -215,
+    "p": 0.676,
+    "win_p": 0.676,
+    "reasons": [
+     "out-rebounding people by +3.2 a game to their -5.8 - the books don't price the glass (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401921209",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "East Carolina",
+    "p": 0.528,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T17:30Z",
+   "away": "Indiana St",
+   "home": "East Carolina",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "East Carolina",
+    "opp": "Indiana St",
+    "market": "ml",
+    "line": null,
+    "odds": -138,
+    "p": 0.567,
+    "win_p": 0.567,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401924266",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "FIU",
+    "p": 0.746,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T18:00Z",
+   "away": "Long Beach St",
+   "home": "FIU",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Long Beach St",
+    "opp": "FIU",
+    "market": "spread",
+    "line": 9.5,
+    "odds": -102,
+    "p": 0.503,
+    "win_p": 0.175,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401928830",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Wright St",
+    "p": 0.49,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T18:30Z",
+   "away": "Akron",
+   "home": "Wright St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Wright St",
+    "opp": "Akron",
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.515,
+    "win_p": 0.515,
+    "reasons": [
+     "the stronger team",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401921658",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Oregon St",
+    "p": 0.65,
+    "tie": 0.04,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T19:00Z",
+   "away": "Tulsa",
+   "home": "Oregon St",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Oregon St",
+    "opp": "Tulsa",
+    "market": "ml",
+    "line": null,
+    "odds": -275,
+    "p": 0.721,
+    "win_p": 0.721,
+    "reasons": [
+     "the stronger team",
+     "the turnover matchup is ours by 5.3 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401918076",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1255,7 +1406,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "BYU",
-    "p": 0.752,
+    "p": 0.762,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1270,10 +1421,10 @@
     "team": "Washington",
     "opp": "BYU",
     "market": "spread",
-    "line": 10.5,
-    "odds": -108,
-    "p": 0.504,
-    "win_p": 0.169,
+    "line": 11.5,
+    "odds": -115,
+    "p": 0.505,
+    "win_p": 0.159,
     "reasons": [
      "their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)"
     ]
@@ -1554,8 +1705,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Arizona",
-    "p": 0.875,
-    "tie": 0.021,
+    "p": 0.868,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1570,10 +1721,12 @@
     "opp": "Arizona",
     "market": "spread",
     "line": 16.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.51,
-    "win_p": 0.06,
-    "reasons": []
+    "win_p": 0.065,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   }
  ]
