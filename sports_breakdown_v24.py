@@ -970,10 +970,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                                              f"💪 {us} {_ru}, {them} {_rt}. Better squad on our side.",
                                              f"💪 {us} {_ru} against {_pos(them)} {_rt}. Levels to this shit.",
                                              f"💪 {_ru} to {_rt}. {them} about to get their ass beat."] if big else [
-                                             f"💪 {us} {_ru}, {them} {_rt} — close on paper, but our ratings have {us} ahead.",
-                                             f"💪 Records are tight ({_ru} / {_rt}); the ratings like {us}.",
-                                             *_best_win_line(us, them, _ru, _rt, r_ours, r_theirs, tid, oid, e, pro),
-                                             f"💪 {us} {_ru}, {them} {_rt}. Tight records, but our ratings got {us} as the better team."])))
+                                             #   (🗣️ 11/22: "close on paper, but our ratings have X ahead" / "the ratings
+                                             #    like X" said no fact - a card never says "our ratings say"; the
+                                             #    win that separates them is the line, or there is none)
+                                             *_best_win_line(us, them, _ru, _rt, r_ours, r_theirs, tid, oid, e, pro)])))
                 #   (10/23, the owner on Army 4-2 vs Tulsa 4-3: "they both have 4 wins" - a 'better team' claim needs
                 #    a 3+ game record gap; close records say close, and the ratings carry it)
             elif gap < -15 and _w(_rt) > _w(_ru):
@@ -1503,6 +1503,23 @@ def breakdown(leg, games, elo, injuries, used=None):
     leg["why_line"] = why_line(leg, v, g, us, them, the_us, the_them, rec_u=rec_u, n_hot=n_hot, rec_t=_rt_w,
                                n_cold=n_cold, gap=gap, form=FORM, key_them=_kt, key_us=_ku,
                                whyf=whyf, fact=leg["fact"], nba_f=nba_f, facts=leg["facts"][0] if leg["facts"] else ())
+    # 🗣️ 11/22 THE CARD SELLS THE PICK (the owner: "The breakdowns are short and vague ... the breakdowns basically need
+    # to sell our picks why we taking them"): the matchup on the floor off both teams' box scores (sports_card_sell) -
+    # the reasons the leg carries said as checkable facts for our side. The strongest one leads the card when the
+    # line under the pick was only the fallback fact (a 2-game streak, a last game), the rest open the body.
+    sold = []
+    try:
+        import sports_card_sell as _cs
+        if sell_on(g) and leg.get("market") in ("ml", "spread"):   # (a side - never a total's card)
+            sold = _cs.sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs,
+                                  real=lambda gs_, t_: _real(gs_, t_, lg), e=e, fair=lg in SCHEDULE_FAIR)
+            up = lead_upgrade(leg, sold, us, them, g, side, body=None)
+            if up:
+                sold = [s_ for s_ in sold if s_[0] != up[1]]
+                leg["why_line"], leg["why_key"] = up[0], "w_sell"
+    except Exception:                                     # noqa: BLE001 - the sell lines never break a card
+        sold = []
+    leg["sold"] = [_cs_sig(s_[0]) for s_ in sold if s_[1]] + ([_cs_sig(leg["why_line"])] if leg.get("why_key") == "w_sell" else [])
     _wl = str(leg["why_line"] or "").lower()
     said.update(r for r, ways in whyf.items() if any(c.lower() in _wl for c in _lst(ways)))
     said.update(r for r, em in WHY_EMOJI.items() if _wl.startswith(em))
@@ -1605,6 +1622,18 @@ def breakdown(leg, games, elo, injuries, used=None):
     added = more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
                        ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs, e=e)
     out += added
+    if sold or sell_on(g):                                # 🗣️ 11/22: the reason-backed lines open the body
+        try:                                              # (and a fallback line under the pick gives way to the game
+            up = lead_upgrade(leg, sold, us, them, g, side, body=out) if leg.get("why_key") != "w_sell" else None
+            if up:                                        #  these two already played / the best matchup stat)
+                sold = [s_ for s_ in sold if s_[0] != up[1]]
+                out = [x for x in out if x != up[1]]
+                added = [x for x in added if x != up[1]]
+                leg["why_line"], leg["why_key"] = up[0], "w_up"
+        except Exception:                                 # noqa: BLE001
+            pass
+        out[0:0] = [s_[0] for s_ in sold]
+        added += [s_[0] for s_ in sold]                   # (fact lines: never shaped out)
     # ⚠️ THE ONE RISK LINE (10/27, the owner: "there's a lot of facts that support the opposing team"): every fact that
     # favors the other side went into v.knocks instead of the body; the single biggest posts here, framed as the risk,
     # right before the bottom line. Nothing else on the card argues for them.
@@ -2780,7 +2809,8 @@ def matchup_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, lg, side
                             f"🆚 These two met {len(met)} times this year and {us} won {how}: {games_}."])
             elif len(met) == 1:
                 say("h2h", [f"🆚 {us} already beat {the_them} this year - a {sc(m)} win {where(m)} on {_md(m)}.",
-                            f"🆚 These two met on {_md(m)} this year and {us} got a {sc(m)} win {where(m)}.",
+                            f"🆚 These two met this year and {us} got a {sc(m)} win {where(m)} on {_md(m)}.",   # (11/22: the
+                            #   old order - the day before "this year" - failed the guard's THIS_YEAR_GAME and was dropped)
                             f"🆚 {_cap(the_them)} already saw {us} this year and took the L - a {sc(m)} win for {us} {where(m)} on {_md(m)}."])
             else:
                 say("h2h", [f"🆚 The last time these two met this year {us} got a {sc(m)} win {where(m)}, on {_md(m)}.",
@@ -2895,11 +2925,21 @@ def story_close(lines, leg, us, them, g, side):
         if y and not (STORY and isinstance(y, str) and _fill(y, leg)):   # (never a line the page's check calls filler)
             out.append(y)
     is_fact = lambda y: isinstance(y, str) and not y.startswith(("⚠️", "🔄", "✅", "🌟", "🟡", "🔒", "💎"))   # noqa: E731
+    _sold = set(leg.get("sold") or [])                    # (🗣️ 11/22: the lines the engine's own reasons point at open
+    _rk = lambda y: (0 if _sold and _cs_sig(y) in _sold else 1, lead_rank(y))   # noqa: E731  the body, never cut)
+    try:                                                  # 🗣️ 11/22 NO REPEATS: the same stat about the same team once
+        import sports_card_sell as _cs                    #  (the season's points and the last 3's points are one fact)
+        _srt = sorted((y for y in out if is_fact(y)), key=_rk) if STORY else [y for y in out if is_fact(y)]
+        _kept, _gone = _cs.dedupe(_srt, us, them, str(leg.get("why_line") or "")) if sell_on(g) else (_srt, [])
+        if _gone:
+            out = [y for y in out if y not in _gone]
+    except Exception:                                     # noqa: BLE001
+        pass
     if STORY:                                             # (the matchup first, a scorer's points last - the card reads as
-        out = sorted((y for y in out if is_fact(y)), key=lead_rank) + [y for y in out if not is_fact(y)]   # the case)
+        out = sorted((y for y in out if is_fact(y)), key=_rk) + [y for y in out if not is_fact(y)]   # the case)
     extra = sum(1 for y in out if is_fact(y)) - CARD_MAX
     if extra > 0:                                         # (6-9 fact lines, the owner's range: the weakest ride as spares)
-        cut = sorted((y for y in out if is_fact(y)), key=lead_rank)[-extra:]
+        cut = sorted((y for y in out if is_fact(y)), key=_rk)[-extra:]
         out = [y for y in out if y not in cut]
         leg["spare"] = (cut + list(leg.get("spare") or []))[:SPARE_MAX]
     b = _gd.scrub(lines[-1])[0]
@@ -2919,7 +2959,59 @@ def story_close(lines, leg, us, them, g, side):
     return out + [b]
 
 
-LEAD_RANK = ("😴", "⏳", "😮", "🚑", "📉", "🆚", "🥊", "🧊", "🗑", "🔥", "🎬", "🔁", "🏹", "🍀", "🧹", "🚪", "💪", "🧳", "🏟", "📊", "🛡")
+LEAD_RANK = ("😴", "⏳", "😮", "🚑", "📉", "🆚", "🥊", "🧲", "🧤", "🥷", "🛡", "🪣", "👌", "🏹", "⚡", "🏃", "🎈", "💥", "🔗", "🏆", "🎨",
+             "🎁", "💨", "🤝", "📏", "🧊", "🗑", "🔥", "🎬", "🔁", "🍀", "🧹", "🚪", "💪", "🧳", "🏟", "📊")
+#   (11/22 THE CARD SELLS THE PICK: the matchup on the floor - the glass, turnovers, the shooting, shots on net, the
+#    ground game, off both teams' box scores (sports_card_sell) - ranks right behind the men out / the game they played)
+SELL_FROM = "2026-11-22"   # 🗣️ the sell lines + the lead upgrade from this game day ("9999" = the 11/19 card)
+WEAK_LEAD = ("", "w_num", "w_any", "w_last", "w_home", "w_deeper", "w_their_road", "w_close_rec", "w_public", "w_rolling")
+#   the pools that are only a fallback line under the pick (a 2-game streak, a last game, a home record): a
+#   reason-backed matchup line, or the game these two already played, leads instead (lead_upgrade)
+REASON_OVER = ("w_their_loss",)   # ... and their last loss gives way to a line the engine's own reasons point at
+
+
+def sell_on(g):
+    """Is the 11/22 sell layer on for this game? (sports_card_sell.SELL, from the SELL_FROM game day)"""
+    try:
+        import sports_card_sell as _cs
+        return bool(_cs.SELL) and str((g or {}).get("start") or "")[:10] >= SELL_FROM
+    except Exception:                                     # noqa: BLE001
+        return False
+
+
+def _cs_sig(line):
+    import sports_card_sell as _cs
+    return _cs.sig(line)
+
+
+def lead_upgrade(leg, sold, us, them, g, side, body=()):
+    """🗣️ 11/22 (the owner: "the breakdowns basically need to sell our picks why we taking them" - the Wizards +170 card
+    led with "The Wizards are on a 2-game winning streak" while its body held a 103-94 win over this same team; Robert
+    Morris and Nicholls led with the other team's last game). The line under the pick is the single biggest reason
+    we're on the side: when it came out of a fallback pool (WEAK_LEAD), a reason-backed sell line leads, else the
+    meeting we already won this year (🆚), else the best matchup stat. -> (the new line, the body line it came from)
+    or None (the line stands). Never over a named absence / a back-to-back / a goalie / a quarterback reason."""
+    import sports_card_sell as _cs
+    key = str(leg.get("why_key") or "") if str(leg.get("why_line") or "").strip() else ""
+    lean = bool(leg.get("is_lean")) and not _no_leans()
+    seed = f"{g.get('id')}|{side}|lead"
+    reason = next((s_ for s_ in sold or [] if s_[1]), None)
+    if reason and (key in WEAK_LEAD or key in REASON_OVER):
+        t = _cs.lead_from(reason, us, lean, seed)
+        if t:
+            return t, reason[0]
+    if key not in WEAK_LEAD:
+        return None
+    h2h = next((x for x in body or [] if str(x).startswith("🆚")), None)
+    if h2h:
+        t = _cs.lead_of(h2h, us, lean, seed)
+        if t:
+            return t, h2h
+    if body is not None and sold and not reason:          # (the second pass: no reason line, no meeting - the best stat)
+        t = _cs.lead_from(sold[0], us, lean, seed)
+        if t:
+            return t, sold[0][0]
+    return None
 #   the line under the pick when no reason matched a fact: the strongest MATCHUP fact first - their tired legs, their
 #   men out, the game these two already played, where they got run - then form, then the scoreboard
 
@@ -2982,30 +3074,61 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
     elif pt and pt[1] - pt[0] >= _gap and not lately:           # ... or theirs, when they're losing it
         out.append(say("fill_pts", [f"📊 {them} have been outscored {pt[1]:g} to {pt[0]:g} a game over their last {pt[2]}.",
                                       f"📊 Last {pt[2]} for {them}: {pt[0]:g} scored a game, {pt[1]:g} given up."], fact=True))
-    year = bool(re.search(r"(?:📊|🛡)[^📊🛡⚠✅]*?(?:this year|on the year|this season)", str(said)))
+    year = bool(re.search(r"(?:📊|🛡)[^📊🛡⚠✅]*?(?:this year|on the year|this season|against D1 teams)", str(said)))
     fmt = (lambda x: f"{x:.1f}") if nhl or lg == "mlb" else (lambda x: f"{round(x)}")
-    if len(r_ours) >= 5 and not year:                     # 3. our season on the scoreboard, when it's in the black
-        pg = _per_game(r_ours, tid)
+    # 🗣️ 11/22 (the Robert Morris card: "New Mexico St this season: 78 points a game allowed, 66 scored" right above
+    # "outscored 72 to 63 a game over their last 3" - the same stat twice; and the season number counted a win over a
+    # non-D1 school): (a) college hoops form reads D1 games only - the season line too, and it says so; (b) ONE
+    # scoreboard line a team - the season's, unless the last 3 are a different story (a lot worse than the year).
+    _sell = sell_on(g)
+    d1_u, d1_t = (_real(r_ours, tid, lg), _real(r_theirs, oid, lg)) if _sell else (r_ours, r_theirs)
+    yr_u = ("against D1 teams", "against D1 teams", "against D1 teams") if len(d1_u) != len(r_ours) else ("On the year", "this season", "this year")
+    yr_t = ("against D1 teams", "against D1 teams", "against D1 teams") if len(d1_t) != len(r_theirs) else ("On the year", "this season", "this year")
+    need_y = 5 if lg != "ncaab" or not _sell else 3
+    if not _sell:
+        need_y = 0                                        # (the 11/19 card: the season lines needed 5 games in all)
+    _big3 = 0.8 if nhl or lg == "mlb" else 6
+    if len(r_ours) >= 5 and len(d1_u) >= need_y and not year:   # 3. our season on the scoreboard, when it's in the black
+        pg = _per_game(d1_u, tid)
         if pg and pg[0] - pg[1] >= (0.3 if nhl or lg == "mlb" else 2):
-            out.append(say("fill_year", [f"📊 On the year {us} {vb(us, 'score', 'scores')} {fmt(pg[0])} {unit} a game and {vb(us, 'give', 'gives')} up {fmt(pg[1])}.",
-                                           f"📊 {us} this season: {fmt(pg[0])} {unit} a game scored, {fmt(pg[1])} allowed.",
-                                           f"📊 {fmt(pg[0])} a game for {us} this year, {fmt(pg[1])} against. They outscore people."], fact=True))
-    if len(r_theirs) >= 5 and not year:                   # 4. their season, when it's in the red
-        pg = _per_game(r_theirs, oid)
+            _l3 = next((x for x in out if x and keys.get(x) == "fill_pts" and them not in str(x)), None)
+            if pu and _l3 and _sell:
+                if (pu[0] - pu[1]) - (pg[0] - pg[1]) >= _big3:
+                    pg = None                              # (hotter lately than on the year: the last 3 say it)
+                else:
+                    out.remove(_l3)
+            if pg:
+                out.append(say("fill_year", [f"📊 {yr_u[0][:1].upper() + yr_u[0][1:]} {us} {vb(us, 'score', 'scores')} {fmt(pg[0])} {unit} a game and {vb(us, 'give', 'gives')} up {fmt(pg[1])}.",
+                                               f"📊 {us} {yr_u[1]}: {fmt(pg[0])} {unit} a game scored, {fmt(pg[1])} allowed.",
+                                               f"📊 {fmt(pg[0])} a game for {us} {yr_u[2]}, {fmt(pg[1])} against. They outscore people."], fact=True))
+    if len(r_theirs) >= 5 and len(d1_t) >= need_y and not year:   # 4. their season, when it's in the red
+        pg = _per_game(d1_t, oid)
         if pg and pg[1] - pg[0] >= (0.3 if nhl or lg == "mlb" else 2):
-            out.append(say("fill_year_t", [f"📊 On the year {them} {vb(them, 'give', 'gives')} up {fmt(pg[1])} {unit} a game and {vb(them, 'score', 'scores')} {fmt(pg[0])}.",
-                                             f"📊 {them} this season: {fmt(pg[1])} {unit} a game allowed, {fmt(pg[0])} scored. They get outscored."], fact=True))
+            _l3 = next((x for x in out if x and keys.get(x) == "fill_pts" and them in str(x)), None)
+            if pt and _l3 and _sell:
+                if (pt[1] - pt[0]) - (pg[1] - pg[0]) >= _big3:
+                    pg = None                              # (a lot worse lately than on the year: the last 3 say it)
+                else:
+                    out.remove(_l3)
+            if pg:
+                out.append(say("fill_year_t", [f"📊 {yr_t[0][:1].upper() + yr_t[0][1:]} {them} {vb(them, 'give', 'gives')} up {fmt(pg[1])} {unit} a game and {vb(them, 'score', 'scores')} {fmt(pg[0])}.",
+                                                 f"📊 {them} {yr_t[1]}: {fmt(pg[1])} {unit} a game allowed, {fmt(pg[0])} scored. They get outscored."], fact=True))
     if len(r_ours) >= 5 and len(r_theirs) >= 5 and not year and not any(str(x).startswith("📊") and "year" in str(x) or
                                                                         "this season" in str(x) for x in out):
-        pu_, pt_ = _per_game(r_ours, tid), _per_game(r_theirs, oid)   # 4b. the matchup on the year, either end of the floor
-        step = 0.1 if nhl or lg == "mlb" else 1
+        #   (11/22, the UT Rio Grande card: "On the year UT Rio Grande allows 62 a game, Austin Peay 66" - two blowouts of
+        #    non-D1 schools in ours, three in theirs: college hoops reads D1 games only, 3+ of them a side, and says so)
+        _both = len(d1_u) >= need_y and len(d1_t) >= need_y
+        _cut = len(d1_u) != len(r_ours) or len(d1_t) != len(r_theirs)
+        pu_, pt_ = (_per_game(d1_u, tid), _per_game(d1_t, oid)) if _both else (None, None)   # 4b. the matchup on the year
+        _ty, _oy = ("against D1 teams", "Against D1 teams") if _cut else ("this year", "On the year")
+        step = 0.1 if nhl or lg == "mlb" else 3 if _sell and lg in ("nba", "ncaab") else 1   # (75 against 76 says nothing)
         if pu_ and pt_ and pt_[1] - pu_[1] >= step:
-            out.append(say("fill_d", [f"🛡️ {them} {vb(them, 'give', 'gives')} up {fmt(pt_[1])} {unit} a game this year. {us} {vb(us, 'give', 'gives')} up {fmt(pu_[1])}.",
-                                        f"🛡️ On the year {us} {vb(us, 'allow', 'allows')} {fmt(pu_[1])} a game, {them} {fmt(pt_[1])}."], fact=True)
+            out.append(say("fill_d", [f"🛡️ {them} {vb(them, 'give', 'gives')} up {fmt(pt_[1])} {unit} a game {_ty}. {us} {vb(us, 'give', 'gives')} up {fmt(pu_[1])}.",
+                                        f"🛡️ {_oy} {us} {vb(us, 'allow', 'allows')} {fmt(pu_[1])} a game, {them} {fmt(pt_[1])}."], fact=True)
                        if fmt(pt_[1]) != fmt(pu_[1]) else "")
         elif pu_ and pt_ and pu_[0] - pt_[0] >= step and fmt(pu_[0]) != fmt(pt_[0]):
-            out.append(say("fill_o", [f"📊 {us} {vb(us, 'score', 'scores')} {fmt(pu_[0])} {unit} a game this year; {them} {vb(them, 'score', 'scores')} {fmt(pt_[0])}.",
-                                        f"📊 On the year {us} put up {fmt(pu_[0])} a game, {them} {fmt(pt_[0])}."], fact=True))
+            out.append(say("fill_o", [f"📊 {us} {vb(us, 'score', 'scores')} {fmt(pu_[0])} {unit} a game {_ty}; {them} {vb(them, 'score', 'scores')} {fmt(pt_[0])}.",
+                                        f"📊 {_oy} {us} put up {fmt(pu_[0])} a game, {them} {fmt(pt_[0])}."], fact=True))
     for gs, t_id, nm_, ours_ in ((s_ours, tid, us, True), (s_theirs, oid, them, False)):   # 6. the last 10
         l10 = _last_n(gs, t_id, 10)
         if any(nm_ in seg for seg in re.findall(r"🗓[^🗓⚠✅📋📅💯📊🏟🧳🥊]*", str(said))):
@@ -3071,6 +3194,12 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         if lg == "ncaab" and r_theirs and _D1.get("set") is not None and "non-d" not in low and "division i" not in low:
             wins = [x for x in r_theirs if (int(x["home_score"]) > int(x["away_score"])) == (x["home"] == oid)]
             soft = [x for x in wins if non_d1(lg, _opp_id(x, oid))]
+            if len(wins) == 1 and len(soft) == 1 and len(r_theirs) >= 4 and _sell:   # (11/22: New Mexico St, 1-4 - the 1 a 73-66
+                x = soft[0]                                                 #  home win over Western NM, a non-D1 school)
+                nm1 = x["away_name"] if x["home"] == oid else x["home_name"]
+                sc = _line(x, oid).split()[1]
+                out.append(say("fill_nond1", [f"📋 {_pos(them)} only win this year is a {sc} game with {nm1}, a school that ain't even Division I.",
+                                                f"📋 The one win {them} got this year came in a {sc} game with {nm1}, and that ain't a Division I school."], fact=True))
             if len(wins) >= 2 and len(soft) == len(wins):
                 nm_ = [x["away_name"] if x["home"] == oid else x["home_name"] for x in soft]
                 n_ = len(wins)
@@ -3684,7 +3813,7 @@ def _tails(lean, us, them, trash=False, beat=False, long=False):
     out = [f"Tap in.", f"{us} all day.", f"We on {us}.", f"We riding {us}.", f"Say less.", f"{us} {vb(us, 'are', 'is')} the side.",
            f"{them} ain't ready for this shit.", f"That's a shit spot for {them}.", f"{us} fin to handle that.",
            f"We like {us} a lot.", f"{them} fin to get spanked.", f"{us} about to spank 'em.", f"{them} about to get their ass beat.",
-           f"We got {us}.", f"{us} {vb(us, 'get', 'gets')} it done.", f"Ride {us}.", f"Not us. We got {us}.", f"{us} {vb(us, 'take', 'takes')} this one.",
+           f"We got {us}.", f"{us} {vb(us, 'get', 'gets')} it done.", f"Ride {us}.", f"{us} {vb(us, 'take', 'takes')} this one.",
            f"We on {us}, no hesitation.", f"{us}, and it ain't a question.", f"Give me {us}.", f"{us}. Done talking.",
            f"Fuck it, {us}.", f"{us}, easy call.", f"Not touching {them}."]
     if beat:
@@ -3989,10 +4118,12 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         nums = ("w_num", [])
     line = ""
     _un = lambda x: (list(x[0]), list(x[1])) if isinstance(x, tuple) else (list(x), [None] * len(x))
+    leg["why_key"] = ""                                   # 🗣️ 11/22: which pool said the line (lead_upgrade reads it)
     for key, opts in pools + [nums]:                      # the top fact first; every wording used on the board? the next
         o, tg = _un(opts)
         line = v.say(key, o, tags=tg)
         if line:
+            leg["why_key"] = key
             break
     if not line:                                          # any fresh wording left - else no line
         allo, allt = [], []
@@ -4001,8 +4132,10 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             allo += o
             allt += tg
         line = v.say("w_any", allo, tags=allt)
+        leg["why_key"] = "w_any" if line else ""
     if line and (LINE_MOVE.search(line) or not _has_fact(line, names)):
         line = ""                                         # (belt and braces: the rules hold whatever the pool said)
+        leg["why_key"] = ""
     kick = []
     if trip and rsn and "opponent's body clock is off" not in rsn:
         kick.append(("k_trip", [f" Plus {them} flew {_mi(trip['mi'])} miles for this.",
@@ -4106,8 +4239,9 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
     if n_cold >= 2:
         m["cold opponent"] = [f"{T} have lost {n_cold} straight", f"{n_cold} straight losses for {T}",
                               f"{T} are on a {n_cold}-game skid", f"{T} haven't won in {n_cold}"]
-    if s_ours and _line(s_ours[-1], tid).startswith("W") and (not s_theirs or _line(s_theirs[-1], oid).startswith("L")):
-        o2, _, sc = _last_parts(s_ours[-1], tid, pro)
+    if s_ours and _line(s_ours[-1], tid).startswith("W") and (not s_theirs or _line(s_theirs[-1], oid).startswith("L")) \
+            and not non_d1(lg, _opp_id(s_ours[-1], tid)):   # (11/22: "William & Mary just beat Averett 85-39" led a card -
+        o2, _, sc = _last_parts(s_ours[-1], tid, pro)      #  a non-D1 tune-up is never the reason under a pick)
         m["last game"] = [f"{U} are fresh off a {sc} win over {o2}", f"{U} just beat {o2} {sc}",
                           f"last time out {U} took {o2} {sc}", f"{U} handled {o2} {sc} last time out"]
     if gap_d >= 2 and not b2b_only(lg):                   # (11/19 sweep: REST TALK ONLY ON A BACK-TO-BACK - the map still

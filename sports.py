@@ -9565,6 +9565,7 @@ def post_board(games, model, picks, now, day, force=False):
             if same:                                  # the same pick reads the same everywhere it shows up
                 leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
                 leg["why_line"] = same.get("why_line", "")
+                leg["sold"], leg["why_key"] = list(same.get("sold") or []), same.get("why_key", "")   # (11/22: the sell tags too)
             else:
                 leg["is_lean"] = bool(b.get("lean"))     # (10/23: a lean's one-liner keeps its no-units tone)
                 leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
@@ -10536,6 +10537,7 @@ def add_breakdowns(games, model, picks):
         if same:                                      # the same pick reads the same everywhere it shows up
             leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
             leg["why_line"] = same.get("why_line", "")
+            leg["sold"], leg["why_key"] = list(same.get("sold") or []), same.get("why_key", "")   # (11/22: the sell tags too)
         else:
             leg["is_lean"] = id(leg) in leans            # (10/23: a lean's one-liner keeps its no-units tone)
             leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
