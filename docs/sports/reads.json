@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T01:22Z",
+ "updated": "2026-11-22T01:33Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -1241,8 +1241,8 @@
    "away": "South Florida",
    "home": "FAU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2059,8 +2059,8 @@
    "away": "UT Rio Grande",
    "home": "Hou Christian",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2767,65 +2767,6 @@
    "lean": null
   },
   {
-   "id": "nhl:401892765",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.399,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-22T02:00Z",
-   "away": "Ducks",
-   "home": "Mammoth",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Ducks",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -162,
-    "p": 0.622,
-    "win_p": 0.405,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401856872",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Utah",
-    "p": 0.651,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-22T02:00Z",
-   "away": "Utah",
-   "home": "TCU",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Utah",
-    "opp": "TCU",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -108,
-    "p": 0.512,
-    "win_p": 0.679,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401860925",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -3013,7 +2954,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Nevada",
-    "p": 0.6,
+    "p": 0.598,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -3030,8 +2971,8 @@
     "market": "ml",
     "line": null,
     "odds": -278,
-    "p": 0.641,
-    "win_p": 0.641,
+    "p": 0.639,
+    "win_p": 0.639,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
