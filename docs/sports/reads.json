@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T22:02Z",
+ "updated": "2026-11-22T22:07Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -385,7 +385,7 @@
    "home": "New Mexico St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Robert Morris",
@@ -399,7 +399,7 @@
      "sharp money moving this way",
      "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -412,8 +412,8 @@
    "away": "S Indiana",
    "home": "Texas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -455,8 +455,8 @@
    "away": "West Florida",
    "home": "South Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -619,6 +619,51 @@
    "start": "2026-11-22T21:30Z",
    "away": "Richmond",
    "home": "Liberty",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920159",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T22:00Z",
+   "away": "Fullerton",
+   "home": "Portland St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920708",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T22:00Z",
+   "away": "Milligan",
+   "home": "Lipscomb",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401922293",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-22T22:00Z",
+   "away": "UNC Asheville",
+   "home": "Samford",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1131,7 +1176,7 @@
     "opp": "Warriors",
     "market": "spread",
     "line": -7.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.5,
     "win_p": 0.734,
     "reasons": [
