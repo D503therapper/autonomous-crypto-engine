@@ -26487,3 +26487,26 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-22 19:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-22 19:05 UTC] crypto/hold_btc  equity $374.72 (-25.1%) 1 open  market DOWN
    social heat top: VVV 36 (32/0/4), TRUMP 35 (35/0/0), BTC 29 (29/0/0), PENGU 24 (24/0/0), MON 21 (21/0/0)
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +5.9%, 6 volume hikes, 29% quiet hours @ 2.9986
+   dex screen: REJECT SURPLUS@base liq $934,070 - transfer_pausable; is_mintable; lp locked 0% < 95%
+   dex screen: REJECT ACN@ethereum liq $409,021 - top-10 holders 65%; lp locked 0% < 95%
+   dex screen: REJECT TTWO@solana liq $544,281 - freeze authority; mint authority; balance_mutable_authority; transfer hook; lp holders unknown
+   dex screen: REJECT BP@solana liq $1,249,791,691 - top-10 holders 100%
+   dex screen: REJECT BP@solana liq $1,029,734,283 - top-10 holders 100%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: UNREACHABLE POPO@ethereum liq $363,161 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT FLUID@ethereum liq $3,291,294 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 56%
+   dex scanner: 2,718 pools (solana 1,926 / base 471 / ethereum 321), refresh cycle 115s (hot 111s), 2979 calls (110 feed, 429s 0, failed 0), 86,069 refreshed (14682 no pair), +36 added / -94 dropped (dead 92, stale 2, cap 0), movers 0 + warming 0 -> queued 0, screened 1 (passed 0), bought 0
+[2026-11-22 20:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/mover     equity $112.89 (-77.4%) 2 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/social_heat equity $316.88 (-36.6%) 3 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-22 20:05 UTC] crypto/hold_btc  equity $374.70 (-25.1%) 1 open  market DOWN
+   social heat top: TRUMP 35 (35/0/0), NEAR 32 (32/0/0), BTC 29 (29/0/0), PENGU 27 (27/0/0), VVV 26 (24/0/2)
