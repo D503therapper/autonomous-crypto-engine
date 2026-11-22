@@ -1,16 +1,16 @@
 {
  "all": {
-  "n": 132,
+  "n": 133,
   "beat": 43,
   "same": 58,
-  "worse": 31,
+  "worse": 32,
   "avg_pts": 0.21
  },
  "unit_plays": {
-  "n": 132,
+  "n": 133,
   "beat": 43,
   "same": 58,
-  "worse": 31,
+  "worse": 32,
   "avg_pts": 0.21
  },
  "by_kind": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 82,
+   "n": 83,
    "beat": 27,
    "same": 37,
-   "worse": 18,
-   "avg_pts": 0.21
+   "worse": 19,
+   "avg_pts": 0.2
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.36
   },
   "ncaab": {
-   "n": 8,
+   "n": 9,
    "beat": 3,
    "same": 3,
-   "worse": 2,
-   "avg_pts": 0.45
+   "worse": 3,
+   "avg_pts": 0.33
   },
   "ncaaf": {
    "n": 43,
@@ -1944,6 +1944,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Nicholls",
+   "market": "ml",
+   "line": null,
+   "odds": 195,
+   "close": 200,
+   "pts": -0.6,
+   "units": 1.0,
+   "result": "lost"
   },
   {
    "date": "2026-11-22",
