@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T04:37Z",
+ "updated": "2026-11-22T04:55Z",
  "games": [
   {
    "id": "ncaab:401922284",
@@ -2716,8 +2716,8 @@
    "away": "Stetson",
    "home": "San Diego",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2746,8 +2746,8 @@
    "away": "UTSA",
    "home": "UAB",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2791,8 +2791,8 @@
    "away": "Ducks",
    "home": "Mammoth",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3092,7 +3092,7 @@
     "line": 15.5,
     "odds": -113,
     "p": 0.507,
-    "win_p": 0.115,
+    "win_p": 0.114,
     "reasons": []
    }
   },
@@ -4230,8 +4230,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Minnesota",
-    "p": 0.795,
-    "tie": 0.03,
+    "p": 0.784,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4248,7 +4248,7 @@
     "line": 10.5,
     "odds": -105,
     "p": 0.504,
-    "win_p": 0.126,
+    "win_p": 0.137,
     "reasons": []
    }
   },
@@ -4348,7 +4348,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.5,
+    "p": 0.501,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -4364,9 +4364,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -119,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -120,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -4532,8 +4532,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.662,
-    "tie": 0.033,
+    "p": 0.677,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -4547,13 +4547,41 @@
     "team": "Knicks",
     "opp": "Pacers",
     "market": "spread",
-    "line": -9.5,
-    "odds": -110,
+    "line": -10.5,
+    "odds": -105,
     "p": 0.501,
-    "win_p": 0.757,
+    "win_p": 0.776,
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401921206",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Utah Valley",
+    "p": 0.697,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T01:00Z",
+   "away": "UT Martin",
+   "home": "Utah Valley",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UT Martin",
+    "opp": "Utah Valley",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.229,
+    "reasons": []
    }
   },
   {
