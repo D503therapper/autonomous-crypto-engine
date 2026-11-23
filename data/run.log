@@ -26995,3 +26995,29 @@ error: failed to push some refs to 'https://githu
 [2026-11-23 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-23 13:06 UTC] crypto/hold_btc  equity $377.76 (-24.4%) 1 open  market DOWN
    social heat top: DOGE 32 (32/0/0), PENGU 32 (32/0/0), VVV 29 (29/0/0), HYPE 27 (27/0/0), AAVE 24 (24/0/0)
+   footprint: QNT: footprint 3/4 (drift+quiet+hikes) 48h +12.4%, 5 volume hikes, 62% quiet hours @ 157.193
+   dex screen: REJECT XMR@solana liq $1,041,608,848 - top-10 holders 100%
+   dex screen: REJECT XMR@solana liq $1,095,777,961 - top-10 holders 100%
+   dex screen: REJECT CBBTC@solana liq $3,684,522 - freeze authority; mint authority; top-10 holders 58%
+   dex screen: REJECT CBBTC@base liq $1,280,884 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: PASS XTO@solana liq $268,341
+   >> dex/dex_hunter: BUY $24.93 of XTO@solana:91GG7PWs @ 0.014283 (dex tier A survivor 1h +3% 6h +19% buys/sells 68/47 impact 0.01%)
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $132,510 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SAPIEN@base liq $721,780 - pool age unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MORPHO@base liq $387,728 - pool age unknown
+   dex screen: REJECT XAUT@ethereum liq $1,649,276 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 55%
+   scanner: SUI: +5.5% in 15 min on 73.9x volume @ 0.70629 spread 0.07%
+   dex scanner: 2,540 pools (solana 1,777 / base 450 / ethereum 313), refresh cycle 114s (hot 110s), 2715 calls (106 feed, 429s 0, failed 0), 78,265 refreshed (11460 no pair), +86 added / -70 dropped (dead 69, stale 1, cap 0), movers 1 + warming 0 -> queued 1, screened 1 (passed 1), bought 1
+   scanner: SUI: +5.3% in 15 min on 86.8x volume @ 0.70445 spread 0.01%
+   scanner: INJ: +5.0% in 15 min on 6.7x volume @ 6.68 spread 0.37%
+[2026-11-23 14:10 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/mover     equity $116.53 (-76.7%) 2 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/social_heat equity $326.39 (-34.7%) 3 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-23 14:10 UTC] crypto/hold_btc  equity $390.72 (-21.9%) 1 open  market DOWN
+   social heat top: PENGU 29 (29/0/0), BTC 27 (27/0/0), PUMP 25 (13/0/12), VVV 21 (21/0/0), AERO 20 (16/0/4)
