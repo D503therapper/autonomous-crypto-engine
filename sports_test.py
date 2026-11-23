@@ -29071,6 +29071,91 @@ def test_best_1121_the_star_is_the_biggest_bet_on_the_board():
     assert sorted([fl, mp], key=sports.best_rank)[0]["legs"][0]["team"] == "Ducks"   # the max play still first
 
 
+def test_best_1122_the_star_is_the_biggest_bet_at_its_honest_size_and_never_the_smaller_one():
+    """11/22 FABLE - WHY THE ⭐ HAS LOST (the owner: "why the engine's best picks are so bad ... this needs fixed"; live
+    5-10 -4.4u; results/studies/best_1122/). No way of choosing the ⭐ finds a better bet than the board's other plays, so
+    from BEST_HONEST_FROM (the 11/24 Pacific games): (1) a ½u play carrying the ⭐ STAYS ½u - no lift to a full unit (the
+    lift's added units +2.2% in the replay's first half, live 1-4); (2) the 11/17 2u cell stays; (3) the ⭐ is never
+    smaller than another play on the board - a bigger play it can't sit on = no ⭐ that day; (4) the same size: the bigger
+    edge. A pick dated before keeps the 11/22 rule and its units."""
+    import io
+    import contextlib
+    import sports
+    import sports_dashboard as sdb
+    assert sports.BEST_HONEST_FROM == "2026-11-24" and sports.BEST_SIZE_FIRST_FROM == "2026-11-22"
+    assert sports.BEST_MIN_UNITS == 1.0 and sports.BEST_UNITS_1117 == 2.0          # (the old rule's sizes still read for old picks)
+    assert sports.best_honest("2026-11-24") and not sports.best_honest("2026-11-23")
+    NEW, OLD = "2026-11-24", "2026-11-23"
+
+    def mk(kind, team, odds, p, units, day, **kw):
+        leg = {**_cand(team, odds, p, league=kw.pop("league", "nhl")), "team": team}
+        return {"date": day, "kind": kind, "status": "open", "lean": False, "dec": leg["dec"], "american": odds,
+                "units_posted": units, "legs": [leg], **kw}
+
+    # (1) a ½u value play is the day's only unit play: the ⭐ goes on it and it STAYS ½u; the day before it was lifted to 1u
+    val = mk("play", "Stars", -130, 0.60, 0.5, NEW)
+    assert sports.mark_best([val], NEW) is val and val.get("best") and not val.get("best_2u")
+    assert sports.units_for(val) == 0.5 and sports.best_min_units(val) == 0.0 and sports.sizing_check([val]) == []
+    old = mk("play", "Stars", -130, 0.60, 0.5, OLD)
+    assert sports.mark_best([old], OLD) is old and sports.units_for(old) == 1.0     # as it ran: a posted pick keeps its units
+    assert sports.units_for({**old, "status": "lost", "units": 1.0}) == 1.0
+    # ...and its card keeps saying what it is - the half-unit closer is never swapped for "a full unit on it"
+    card = mk("play", "Ducks", -142, 0.62, 0.5, NEW)
+    card["legs"][0]["breakdown"] = ["✅ Bottom line: Ducks at -142. Half a unit, no more."]
+    assert sports.mark_best([card], NEW) is card
+    assert card["legs"][0]["breakdown"] == ["✅ Bottom line: Ducks at -142. Half a unit, no more."]
+    note = sdb.best_note(card)
+    assert note is sdb.BEST_NOTE_HALF and all("full unit" not in n.lower() or "earned a full unit" in n for n in note)
+    assert all("half" in n.lower() for n in sdb.BEST_NOTE_HALF)
+    # (2) the 11/17 2u cell stays: the ⭐ on a Dog of the Day / a play 1u+ by its own size at +150 or shorter is 2u
+    fav = {**mk("play", "Nuggets", -125, 0.62, 1.0, NEW, league="nba"), "nba_fav": True}
+    assert sports.mark_best([fav, mk("play", "Kings", -120, 0.58, 0.5, NEW)], NEW) is fav
+    assert fav.get("best_2u") is True and sports.units_for(fav) == 2.0 and sdb.best_note(fav) is sdb.BEST_NOTE_1124
+    assert all("full unit" not in n.lower() for n in sdb.BEST_NOTE_1124)
+    assert sdb.best_note({**old, "best": True}) is sdb.BEST_NOTE and sdb.best_note({**val, "forced": True}) is sdb.BEST_FORCED
+    for pool in (sdb.BEST_NOTE_1124, sdb.BEST_NOTE_HALF):
+        assert len(set(pool)) == len(pool) >= 4 and all(n.startswith("⭐ ENGINE'S BEST PICK — ") for n in pool)
+        assert not any(w in n.lower() for n in pool for w in ("real talk", "chalk", "%", "line mov"))
+    # (3) NEVER THE SMALLER BET: a 2u play whose read does not beat its price can't carry the ⭐ - so nobody does
+    big = mk("dog", "Capitals", 136, 0.40, 2.0, NEW)                               # 40% at +136 needs 42.4%: out of the pool
+    small = mk("play", "Bruins", -135, 0.62, 0.5, NEW)
+    assert sports.best_pool([big, small], NEW) == [small]
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        got = sports.mark_best([big, small], NEW)
+    assert got is None and not small.get("best") and not small.get("best_2u") and "never the smaller bet" in buf.getvalue()
+    assert sports.best_bigger([big, small], NEW, small) is big and sports.units_for(small) == 0.5
+    # the day before: the 11/22 rule as it ran - the ½u play took the ⭐ at 1u beside the 2u Dog
+    big0, small0 = mk("dog", "Capitals", 136, 0.40, 2.0, OLD), mk("play", "Bruins", -135, 0.62, 0.5, OLD)
+    assert sports.mark_best([big0, small0], OLD) is small0 and sports.units_for(small0) == 1.0
+    # a play the SAME size outside the pool is fine (never smaller, not "always bigger"); a lean / a graded / another day's play never counts
+    same = mk("dog", "Sharks", 120, 0.40, 0.5, NEW)
+    s2 = mk("play", "Bruins", -135, 0.62, 0.5, NEW)
+    assert sports.mark_best([same, s2], NEW) is s2 and sports.units_for(s2) == 0.5
+    s3 = mk("play", "Bruins", -135, 0.62, 0.5, NEW)
+    others = [{**mk("dog", "Capitals", 136, 0.40, 2.0, NEW), "status": "won", "units": 2.0}, mk("dog", "Jets", 124, 0.40, 2.0, OLD),
+              {**mk("play", "Wild", 110, 0.40, 2.0, NEW), "lean": True}]
+    assert sports.best_bigger(others + [s3], NEW, s3) is None and sports.mark_best(others + [s3], NEW) is s3
+    # the ⭐'s own 2u counts: a 1u play raised to 2u is not smaller than a 2u play outside the pool
+    f2 = {**mk("play", "Nuggets", -125, 0.62, 1.0, NEW, league="nba"), "nba_fav": True}
+    assert sports.mark_best([mk("dog", "Capitals", 136, 0.40, 2.0, NEW), f2], NEW) is f2 and sports.units_for(f2) == 2.0
+    # (4) the biggest first, then the bigger edge on its read (unchanged from 11/22)
+    a, b, c = mk("play", "Flyers", 136, 0.47, 2.0, NEW, dog_play=True), mk("play", "UT Rio Grande", 160, 0.46, 2.0, NEW), mk("dog", "Southern Miss", 164, 0.50, 1.0, NEW)
+    assert sports.mark_best([c, a, b], NEW) is b and sports.units_for(b) == 2.0 and sports.units_for(c) == 1.0
+    # the switch: None = the 11/22 rule back (1u at least, a ⭐ beside a bigger play)
+    keep, sports.BEST_HONEST_FROM = sports.BEST_HONEST_FROM, None
+    try:
+        v2 = mk("play", "Stars", -130, 0.60, 0.5, NEW)
+        assert sports.mark_best([mk("dog", "Capitals", 136, 0.40, 2.0, NEW), v2], NEW) is v2 and sports.units_for(v2) == 1.0
+    finally:
+        sports.BEST_HONEST_FROM = keep
+    src = open(sports.__file__, encoding="utf-8").read()
+    mb = src[src.index("def mark_best("):src.index("BEST_SAYS = [")]
+    assert "best_bigger(picks, iso, best)" in mb and mb.index("best_2u_ok(best)") < mb.index("best_bigger(picks, iso, best)") < mb.index("best_closer(best)")
+    w = sdb.engine_weights()["the board"]["units"]
+    assert "from 11/24 its own size" in w and "half-unit star stays a half unit" in w
+
+
 def test_early_1121_a_graded_early_row_says_the_units_and_the_score():
     """11/21, the owner on the Minnesota +114 2u early play that cashed: "Game not reflecting units" / "Fix this bug
     permanently" - the graded row showed only ✅."""
