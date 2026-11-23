@@ -2,34 +2,34 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-22T23:00Z",
-   "how": "plain request - games listed but NO pre-tip 1st-half line",
-   "n": 0,
-   "ok": false
+   "at": "2026-11-23T00:06Z",
+   "how": "plain request",
+   "n": 11,
+   "ok": true
   },
   "actionnetwork_odds": {
-   "at": "2026-11-22T22:55Z",
+   "at": "2026-11-22T23:58Z",
    "how": "plain request (v2 scoreboard)",
-   "n": 1178,
+   "n": 1190,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-22T22:59Z",
+   "at": "2026-11-23T00:04Z",
    "how": "plain request",
-   "n": 7,
+   "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-22T23:00Z",
+   "at": "2026-11-23T00:06Z",
+   "err": "HTTP 410",
    "how": "plain request",
-   "n": 6,
-   "ok": true
+   "ok": false
   },
   "betrivers:pre:ncaaf": {
-   "at": "2026-11-22T22:59Z",
-   "err": null,
-   "n": 0,
-   "ok": true
+   "at": "2026-11-23T00:04Z",
+   "err": "HTTP 410",
+   "n": null,
+   "ok": false
   },
   "betrivers:pre:ncaaf:1027025285": {
    "at": "2026-11-22T09:28Z",
@@ -932,37 +932,37 @@
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-22T23:00Z",
+   "at": "2026-11-23T00:06Z",
+   "err": "HTTP 410",
    "how": "plain request",
-   "n": 21,
-   "ok": true
+   "ok": false
   },
   "bovada": {
-   "at": "2026-11-22T23:00Z",
+   "at": "2026-11-23T00:06Z",
    "how": "plain request - answered EMPTY (no events: refused or down)",
    "n": 0,
    "ok": false
   },
   "bovada_nfl": {
-   "at": "2026-11-22T23:00Z",
-   "how": "plain request - answered EMPTY (no events: refused or down)",
-   "n": 0,
-   "ok": false
+   "at": "2026-11-23T00:06Z",
+   "how": "plain request",
+   "n": 7,
+   "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-22T22:59Z",
+   "at": "2026-11-23T00:05Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-22T22:59Z",
+   "at": "2026-11-23T00:05Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-22T22:55Z",
+   "at": "2026-11-22T23:58Z",
    "how": "plain request",
    "n": 5,
    "ok": true
@@ -980,9 +980,9 @@
    "ok": false
   },
   "espn_depth_nfl": {
-   "at": "2026-11-22T20:05Z",
+   "at": "2026-11-22T23:58Z",
    "how": "plain request - the team depth charts (who starts at QB)",
-   "n": 3,
+   "n": 27,
    "ok": true
   },
   "nflverse_snaps": {
@@ -992,18 +992,18 @@
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-22T22:59Z",
+   "at": "2026-11-23T00:05Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-22T22:59Z",
+   "at": "2026-11-23T00:05Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-22T23:00Z"
+ "updated": "2026-11-23T00:06Z"
 }
