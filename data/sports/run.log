@@ -1,52 +1,3 @@
-sync: 133563 games stored, 52 calls, 0 failed, 9s
-odds history: 0 games got odds, 55 calls, 0 failed, 5s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 86 games got weather, 0 new stadiums located, 89s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 5 games on the page, 5 matched, 0 confirmed
-qb depth charts: {'ncaaf': 0} read, 0s
-nfl starters (snap counts): 0 teams read
-nba rosters: 30 teams as of 2026-11-22, 0 failed, 0 moves
-beat the close: unit plays 43 of 129 better than the close, avg +0.2 pts
-public splits: 39 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 206 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   one voice: the main read fights California 230 (29.0% vs the 30.3% the price needs) - no early play
-tennis sync: 74107 matches stored, 18 calls, 0 failed
-tennis study ATP: 26335 rated matches, acc 0.6455 (surface ratings alone 0.644), loss 0.6284 vs 0.6295, own weights [-0.004, 0.826, 0.073, 0.159, 0.421, 0.05, 0.05]
-tennis study ATP life factors vs current loss 0.6284: experience 0.6278 (+0.64 mnats, z 0.74), age 0.627 (+1.39 mnats, z 0.99), young_vs_aging 0.6282 (+0.24 mnats, z 0.58), last_match 0.6257 (+2.69 mnats, z 1.89), streaks 0.6288 (-0.44 mnats, z -0.43), first_set 0.6276 (+0.77 mnats, z 1.16), injury 0.6293 (-0.89 mnats, z -1.39), travel 0.6284 (+0.02 mnats, z 0.43) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30916 rated matches, acc 0.6455 (surface ratings alone 0.648), loss 0.6218 vs 0.6219, own weights [0.005, 0.904, -0.001, -0.073, 0.298, 0.025, -0.197]
-tennis study WTA life factors vs current loss 0.6218: experience 0.6192 (+2.59 mnats, z 1.53), age 0.6207 (+1.13 mnats, z 1.48), young_vs_aging 0.6215 (+0.35 mnats, z 2.26), last_match 0.6224 (-0.57 mnats, z -0.56), streaks 0.6217 (+0.10 mnats, z 0.22), first_set 0.6216 (+0.24 mnats, z 0.52), injury 0.6212 (+0.59 mnats, z 1.01), travel 0.6219 (-0.11 mnats, z -0.63) -> KEPT young_vs_aging · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
-tennis reads: 1 matches
-1H line log: 45 rows (8 with a 1st-half line) from 90 AN games
-source check (0.5s): plain requests answered by 133 of 138 sources - quiet: bovada, bovada_nfl, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
-sync: 133563 games stored, 52 calls, 0 failed, 6s
-odds history: 0 games got odds, 55 calls, 0 failed, 4s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 87 games got weather, 0 new stadiums located, 5s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies failed to load: HTTP Error 403: Forbidden
-qb depth charts: {'nfl': 28} read, 1s
-nfl starters (snap counts): 32 teams read
-nba rosters: 30 teams as of 2026-11-22, 0 failed, 0 moves
-beat the close: unit plays 43 of 129 better than the close, avg +0.2 pts
-public splits: 40 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 206 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   one voice: the main read fights California 230 (29.0% vs the 30.3% the price needs) - no early play
-tennis sync: 74107 matches stored, 18 calls, 0 failed
-tennis study ATP: 26335 rated matches, acc 0.6455 (surface ratings alone 0.644), loss 0.6284 vs 0.6295, own weights [-0.004, 0.826, 0.073, 0.159, 0.421, 0.05, 0.05]
-tennis study ATP life factors vs current loss 0.6284: experience 0.6278 (+0.64 mnats, z 0.74), age 0.627 (+1.39 mnats, z 0.99), young_vs_aging 0.6282 (+0.24 mnats, z 0.58), last_match 0.6257 (+2.69 mnats, z 1.89), streaks 0.6288 (-0.44 mnats, z -0.43), first_set 0.6276 (+0.77 mnats, z 1.16), injury 0.6293 (-0.89 mnats, z -1.39), travel 0.6284 (+0.02 mnats, z 0.43) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30916 rated matches, acc 0.6455 (surface ratings alone 0.648), loss 0.6218 vs 0.6219, own weights [0.005, 0.904, -0.001, -0.073, 0.298, 0.025, -0.197]
-tennis study WTA life factors vs current loss 0.6218: experience 0.6192 (+2.59 mnats, z 1.53), age 0.6207 (+1.13 mnats, z 1.48), young_vs_aging 0.6215 (+0.35 mnats, z 2.26), last_match 0.6224 (-0.57 mnats, z -0.56), streaks 0.6217 (+0.10 mnats, z 0.22), first_set 0.6216 (+0.24 mnats, z 0.52), injury 0.6212 (+0.59 mnats, z 1.01), travel 0.6219 (-0.11 mnats, z -0.63) -> KEPT young_vs_aging · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
 tennis reads: 1 matches
 1H line log: 45 rows (13 with a 1st-half line) from 90 AN games
 source check (4.6s): plain requests answered by 144 of 148 sources - quiet: dailyfaceoff, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
@@ -2994,6 +2945,55 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 0 matches
 1H line log: 0 rows (0 with a 1st-half line) from 127 AN games
 source check (4.6s): plain requests answered by 164 of 167 sources - quiet: espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
+CARD CHECK (render) 2026-11-23: Kings 130: Darcy Kuemper's numbers on the card for the Kings with nobody confirming him in net: 🥅 Jakub Dobes (Canadiens) has a 0.890 save % (8 goals on 73 shots) over his last 3 starts; Darcy Kuemper (King
+CARD CHECK (render) 2026-11-23: Washington -112: said twice on the card: 🔥 Washington hasn't lost in 4 - 4-0 overall.
+CARD AUDIT: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or a pool is missing) - ""
+CARD AUDIT: SHORT on the San José St card (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price) - ""
+sync: 133584 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 84 games got weather, 0 new stadiums located, 6s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 7 games on the page, 7 matched, 9 confirmed
+qb depth charts: {} read, 0s
+nfl starters (snap counts): 0 teams read
+nba rosters: 30 teams as of 2026-11-23, 0 failed, 0 moves
+beat the close: unit plays 45 of 135 better than the close, avg +0.2 pts
+public splits: 53 upcoming games
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 9 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (119 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 206 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   exam scan: NC State 180 - the raw read likes it, the studies don't beat the price - no early play
+   one voice: the main read fights UTEP 160 (38.3% vs the 38.5% the price needs) - no early play
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 206 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 9 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (119 players), 365 matched, 0 unmatched
+   no units on Kansas: missing M. Council Jr., G. Mordini
+   no units on North Carolina: missing N. Avdalas, M. Smith
+   no units on Devils: missing Anthony Mantha, Johnathan Kovacevic
+   no units on Canadiens: missing Josh Anderson, Chris Kreider
+   no units on Jets: missing Dylan DeMelo, Isak Rosen
+   no units on Mammoth: missing Michael Carcone, Dylan Guenther, Nick Schmaltz, Nate Schmidt
+   no units on Sharks: missing Jacob Trouba, Kiefer Sherwood
+   no units on Wild: missing Quinn Hughes, Olli Maatta
+RULE CHECK: Monday/Thursday NFL game nfl:401873078 has no pick yet
+tennis sync: 74107 matches stored, 18 calls, 0 failed
+tennis study ATP: 26336 rated matches, acc 0.6455 (surface ratings alone 0.644), loss 0.6283 vs 0.6294, own weights [-0.004, 0.826, 0.073, 0.159, 0.421, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6283: experience 0.6277 (+0.64 mnats, z 0.74), age 0.6269 (+1.38 mnats, z 0.97), young_vs_aging 0.6281 (+0.24 mnats, z 0.58), last_match 0.6256 (+2.73 mnats, z 1.93), streaks 0.6287 (-0.42 mnats, z -0.41), first_set 0.6276 (+0.74 mnats, z 1.12), injury 0.6293 (-0.94 mnats, z -1.45), travel 0.6283 (+0.02 mnats, z 0.43) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30920 rated matches, acc 0.6445 (surface ratings alone 0.647), loss 0.6221 vs 0.6223, own weights [0.005, 0.904, -0.001, -0.074, 0.298, 0.025, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6192 (+2.92 mnats, z 1.72), age 0.6211 (+1.08 mnats, z 1.41), young_vs_aging 0.6218 (+0.34 mnats, z 2.17), last_match 0.6226 (-0.47 mnats, z -0.46), streaks 0.622 (+0.09 mnats, z 0.19), first_set 0.6219 (+0.24 mnats, z 0.51), injury 0.6215 (+0.63 mnats, z 1.09), travel 0.6222 (-0.11 mnats, z -0.63) -> KEPT young_vs_aging · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: 13 singles matches priced (bovada)
+tennis reads: 0 matches
+1H line log: 0 rows (0 with a 1st-half line) from 127 AN games
+source check (4.8s): plain requests answered by 164 of 167 sources - quiet: espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
 CARD CHECK (render) 2026-11-23: Kings 130: Darcy Kuemper's numbers on the card for the Kings with nobody confirming him in net: 🥅 Jakub Dobes (Canadiens) has a 0.890 save % (8 goals on 73 shots) over his last 3 starts; Darcy Kuemper (King
 CARD CHECK (render) 2026-11-23: Washington -112: said twice on the card: 🔥 Washington hasn't lost in 4 - 4-0 overall.
 CARD AUDIT: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or a pool is missing) - ""
