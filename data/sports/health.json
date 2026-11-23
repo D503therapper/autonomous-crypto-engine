@@ -1,14 +1,14 @@
 {
- "at": "2026-11-23T19:22Z",
+ "at": "2026-11-23T19:24Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Riera vs Papamichail: no points for 535s",
+  "live tennis scores: tennis Riera vs Papamichail: no points for 718s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "card audit: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side,",
   "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (241s)",
+  "live watcher fresh (133s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +22,22 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 1h ago",
-  "engine ran 21 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-23T19:24Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Riera vs Papamichail: no points for 718s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side,",
+    "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-23T19:22Z",
    "fixes": [],
@@ -530,11 +540,6 @@
   },
   {
    "at": "2026-11-22T08:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T08:37Z",
    "fixes": [],
    "problems": []
   }
