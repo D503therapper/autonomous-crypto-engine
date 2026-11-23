@@ -683,6 +683,10 @@ def facts(line, leg, games):
                 return f"says {names[i]} {'won' if kind == 'W' else 'lost'} {n} straight - the games say {real}"
     # last 5
     m5 = re.search(r"(\d) of (?:the|their) last (?:5|five)", t)
+    if m5 and re.search(r"\bby \d+ or more\b|\bby \d+\+", t):
+        m5 = None                                            # (11/23: "won 3 of their last 5 games by 10 or more" counts the
+        #                                                      BIG wins, not the wins - read as a record it was cut as false
+        #                                                      on a 4-1 team, and a true line left four cards shorter)
     if m5:
         i = _anchor(t, m5.start(), names)
         f = F(i) if i is not None else None
@@ -1066,6 +1070,13 @@ def sell_numbers(line, leg, games):
         return ""
     try:
         import sports_card_sell as cs
+        if str(line or "").startswith("🧭"):                 # 🧭 11/23: a schedule line, re-derived the same way
+            return sched_numbers(line, leg, games)
+        if str(line or "").startswith("🪑"):                 # 🪑 the man who sat: the name and number the leg carries
+            who = cs.top_out_who(leg)
+            if not who or str(who[0]) not in str(line):
+                return f"{Q_BOX}: a top scorer the leg doesn't carry"
+            return ""
         if not cs.is_sell(line):
             return ""
         fu, ft = team_facts(games, leg, "us"), team_facts(games, leg, "them")
@@ -1074,6 +1085,32 @@ def sell_numbers(line, leg, games):
         bad = cs.numbers_wrong(line, leg.get("team") or "", leg.get("opp") or "", leg.get("league"),
                                d1_only(games, fu["season"], fu["tid"], leg), d1_only(games, ft["season"], ft["tid"], leg),
                                fu["tid"], ft["tid"])
+    except Exception:                                        # noqa: BLE001 - the check never breaks a card
+        return ""
+    return f"{Q_BOX}: {bad}" if bad else ""
+
+
+def sched_numbers(line, leg, games):
+    """🧭 11/23: a schedule line (who they beat, who beat us, the night they were a big favorite, the spread count, the
+    road games) against the game files - sports_card_sell.sched_wrong. -> why it can't stand, or ''."""
+    try:
+        import sports_card_sell as cs
+        import sports_breakdown_v24 as v
+        g = (games or {}).get(leg.get("game_id"))
+        fu, ft = team_facts(games, leg, "us"), team_facts(games, leg, "them")
+        if not g or not fu or not ft or fu.get("unseen") or ft.get("unseen"):
+            return ""
+        lg = leg.get("league")
+        fk = (id(games), len(games), lg, g["start"])
+        if fk not in _FIN_BEFORE:
+            if len(_FIN_BEFORE) > 64:
+                _FIN_BEFORE.clear()
+            _FIN_BEFORE[fk] = [x for x in _finals(games, lg) if x["start"] < g["start"]]
+        d1 = d1_set(games)
+        bad = cs.sched_wrong(line, leg.get("team") or "", leg.get("opp") or "",
+                             d1_only(games, fu["season"], fu["tid"], leg), d1_only(games, ft["season"], ft["tid"], leg),
+                             fu["tid"], ft["tid"], _FIN_BEFORE[fk],
+                             (lambda t: d1 is not None and str(t) not in d1), s_theirs=ft["season"])
     except Exception:                                        # noqa: BLE001 - the check never breaks a card
         return ""
     return f"{Q_BOX}: {bad}" if bad else ""
@@ -1461,7 +1498,7 @@ def check(pk, leg, lines, games=None, why="", where="render"):
         pass
     try:                                                     # 🗣️ 11/22 NO REPEATS (the Robert Morris card: "New Mexico St
         import sports_card_sell as _cs                       #  this season: 78 points a game allowed, 66 scored" above
-        kept, gone = _cs.dedupe(out, leg.get("team") or "", leg.get("opp") or "", why) if same_on(leg) else (out, [])   # "outscored 72 to 63
+        kept, gone = _cs.dedupe(out, leg.get("team") or "", leg.get("opp") or "", why, leg=leg) if same_on(leg) else (out, [])   # "outscored 72 to 63
         for x in gone:                                       #  over their last 3"): the same stat about the same team
             note(cx["date"], leg, Q_SAME, x, where)          #  is one fact - the first said stays
         out = kept
@@ -1519,7 +1556,7 @@ def refill(leg, out, one, cx, why="", games=None):
             if len(said_twice(leg, cand, why, games)) != len(cand):
                 continue                                     # (it says what the card already says)
             import sports_card_sell as _cs
-            if same_on(leg) and _cs.dedupe(cand, leg.get("team") or "", leg.get("opp") or "", why)[1]:
+            if same_on(leg) and _cs.dedupe(cand, leg.get("team") or "", leg.get("opp") or "", why, leg=leg)[1]:
                 continue                                     # (🗣️ 11/22: the same stat about the same team again)
         except Exception:                                    # noqa: BLE001
             continue
@@ -2753,7 +2790,7 @@ def quality(leg, why, lines, games=None):
         out += [("repeats", x) for x in body if x not in kept]
         import sports_card_sell as _cs                       # (🗣️ 11/22: the same stat about the same team twice)
         if same_on(leg):
-            out += [("repeats", x) for x in _cs.dedupe(kept, leg.get("team") or "", leg.get("opp") or "", wl)[1]]
+            out += [("repeats", x) for x in _cs.dedupe(kept, leg.get("team") or "", leg.get("opp") or "", wl, leg=leg)[1]]
     except Exception:                                        # noqa: BLE001
         pass
     return out

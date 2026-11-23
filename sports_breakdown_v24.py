@@ -1512,7 +1512,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         import sports_card_sell as _cs
         if sell_on(g) and leg.get("market") in ("ml", "spread"):   # (a side - never a total's card)
             sold = _cs.sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs,
-                                  real=lambda gs_, t_: _real(gs_, t_, lg), e=e, fair=lg in SCHEDULE_FAIR)
+                                  real=lambda gs_, t_: _real(gs_, t_, lg), e=e, fair=lg in SCHEDULE_FAIR,
+                                  fin=fin, nond1=lambda t_: non_d1(lg, t_))
             up = lead_upgrade(leg, sold, us, them, g, side, body=None)
             if up:
                 sold = [s_ for s_ in sold if s_[0] != up[1]]
@@ -1622,6 +1623,13 @@ def breakdown(leg, games, elo, injuries, used=None):
     added = more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
                        ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs, e=e)
     out += added
+    try:                                                  # (11/23: the night they were a big favorite and lost is one
+        _sc = lambda s_: re.search(r"lost (\d+-\d+)", s_[0]) if s_[2] == "sched_fav" else None   # noqa: E731  game -
+        sold = [s_ for s_ in sold if not (_sc(s_) and any(   # never said again when the body already has that score)
+            _sc(s_).group(1) in str(x) or "-".join(reversed(_sc(s_).group(1).split("-"))) in str(x)
+            for x in out + [str(leg.get("why_line") or "")]))]
+    except Exception:                                     # noqa: BLE001
+        pass
     if sold or sell_on(g):                                # 🗣️ 11/22: the reason-backed lines open the body
         try:                                              # (and a fallback line under the pick gives way to the game
             up = lead_upgrade(leg, sold, us, them, g, side, body=out) if leg.get("why_key") != "w_sell" else None
@@ -1632,6 +1640,8 @@ def breakdown(leg, games, elo, injuries, used=None):
                 leg["why_line"], leg["why_key"] = up[0], "w_up"
         except Exception:                                 # noqa: BLE001
             pass
+        if any(s_[2] == "sched_l" for s_ in sold) or (str(leg.get("why_line") or "").startswith("🧭") and re.search(rf"(?:beat|got) {re.escape(us)}", str(leg.get("why_line")))):
+            out = [x for x in out if not str(x).startswith("⚖️")]   # (11/23: the 🧭 line names who beat us - once)
         out[0:0] = [s_[0] for s_ in sold]
         added += [s_[0] for s_ in sold]                   # (fact lines: never shaped out)
     # ⚠️ THE ONE RISK LINE (10/27, the owner: "there's a lot of facts that support the opposing team"): every fact that
@@ -2475,6 +2485,15 @@ def _of(c, n):
     return f"all {n}" if c == n else f"{c} of {n}"
 
 
+def one_half():
+    """11/23: is the one-half-a-team rule on? (sports_card_sell.REASONS_1123)"""
+    try:
+        import sports_card_sell as _cs
+        return bool(_cs.REASONS_1123)
+    except Exception:                                     # noqa: BLE001
+        return False
+
+
 def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_theirs, said, fin=None, e=None):
     """🧱 The deep refill: more real facts FOR our side off the game files and the box scores - each one a count, each
     said only when it argues for us. -> {key: line}; fill_facts puts them in order."""
@@ -2552,6 +2571,12 @@ def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
                                    f"⏱️ {lt[3]} of the last {lt[4]} times out, {them} lost {what}."])
             else:
                 unit = "goals" if nhl else "points"
+                if "half" in str(what) and one_half():      # (11/23, the Indiana St card: the two halves are the whole
+                    eu_, et_ = early_score(s_ours, tid, lg), early_score(s_theirs, oid, lg)   # scoreboard - one fact; the
+                    if lu and eu_ and eu_[0] - eu_[1] >= START_MIN.get(lg, 99) and eu_[0] - eu_[1] > lu[0] - lu[1]:
+                        lu = None                         #  better half is the one said)
+                    if lt and et_ and et_[1] - et_[0] >= START_MIN.get(lg, 99) and et_[1] - et_[0] > lt[1] - lt[0]:
+                        lt = None
                 if lu and lu[0] - lu[1] >= LATE_MIN[lg]:
                     say("late", [f"⏱️ {us} outscored teams {lu[0]} to {lu[1]} in {what} over their last {lu[4]} games. They close.",
                                  f"⏱️ {what.capitalize()}, last {lu[4]} games: {lu[0]} {unit} for {us}, {lu[1]} against.",
@@ -2661,6 +2686,12 @@ def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
                     say("start_t", [f"🏁 {them} lost {what} in {et[3]} of their last {et[4]} games. Slow starters.",
                                     f"🏁 {et[3]} of the last {et[4]} times out, {them} were behind after {what}."])
             else:
+                if "half" in what and one_half() and LATE_PART.get(lg):   # (11/23: ... and never both halves)
+                    lu_, lt_ = late_score(s_ours, tid, lg), late_score(s_theirs, oid, lg)
+                    if eu and lu_ and lu_[0] - lu_[1] >= LATE_MIN[lg] and lu_[0] - lu_[1] >= eu[0] - eu[1]:
+                        eu = None
+                    if et and lt_ and lt_[1] - lt_[0] >= LATE_MIN[lg] and lt_[1] - lt_[0] >= et[1] - et[0] and fair(lt_[4]):
+                        et = None
                 if eu and eu[0] - eu[1] >= START_MIN.get(lg, 99):
                     say("start", [f"🏁 {us} outscored teams {eu[0]} to {eu[1]} in {what} over their last {eu[4]} games. They come out ready.",
                                   f"🏁 {what.capitalize()}, last {eu[4]} games: {eu[0]} {unit} for {us}, {eu[1]} against."])
@@ -2959,7 +2990,7 @@ def story_close(lines, leg, us, them, g, side):
     return out + [b]
 
 
-LEAD_RANK = ("😴", "⏳", "😮", "🚑", "📉", "🆚", "🥊", "🧲", "🧤", "🥷", "🛡", "🪣", "👌", "🏹", "⚡", "🏃", "🎈", "💥", "🔗", "🏆", "🎨",
+LEAD_RANK = ("😴", "⏳", "😮", "🚑", "📉", "🆚", "🥊", "🧲", "🧤", "🥷", "🛡", "🪣", "👌", "🏹", "⚡", "🏃", "🎈", "💥", "🔗", "🏆", "🧭", "🎨",
              "🎁", "💨", "🤝", "📏", "🧊", "🗑", "🔥", "🎬", "🔁", "🍀", "🧹", "🚪", "💪", "🧳", "🏟", "📊")
 #   (11/22 THE CARD SELLS THE PICK: the matchup on the floor - the glass, turnovers, the shooting, shots on net, the
 #    ground game, off both teams' box scores (sports_card_sell) - ranks right behind the men out / the game they played)
@@ -2967,7 +2998,9 @@ SELL_FROM = "2026-11-22"   # 🗣️ the sell lines + the lead upgrade from this
 WEAK_LEAD = ("", "w_num", "w_any", "w_last", "w_home", "w_deeper", "w_their_road", "w_close_rec", "w_public", "w_rolling")
 #   the pools that are only a fallback line under the pick (a 2-game streak, a last game, a home record): a
 #   reason-backed matchup line, or the game these two already played, leads instead (lead_upgrade)
-REASON_OVER = ("w_their_loss",)   # ... and their last loss gives way to a line the engine's own reasons point at
+REASON_OVER = ("w_their_loss", "w_hot", "w_cold", "w_better", "w_better_ls", "w_p")   # ... and their last loss / a
+#   streak / the records give way to a line the engine's own reasons point at (11/23: the line under the pick says the
+#   biggest reason we're on the side - a named absence, a back-to-back, a goalie, a quarterback still lead over it)
 
 
 def sell_on(g):
@@ -2996,7 +3029,7 @@ def lead_upgrade(leg, sold, us, them, g, side, body=()):
     lean = bool(leg.get("is_lean")) and not _no_leans()
     seed = f"{g.get('id')}|{side}|lead"
     reason = next((s_ for s_ in sold or [] if s_[1]), None)
-    if reason and (key in WEAK_LEAD or key in REASON_OVER):
+    if reason and (key in WEAK_LEAD or key in (REASON_OVER if _cs.REASONS_1123 else REASON_OVER[:1])):
         t = _cs.lead_from(reason, us, lean, seed)
         if t:
             return t, reason[0]

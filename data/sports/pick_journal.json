@@ -7995,5 +7995,49 @@
   "score": "116-96",
   "margin": 20.0,
   "pnl_units": 0.85
+ },
+ {
+  "date": "2026-11-23",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaab",
+  "game_id": "ncaab:401921209",
+  "team": "Indiana St",
+  "opp": "East Carolina",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 124,
+  "posted": "2026-11-23T16:00Z",
+  "price_says": 0.446,
+  "win_p": 0.4216967980662012,
+  "own_read": 0.468,
+  "weighed": null,
+  "dog_p": 0.4679,
+  "edge_own": -0.056134965359371236,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
+  ],
+  "angles": [
+   "w_their_loss:30",
+   "bottom_n:5",
+   "fill_star:0",
+   "deep_late:1",
+   "deep_start:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 114,
+  "beat_close_pts": 2.1,
+  "result": "won",
+  "score": "77-76",
+  "margin": 1.0,
+  "pnl_units": 1.24
  }
 ]

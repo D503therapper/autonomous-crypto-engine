@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 134,
-  "beat": 44,
+  "n": 135,
+  "beat": 45,
   "same": 58,
   "worse": 32,
-  "avg_pts": 0.21
+  "avg_pts": 0.23
  },
  "unit_plays": {
-  "n": 134,
-  "beat": 44,
+  "n": 135,
+  "beat": 45,
   "same": 58,
   "worse": 32,
-  "avg_pts": 0.21
+  "avg_pts": 0.23
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 84,
-   "beat": 28,
+   "n": 85,
+   "beat": 29,
    "same": 37,
    "worse": 19,
-   "avg_pts": 0.21
+   "avg_pts": 0.23
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.38
   },
   "ncaab": {
-   "n": 9,
-   "beat": 3,
+   "n": 10,
+   "beat": 4,
    "same": 3,
    "worse": 3,
-   "avg_pts": 0.33
+   "avg_pts": 0.51
   },
   "ncaaf": {
    "n": 43,
@@ -1985,6 +1985,20 @@
    "close": 164,
    "pts": 0.8,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-23",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Indiana St",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 114,
+   "pts": 2.1,
+   "units": 1.0,
    "result": "won"
   }
  ]
