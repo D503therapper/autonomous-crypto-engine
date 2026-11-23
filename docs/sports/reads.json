@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T21:32Z",
+ "updated": "2026-11-23T21:47Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -143,8 +143,8 @@
    "away": "Ole Miss",
    "home": "Clemson",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -232,6 +232,21 @@
    "start": "2026-11-23T21:15Z",
    "away": "Yale",
    "home": "Belmont",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401911457",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T21:30Z",
+   "away": "San Francisco",
+   "home": "Nevada",
    "h1": null,
    "why": "started",
    "done": false,
@@ -743,8 +758,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wichita St",
-    "p": 0.914,
-    "tie": 0.016,
+    "p": 0.9,
+    "tie": 0.018,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -761,7 +776,7 @@
     "line": 19.5,
     "odds": -115,
     "p": 0.513,
-    "win_p": 0.034,
+    "win_p": 0.043,
     "reasons": []
    }
   },
