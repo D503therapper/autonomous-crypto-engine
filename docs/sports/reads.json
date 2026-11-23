@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T18:41Z",
+ "updated": "2026-11-23T19:10Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -119,34 +119,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401918076",
+   "id": "ncaab:401921658",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Ole Miss",
-    "p": 0.612,
-    "tie": 0.041,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-23T19:30Z",
-   "away": "Ole Miss",
-   "home": "Clemson",
-   "why": "tight",
+   "start": "2026-11-23T19:00Z",
+   "away": "Tulsa",
+   "home": "Oregon St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Ole Miss",
-    "opp": "Clemson",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.679,
-    "win_p": 0.679,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401921207",
@@ -870,8 +855,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.576,
-    "tie": 0.036,
+    "p": 0.602,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -886,11 +871,12 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -191,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -228,
+    "p": 0.668,
+    "win_p": 0.668,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1067,7 +1053,7 @@
     "line": 6.0,
     "odds": 100,
     "p": 0.5,
-    "win_p": 0.241,
+    "win_p": 0.242,
     "reasons": [
      "better rested"
     ]
@@ -1433,6 +1419,37 @@
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401915941",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Miami",
+    "p": 0.655,
+    "tie": 0.039,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T20:00Z",
+   "away": "Miami",
+   "home": "TCU",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Miami",
+    "opp": "TCU",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.733,
+    "win_p": 0.733,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +13.3 a game to their -3.6 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
   },
