@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T22:50Z",
+ "updated": "2026-11-23T23:03Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -233,8 +233,8 @@
    "away": "Yale",
    "home": "Belmont",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -278,36 +278,6 @@
      "their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "ncaab:401920752",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Youngstown St",
-    "p": 0.835,
-    "tie": 0.026,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-23T23:30Z",
-   "away": "MD Eastern",
-   "home": "Youngstown St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "MD Eastern",
-    "opp": "Youngstown St",
-    "market": "spread",
-    "line": 12.5,
-    "odds": -108,
-    "p": 0.506,
-    "win_p": 0.091,
-    "reasons": [
-     "their top scorer Linus Holmstrom (11.5 a game) is in his second game back after sitting 2 - the books price him all the way back and that side came up short 5 of 5 seasons (-25% against the number)"
-    ]
    }
   },
   {
@@ -522,7 +492,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.515,
+    "p": 0.487,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -538,9 +508,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.55,
-    "win_p": 0.55,
+    "odds": -115,
+    "p": 0.509,
+    "win_p": 0.509,
     "reasons": [
      "the stronger team"
     ]
@@ -980,8 +950,8 @@
     "market": "ml",
     "line": null,
     "odds": -291,
-    "p": 0.739,
-    "win_p": 0.739,
+    "p": 0.738,
+    "win_p": 0.738,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1385,6 +1355,95 @@
    }
   },
   {
+   "id": "ncaab:401928791",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Ohio",
+    "p": 0.614,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T16:00Z",
+   "away": "Ohio",
+   "home": "New Mexico St",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Ohio",
+    "opp": "New Mexico St",
+    "market": "ml",
+    "line": null,
+    "odds": -230,
+    "p": 0.682,
+    "win_p": 0.682,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401928835",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Akron",
+    "p": 0.572,
+    "tie": 0.042,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T17:30Z",
+   "away": "Belmont",
+   "home": "Akron",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Akron",
+    "opp": "Belmont",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.623,
+    "win_p": 0.623,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920819",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "N Colorado",
+    "p": 0.575,
+    "tie": 0.042,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T17:30Z",
+   "away": "SE Louisiana",
+   "home": "N Colorado",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "N Colorado",
+    "opp": "SE Louisiana",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.628,
+    "win_p": 0.628,
+    "reasons": [
+     "the stronger team",
+     "out-rebounding people by +0.8 a game to their -8.2 - the books don't price the glass (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401906806",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1422,8 +1481,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UIC",
-    "p": 0.691,
-    "tie": 0.037,
+    "p": 0.675,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1438,10 +1497,12 @@
     "opp": "UIC",
     "market": "spread",
     "line": 7.5,
-    "odds": -118,
+    "odds": -112,
     "p": 0.501,
-    "win_p": 0.236,
-    "reasons": []
+    "win_p": 0.254,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
