@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 84          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 85          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 #   (83 - 11/22 THE CARD SELLS THE PICK, the owner: "The breakdowns are short and vague ... the breakdowns basically need
 #    to sell our picks why we taking them and needs to be in our lingo" - the matchup on the floor off both teams' box
 #    scores (sports_card_sell), the reason-backed line leads, one stat a team, college hoops season lines D1 games only;

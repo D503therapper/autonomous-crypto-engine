@@ -563,6 +563,7 @@ def tags(c, sports):
     t += daily_1120_tags(c, sports)                          # 11/20 daily studies: the non-D1 tune-up, the late-quarter closer
     t += daily_1121_tags(c, sports)                          # 11/21 daily studies: the dog under its prices vs a team over them
     t += daily_1122_tags(c, sports)                          # 11/22 daily studies: the NBA paint weight's two forward records
+    t += daily_1123_tags(c, sports)                          # 11/23 daily studies: the hockey dog that gives the puck away / got shelled
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1113,6 +1114,25 @@ def under_prices_dog(c):
 
 NBA_PAINT_DOG_TAG = "NBA dog that shuts the paint"                       # 11/22 daily S1: the built +1 weight's forward record
 NBA_VS_PAINT_DOG_TAG = "NBA dog vs a team that shuts the paint (fade)"    # ... and the built -1's (judge each at 60)
+
+
+NHL_SLOPPY_DOG_TAG = "NHL dog that gives the puck away on the road (fade)"          # 11/23 daily S4: the built -1's judge (at 60)
+NHL_SHELLED_DOG_TAG = "NHL dog that gave up 40+ shots last game, within 2 days (fade)"   # 11/23 daily S6: a LEAD (judge at 40)
+
+
+def daily_1123_tags(c, sports):
+    """11/23 daily studies S4 / S6: the hockey dog +100..+350 in the league's bottom fifth of takeaways minus giveaways
+    on the road (the built half weight's forward record, games from sports.NHL_SLOPPY_FROM) and the one that gave up
+    40+ shots in its last game and plays again within 2 days (a lead, no weight) - sports.mark_nhl_puck's stamps."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "nhl" or not 100 <= (c.get("odds") or 0) <= 350:
+            return []
+        t = [NHL_SLOPPY_DOG_TAG] if sports.nhl_sloppy_pts(c) < 0 else []
+        if c.get("shelled") is True and sports.pt_day(c) >= sports.NHL_SLOPPY_FROM:
+            t.append(NHL_SHELLED_DOG_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 def daily_1122_tags(c, sports):

@@ -95,7 +95,7 @@ ROAD_COLD_CM = -6.0          # 11/4 EXPERT: a road cover margin at or under this
 ROAD_COLD_GAMES = 3
 TOP_OUT_LONG = 5             # 11/4 EXPERT: the top scorer out this many games running = the long absence
 FIELDS = ("coach", "coach_tenure", "coach_new", "coach_first_time", "coach_mid", "long_out", "long_out_who", "roster_tin",
-          "roster_new", "to_margin", "off", "def", "off_first", "def_first", "conf_gb", "opp_conf_gb", "conf_power", "race_dog",
+          "roster_new", "to_margin", "off", "def", "off_first", "def_first", "off_low", "conf_gb", "opp_conf_gb", "conf_power", "race_dog",
           # 11/4 EXPERT
           "top_out", "top_out_run", "top_out_who", "star_back", "star_back_who", "turmoil", "turmoil_who", "turmoil_news",
           "road_cm", "road_games", "road_cold", "efg_gap", "tp_gap", "two_gap", "cold_shoot", "hot_deep",
@@ -123,7 +123,10 @@ def conferences(games, season, last=True):
     only (January on) - last season's schedule joins two leagues whenever a school changed conferences, which is
     harmless for "are these two in a league" in November and wrong for a standings table in February."""
     adj, names = {}, {}
-    lo_last, hi_last = (f"{season - 1}-01-03", f"{season - 1}-03-01") if last else ("9", "0")
+    lo_last, hi_last = (f"{season}-01-03", f"{season}-03-01") if last else ("9", "0")
+    #   (11/23: LAST season's league play is January-March of the year this season STARTS in. It read `season - 1` - the
+    #    league play of two seasons back - so a school that changed leagues a summer ago sat in its old one all of
+    #    November-December: Delaware, Missouri St, Seattle U, UMass and Grand Canyon this season.)
     lo_now = f"{season + 1}-01-01"
     for gid, g in (games or {}).items():
         if g.get("league", "ncaab") != "ncaab" or g.get("status") != "final" or str(g.get("stype") or "2") != "2":
@@ -303,10 +306,9 @@ def dog_facts(k, opp_k=None, start="", away=None):
     month = month_of(start)
     good, bad = [], []
     o = opp_k or {}
-    if k.get("def_first") and o.get("off") is not None:
-        import sports_ncaab_box as nb
-        if o["off"] <= nb.OFF_LO:
-            good.append("def_first_vs_bad_offense")
+    if k.get("def_first") and (o.get("off_low") if "off_low" in o else
+                               (o.get("off") is not None and o["off"] <= __import__("sports_ncaab_box").OFF_LO)):
+        good.append("def_first_vs_bad_offense")              # (11/23: off_low = the read's own cut - D1 games only)
     if (o.get("turmoil") or 0) >= 2:
         good.append("opp_turmoil")
     if o.get("star_back"):
@@ -380,8 +382,7 @@ def read(games, team, opp, start, neutral=False, away=None, facts=True):
     idn = nb.identity(games, team, start)
     if idn:
         out.update({"to_margin": idn["tom"], "off": idn["off"], "def": idn["def"],
-                    "off_first": idn["off"] >= nb.OFF_HI and idn["def"] > nb.DEF_GOOD,
-                    "def_first": idn["def"] <= nb.DEF_GOOD and idn["off"] < nb.OFF_HI})
+                    "off_first": nb.off_first(idn), "def_first": nb.def_first(idn), "off_low": nb.off_low(idn)})
     if not neutral:
         r = race(games, team, opp, start)
         out.update({"conf_gb": r["conf_gb"], "opp_conf_gb": r["opp_conf_gb"], "conf_power": r["conf_power"],

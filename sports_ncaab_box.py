@@ -31,6 +31,28 @@ OFF_LO = -0.5                # offense at or under 0.5 below the average = the b
 #                              KNOWLEDGE (A) dog view (s7): the DEFENSE-FIRST dog (def <= DEF_GOOD, off < OFF_HI) vs a
 #                              bottom-third offense +14.0% on 313 (train 1 of 2 up, held out 3 of 3, the open +13.3%) -
 #                              the one college hoops dog cell that paid; a tracker LEAD (sports_leads), z 1.9 only
+D1_FROM = "2026-11-24T12"    # 🏀 11/23 DAILY STUDIES (the bug the 11/22 card pass found; results/studies/daily_1123/
+#                              s0_identity_d1.py): THE IDENTITY READS DIVISION I GAMES ONLY. From the games starting at /
+#                              after this UTC hour (the 11/24 Pacific day; None = every boxed game, as before) a team's
+#                              identity - and the D1 average it is set against - counts only the games where BOTH teams are
+#                              Division I (sports_ncaab_roster.d1_set, the 11/20 tune-up rule's set). Nicholls, the 11/22
+#                              ⭐ +195, read "defense-first" (7.4 points per 100 trips under the average) on a 110-56 win
+#                              over a non-D1 school; on its five D1 games 1.4 under (the cut is 4.8) - and that fact was
+#                              +2 of the dog read of 4 that posted it. Can't tell who is D1 = every game, as before.
+DEF_GOOD_D1 = DEF_GOOD       # THE CUTS ON THE D1-ONLY NUMBERS (s0_identity_d1.py, two looks). The tune-ups lifted every built
+OFF_HI_D1 = OFF_HI           # number (a D1 team's offense averaged about +2.5, its defense -2.5; D1-only they sit around
+OFF_LO_D1 = OFF_LO           # 0, the thirds at +3.3 / -3.0 / -3.0). DEFENSE-FIRST keeps its NUMBERS (4.8 under, the offense
+#                              not 5.5 over, the offense across 0.5 under): on D1 games that dog went +20.4% on 215 (train
+#                              2021-23 +20.1%, 3 of 3 seasons / held 2024-26 +21.3%; a random 215 dogs 3 of 2,000) against
+#                              +14.7% on 328 as built; the 184 the re-cut drops +11.4%, train -0.7%. The same THIRDS on the
+#                              D1 numbers (-3.0 / 3.3 / -3.0) did worse: +5.1% on 198 - the edge is the really good
+#                              defense, about the best quarter. The dog slot's own replay 2021-26: +24.9% on 235 as built,
+#                              +28.8% on 210 with the re-cut (train +26.2% / held +34.7%); the 39 picks it drops -9.9%
+#                              (held -33.2% on 17), the 14 it adds -13.2%.
+OFF_FIRST_D1 = (3.3, -3.0)   # OFFENSE-FIRST (the Jan-Mar -1 fact) takes the D1 THIRDS (offense 3.3+ over, the defense not
+#                              3.0 under): -17.1% on 1,206 (train -17.6% / held -16.3%) against -14.5% on 1,302 as built;
+#                              the 279 it adds -14.0% (both halves), the 375 it lets go -5.9% - the base. With the old
+#                              numbers on D1 games it kept only 830 and let 506 real fades (-14.7%) go.
 _BOX = {}                    # stamp -> {gid: {team: dict(to, poss)}}
 DATA = None                  # the data folder (None = sports_data.DATA; the tests point it at a temp folder)
 
@@ -83,15 +105,27 @@ def season_of(start):
 _SEASON = {}                 # (season, len(box), len(games)) -> ({team: [(start, gid, line)]}, league sums by start)
 
 
-def _season_lines(games, season):
+def d1_from(start):
+    """Does a game starting at `start` read its identity on Division I games only (D1_FROM)?"""
+    return bool(D1_FROM) and str(start or "") >= D1_FROM
+
+
+def _season_lines(games, season, d1_only=False):
     """Per team, its boxed finals this season in start order with (points, possessions, allowed, their possessions,
     turnovers, forced, its box line, the opponent's box line); and the league's running totals in the same order (for
     the D1 average before a date)."""
     box = load_box()
-    key = (season, len(box), len(games or {}))
+    key = (season, len(box), len(games or {}), bool(d1_only))
     hit = _SEASON.get(key)
     if hit:
         return hit
+    d1 = None
+    if d1_only:
+        try:
+            import sports_ncaab_roster as nr
+            d1 = nr.d1_set(games)
+        except Exception:                                    # noqa: BLE001 - can't tell = every game counts
+            d1 = None
     rows = []
     for gid, g in (games or {}).items():
         if g.get("league", "ncaab") != "ncaab" or g.get("status") != "final":
@@ -104,6 +138,8 @@ def _season_lines(games, season):
             continue
         h, a = str(g.get("home")), str(g.get("away"))
         if h not in b or a not in b:
+            continue
+        if d1 is not None and (h not in d1 or a not in d1):  # (11/23: a non-D1 tune-up is no part of an identity)
             continue
         try:
             hs, as_ = float(g["home_score"]), float(g["away_score"])
@@ -119,46 +155,97 @@ def _season_lines(games, season):
         tp += hs + as_
         tposs += bh["poss"] + ba["poss"]
         league.append((s, tp, tposs, len(league) + 1))
-    out = (by, league)
-    _SEASON.clear()
+    out = (by, league, d1 is not None)
+    for k in [k for k in _SEASON if k[:3] != key[:3]]:
+        del _SEASON[k]
     _SEASON[key] = out
     return out
 
 
-def identity(games, team, start):
-    """None (unknown) or {"n", "tom", "off", "def"} for the team before `start` (this season's boxed finals)."""
-    start = str(start or "")
-    if len(start) < 10:
-        return None
-    try:
-        by, league = _season_lines(games, season_of(start))
-    except Exception:                                        # noqa: BLE001
-        return None
+def _eff(games, team, start, d1_only):
+    """(offense, defense, the team's rows, D1 known) - points per 100 possessions against the average so far, from the
+    season's boxed finals before `start` (d1_only: the games between two Division I teams and the average of those
+    games); offense / defense None when under TEAM_MIN_GAMES / LEAGUE_MIN_GAMES. d1_only with no way to tell who is
+    D1: (None, None, None, False)."""
+    by, league, known = _season_lines(games, season_of(start), d1_only)
+    if d1_only and not known:
+        return None, None, None, False
     mine = [r for r in by.get(str(team)) or [] if r[0] < start]
     if len(mine) < TEAM_MIN_GAMES:
-        return None
+        return None, None, mine, True
     lg = None
     for s, tp, tposs, n in league:
         if s >= start:
             break
         lg = (tp, tposs, n)
     if not lg or lg[2] < LEAGUE_MIN_GAMES or not lg[1]:
-        return None
-    pts = sum(r[2] for r in mine)
+        return None, None, mine, True
     poss = sum(r[3] for r in mine)
-    opts = sum(r[4] for r in mine)
     oposs = sum(r[5] for r in mine)
     if not poss or not oposs:
-        return None
+        return None, None, mine, True
     avg = 100 * lg[0] / lg[1]
+    return (round(100 * sum(r[2] for r in mine) / poss - avg, 2), round(100 * sum(r[4] for r in mine) / oposs - avg, 2),
+            mine, True)
+
+
+def identity(games, team, start, d1_only=None):
+    """None (unknown) or {"n", "tom", "off", "def", ...} for the team before `start` (this season's boxed finals). From
+    D1_FROM "off" / "def" read the Division I games only ("d1": True, "n_d1" games; under TEAM_MIN_GAMES of them they
+    are None = unknown - use off_first / def_first / off_low, never the raw numbers); the turnover fields keep every
+    boxed game. `d1_only` True / False forces it (the studies, the tests)."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    if d1_only is None:
+        d1_only = d1_from(start)
+    try:
+        off, de, mine, _ = _eff(games, team, start, False)
+        d1 = _eff(games, team, start, True) if d1_only else None
+    except Exception:                                        # noqa: BLE001
+        return None
+    if off is None or not mine:
+        return None
+    poss = sum(r[3] for r in mine)
+    oposs = sum(r[5] for r in mine)
     fga = sum(r[8].get("fga", 0) for r in mine)
-    return {"n": len(mine), "tom": round(sum(r[7] - r[6] for r in mine) / len(mine), 2),
-            "off": round(100 * pts / poss - avg, 2), "def": round(100 * opts / oposs - avg, 2),
-            # 11/12 FABLE (results/studies/cbb10_1112): per POSSESSION, so two teams' numbers can be set against each
-            # other - "tor" turnovers a possession, "ftor" turnovers forced a possession of the opponents', and
-            # "tp_share" the share of its shots that are threes (None with no shots on file)
-            "tor": round(sum(r[6] for r in mine) / poss, 4), "ftor": round(sum(r[7] for r in mine) / oposs, 4),
-            "tp_share": round(sum(r[8].get("tpa", 0) for r in mine) / fga, 4) if fga else None}
+    out = {"n": len(mine), "tom": round(sum(r[7] - r[6] for r in mine) / len(mine), 2),
+           "off": off, "def": de,
+           # 11/12 FABLE (results/studies/cbb10_1112): per POSSESSION, so two teams' numbers can be set against each
+           # other - "tor" turnovers a possession, "ftor" turnovers forced a possession of the opponents', and
+           # "tp_share" the share of its shots that are threes (None with no shots on file)
+           "tor": round(sum(r[6] for r in mine) / poss, 4), "ftor": round(sum(r[7] for r in mine) / oposs, 4),
+           "tp_share": round(sum(r[8].get("tpa", 0) for r in mine) / fga, 4) if fga else None}
+    if d1 and d1[3]:                                         # (11/23: who is D1 is known - the tune-ups come out)
+        out.update({"off": d1[0], "def": d1[1], "d1": True, "n_d1": len(d1[2] or [])})
+    return out
+
+
+def _cuts(idn):
+    return (OFF_HI_D1, DEF_GOOD_D1, OFF_LO_D1) if idn.get("d1") else (OFF_HI, DEF_GOOD, OFF_LO)
+
+
+def off_first(idn):
+    """OFFENSE-FIRST: a top-third offense without a top-third defense (False when unknown)."""
+    if not idn or idn.get("off") is None or idn.get("def") is None:
+        return False
+    hi, good = OFF_FIRST_D1 if idn.get("d1") else (OFF_HI, DEF_GOOD)
+    return idn["off"] >= hi and idn["def"] > good
+
+
+def def_first(idn):
+    """DEFENSE-FIRST: a top-third defense without a top-third offense (False when unknown)."""
+    if not idn or idn.get("off") is None or idn.get("def") is None:
+        return False
+    hi, good, _ = _cuts(idn)
+    return idn["def"] <= good and idn["off"] < hi
+
+
+def off_low(idn):
+    """A bottom-third offense (False when unknown)."""
+    if not idn or idn.get("off") is None:
+        return False
+    return idn["off"] <= _cuts(idn)[2]
 
 
 # ---------------- 11/4 FABLE EXPERT KNOWLEDGE: shooting form from the team box ----------------
@@ -174,14 +261,22 @@ TWO_NOT = 0.02               # +2) it's 3P LUCK: that ROAD dog -25.0% on 318 (0 
 #                              open -26.0%) vs the 2P-hot road dog +3.4% on 391 - a tracker LEAD (sports_leads).
 
 
-def shooting(games, team, start):
+def shooting(games, team, start, d1_only=None):
     """None (unknown) or {"n", "efg_s", "efg5", "efg_gap" (last 5 minus season), "tp_gap", "two_gap", "cold", "hot_deep"}
-    for the team before `start` - this season's team boxes (SHOOT_LAST+ games)."""
+    for the team before `start` - this season's team boxes (SHOOT_LAST+ games). From D1_FROM the Division I games only
+    (11/23, s0b_three_net_d1.py - a tune-up is never form: the cold-shooting Jan-Mar dog -18.1% on 749 D1-only against
+    -15.1% on 972 as built, the 251 the re-cut lets go -9.9% = the base; the hot-from-three road dog -27.5% on 307
+    against -25.4% on 320, the 62 let go -7.5% = the base). The season three-point NET below keeps every boxed game:
+    the favorites / spread sides a D1-only read would drop are still fades (-7.4% on 409 / -7.4% on 1,356)."""
     start = str(start or "")
     if len(start) < 10:
         return None
+    if d1_only is None:
+        d1_only = d1_from(start)
     try:
-        by, _ = _season_lines(games, season_of(start))
+        by, _, known = _season_lines(games, season_of(start), d1_only)
+        if d1_only and not known:
+            by = _season_lines(games, season_of(start))[0]
     except Exception:                                        # noqa: BLE001
         return None
     mine = [r[8] for r in by.get(str(team)) or [] if r[0] < start and len(r) > 8]
@@ -226,7 +321,7 @@ def three_net(games, team, start):
     if len(start) < 10:
         return None
     try:
-        by, _ = _season_lines(games, season_of(start))
+        by = _season_lines(games, season_of(start))[0]
     except Exception:                                        # noqa: BLE001
         return None
     rows = [r for r in by.get(str(team)) or [] if r[0] < start and len(r) > 9]
