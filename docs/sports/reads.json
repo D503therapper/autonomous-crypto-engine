@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T02:13Z",
+ "updated": "2026-11-23T02:38Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -801,7 +801,7 @@
    "home": "Wizards",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Wizards",
@@ -814,7 +814,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -827,8 +827,8 @@
    "away": "Mavericks",
    "home": "Jazz",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -872,8 +872,8 @@
    "away": "Penguins",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -887,8 +887,8 @@
    "away": "Portland",
    "home": "CA Baptist",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -902,8 +902,8 @@
    "away": "Rhode Island",
    "home": "UAB",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2091,7 +2091,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.724,
+    "p": 0.725,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2109,9 +2109,10 @@
     "line": -13.5,
     "odds": -110,
     "p": 0.502,
-    "win_p": 0.832,
+    "win_p": 0.833,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
