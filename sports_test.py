@@ -29072,6 +29072,100 @@ def test_best_1121_the_star_is_the_biggest_bet_on_the_board():
     assert sorted([fl, mp], key=sports.best_rank)[0]["legs"][0]["team"] == "Ducks"   # the max play still first
 
 
+def test_weekly_1123_the_max_play_is_two_units_from_1125_and_its_score_drops_the_favorites_absence_points():
+    """11/23 - THE WEEKLY FABLE SIZING + EDGES REVIEW (results/studies/weekly_1123/; the owner, 11/20, after the Ducks +110
+    3u lost 4-0: "Ducks got blown out terrible max play" - STATUS: "if it does not clearly earn 3u it goes back to 2u").
+    The 💎 cell is a real bet (53-40 +31% on 93) but the step from 2u to 3u is not earned (against the 2u short Dogs a
+    random draw does as well 264 / 226 / 554 of 2,000 on the 2023-26 boards; today's-code board 17-14, 7-9 in its first
+    half). From the 11/25 Pacific games: (1) the max play is 2u at any Dog price - a pick dated before keeps its 3u;
+    (2) the 8+ it is judged on is the replay's 8+ - the dog score without the points the favorite's missing men put on
+    the dog's own read (the replay had no injury reports); it only ever lowers the score. The label, the ⭐, the record
+    line, the quit rule and every other size are unchanged."""
+    import copy
+    import sports_dashboard as sdb
+    assert sports.MAX_PLAY_2U_FROM == "2026-11-25" and sports.MAX_PLAY_UNITS_1125 == 2.0 and sports.MAX_PLAY_UNITS == 3.0
+    assert sports.MAX_PLAY_NO_ABSENCE_FROM == "2026-11-25" and sports.MAX_PLAY_SCORE == 8.0 and sports.MAX_PLAY_QUIT == (25, 0.44)
+    assert sports.max_play_units("2026-11-24") == 3.0 and sports.max_play_units("2026-11-25") == 2.0 and sports.max_play_units("") == 3.0
+
+    def leg(odds=128, score=8.63, own_gap=3.0, lift=None, start="2026-11-26T03:00Z", b2b=True, team="Blackhawks"):
+        d = sports._dec(odds)
+        pm = 1 / d - 0.02
+        x = {"league": "nhl", "market": "ml", "odds": odds, "dec": d, "p": pm + 0.01, "p_market": pm, "edge": (pm + 0.01) * d - 1,
+             "edge_own": (pm + own_gap / 100) * d - 1, "dog_p": round(pm + score / 100, 4), "dog_score": score, "rested_vs_b2b": b2b,
+             "team": team, "opp": "Wild", "game_id": f"nhl:{team}", "side": "away", "start": start, "reasons": ["r"],
+             "waiting": [], "trap": False}
+        if lift is not None:
+            x["absent_lift"] = lift
+        return x
+
+    def pk(l, day="2026-11-25", **kw):
+        return {"kind": "dog", "date": day, "status": "open", "lean": False, "legs": [l], "dec": l["dec"], "american": l["odds"], **kw}
+    # (1) THE SIZE: 2u from the 11/25 Pacific games, short or long; the label and the ⭐ stay
+    a = pk(leg())
+    assert sports.mark_max([a], [a], "2026-11-25") is a and a["max_play"] is True and sports.units_for(a) == 2.0
+    assert sports.sizing_check([a]) == []
+    lg_ = pk(leg(odds=170))
+    assert sports.units_for(lg_) == 0.5 and sports.mark_max([lg_], [lg_], "2026-11-25") is lg_ and sports.units_for(lg_) == 2.0
+    assert sports.best_rank(a)[0] == -1                                        # still the engine's best pick first
+    # a posted pick keeps its units: the pick's date decides (the Ducks 11/19, a max play posted for the 11/24 games)
+    old = pk(leg(start="2026-11-25T03:00Z"), day="2026-11-24")
+    assert sports.mark_max([old], [old], "2026-11-24") is old and sports.units_for(old) == 3.0
+    assert sports.units_for({**pk(leg(start="2026-11-20T02:00Z"), day="2026-11-19"), "max_play": True}) == 3.0
+    assert sports.units_for({**pk(leg(start="2026-11-20T02:00Z"), day="2026-11-19"), "max_play": True, "status": "lost", "units": 3.0}) == 3.0
+    # the owner's switch: None = 3u again
+    keep = sports.MAX_PLAY_2U_FROM
+    try:
+        sports.MAX_PLAY_2U_FROM = None
+        assert sports.units_for(a) == 3.0
+    finally:
+        sports.MAX_PLAY_2U_FROM = keep
+    # (2) THE SCORE: the favorite's absence points come back out of the own-read term - only ever down
+    assert sports.max_play_score(leg()) == 8.63 and sports.max_play_score(leg(lift=0)) == 8.63
+    assert sports.max_play_score(leg(lift=-6.0)) == 8.63                        # OUR missing men already lowered it - never raised
+    carried = leg(score=9.0, own_gap=7.0, lift=6.0)                            # 7 points of own read, 6 of them a missing scorer
+    assert abs(sports.max_play_score(carried) - 3.0) < 0.01 and not sports.max_play_leg(carried)
+    c = pk(carried)
+    assert sports.mark_max([c], [c], "2026-11-25") is None and not c.get("max_play") and sports.units_for(c) == 2.0   # the Dog, its own size
+    ducks = leg(odds=110, score=16.7, own_gap=10.7, lift=7.0, team="Ducks")     # the Ducks 11/19: 9.7 without the 7 - still the spot
+    assert abs(sports.max_play_score(ducks) - 9.7) < 0.01 and sports.max_play_leg(ducks)
+    capped = leg(score=17.0, own_gap=15.0, lift=2.0)                           # the own-read term is capped at 12: 15 -> 13 is still 12
+    assert sports.max_play_score(capped) == 17.0
+    half_capped = leg(score=17.0, own_gap=15.0, lift=7.0)                      # 15 -> 8: the capped 12 becomes 8
+    assert abs(sports.max_play_score(half_capped) - 13.0) < 0.01
+    # dated by the PACIFIC game day: before 11/25 the score is the old one (the same carried dog was a max play)
+    before = leg(score=9.0, own_gap=7.0, lift=6.0, start="2026-11-25T03:00Z")
+    assert sports.max_play_score(before) == 9.0 and sports.max_play_leg(before)
+    keep = sports.MAX_PLAY_NO_ABSENCE_FROM
+    try:
+        sports.MAX_PLAY_NO_ABSENCE_FROM = None
+        assert sports.max_play_leg(carried)
+    finally:
+        sports.MAX_PLAY_NO_ABSENCE_FROM = keep
+    # the candidate row stamps what the absence points did to its own read (the board builds it)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert 'base["absent_lift"] = round((absent[other][0] - absent[side][0]) * 100, 2)' in src
+    assert "max_play_score(leg) >= MAX_PLAY_SCORE" in src and "return max_play_units(day)" in src
+    # the card: the note says the units the pick carries - 2 on a new one, 3 on the one already graded
+    real = next(p for p in json.load(open(os.path.join(sd.DATA, "picks.json"))) if len(p.get("legs") or []) == 1
+                and p.get("kind") == "dog" and not p.get("lean") and p["legs"][0].get("league") == "nhl")
+    real = {**copy.deepcopy(real), "status": "open", "result": None, "review": None, "max_play": True, "best": True}
+    real.pop("units", None)
+    real.pop("units_posted", None)
+    new_card = sdb._pick_card("dog", {**copy.deepcopy(real), "date": "2026-11-25"})
+    assert "💎 MAX PLAY" in new_card and "3 units" not in new_card, new_card[:500]
+    old_card = sdb._pick_card("dog", {**copy.deepcopy(real), "date": "2026-11-19"})
+    assert "💎 MAX PLAY" in old_card and "2 units" not in old_card
+    for i in range(len(sdb.MAX_NOTE)):
+        n2 = sdb.max_note({**copy.deepcopy(real), "date": "2026-11-25"}, i)
+        n3 = sdb.max_note({**copy.deepcopy(real), "date": "2026-11-19"}, i)
+        assert "2 units" in n2 and "3 units" not in n2 and "3 units" in n3 and ".." not in n2, (n2, n3)
+    # nothing else moved: every other size, the hockey Dog gate, the college max play, the ⭐'s rules, the -150 rule
+    assert (sports.DOG_SHORT_UNITS, sports.DOG_LONG_UNITS, sports.LOCK_UNITS_1031, sports.FLOOR_UNITS, sports.PLAY_UNITS,
+            sports.NHL_DOG_GATE, sports.NCAAB_MAX_PLAY_UNITS, sports.BEST_UNITS_1117, sports.MAX_FAV) == (2.0, 0.5, 2.0, 0.5, 0.5, 6.0, 2.0, 2.0, -150)
+    assert sports.BEST_HONEST_FROM == "2026-11-24"
+    assert sports.units_for(pk(leg(score=7.0))) == 2.0 and sports.units_for(pk(leg(odds=170, score=7.0))) == 0.5
+
+
 def test_best_1122_the_star_is_the_biggest_bet_at_its_honest_size_and_never_the_smaller_one():
     """11/22 FABLE - WHY THE ⭐ HAS LOST (the owner: "why the engine's best picks are so bad ... this needs fixed"; live
     5-10 -4.4u; results/studies/best_1122/). No way of choosing the ⭐ finds a better bet than the board's other plays, so

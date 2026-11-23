@@ -1227,6 +1227,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
             if absent[side][1]:                           # (who's missing, for the card / the journal)
                 base["absent"] = absent[side][1]
+            if absent[other][0] or absent[side][0]:       # 💎 11/23: what the absence points put on (+) / took off (-)
+                base["absent_lift"] = round((absent[other][0] - absent[side][0]) * 100, 2)   # this side's own read
             if depth[side]:                               # (the depth weight that moved the read, for the journal)
                 base["depth_pts"] = round(depth[side] * 100, 1)
             if weighed[side] and weighed[other]:          # (11/11 THE BOOK: regulars out beyond the opponent's - the
@@ -3822,8 +3824,8 @@ def dog_units(pk):
     lg = leg.get("league")
     day = pk.get("date") or ""
     k = lambda: kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
-    if pk.get("max_play") and day >= MAX_PLAY_FROM:          # 💎 11/16: the max-play spot (mark_max) - 3u, any Dog price
-        return MAX_PLAY_UNITS
+    if pk.get("max_play") and day >= MAX_PLAY_FROM:          # 💎 11/16: the max-play spot (mark_max) - any Dog price: 3u,
+        return max_play_units(day)                           #    2u from MAX_PLAY_2U_FROM (the 11/23 weekly review)
     if day >= SIZING_1031_FROM and lg != "nba":              # 💰 10/30 SIZING: by the price - 2u at +100..+150, ½u longer
         if lg in DOG_LEAGUES_OFF:                            # (never posted - no college hoops Dog; its old ½u if one is)
             return DOG_UNITS_BY.get(lg, DOG_UNITS)
@@ -4103,12 +4105,62 @@ MAX_PLAY_QUIT = (25, 0.44)     # RESTED, THE FAVORITE PLAYED LAST NIGHT, and the
 #   marked (mark_max); an upgraded Dog (upgrade_dog) keeps the units it was posted at. "9999" = off.
 
 
+MAX_PLAY_2U_FROM = "2026-11-25"   # 💎 11/23 WEEKLY FABLE SIZING + EDGES REVIEW (results/studies/weekly_1123/; the owner, 11/20,
+MAX_PLAY_UNITS_1125 = 2.0         # after the Ducks +110 3u lost 4-0: "Ducks got blown out terrible max play" - STATUS: "if it
+#   does not clearly earn 3u it goes back to 2u"). THE MAX PLAY IS 2u, ANY DOG PRICE, for a game on / after this Pacific
+#   day. The cell is a real bet - 53-40, +31% on 93 with the 2020-23 paid-odds rig, the board TODAY's code builds and
+#   the four live ones (z +2.5; a random draw of every hockey dog as good 1 of 2,000) - but the STEP from 2u to 3u is
+#   not earned: against the 2u short Dogs it sits beside, a random same-size draw does as well 22 of 2,000 on the
+#   2020-23 rig and 264 / 226 / 554 of 2,000 on the three 2023-26 boards (288 of 2,000 pooled - the 11/16 study's own
+#   "inside the short Dogs" line read 249); on today's-code board the cell is 17-14 +19.7%, 7-9 in the first half
+#   (2023-24), 10-5 in the second - the 15 games the 3u stood on; a quarter of Kelly on that board alone is 0.2u, on
+#   everything but the rows the cut was found on 3.6u / 2.5u / 1.3u at 1 / 1.5 / 2 standard errors; at 3u the cell's
+#   worst stretch is -20.7u against -13.8u at 2u. A size is a confidence signal people bet real money on: 2u - the
+#   short hockey Dog's own size, and a real raise for the long one (+151..+350: ½u -> 2u; 10-4 on the unseen seasons).
+#   The label, the ⭐, the record line, the quit rule and the spot are unchanged; a max play posted before this day
+#   keeps its 3u (the pick's date decides). None = 3u again (the owner's option: about +5u a year IF the replay's edge
+#   is the true one, for a worst stretch half again as deep).
+MAX_PLAY_NO_ABSENCE_FROM = "2026-11-25"   # ...and from the same day THE 8+ IS THE REPLAY'S 8+: the dog score WITHOUT the
+#   points the favorite's missing men put on the dog's own read (max_play_score). Every game the cell was measured on
+#   was replayed with NO injury report - its 8+ is the b2b spot + the line + the study angles. Live, hockey still adds
+#   the absence points on top of a price that already has them (top point man -6, two of the top three -7: the Ducks
+#   11/19 read 16.7 with 7 of them), so a b2b dog could reach 8 on a missing scorer alone - the b2b-spot Dogs UNDER the
+#   replay's 8 went 18-31. Only ever lowers the score the max play is judged on; the Dog, its gate and its read are
+#   untouched (the hockey dog lifted by the favorite's missing scorers is its own tracker lead - sports_leads
+#   DEEP_NHL_DOG_ABSENT_TAG). The Ducks would still have been a max play (9.7 without the 7). None = off.
+#   NOT built (the same study): the dog's OWN load - on its 4th game in 6 nights the b2b-spot dog is -3.1% on 91 at
+#   the close 2018-26 with the halves flipping (-22.8% / +13.9%), and inside the max-play cell 2-5 on the 2020-23 rig
+#   but 5-2 / 7-3 on the boards - nothing to cut on; it stays the tracker lead it is.
+
+
+def max_play_units(day=""):
+    """💎 the max play's units for a pick dated `day`: MAX_PLAY_UNITS (3u) before MAX_PLAY_2U_FROM, MAX_PLAY_UNITS_1125 (2u)
+    from it (None = 3u always). The pick's date decides - a posted pick keeps its units."""
+    return MAX_PLAY_UNITS_1125 if MAX_PLAY_2U_FROM and (day or "") >= MAX_PLAY_2U_FROM else MAX_PLAY_UNITS
+
+
+def max_play_score(leg):
+    """💎 The dog score the max play is judged on: from MAX_PLAY_NO_ABSENCE_FROM (the game's Pacific day) the score with
+    the favorite's absence points taken back out of the own-read term (leg["absent_lift"], points - what the missing men
+    added to this side's own read; the replay the cell was measured on had none). Never raises a score."""
+    sc = leg.get("dog_score") or 0
+    lift = leg.get("absent_lift") or 0
+    if not MAX_PLAY_NO_ABSENCE_FROM or pt_day(leg) < MAX_PLAY_NO_ABSENCE_FROM or lift <= 0:
+        return sc
+    try:
+        own = (leg.get("edge_own", leg["edge"]) + 1) / leg["dec"]
+        return round(sc - max(0.0, dog_score_base(leg) - dog_score_base({**leg, "edge_own": (own - lift / 100) * leg["dec"] - 1})), 2)
+    except (KeyError, TypeError, ZeroDivisionError):
+        return sc - lift
+
+
 def max_play_leg(leg):
     """💎 Is this side the max-play spot: a hockey dog +100..+350, rested against a favorite that played last night, a
-    dog score of MAX_PLAY_SCORE+, a game on / after MAX_PLAY_FROM (its Pacific day)?"""
+    dog score of MAX_PLAY_SCORE+ (max_play_score - from 11/25 without the favorite's absence points), a game on / after
+    MAX_PLAY_FROM (its Pacific day)?"""
     return bool(leg.get("league") in MAX_PLAY_LEAGUES and leg.get("market", "ml") == "ml"
                 and DOG_MIN <= (leg.get("odds") or 0) <= DAILY_DOG_MAX and leg.get("rested_vs_b2b")
-                and (leg.get("dog_score") or 0) >= MAX_PLAY_SCORE and pt_day(leg) >= MAX_PLAY_FROM)
+                and max_play_score(leg) >= MAX_PLAY_SCORE and pt_day(leg) >= MAX_PLAY_FROM)
 
 
 def max_play_record(picks):

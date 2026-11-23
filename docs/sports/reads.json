@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T18:41Z",
+ "updated": "2026-11-23T19:27Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -119,65 +119,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401918076",
+   "id": "ncaab:401921658",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Ole Miss",
-    "p": 0.612,
-    "tie": 0.041,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-23T19:30Z",
-   "away": "Ole Miss",
-   "home": "Clemson",
-   "why": "tight",
+   "start": "2026-11-23T19:00Z",
+   "away": "Tulsa",
+   "home": "Oregon St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Ole Miss",
-    "opp": "Clemson",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.679,
-    "win_p": 0.679,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921207",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "S Illinois",
-    "p": 0.574,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-23T20:00Z",
-   "away": "MTSU",
-   "home": "S Illinois",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "S Illinois",
-    "opp": "MTSU",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.626,
-    "win_p": 0.626,
-    "reasons": [
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401929445",
@@ -870,8 +824,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.576,
-    "tie": 0.036,
+    "p": 0.602,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -886,11 +840,12 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -191,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -228,
+    "p": 0.668,
+    "win_p": 0.668,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1261,8 +1216,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UNLV",
-    "p": 0.687,
-    "tie": 0.038,
+    "p": 0.692,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1276,10 +1231,10 @@
     "team": "E Washington",
     "opp": "UNLV",
     "market": "spread",
-    "line": 7.5,
-    "odds": -105,
-    "p": 0.501,
-    "win_p": 0.241,
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.502,
+    "win_p": 0.234,
     "reasons": []
    }
   },
@@ -1433,6 +1388,67 @@
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401915941",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Miami",
+    "p": 0.655,
+    "tie": 0.039,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T20:00Z",
+   "away": "Miami",
+   "home": "TCU",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Miami",
+    "opp": "TCU",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.733,
+    "win_p": 0.733,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +13.3 a game to their -3.6 - the books don't price the glass (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401906853",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Tennessee",
+    "p": 0.615,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T20:00Z",
+   "away": "Tennessee",
+   "home": "Maryland",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Tennessee",
+    "opp": "Maryland",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.683,
+    "win_p": 0.683,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },

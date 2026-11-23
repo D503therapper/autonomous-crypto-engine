@@ -681,7 +681,7 @@ def engine_weights():
                                      "half-unit star stays a half unit, and no star on a day a bigger play it can't sit on is up"
                                      if sports.BEST_HONEST_FROM else f"{sports.BEST_MIN_UNITS:g}u at least on anything else") + ")"
                                   if sports.PROFIT_1117_FROM else ""),
-                      "max play": f"💎 {sports.MAX_PLAY_UNITS:g}u - the hockey Dog of the Day when the dog is rested, the "
+                      "max play": f"💎 {sports.max_play_units(_max_day()):g}u - the hockey Dog of the Day when the dog is rested, the "
                                   f"favorite played last night and the dog score is {sports.MAX_PLAY_SCORE:g}+ (several "
                                   "things agreeing, never one factor); a label on the Dog, never an extra pick; about 17 a "
                                   f"hockey season; off at {sports.MAX_PLAY_QUIT[0]} graded under "
@@ -1311,11 +1311,25 @@ MAX_NOTE = [      # 💎 THE MAX PLAY (11/16 FABLE - sports.MAX_PLAY_*; the owne
     #               is rested, the favorite played last night and the dog score is 8+. Every line says the spot (never
     #               vague), no win %, nothing about the line moving.
     "💎 MAX PLAY — 3 units, the biggest bet we make. The favorite played last night, our dog didn't, and the rest of the read backs the dog too. We wait for this spot.",
-    "💎 MAX PLAY — 3 units. Tired favorite on the second night of a back-to-back, rested dog, and everything else the engine tracks points the same way..",
+    "💎 MAX PLAY — 3 units. Tired favorite on the second night of a back-to-back, rested dog, and everything else the engine tracks points the same way.",
     "💎 MAX PLAY — the engine's strongest spot: a rested dog at plus money against a favorite that played last night, with the other angles stacked behind it. 3 units, scared money don't make no money.",
     "💎 MAX PLAY — 3 units on the dog. They played last night, we didn't, and nothing in the read is fighting it. This is the one we pick our spot for.",
     "💎 MAX PLAY — our best pick today and our biggest size, 3 units. A back-to-back for the favorite, fresh legs for the dog, and the whole read agrees. Tap in.",
 ]
+
+
+def max_note(pk, spin=0):
+    """💎 the max play's note at the units the pick carries (11/23: 2u from sports.MAX_PLAY_2U_FROM - a 3u one keeps "3 units")."""
+    import sports
+    u = sports.units_for(pk) or sports.max_play_units(pk.get("date") or "")
+    return _rot(spin, MAX_NOTE).replace("3 units", f"{u:g} units")
+
+
+def _max_day():
+    """today's Pacific day (the rules box says the max play's size as it posts today)"""
+    return datetime.now(timezone.utc).astimezone(PT).strftime("%Y-%m-%d")
+
+
 BEST_FORCED = [   # ...and on a day nothing clears a unit-play bar, the engine's surest side goes up at 1u (his call: every day)
     "⭐ ENGINE'S BEST PICK — nothing cleared a unit-play bar today, so this is the engine's surest side. One unit, because we post one every day.",
     "⭐ ENGINE'S BEST PICK — no play made the bar today; this is the side the engine is surest on. One unit, every day.",
@@ -1398,7 +1412,7 @@ def _pick_card(kind, pk):
         backup = '<div class="slate-note backup-note">' + _rot(spin, BACKUP_LOCK) + '</div>\n'   # its own box above)
     if pk.get("max_play") and not pk.get("lean"):            # 💎 THE MAX PLAY (11/16 - the owner: "one pick with like 3-4
         label = f"{label} · 💎 MAX PLAY"                     # units on it ... they pick their spots"): a label on the Dog -
-        backup += '<div class="slate-note best-note max-note">' + _rot(spin, MAX_NOTE) + '</div>\n'   # it says the ⭐ too
+        backup += '<div class="slate-note best-note max-note">' + max_note(pk, spin) + '</div>\n'   # it says the ⭐ too
     elif pk.get("best") and not pk.get("lean"):              # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): a label on the
         label = f"{label} · ⭐ ENGINE'S BEST PICK"            # day's best unit play, 1u at least - its own kind stays
         if not pk.get("ncaab_max"):                          # (💎 11/16: a college max play's own note says it - one box, not two)
