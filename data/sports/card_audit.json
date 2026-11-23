@@ -1,22 +1,12 @@
 {
- "at": "2026-11-23T22:05Z",
- "bad_cards": 2,
+ "at": "2026-11-23T22:16Z",
+ "bad_cards": 1,
  "by_class": {
-  "no why": 1,
   "short": 1
  },
- "cards": 5,
- "lines": 41,
+ "cards": 4,
+ "lines": 33,
  "problems": [
-  {
-   "class": "no why",
-   "date": "2026-11-23",
-   "kind": "play",
-   "league": "ncaab",
-   "line": "",
-   "team": "Washington",
-   "why": "a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or a pool is missing)"
-  },
   {
    "class": "short",
    "date": "2026-11-23",
@@ -29,18 +19,12 @@
  ],
  "quality": {
   "avg_facts": 6.0,
-  "cards": 5,
+  "cards": 4,
   "cards_that_say_why": 4,
   "matchup_lines": 5,
-  "no_why": [
-   {
-    "date": "2026-11-23",
-    "league": "ncaab",
-    "team": "Washington"
-   }
-  ],
+  "no_why": [],
   "reason_lines": 3,
-  "score": 97,
+  "score": 100,
   "short": [
    {
     "date": "2026-11-23",
@@ -54,25 +38,8 @@
   "shown": {},
   "thin": 0,
   "under_floor": 1,
-  "worst": [
-   {
-    "date": "2026-11-23",
-    "facts": 6,
-    "league": "ncaab",
-    "score": 85,
-    "shown": [],
-    "team": "Washington",
-    "written": [
-     [
-      "repeats",
-      "🔥 Washington hasn't lost in 4 - 4-0 overall."
-     ]
-    ]
-   }
-  ],
-  "written": {
-   "repeats": 1
-  }
+  "worst": [],
+  "written": {}
  },
  "shown": true
 }
