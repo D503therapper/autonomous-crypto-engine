@@ -26635,6 +26635,7 @@
      "f_last:2",
      "cx_trip:1",
      "w_num:4",
+     "sell_line:2",
      "m_h2h:0",
      "f_theirrec:1",
      "fill_star:2",
@@ -26646,17 +26647,17 @@
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83c\udd9a Wizards already beat the Magic this year - a 103-94 win on the road on 11/2.",
+     "\ud83c\udf81 Magic put teams on the line 25 times a game this year and Wizards live there (26 a night).",
      "\ud83e\uddf3 Travel check on the Magic: 3rd road game in 6 days.",
      "\ud83d\udcca On the year Magic gives up 113 points a game and scores 110.",
+     "\ud83d\udcc5 Fresh off a 98-94 win over the Bulls for Wizards.",
      "\ud83e\uddfe Magic only got 2 wins in 7 games against winning teams this year.",
      "\ud83d\udccb 7-8 for Magic this season - more L's than W's.",
-     "\ud83d\udcc5 Fresh off a 98-94 win over the Bulls for Wizards.",
      "\ud83d\udcb8 When the book makes Magic the favorite, they lost 4 of 8 this year.",
      "\ud83c\udfc0 Wizards: 8 guys play real minutes.",
-     "\u2705 Bottom line: Wizards (+170). The dog angles like it. Ride it."
+     "\u2705 Bottom line: Wizards (+170). Already beat 'em once this year. The dog angles like it. Ride it."
     ],
-    "bv": 82,
+    "bv": 83,
     "coach": [
      0,
      false
@@ -26681,6 +26682,7 @@
      "them:week3000"
     ],
     "dec": 2.7,
+    "decider": {},
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -26743,6 +26745,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.48,
+    "flow": {
+     "a": "21,30,26,19",
+     "h": "38,25,34,19"
+    },
     "form_state": [
      4.0,
      2,
@@ -26825,11 +26831,14 @@
      "Tristan Vukcevic": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Magic 96 @ Wizards 116",
     "season_games": 17,
+    "settled": "2026-11-23T02:35Z",
     "side": "home",
+    "sold": [],
     "spare": [
      "\ud83c\udfac In games decided by 5 or less this year Wizards won 3 of 4.",
      "\ud83c\udf9f\ufe0f Magic failed to cover in 6 of their last 10 games.",
@@ -26846,15 +26855,18 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83e\udde0 The Wizards are on a 2-game winning streak. Wizards the side tonight."
+    "why_key": "w_up",
+    "why_line": "\ud83c\udd9a Wizards already beat the Magic this year - a 103-94 win on the road on 11/2. We on Wizards."
    }
   ],
   "p_hit": 0.3509,
-  "pnl": 0.0,
+  "pnl": 170.0,
   "posted": "2026-11-22T16:00Z",
   "round": 1,
+  "settled": "2026-11-23T02:35Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

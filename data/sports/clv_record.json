@@ -1,16 +1,16 @@
 {
  "all": {
-  "n": 132,
-  "beat": 43,
+  "n": 134,
+  "beat": 44,
   "same": 58,
-  "worse": 31,
+  "worse": 32,
   "avg_pts": 0.21
  },
  "unit_plays": {
-  "n": 132,
-  "beat": 43,
+  "n": 134,
+  "beat": 44,
   "same": 58,
-  "worse": 31,
+  "worse": 32,
   "avg_pts": 0.21
  },
  "by_kind": {
@@ -29,10 +29,10 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 82,
-   "beat": 27,
+   "n": 84,
+   "beat": 28,
    "same": 37,
-   "worse": 18,
+   "worse": 19,
    "avg_pts": 0.21
   }
  },
@@ -45,18 +45,18 @@
    "avg_pts": 0.55
   },
   "nba": {
-   "n": 16,
-   "beat": 9,
+   "n": 17,
+   "beat": 10,
    "same": 5,
    "worse": 2,
-   "avg_pts": 0.36
+   "avg_pts": 0.38
   },
   "ncaab": {
-   "n": 8,
+   "n": 9,
    "beat": 3,
    "same": 3,
-   "worse": 2,
-   "avg_pts": 0.45
+   "worse": 3,
+   "avg_pts": 0.33
   },
   "ncaaf": {
    "n": 43,
@@ -1950,12 +1950,40 @@
    "kind": "play",
    "lean": false,
    "league": "ncaab",
+   "team": "Nicholls",
+   "market": "ml",
+   "line": null,
+   "odds": 195,
+   "close": 200,
+   "pts": -0.6,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
    "team": "William & Mary",
    "market": "spread",
    "line": -2.5,
    "odds": -110,
    "close": -110,
    "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-22",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Wizards",
+   "market": "ml",
+   "line": null,
+   "odds": 170,
+   "close": 164,
+   "pts": 0.8,
    "units": 0.5,
    "result": "won"
   }
