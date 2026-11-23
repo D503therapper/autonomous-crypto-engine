@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T20:23Z",
+ "updated": "2026-11-23T20:30Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -98,8 +98,8 @@
    "away": "Akron",
    "home": "Wright St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -164,68 +164,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401919006",
+   "id": "ncaab:401921207",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Georgia St",
-    "p": 0.512,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-23T21:00Z",
-   "away": "Tulane",
-   "home": "Georgia St",
-   "why": "coin_flip",
+   "start": "2026-11-23T20:20Z",
+   "away": "MTSU",
+   "home": "S Illinois",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Georgia St",
-    "opp": "Tulane",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.545,
-    "win_p": 0.545,
-    "reasons": [
-     "sharp money moving this way",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401929286",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Belmont",
-    "p": 0.5,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-23T21:00Z",
-   "away": "Yale",
-   "home": "Belmont",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Belmont",
-    "opp": "Yale",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.528,
-    "win_p": 0.528,
-    "reasons": [
-     "the stronger team",
-     "out-rebounding people by +10.0 a game to their +2.8 - the books don't price the glass (5 of 5 seasons)",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401911457",
@@ -971,7 +922,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.664,
+    "p": 0.665,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -988,8 +939,8 @@
     "market": "ml",
     "line": null,
     "odds": -300,
-    "p": 0.743,
-    "win_p": 0.743,
+    "p": 0.744,
+    "win_p": 0.744,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
