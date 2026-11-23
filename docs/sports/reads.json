@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T18:14Z",
+ "updated": "2026-11-23T18:41Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -89,35 +89,34 @@
    "lean": null
   },
   {
-   "id": "ncaab:401921658",
+   "id": "ncaab:401928830",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Oregon St",
-    "p": 0.628,
-    "tie": 0.041,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-23T19:00Z",
-   "away": "Tulsa",
-   "home": "Oregon St",
-   "why": "tight",
+   "start": "2026-11-23T18:30Z",
+   "away": "Akron",
+   "home": "Wright St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Oregon St",
-    "opp": "Tulsa",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.694,
-    "win_p": 0.694,
-    "reasons": [
-     "the stronger team",
-     "the turnover matchup is ours by 5.3 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921701",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T18:30Z",
+   "away": "Charlotte",
+   "home": "FGCU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401918076",
@@ -280,8 +279,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Belmont",
-    "p": 0.524,
-    "tie": 0.043,
+    "p": 0.508,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -289,16 +288,16 @@
    "start": "2026-11-23T21:00Z",
    "away": "Yale",
    "home": "Belmont",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Belmont",
     "opp": "Yale",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.561,
-    "win_p": 0.561,
+    "odds": -125,
+    "p": 0.54,
+    "win_p": 0.54,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +10.0 a game to their +2.8 - the books don't price the glass (5 of 5 seasons)",
@@ -828,8 +827,8 @@
     "team": "Timberwolves",
     "opp": "Nets",
     "market": "spread",
-    "line": -11.5,
-    "odds": -105,
+    "line": -10.5,
+    "odds": -118,
     "p": 0.501,
     "win_p": 0.806,
     "reasons": [
@@ -1068,7 +1067,7 @@
     "line": 6.0,
     "odds": 100,
     "p": 0.5,
-    "win_p": 0.242,
+    "win_p": 0.241,
     "reasons": [
      "better rested"
     ]
