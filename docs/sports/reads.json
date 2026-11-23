@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T22:25Z",
+ "updated": "2026-11-23T22:38Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -802,7 +802,7 @@
     "opp": "Bulls",
     "market": "spread",
     "line": -8.5,
-    "odds": -117,
+    "odds": -116,
     "p": 0.5,
     "win_p": 0.748,
     "reasons": [
@@ -963,7 +963,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.666,
+    "p": 0.661,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -972,18 +972,20 @@
    "start": "2026-11-24T01:15Z",
    "away": "Bengals",
    "home": "Commanders",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Commanders",
-    "opp": "Bengals",
-    "market": "spread",
-    "line": 6.0,
-    "odds": 100,
-    "p": 0.5,
-    "win_p": 0.24,
+    "team": "Bengals",
+    "opp": "Commanders",
+    "market": "ml",
+    "line": null,
+    "odds": -291,
+    "p": 0.739,
+    "win_p": 0.739,
     "reasons": [
-     "better rested"
+     "the stronger team",
+     "sharp money moving this way",
+     "better QB play lately"
     ]
    }
   },
@@ -1351,6 +1353,66 @@
    }
   },
   {
+   "id": "ncaab:401906806",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pitt",
+    "p": 0.54,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T18:30Z",
+   "away": "Oklahoma",
+   "home": "Pitt",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Pitt",
+    "opp": "Oklahoma",
+    "market": "ml",
+    "line": null,
+    "odds": -148,
+    "p": 0.582,
+    "win_p": 0.582,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401928859",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UIC",
+    "p": 0.691,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T18:30Z",
+   "away": "Rice",
+   "home": "UIC",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Rice",
+    "opp": "UIC",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -118,
+    "p": 0.501,
+    "win_p": 0.236,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401915941",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1476,7 +1538,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Purdue",
-    "p": 0.577,
+    "p": 0.583,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -1492,9 +1554,9 @@
     "opp": "DePaul",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.63,
-    "win_p": 0.63,
+    "odds": -180,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
      "the stronger team"
     ]
@@ -1688,8 +1750,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grand Canyon",
-    "p": 0.508,
-    "tie": 0.044,
+    "p": 0.515,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1697,16 +1759,16 @@
    "start": "2026-11-25T02:30Z",
    "away": "Grand Canyon",
    "home": "Saint Louis",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Grand Canyon",
     "opp": "Saint Louis",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -135,
+    "p": 0.552,
+    "win_p": 0.552,
     "reasons": [
      "rolling off a blowout win",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
