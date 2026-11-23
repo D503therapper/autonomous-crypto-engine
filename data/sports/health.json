@@ -1,8 +1,7 @@
 {
- "at": "2026-11-23T17:05Z",
+ "at": "2026-11-23T17:07Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Zolotareva vs Brancaccio: no points for 1177s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "card audit: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side,",
   "card audit: NO WHY on the Pacers card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or ",
@@ -10,7 +9,7 @@
   "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (79s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -24,12 +23,23 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 9h ago",
-  "engine ran 21 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-23T17:07Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side,",
+    "card audit: NO WHY on the Pacers card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or ",
+    "card audit: SHORT CARD - Indiana St (2026-11-23): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-23T17:05Z",
    "fixes": [],
@@ -516,13 +526,6 @@
   },
   {
    "at": "2026-11-22T07:04Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T06:59Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
