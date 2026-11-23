@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T20:32Z",
+ "updated": "2026-11-23T20:45Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -157,6 +157,36 @@
    "start": "2026-11-23T20:00Z",
    "away": "Ecclesia",
    "home": "Grambling",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921207",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T20:20Z",
+   "away": "MTSU",
+   "home": "S Illinois",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921177",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T20:30Z",
+   "away": "William & Mary",
+   "home": "IU Indy",
    "h1": null,
    "why": "started",
    "done": false,
@@ -364,7 +394,7 @@
     "opp": "Iona",
     "market": "spread",
     "line": 9.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.503,
     "win_p": 0.179,
     "reasons": []
@@ -494,7 +524,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.505,
+    "p": 0.511,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -510,9 +540,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.535,
-    "win_p": 0.535,
+    "odds": -142,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "the stronger team"
     ]
@@ -715,7 +745,7 @@
     "opp": "Wichita St",
     "market": "spread",
     "line": 19.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.513,
     "win_p": 0.034,
     "reasons": []
@@ -1018,8 +1048,8 @@
     "market": "ml",
     "line": null,
     "odds": -120,
-    "p": 0.53,
-    "win_p": 0.53,
+    "p": 0.529,
+    "win_p": 0.529,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -1180,8 +1210,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.698,
-    "tie": 0.031,
+    "p": 0.72,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1195,12 +1225,13 @@
     "team": "Spurs",
     "opp": "Kings",
     "market": "spread",
-    "line": -10.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.796,
+    "line": -12.5,
+    "odds": -109,
+    "p": 0.502,
+    "win_p": 0.823,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1301,7 +1332,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Miami",
-    "p": 0.666,
+    "p": 0.655,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1310,17 +1341,20 @@
    "start": "2026-11-24T20:00Z",
    "away": "Miami",
    "home": "TCU",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "TCU",
-    "opp": "Miami",
-    "market": "spread",
-    "line": 5.5,
-    "odds": -110,
-    "p": 0.5,
-    "win_p": 0.26,
-    "reasons": []
+    "team": "Miami",
+    "opp": "TCU",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.733,
+    "win_p": 0.733,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +13.3 a game to their -3.6 - the books don't price the glass (5 of 5 seasons)"
+    ]
    }
   },
   {
@@ -1329,7 +1363,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tennessee",
-    "p": 0.652,
+    "p": 0.649,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -1345,9 +1379,9 @@
     "opp": "Maryland",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.729,
-    "win_p": 0.729,
+    "odds": -265,
+    "p": 0.724,
+    "win_p": 0.724,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1406,7 +1440,7 @@
     "opp": "Iowa State",
     "market": "spread",
     "line": 11.5,
-    "odds": -112,
+    "odds": -118,
     "p": 0.505,
     "win_p": 0.227,
     "reasons": []
@@ -1645,9 +1679,9 @@
     "team": "Oregon",
     "opp": "St John's",
     "market": "spread",
-    "line": 11.5,
-    "odds": -112,
-    "p": 0.505,
+    "line": 9.5,
+    "odds": -108,
+    "p": 0.503,
     "win_p": 0.204,
     "reasons": []
    }
