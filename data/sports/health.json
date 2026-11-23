@@ -1,13 +1,13 @@
 {
- "at": "2026-11-23T14:33Z",
+ "at": "2026-11-23T14:44Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Akli vs Trevisan: no points for 1750s",
-  "live tennis scores: tennis Monnet vs Bonardi: no points for 1435s",
+  "live tennis scores: tennis Akli vs Trevisan: no points for 2361s",
+  "live tennis scores: tennis Monnet vs Bonardi: no points for 2046s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (15s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,13 +18,22 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 21 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 31 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-23T14:44Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akli vs Trevisan: no points for 2361s",
+    "live tennis scores: tennis Monnet vs Bonardi: no points for 2046s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-23T14:33Z",
    "fixes": [],
@@ -496,13 +505,6 @@
    "fixes": [
     "live board 8 min stale with games on - sports-live.yml already running",
     "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T04:51Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
   }
