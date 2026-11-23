@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T15:47Z",
+ "updated": "2026-11-23T16:02Z",
  "games": [
   {
    "id": "ncaab:401921209",
@@ -16,8 +16,8 @@
    "start": "2026-11-23T17:30Z",
    "away": "Indiana St",
    "home": "East Carolina",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "East Carolina",
     "opp": "Indiana St",
@@ -177,8 +177,8 @@
     "market": "ml",
     "line": null,
     "odds": -258,
-    "p": 0.71,
-    "win_p": 0.71,
+    "p": 0.709,
+    "win_p": 0.709,
     "reasons": [
      "the stronger team"
     ]
@@ -384,8 +384,8 @@
    "start": "2026-11-23T22:00Z",
    "away": "Washington",
    "home": "BYU",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Washington",
     "opp": "BYU",
@@ -682,8 +682,8 @@
    "start": "2026-11-24T00:00Z",
    "away": "Trail Blazers",
    "home": "76ers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "76ers",
     "opp": "Trail Blazers",
@@ -774,8 +774,8 @@
    "start": "2026-11-24T00:30Z",
    "away": "Kings",
    "home": "Canadiens",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Kings",
     "opp": "Canadiens",
@@ -997,7 +997,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "North Carolina",
-    "p": 0.891,
+    "p": 0.892,
     "tie": 0.019,
     "name": "1st half"
    },
@@ -1055,7 +1055,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.542,
+    "p": 0.543,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1086,7 +1086,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.667,
+    "p": 0.666,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1098,17 +1098,15 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Bengals",
-    "opp": "Commanders",
+    "team": "Commanders",
+    "opp": "Bengals",
     "market": "spread",
-    "line": -6.0,
-    "odds": -118,
-    "p": 0.501,
-    "win_p": 0.747,
+    "line": 6.0,
+    "odds": -102,
+    "p": 0.5,
+    "win_p": 0.241,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better QB play lately"
+     "better rested"
     ]
    }
   },
@@ -1268,7 +1266,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UNLV",
-    "p": 0.686,
+    "p": 0.687,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1476,7 +1474,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "W Michigan",
-    "p": 0.615,
+    "p": 0.609,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1492,9 +1490,9 @@
     "opp": "Miami OH",
     "market": "ml",
     "line": null,
-    "odds": -285,
-    "p": 0.658,
-    "win_p": 0.658,
+    "odds": -270,
+    "p": 0.651,
+    "win_p": 0.651,
     "reasons": [
      "the stronger team"
     ]
