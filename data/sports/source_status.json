@@ -2,34 +2,34 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-23T19:10Z",
+   "at": "2026-11-23T19:19Z",
    "how": "plain request",
-   "n": 35,
+   "n": 0,
    "ok": true
   },
   "actionnetwork_odds": {
-   "at": "2026-11-23T19:07Z",
+   "at": "2026-11-23T19:16Z",
    "how": "plain request (v2 scoreboard)",
    "n": 1162,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-23T19:07Z",
+   "at": "2026-11-23T19:18Z",
    "how": "plain request",
-   "n": 0,
+   "n": 1,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-23T19:10Z",
+   "at": "2026-11-23T19:19Z",
+   "err": "HTTP 410",
    "how": "plain request",
-   "n": 10,
-   "ok": true
+   "ok": false
   },
   "betrivers:pre:ncaaf": {
-   "at": "2026-11-23T19:08Z",
-   "err": null,
-   "n": 0,
-   "ok": true
+   "at": "2026-11-23T19:18Z",
+   "err": "HTTP 410",
+   "n": null,
+   "ok": false
   },
   "betrivers:pre:ncaaf:1027025285": {
    "at": "2026-11-22T09:28Z",
@@ -932,40 +932,40 @@
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-23T19:10Z",
+   "at": "2026-11-23T19:19Z",
+   "err": "HTTP 410",
    "how": "plain request",
-   "n": 17,
-   "ok": true
+   "ok": false
   },
   "bovada": {
-   "at": "2026-11-23T19:10Z",
+   "at": "2026-11-23T19:19Z",
    "how": "plain request",
    "n": 10,
    "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-23T19:10Z",
+   "at": "2026-11-23T19:19Z",
    "how": "plain request",
    "n": 17,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-23T19:09Z",
+   "at": "2026-11-23T19:18Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-23T19:09Z",
+   "at": "2026-11-23T19:18Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-23T19:07Z",
-   "how": "plain request",
-   "n": 7,
-   "ok": true
+   "at": "2026-11-23T19:17Z",
+   "err": "HTTP 403",
+   "how": "plain request - the goalies stay unknown (no weight)",
+   "ok": false
   },
   "drbob": {
    "at": "2026-11-23T17:55Z",
@@ -992,18 +992,18 @@
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-23T19:09Z",
+   "at": "2026-11-23T19:18Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-23T19:09Z",
+   "at": "2026-11-23T19:18Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-23T19:10Z"
+ "updated": "2026-11-23T19:19Z"
 }
