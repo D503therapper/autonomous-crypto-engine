@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T21:56Z",
+ "updated": "2026-11-23T22:05Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -930,12 +930,40 @@
    }
   },
   {
+   "id": "ncaab:401913530",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Illinois",
+    "p": 0.942,
+    "tie": 0.012,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "Winthrop",
+   "home": "Illinois",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Winthrop",
+    "opp": "Illinois",
+    "market": "spread",
+    "line": 42.5,
+    "odds": -107,
+    "p": 0.537,
+    "win_p": 0.02,
+    "reasons": []
+   }
+  },
+  {
    "id": "nfl:401873078",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.666,
+    "p": 0.664,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -944,18 +972,20 @@
    "start": "2026-11-24T01:15Z",
    "away": "Bengals",
    "home": "Commanders",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Commanders",
-    "opp": "Bengals",
-    "market": "spread",
-    "line": 6.0,
-    "odds": 100,
-    "p": 0.5,
-    "win_p": 0.241,
+    "team": "Bengals",
+    "opp": "Commanders",
+    "market": "ml",
+    "line": null,
+    "odds": -299,
+    "p": 0.743,
+    "win_p": 0.743,
     "reasons": [
-     "better rested"
+     "the stronger team",
+     "sharp money moving this way",
+     "better QB play lately"
     ]
    }
   },
@@ -1769,9 +1799,9 @@
     "team": "Oregon",
     "opp": "St John's",
     "market": "spread",
-    "line": 9.5,
-    "odds": -115,
-    "p": 0.503,
+    "line": 8.5,
+    "odds": -112,
+    "p": 0.502,
     "win_p": 0.204,
     "reasons": []
    }
