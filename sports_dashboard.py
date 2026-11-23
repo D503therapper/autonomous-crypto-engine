@@ -676,7 +676,10 @@ def engine_weights():
                                   f"runner-up dog at +100..+{sports.DOG_SHORT_MAX} {sports.DOG_PLAY_SHORT_UNITS_1117:g}u, the "
                                   f"college football thin Lock {sports.NCAAF_THIN_LOCK_UNITS_1117:g}u, the star "
                                   f"{sports.BEST_UNITS_1117:g}u on a Lock / a Dog of the Day / a play that is 1u+ by its own size "
-                                  f"at +{sports.BEST_2U_MAX_ODDS} or shorter ({sports.BEST_MIN_UNITS:g}u at least on anything else)"
+                                  f"at +{sports.BEST_2U_MAX_ODDS} or shorter ("
+                                  + (f"from {sports.BEST_HONEST_FROM[5:].replace('-', '/')} its own size on anything else - a "
+                                     "half-unit star stays a half unit, and no star on a day a bigger play it can't sit on is up"
+                                     if sports.BEST_HONEST_FROM else f"{sports.BEST_MIN_UNITS:g}u at least on anything else") + ")"
                                   if sports.PROFIT_1117_FROM else ""),
                       "max play": f"💎 {sports.MAX_PLAY_UNITS:g}u - the hockey Dog of the Day when the dog is rested, the "
                                   f"favorite played last night and the dog score is {sports.MAX_PLAY_SCORE:g}+ (several "
@@ -1276,6 +1279,33 @@ BEST_NOTE = [     # ⭐ the owner, 11/4: "every day we have ... the best play th
     "⭐ ENGINE'S BEST PICK — if you're betting one game today, this is it. Never under a full unit.",
     "⭐ ENGINE'S BEST PICK — the play the engine likes best on today's slate, a full unit or more.",
 ]
+BEST_NOTE_1124 = [   # ⭐ 11/22 FABLE (sports.BEST_HONEST_FROM - the owner, 11/21: "the engine's best pick should obviously be
+    #                  the largest bet"): from the 11/24 games the ⭐ is the biggest bet on the board at its honest size -
+    #                  the note never promises a full unit; the card's own units line says the size.
+    "⭐ ENGINE'S BEST PICK — the biggest bet on today's board. If you're betting one game today, this is it.",
+    "⭐ ENGINE'S BEST PICK — nothing on today's board carries more units than this one.",
+    "⭐ ENGINE'S BEST PICK — of everything up today, this is the one the engine has the most on.",
+    "⭐ ENGINE'S BEST PICK — our biggest play today. The size on the card is how much the engine likes it.",
+]
+BEST_NOTE_HALF = [   # ...and a ⭐ that is a half unit (a day every play is a thin edge) says so - never hype on ½u
+    "⭐ ENGINE'S BEST PICK — every play today is a thin edge and this is the one the engine likes most. Still half a unit, tread lightly.",
+    "⭐ ENGINE'S BEST PICK — thin board today. This is the best of it, and it stays a half unit.",
+    "⭐ ENGINE'S BEST PICK — the engine's favorite play on a thin day. Half a unit, no more.",
+    "⭐ ENGINE'S BEST PICK — nothing on today's board earned a full unit. This one is the best of the half-unit plays.",
+]
+
+
+def best_note(pk):
+    """⭐ the note pool for a best pick's box: the forced pick's (till 11/11), the 11/4 'full unit' notes for a pick dated
+    before sports.BEST_HONEST_FROM, from there the biggest-bet notes - the half-unit ones when the ⭐ carries under 1u."""
+    import sports
+    if pk.get("forced"):
+        return BEST_FORCED
+    if not sports.best_honest(pk.get("date")):
+        return BEST_NOTE
+    return BEST_NOTE_HALF if (sports.units_for(pk) or 0) < 1 else BEST_NOTE_1124
+
+
 MAX_NOTE = [      # 💎 THE MAX PLAY (11/16 FABLE - sports.MAX_PLAY_*; the owner, 11/16: "one pick with like 3-4 units on it ...
     #               like the sharp professional bettors do. They pick their spots"): the hockey Dog of the Day when the dog
     #               is rested, the favorite played last night and the dog score is 8+. Every line says the spot (never
@@ -1372,7 +1402,7 @@ def _pick_card(kind, pk):
     elif pk.get("best") and not pk.get("lean"):              # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): a label on the
         label = f"{label} · ⭐ ENGINE'S BEST PICK"            # day's best unit play, 1u at least - its own kind stays
         if not pk.get("ncaab_max"):                          # (💎 11/16: a college max play's own note says it - one box, not two)
-            backup += '<div class="slate-note best-note">' + _rot(spin, BEST_FORCED if pk.get("forced") else BEST_NOTE) + '</div>\n'
+            backup += '<div class="slate-note best-note">' + _rot(spin, best_note(pk)) + '</div>\n'
     if pk.get("ncaab_max") and not pk.get("max_play") and not pk.get("lean"):   # 💎 THE COLLEGE HOOPS MAX PLAY (11/16): the
         label = f"{label} · 💎 MAX PLAY"                      # favorite the engine waits for - 2u, the same 💎 record line
         backup += '<div class="slate-note best-note max-note">' + _rot(spin, NCAAB_MAX_NOTE) + '</div>\n'

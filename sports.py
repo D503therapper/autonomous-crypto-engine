@@ -3557,6 +3557,49 @@ BEST_SIZE_FIRST_FROM = "2026-11-22"   # ⭐ 11/21, the owner on the board's ⭐ 
 #   the most confident one") - then the kind the replay trusts. The ⭐'s own
 #   rules (its read over its price, -150..+350, never the stack play) and its 2u raise are unchanged. None = the old
 #   kind-first order. The Monday Fable sizing review checks the ⭐ record under it.
+BEST_HONEST_FROM = "2026-11-24"   # ⭐ 11/22 FABLE - WHY THE ⭐ HAS LOST (the owner, 11/22: "I'm trying to figure out why the
+#   engine's best picks are so bad ... Run fable this needs fixed"; results/studies/best_1122/, SPORTS_FINDINGS "11/22 -
+#   FABLE: WHY THE ⭐ HAS LOST"). Live 5-10, -4.4u on 22u: the prices expected 6.9 wins (z -1.0) - mostly bad luck on the
+#   board's biggest bets (three hockey Dogs at 2-3u) - but the replay (389 ⭐ days 2023-26, the board today's code builds,
+#   the close) found the one real flaw: NO way of choosing the ⭐ picks a better bet than the board's other plays (kind-first
+#   +12.0%, the biggest-then-the-edge +13.2%, the most confident read, the own read, both reads over the price, the surest,
+#   the shortest price: every one inside what a random play of the day's pool does - +13.3%, 2,000 deals), so the ⭐ earns
+#   no size of its own - and the lift of a ½u play to a full unit doubled the group the 11/17 sizing plan itself refused
+#   to size up (the hockey favorite value play, the floor, the long dog): the ½u ⭐ on a thin day 56-43 flat, train 35-37
+#   -1.9%, the lift's added half units +2.2% in train (a random ½u play does as well 659 of 2,000 times), live 1-4. FROM THE
+#   11/24 PACIFIC GAMES:
+#     (1) THE ⭐ IS THE BIGGEST BET, AT ITS HONEST SIZE - a ½u play that carries the ⭐ STAYS ½u (no lift to 1u; the size is
+#         the engine's confidence, the ⭐ only says which play it is);
+#     (2) the ⭐'s 2u (11/17: a Lock / a Dog of the Day / a play 1u+ by its own size, at +150 or shorter - best_2u_ok) STAYS:
+#         the one cell of the raise up in both halves (17-6, the added units +25% train / +95% held, 4 of 4 seasons);
+#     (3) THE ⭐ IS NEVER SMALLER THAN ANOTHER PLAY ON THE BOARD (the owner, 11/21): when a bigger unit play is up that the
+#         ⭐ can't sit on (its read doesn't beat its price, the engine's own read fights it, the NFL Lock), there is NO ⭐
+#         that day - never a star on the smaller bet (kind-first's 20 such ⭐s 8-12 -12.8%, both halves down);
+#     (4) between plays the same size the bigger edge on its read still decides (on the 60 tie days no other measure - the
+#         weighed read over the no-vig price, the own read, the surest, the price - beat it in both halves).
+#   The board: +69.9u a year at the 11/22 rule -> +67.2u a year, the ROI +17.0% -> +17.3%, the worst stretch -23.8u ->
+#   -22.1u; the 2.7u a year given up is the ½u lift's, all of it in the later half. A posted pick keeps its units (the
+#   date on the pick decides). None = the 11/22 rule (1u at least, a ⭐ beside a bigger play) - the owner's switch.
+
+
+def best_honest(day):
+    """⭐ 11/22 FABLE: is the honest-size ⭐ on for a pick dated `day` (its Pacific game day)?"""
+    return bool(BEST_HONEST_FROM and (day or "") >= BEST_HONEST_FROM)
+
+
+def best_bigger(picks, iso, best):
+    """⭐ (11/22 FABLE - the owner, 11/21: the best pick is never the smaller bet) the open unit play on today's board that
+    carries MORE units than the ⭐ would on `best` (its 2u stamp in), or None."""
+    u = units_for(best)
+    big = None
+    for p in picks:
+        if p is best or p.get("date") != iso or p.get("status") != "open" or p.get("lean") \
+                or p.get("kind") not in ("lock", "dog", "solo", "night", "play") or len(p.get("legs") or []) != 1:
+            continue
+        pu = units_for(p) or 0
+        if pu > u + 1e-9 and (big is None or pu > (units_for(big) or 0)):
+            big = p
+    return big
 
 
 def best_pool(picks, iso):
@@ -3598,6 +3641,14 @@ def mark_best(picks, iso):
     best["best"] = True
     if best_2u_ok(best):                                     # 💰 11/17 MAX PROFIT: the ⭐ on a Lock / a Dog of the Day / a play
         best["best_2u"] = True                               # 1u+ by its own size, at +150 or shorter, is 2u - stamped
+    if best_honest(iso):                                     # ⭐ 11/22 FABLE: never the smaller bet - a bigger unit play
+        big = best_bigger(picks, iso, best)                  # on the board the ⭐ can't sit on = no ⭐ today
+        if big is not None:
+            best.pop("best", None)
+            best.pop("best_2u", None)
+            print(f"   ⭐ no best pick today - the board's biggest play ({big['legs'][0].get('team')} {big['legs'][0].get('odds')}, "
+                  f"{units_for(big):g}u) can't carry the ⭐ and the ⭐ is never the smaller bet")
+            return None
     best_closer(best)
     return best
 
@@ -3643,7 +3694,8 @@ def forced_best(cands, used, iso=None):
 
 def units_for(pk):
     """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
-    picks in a parlay carry their own - leg_units). ⭐ The engine's best pick (11/4) carries BEST_MIN_UNITS at least."""
+    picks in a parlay carry their own - leg_units). ⭐ The engine's best pick (11/4) carries BEST_MIN_UNITS at least - till
+    BEST_HONEST_FROM (11/24): from there its own size, 2u when stamped best_2u (best_min_units)."""
     u = _units_base(pk)
     m = best_min_units(pk)                                   # (💰 11/17: 2u on a ⭐ stamped best_2u at the post, else 1u)
     if pk.get("best") and not pk.get("lean") and (pk.get("date") or "") >= BEST_FROM and u and u < m \
@@ -3996,9 +4048,12 @@ def best_2u_ok(pk):
 
 def best_min_units(pk):
     """⭐ the least the engine's best pick carries: BEST_UNITS_1117 when it was stamped best_2u at the post (11/17 max
-    profit) and its price is still +150 or shorter, else BEST_MIN_UNITS (1u)."""
+    profit) and its price is still +150 or shorter, else BEST_MIN_UNITS (1u) - and from BEST_HONEST_FROM (11/24) nothing:
+    the ⭐ without the 2u stamp carries the play's own size."""
     if pk.get("best_2u") and (((pk.get("legs") or [{}])[0].get("odds")) or 0) <= BEST_2U_MAX_ODDS:   # (the stamp decides - the switch only stops NEW stamps)
         return BEST_UNITS_1117
+    if best_honest(pk.get("date")):                          # ⭐ 11/22 FABLE: no lift to 1u - a ½u ⭐ stays ½u (the play's
+        return 0.0                                           #  own size is the engine's confidence; BEST_HONEST_FROM)
     return BEST_MIN_UNITS
 
 
