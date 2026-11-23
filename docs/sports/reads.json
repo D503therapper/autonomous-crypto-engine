@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T20:17Z",
+ "updated": "2026-11-23T20:23Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -337,9 +337,9 @@
     "team": "MD Eastern",
     "opp": "Youngstown St",
     "market": "spread",
-    "line": 13.5,
-    "odds": -118,
-    "p": 0.507,
+    "line": 12.5,
+    "odds": -110,
+    "p": 0.506,
     "win_p": 0.091,
     "reasons": [
      "their top scorer Linus Holmstrom (11.5 a game) is in his second game back after sitting 2 - the books price him all the way back and that side came up short 5 of 5 seasons (-25% against the number)"
@@ -733,7 +733,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.694,
+    "p": 0.69,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -748,10 +748,10 @@
     "team": "Timberwolves",
     "opp": "Nets",
     "market": "spread",
-    "line": -10.5,
-    "odds": -118,
+    "line": -11.5,
+    "odds": -103,
     "p": 0.501,
-    "win_p": 0.796,
+    "win_p": 0.791,
     "reasons": [
      "the stronger team"
     ]
@@ -1365,7 +1365,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Miami",
-    "p": 0.666,
+    "p": 0.655,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1374,17 +1374,20 @@
    "start": "2026-11-24T20:00Z",
    "away": "Miami",
    "home": "TCU",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "TCU",
-    "opp": "Miami",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.26,
-    "reasons": []
+    "team": "Miami",
+    "opp": "TCU",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.733,
+    "win_p": 0.733,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +13.3 a game to their -3.6 - the books don't price the glass (5 of 5 seasons)"
+    ]
    }
   },
   {
@@ -1393,8 +1396,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tennessee",
-    "p": 0.632,
-    "tie": 0.04,
+    "p": 0.615,
+    "tie": 0.041,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1409,9 +1412,9 @@
     "opp": "Maryland",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.704,
-    "win_p": 0.704,
+    "odds": -225,
+    "p": 0.683,
+    "win_p": 0.683,
     "reasons": [
      "the stronger team"
     ]
@@ -1572,7 +1575,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.363,
+    "p": 0.351,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1584,13 +1587,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Oilers",
-    "opp": "Golden Knights",
+    "team": "Golden Knights",
+    "opp": "Oilers",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.689,
-    "win_p": 0.473,
+    "odds": -258,
+    "p": 0.717,
+    "win_p": 0.501,
     "reasons": []
    }
   },
