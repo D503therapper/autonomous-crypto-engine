@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T02:38Z",
+ "updated": "2026-11-23T02:54Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -842,8 +842,8 @@
    "away": "Nuggets",
    "home": "Bulls",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -947,8 +947,8 @@
    "away": "Menlo",
    "home": "Saint Mary's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1006,6 +1006,21 @@
    "start": "2026-11-23T01:30Z",
    "away": "Celtics",
    "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917542",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T02:45Z",
+   "away": "UC San Diego",
+   "home": "Seattle U",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1793,7 +1808,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.634,
+    "p": 0.635,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1813,7 +1828,8 @@
     "p": 0.717,
     "win_p": 0.717,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
