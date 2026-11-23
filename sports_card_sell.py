@@ -30,6 +30,11 @@ import re
 import sports_data as sd
 
 SELL = True                  # the switch (False = the 11/19 card)
+TRIM = True                  # 🏫 11/23: a schedule too tough to compare leaves its toughest games out (False = no line)
+SCHED_FACTS = True           # 🧭 11/23: the schedule said as the schedule (False = the 11/22 card)
+REASONS_1123 = True          # 11/23 EVERY REASON ON THE CARD: the man who sat named off the reason, the hot three-point
+#                              side across, the glass the leg carries, the fouls; the two halves / the record once
+#                              (False = the 11/22 card)
 MIN_BOX = {"ncaab": 3, "nba": 5, "nhl": 6, "nfl": 4, "ncaaf": 4}   # box games a team needs before its numbers are said
 _BOX = {}                    # league -> (stamp, {game id: {team id: its raw box line}})
 DATA = None                  # (the tests point it at a temp folder)
@@ -182,7 +187,12 @@ O_BAD = {"ncaab": 40.5, "nba": 44.5}         # an offense shooting this or worse
 THREE_RUN = 6.0                              # their threes the last 5 this many points over their season = running hot
 THREE_OPP_LOW = {"ncaab": 29.0, "nba": 33.0}   # teams shooting this or worse from three against them = luck, not defense
 THREE_GOOD = 36.0
+THREE_HOT = 38.0                             # their own threes at this or better on the year = the hot half of 'lucky from three'
+REB_STACK = 6.0                              # (sports.NCAAB_REB_GAP - the stack's glass weight fires at this season gap)
+GLASS_REASON = 3.0                           # rebounds a game between the margins when the leg CARRIES the glass reason
 FT_GAP = {"ncaab": 5.0, "nba": 3.0}          # free throws a game: ours taken over theirs taken
+FOULS = {"ncaab": 25.0, "nba": 27.0}          # ... or they put teams on the line this often
+FT_LIVE = {"ncaab": 20.0, "nba": 22.0}        # ... and we get there this often ourselves
 PAINT_GAP = {"ncaab": 8.0, "nba": 6.0}
 FAST_GAP = {"ncaab": 6.0, "nba": 5.0}        # fast-break points a game: what they give up over what they get
 STEALS = {"ncaab": 8.5, "nba": 9.0}           # steals a game worth saying
@@ -221,8 +231,313 @@ def fair_cmp(gu, gt, tid, oid, e):
     return a is None or b is None or b - a <= SCHED_EDGE
 
 
-def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True):
-    """College hoops / NBA: the matchup on the floor off both teams' box scores. -> [(key, ways, reason?, weight)]"""
+TRIM_MAX = 2                 # 🏫 11/23: their toughest games a comparison may leave out to get the schedules level
+
+
+def fair_trim(lg, gu, gt, tid, oid, e):
+    """🏫 11/23 (the owner: "they're really short and vague on some of them" - 8 of the 13 college hoops unit cards of
+    11/12-11/23 lost EVERY box-score line to the schedule guard): when THEIR schedule ran SCHED_EDGE+ tougher than ours,
+    leave their toughest games out - TRIM_MAX at most, MIN_BOX left - until the two schedules are level, and say on the
+    line which games are out. -> (their games to read, [the opponents left out]) or (None, []) when it can't be made fair."""
+    if fair_cmp(gu, gt, tid, oid, e):
+        return list(gt or []), []
+    if e is None or not gu or not gt:
+        return None, []
+    oid = str(oid)
+    opp = lambda g: g["away"] if str(g["home"]) == oid else g["home"]                    # noqa: E731
+    rest = sorted(gt, key=lambda g: -e.r.get(opp(g), 1500.0))
+    left = []
+    while rest and len(left) < TRIM_MAX and len(rest) - 1 >= MIN_BOX.get(lg, 5):
+        g = rest.pop(0)
+        left.append(g["away_name"] if str(g["home"]) == oid else g["home_name"])
+        keep = [x for x in gt if x in rest]
+        if fair_cmp(gu, keep, tid, oid, e):
+            return keep, left
+    return None, []
+
+
+def trim_note(left):
+    """' (not counting the Utah State game)' - what a line that says their numbers carries when games are left out."""
+    left = [str(x) for x in left or [] if x]
+    if not left:
+        return ""
+    return f" (not counting the {' and '.join(left)} game{'s' if len(left) > 1 else ''})"
+
+
+TRIM_SAID = re.compile(r" \(not counting the (.+?) games?\)")
+
+
+def top_out_who(leg):
+    """(name, points a game) of THEIR top scorer who sat their last game - off the leg's mark, or (a card posted before
+    the mark kept the name) off the reason the leg carries."""
+    who = leg.get("opp_top_out_who")
+    if who and who[0]:
+        return who[0], who[1]
+    if not leg.get("opp_top_out") or not REASONS_1123:
+        return None
+    for r in leg.get("reasons") or []:
+        m = re.match(r"their top scorer (.+?) \((\d+(?:\.\d+)?) a game\) missed their last game", str(r))
+        if m:
+            return m.group(1), float(m.group(2))
+    return None
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 🧭 the schedule, said as the schedule (11/23): who each team played and what those teams are. It is what an
+# opponent-adjusted read sees that a record doesn't - so when the leg's reason is "the ratings back this side" these are
+# its fact lines, and when the box comparison can't be made fair they are what the card says instead of nothing.
+# ---------------------------------------------------------------------------------------------------------------------
+SOFT_WINS = 0.40             # the teams they beat won this share of their D1 games or less = soft wins
+TOUGH_LOSSES = 0.60          # the teams that beat us won this share or more
+SCHED_NAMES = 4              # a line names every team - only a list this short
+FAV_BY, FAV_SHORT = 7.0, 10.0   # a favorite of 7+ that came up 10+ points short of that number (or lost)
+_IDX = {}
+
+
+def by_team(fin):
+    """{team id: its finals, oldest first} off the league's finals before this game (one pass a slate)."""
+    key = (id(fin), len(fin or ()), (fin[-1].get("start"), fin[-1].get("id")) if fin else None)
+    if _IDX.get("key") != key:
+        d = {}
+        for g in fin or []:
+            d.setdefault(str(g.get("home")), []).append(g)
+            d.setdefault(str(g.get("away")), []).append(g)
+        _IDX["key"], _IDX["by"] = key, d
+    return _IDX["by"]
+
+
+def d1_record(idx, t, since, nond1):
+    """(won, lost) for team t against D1 teams since `since` (its games on file)."""
+    w = lo = 0
+    t = str(t)
+    for g in idx.get(t) or []:
+        if str(g.get("start") or "") < since:
+            continue
+        home = str(g["home"]) == t
+        if nond1(g["away"] if home else g["home"]):
+            continue
+        try:
+            pf, pa = int(g["home_score"] if home else g["away_score"]), int(g["away_score"] if home else g["home_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        w, lo = w + (pf > pa), lo + (pf < pa)
+    return w, lo
+
+
+def _names(xs):
+    xs = list(xs)
+    return xs[0] if len(xs) == 1 else ", ".join(xs[:-1]) + " and " + xs[-1]
+
+
+_NUM = {1: "one", 2: "two", 3: "three", 4: "four"}
+
+
+def _split(gs, t):
+    """(won, lost) for team t over `gs`: rows (opponent id, opponent name, our points, theirs, the game)."""
+    won, lost = [], []
+    t = str(t)
+    for g in gs or []:
+        home = str(g["home"]) == t
+        try:
+            pf, pa = int(g["home_score"] if home else g["away_score"]), int(g["away_score"] if home else g["home_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        (won if pf > pa else lost).append((g["away"] if home else g["home"], g["away_name"] if home else g["home_name"], pf, pa, g))
+    return won, lost
+
+
+def beat_by(rows, idx, since, nond1):
+    """(the names, [(won, lost) each]) of the teams in `rows` - their own games against D1 teams this season."""
+    uniq = list({str(r[0]): r for r in rows}.values())
+    return [r[1] for r in uniq], [d1_record(idx, r[0], since, nond1) for r in uniq]
+
+
+def _since(gu, gt):
+    """The first day of the season these games are in (July 1) - every team's games from there count."""
+    last = max(str(g.get("start") or "") for g in list(gu or []) + list(gt or []))
+    y = int(last[:4]) if int(last[5:7]) >= 7 else int(last[:4]) - 1
+    return f"{y}-07-01"
+
+
+def fav_short(gt, oid):
+    """Their games (the last 4) as a FAV_BY+ favorite that ended FAV_SHORT+ points short of the number (and at least
+    0.6 of it), worst first: [(short by, favored by, the opponent, their points, the opponent's)]."""
+    out = []
+    oid = str(oid)
+    for g in (gt or [])[-4:]:
+        home = str(g["home"]) == oid
+        try:
+            sp = float(g["spread_home"]) * (1 if home else -1)        # (their number: under 0 = favored)
+            pf, pa = int(g["home_score"] if home else g["away_score"]), int(g["away_score"] if home else g["home_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        short = -sp - (pf - pa)
+        if -sp >= FAV_BY and short >= max(FAV_SHORT, 0.6 * -sp):
+            out.append((short, -sp, g["away_name"] if home else g["home_name"], pf, pa))
+    return sorted(out, key=lambda r: -r[0])
+
+
+def covers(gt, oid):
+    """(covered, lined games) for a team this season - its regular-season finals with a closing spread."""
+    k = n = 0
+    oid = str(oid)
+    for g in gt or []:
+        if str(g.get("stype") or "2") != "2":
+            continue
+        home = str(g["home"]) == oid
+        try:
+            sp = float(g["spread_home"]) * (1 if home else -1)
+            m = (int(g["home_score"]) - int(g["away_score"])) * (1 if home else -1)
+        except (KeyError, TypeError, ValueError):
+            continue
+        if m + sp == 0:
+            continue
+        n += 1
+        k += m + sp > 0
+    return k, n
+
+
+def road_games(gs, t):
+    """(won, played) for team t in TRUE road games (never a neutral site)."""
+    t = str(t)
+    rows = [g for g in gs or [] if str(g.get("away")) == t and str(g.get("neutral")) not in ("1", "True", "true")]
+    won = 0
+    for g in rows:
+        try:
+            won += int(g["away_score"]) > int(g["home_score"])
+        except (KeyError, TypeError, ValueError):
+            pass
+    return won, len(rows)
+
+
+def sched_lines(lg, us, them, gu, gt, tid, oid, fin, nond1, leg, backed=False, g=None, s_theirs=None):
+    """🧭 College hoops: the schedule facts that argue for us - the teams THEY beat don't win (every D1 win named, those
+    teams' own games against D1 teams counted), the teams that beat US do, the night they were a big favorite and it
+    was a game - and the two study reasons that are schedule facts: the side across that keeps beating the spread (a
+    count, never a price claim) and the top-25 team's first true road game. D1 games only; every team named; a count,
+    never a rate. -> [(key, ways, reason?, weight)]"""
+    out = []
+    if lg != "ncaab" or not gu or not gt:
+        return out
+    tid, oid = str(tid), str(oid)
+    if fin and nond1 is not None:
+        idx, since = by_team(fin), _since(gu, gt)
+        won_t, _lt = _split(gt, oid)
+        _wu, lost_u = _split(gu, tid)
+        # 1. who they beat
+        names, each = beat_by(won_t, idx, since, nond1)
+        if 1 <= len(names) <= SCHED_NAMES and len(gt) >= 3 and us not in names:
+            w, n = sum(a for a, _ in each), sum(a + b for a, b in each)
+            if n >= 3 * len(names) and w <= SOFT_WINS * n:
+                if len(names) == 1:
+                    ways = [f"🧭 The one D1 team {them} beat this year is {names[0]}, who won {w} of {n} against D1 teams.",
+                            f"🧭 {_pos(them)} only win over a D1 team this year came against {names[0]} - a team that won {w} of its {n} games against D1 teams."]
+                else:
+                    nn = _NUM.get(len(names), str(len(names)))
+                    ways = [f"🧭 The D1 teams {them} beat this year ({_names(names)}) won {w} of {n} against D1 teams between them.",
+                            f"🧭 {_pos(them)} wins over D1 teams this year came against {_names(names)}. Those {nn} won {w} of {n} against D1 teams between them.",
+                            f"🧭 Who did {them} beat? {_names(names)} - {nn} teams that won {w} of their {n} games against D1 teams between them."]
+                short = [] if len(names) == 1 else [f"🧭 The {nn} D1 teams {them} beat this year won {w} of {n} against D1 teams between them."]
+                out.append(("sched_w", ways, bool(backed), 8.8 + (SOFT_WINS - w / n) * 3, short))   # (short: under the pick only)
+        # 2. who beat us
+        names, each = beat_by(lost_u, idx, since, nond1)
+        if 1 <= len(names) <= SCHED_NAMES and them not in names:
+            w, n = sum(a for a, _ in each), sum(a + b for a, b in each)
+            if n >= 3 * len(names) and w >= TOUGH_LOSSES * n and all(a > b for a, b in each):
+                if len(names) == 1:
+                    ways = [f"🧭 The one team to beat {us} this year is {names[0]}, who won {w} of {n} against D1 teams.",
+                            f"🧭 Only {names[0]} got {us} this year - and {names[0]} won {w} of {n} against D1 teams."]
+                else:
+                    ways = [f"🧭 The teams that beat {us} this year ({_names(names)}) won {w} of {n} against D1 teams between them.",
+                            f"🧭 Every team that got {us} this year is a winning team: {_names(names)} won {w} of {n} against D1 teams between them."]
+                short = [] if len(names) == 1 else [
+                    f"🧭 The {_NUM.get(len(names), len(names))} teams that beat {us} this year won {w} of {n} against D1 teams between them."]
+                out.append(("sched_l", ways, bool(backed), 8.2 + (w / n - TOUGH_LOSSES) * 3, short))
+    # 3. the night they were a big favorite and it was a game
+    worst = fav_short(gt, oid)
+    if worst:
+        sh, by, nm, pf, pa = worst[0]
+        res = f"won by {pf - pa}" if pf > pa else f"lost {pa}-{pf}"
+        an = "an" if f"{by:g}".startswith(("8", "11", "18")) else "a"
+        out.append(("sched_fav", [f"🧭 {them} went off as {an} {by:g}-point favorite against {nm} this year and {res}.",
+                                  f"🧭 Favored by {by:g} against {nm} this year, {them} {res}."], False, 7.4 + sh / 20))
+    # 4. the hot-ATS side across (sports.mark_ncaab_ats_gap - the leg carries the reason): the count, as a fact
+    if (leg.get("ats_gap") is not None and leg["ats_gap"] <= -ATS_GAP) or "beaten its spreads" in " ".join(
+            str(x) for x in leg.get("reasons") or []):
+        k, n = covers(s_theirs if s_theirs is not None else gt, oid)
+        if n >= 5 and k >= 0.6 * n:
+            out.append(("ats_hot", [f"🧭 {them} beat the spread in {k} of their {n} games this year. Nobody keeps that up.",
+                                    f"🧭 {k} of {n} against the spread this year for {them}. Runs like that cool off.",
+                                    f"🧭 {them} covered in {k} of {n} this year. That kind of run comes back down."], True, 8.6))
+    # 5. the top-25 team on the road in Nov-Dec (sports.mark_ncaab_ranked_road): their road games, said as they are
+    if leg.get("vs_ranked_road") and g is not None and str(g.get("neutral")) not in ("1", "True", "true"):
+        won, n = road_games(s_theirs if s_theirs is not None else gt, oid)
+        if n == 0:
+            out.append(("road_first", [f"🧭 {them} haven't played a true road game yet this year. Tonight's the first, in {_pos(us)} building.",
+                                       f"🧭 First true road game of the year for {them} - every game so far was at home or on a neutral floor."], True, 8.7))
+        elif won == 0:
+            out.append(("road_first", [f"🧭 {them} haven't won a true road game yet this year ({n} played).",
+                                       f"🧭 No true road win yet this year for {them} in {n} {'tries' if n > 1 else 'try'}."], True, 8.7))
+    return out
+
+
+ATS_GAP = 3.0                # (sports.NCAAB_ATS_GAP - the hot-ATS weight fires at this gap in cover margin)
+_WON_OF = re.compile(r"won (\d+) of (?:its |their )?(\d+)")
+
+
+def sched_wrong(line, us, them, gu, gt, tid, oid, fin, nond1, s_theirs=None):
+    """'' when a 🧭 schedule line still says what the game files say, else why not (sports_card_check re-derives it on
+    every render). The teams named must be the teams they beat / that beat us; "won W of N" may trail the files by the
+    games those teams played since the card was written (a game each at most), never lead them."""
+    t = str(line or "")
+    if not t.startswith("🧭"):
+        return ""
+    try:
+        tid, oid = str(tid), str(oid)
+        if "favorite" in t or "Favored by" in t or "points from" in t:
+            for sh, by, nm, pf, pa in fav_short(gt, oid):
+                res = f"won by {pf - pa}" if pf > pa else f"lost {pa}-{pf}"
+                if nm in t and f"{by:g}" in t and res in t:
+                    return ""
+            return "a favorite's night the game files don't hold"
+        if "the spread" in t or "covered in" in t:
+            k, n = covers(s_theirs if s_theirs is not None else gt, oid)
+            nums = re.findall(r"\b(\d+) of (?:their )?(\d+)\b", t)
+            return "" if nums and (int(nums[0][0]), int(nums[0][1])) == (k, n) else "a spread count the game files don't hold"
+        if "true road" in t:
+            won, n = road_games(s_theirs if s_theirs is not None else gt, oid)
+            if won:
+                return "they've won a true road game"
+            said = re.search(r"\((\d+) played\)|in (\d+) tr", t)
+            if said:
+                return "" if int(said.group(1) or said.group(2)) == n else "a road count the game files don't hold"
+            return "" if n == 0 else "they've played a true road game"
+        m = _WON_OF.search(t)
+        if not m or not fin or nond1 is None:
+            return ""
+        ours = bool(re.search(rf"(?:beat|got|to beat) {re.escape(us)}\b", t))
+        rows = _split(gu, tid)[1] if ours else _split(gt, oid)[0]
+        names, each = beat_by(rows, by_team(fin), _since(gu, gt), nond1)
+        cnt = re.search(r"The (two|three|four) (?:D1 )?teams ", t)
+        if cnt and not any(nm in t for nm in names):         # (the short wording under the pick: the count, no names)
+            if _NUM.get(len(names)) != cnt.group(1):
+                return "the count of teams isn't what the game files hold"
+        elif not names or any(nm not in t for nm in names):
+            return "the teams named aren't the teams the game files hold"
+        w, n = sum(a for a, _ in each), sum(a + b for a, b in each)
+        sw, sn = int(m.group(1)), int(m.group(2))
+        if not (sn <= n <= sn + len(names) and sw <= w <= sw + len(names)):
+            return f"won {sw} of {sn} - the game files say {w} of {n}"
+        if (not ours and w > 0.5 * n) or (ours and w < 0.5 * n):
+            return "the schedule no longer says it"
+    except Exception:                                     # noqa: BLE001 - the check never breaks a card
+        return ""
+    return ""
+
+
+def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True, note=""):
+    """College hoops / NBA: the matchup on the floor off both teams' box scores. -> [(key, ways, reason?, weight)]
+    `note`: what goes after a line that says THEIR numbers when those leave games out (fair_trim)."""
     out = []
     if not pu or not pt:
         return out
@@ -249,11 +564,21 @@ def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True):
                                    f"👌 {them} been getting lucky: {T.lower() if not d1 else T} are {m_} for {a_} from three against 'em{yr}. Open looks don't keep missing.",
                                    f"👌 {_r(o3_t)}% from deep is all {T.lower() if not d1 else T} hit on {them}{yr} ({m_} for {a_}). That's cold shooting, not defense - it evens out."],
                     True, 8.0))
+    elif REASONS_1123 and luck_r and t3_s is not None and o3_t is not None and pt.get("tpa", 0) >= 60 and t3_s >= THREE_HOT and t3_s - o3_t >= 3:
+        # 11/23 EVERY REASON ON THE CARD: the 'lucky from three' side across (sports_ncaab_box.three_net - their own
+        # threes falling) with no last-5 run and no cold shooting against them had no line at all (the Washington card)
+        m_, a_ = _r(pt["tpm"]), _r(pt["tpa"])
+        out.append(("three_luck", [f"👌 {them} are {m_} for {a_} from three{vs} - {_r(t3_s)}%. Nobody shoots that all year. It comes back down.",
+                                   f"👌 {them} been living on the three: {m_} for {a_}{vs}, {_r(t3_s)}%. That don't last.",
+                                   f"👌 {_r(t3_s)}% from deep{vs} for {them} ({m_} for {a_}). That's a hot stretch, not who they are - it cools off."],
+                    True, 8.0))
     if not cmp_ok:
         return out
+    n0 = len(out)                                         # (the lines from here set the two teams' numbers side by side)
     # 1. the glass
     ru, rt = (pu["reb"] - pu["o_reb"]) / pu["n"], (pt["reb"] - pt["o_reb"]) / pt["n"]
-    glass_r = "glass" in fired or bool(leg.get("hoops_inside")) or "rebound" in rs or "the glass" in rs
+    glass_r = "glass" in fired or bool(leg.get("hoops_inside")) or "rebound" in rs or "the glass" in rs \
+        or (lg == "ncaab" and (leg.get("reb_gap") or 0) >= REB_STACK)
     if ru - rt >= GLASS_GAP[lg] and ru >= 1 and rt <= -1:
         out.append(("glass", [f"🧲 {us} out-rebound teams by {_r(ru)} a game{vs}. {them} get beat on the glass by {_r(-rt)}.",
                               f"🧲 The glass is ours: {us} plus {_r(ru)} rebounds a game{vs}, {them} minus {_r(-rt)}.",
@@ -269,6 +594,18 @@ def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True):
                               f"🧲 {us} own the glass - plus {_r(ru)} rebounds a game{vs}.",
                               f"🧲 {_r(ru)} more boards a game than the other team for {us}{vs}. They clean it up."],
                     glass_r, 7.0 + ru / 4))
+    elif REASONS_1123 and glass_r and ru - rt >= GLASS_REASON and _r(ru) != _r(rt):
+        # (11/23: the leg carries the glass - the study weight, the stack - and the gap sat under the pool's bar)
+        if rt <= -0.5 and ru >= 0.5:
+            ways = [f"🧲 {us} out-rebound teams by {_r(ru)} a game{vs}. {them} get out-rebounded by {_r(-rt)}.",
+                    f"🧲 On the glass{vs}: {us} plus {_r(ru)} a game, {them} minus {_r(-rt)}."]
+        elif ru >= 0.5:
+            ways = [f"🧲 {us} out-rebound teams by {_r(ru)} a game{vs}; {them} by {_r(rt)}.",
+                    f"🧲 Rebound margin a game{vs}: plus {_r(ru)} for {us}, plus {_r(rt)} for {them}."]
+        else:
+            ways = []
+        if ways:
+            out.append(("glass", ways, True, 8.5))
     # 2. turnovers: theirs committed against ours / against what we force
     tu, tt = pu["to"] / pu["n"], pt["to"] / pt["n"]
     fu = pu["o_to"] / pu["n"]
@@ -326,6 +663,11 @@ def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True):
                              f"🎁 Free throws a game{vs}: {_r(ftu)} for {us}, {_r(ftt)} for {them}. Free points.",
                              f"🎁 {them} put teams on the line {_r(oft_t)} times a game{vs} and {us} live there ({_r(ftu)} a night)."],
                     False, 6.0 + (ftu - ftt) / 4))
+    elif REASONS_1123 and oft_t >= FOULS[lg] and ftu >= FT_LIVE[lg] and ftu >= ftt - 2:
+        out.append(("line", [f"🎁 {them} put teams on the line {_r(oft_t)} times a game{vs}. {us} get there {_r(ftu)} times a night.",
+                             f"🎁 {_r(oft_t)} free throws a game is what {them} hand out{vs}, and {us} get to the line {_r(ftu)} times a night.",
+                             f"🎁 {them} foul: {_r(oft_t)} free throws a game for the other team{vs}. {us} shoot {_r(ftu)} a night."],
+                    False, 5.8 + (oft_t - FOULS[lg]) / 4))
     # 7. the paint
     if pu.get("paint") is not None and pt.get("paint") is not None:
         pa_u, pa_t = pu["paint"] / pu["n"], pt["paint"] / pt["n"]
@@ -375,6 +717,8 @@ def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True):
                                     f"🤝 Assists a game{vs}: {_r(as_u)} for {us}, {_r(as_t)} for {them}. They play one-on-one.",
                                     f"🤝 Only {_r(as_t)} assists a game for {them}{vs} - everybody for himself. {us} get {_r(as_u)}."],
                         False, 5.5 + (as_u - as_t) / 6))
+    if note:                                              # (their numbers leave their toughest games out - said on the line)
+        out[n0:] = [(k, [w + note if them in w else w for w in ways], r, wt) for k, ways, r, wt in out[n0:]]
     return out
 
 
@@ -472,7 +816,7 @@ def football_lines(us, them, pu, pt, leg):
 STAT_OF = (   # the stat a line is about - two lines on a card that say the same one about the same team are one fact
     ("glass", re.compile(r"rebound|the glass|\bboards\b", re.I)),
     ("turnover", re.compile(r"turnover|cough|takeaway|giveaway|turn(?:ed|s)? it over|g[ai]ve it away|\bsteals\b", re.I)),
-    ("three", re.compile(r"from three|\bthrees\b|from deep|the arc", re.I)),
+    ("three", re.compile(r"from three|\bthrees\b|from deep|the arc|on the three\b", re.I)),
     ("paint", re.compile(r"in the paint", re.I)),
     ("line", re.compile(r"to the line|free throws|on the line", re.I)),
     ("shooting", re.compile(r"% shooting|from the field|of their shots|shoot \d+%", re.I)),
@@ -489,7 +833,9 @@ STAT_OF = (   # the stat a line is about - two lines on a card that say the same
 _SCORE = re.compile(r"points? a game|goals? a game|\ba game\b|a night\b|outscor|scoreboard|\d+(?:\.\d)? (?:scored|allowed|against|for)\b", re.I)
 _SC_O = re.compile(r"\bscor(?:e|es|ed|ing)\b|put(?:s|ting)? up|\bmanages?\b|\boffense\b|can only find|\bfor\b(?=[,;. ])", re.I)
 _SC_D = re.compile(r"\ballow(?:s|ed)?\b|g[ai]v(?:e|es|en|ing) up|\bagainst\b|\bleaking\b|holds? teams|\bdefense\b|\bour d\b", re.I)
-STAT_EM = ("🧲", "🧤", "🥷", "🛡", "🪣", "👌", "🎁", "🎨", "💨", "🤝", "🏹", "⚡", "🏃", "🎈", "📏", "🔗", "💥", "📊")
+STAT_EM = ("🧲", "🧤", "🥷", "🛡", "🪣", "👌", "🎁", "🎨", "💨", "🤝", "🏹", "⚡", "🏃", "🎈", "📏", "🔗", "💥", "📊", "⏱", "🏁", "🔥", "📋")
+_HALF = re.compile(r"\b(?:first|second) half\b", re.I)
+_REC = re.compile(r"(?<![\d-])(\d{1,2}-\d{1,2})(?![\d-])")
 SELL_EM = ("🧤", "🥷", "🪣", "🎁", "🎨", "💨", "🤝", "⚡", "🎈", "📏", "🔗", "🏆")   # the lines only this module writes
 
 
@@ -499,6 +845,13 @@ def stat_of(line):
     t = str(line or "")
     if not t.startswith(STAT_EM):
         return None
+    if t.startswith(("⏱", "🏁", "🔥", "📋")) and not REASONS_1123:
+        return None
+    if t.startswith(("⏱", "🏁")):                          # 11/23 (the Indiana St card: the first half and the second
+        return "half" if _HALF.search(t) else None        #  half are the whole scoreboard - one fact, said once)
+    if t.startswith(("🔥", "📋")):                         # (the Washington card: "hasn't lost in 4 - 4-0 overall" and
+        m = next((m for m in _REC.finditer(t) if all(int(x) <= 40 for x in m.group(1).split("-"))), None)
+        return "rec " + m.group(1) if m else None         #  "sits 4-0": the same record twice)
     for k, rx in STAT_OF:
         if rx.search(t):
             return k
@@ -539,12 +892,35 @@ def same_stat(a, b, us, them):
     return wa == wb or "both" in (wa, wb)
 
 
-def dedupe(lines, us, them, why=""):
+def half_gap(line):
+    """The scoreboard gap a first-half / second-half line says (its two point totals apart)."""
+    t = re.sub(r"last \d+|\d+ games", " ", str(line or ""))
+    n = [int(x) for x in re.findall(r"(?<![\w.])\d{2,4}(?![\w])", t)]
+    return abs(n[0] - n[1]) if len(n) >= 2 else 0
+
+
+HALF_BV = 86                 # the halves / the record count as one fact on cards written by VERSION 86+ (an older card
+#                              whose game already started can't be re-written - the page leaves its lines alone)
+
+
+def dedupe(lines, us, them, why="", leg=None):
     """Drop a later stat line that repeats an earlier one's stat for the same team (the line under the pick counts as
-    the first). The order is the card's - the first said stays. -> (kept, dropped)"""
+    the first). The order is the card's - the first said stays (of the two halves: the better one). `leg`: the card's
+    leg on a render - a card stamped before HALF_BV keeps its halves / records. -> (kept, dropped)"""
     kept, gone, seen = [], [], [why] if why else []
+    old = leg is not None and leg.get("bv") is not None and leg["bv"] < HALF_BV
     for x in lines or []:
+        if old and isinstance(x, str) and str(stat_of(x) or "").startswith(("half", "rec ")):
+            kept.append(x)
+            continue
         if isinstance(x, str) and stat_of(x) and any(same_stat(y, x, us, them) for y in seen):
+            if stat_of(x) == "half":                      # (11/23: of the two halves the better one stays - the bigger
+                y = next(y for y in seen if same_stat(y, x, us, them))   # gap on the scoreboard - in the first one's place)
+                if y in kept and half_gap(x) > half_gap(y):
+                    kept[kept.index(y)] = x
+                    seen[seen.index(y)] = x
+                    gone.append(y)
+                    continue
             gone.append(x)
             continue
         kept.append(x)
@@ -591,7 +967,7 @@ def best_win(lg, gu, tid, oid, e, us, them):
                          f"🏆 A {pf}-{pa} win over {nm}{where} is already on the board for {us} this year."], False, 7.2)
 
 
-def sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, real=None, e=None, fair=False):
+def sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, real=None, e=None, fair=False, fin=None, nond1=None):
     """The card's sell lines, best first: [(line, is_reason, key, every way to say it)] - `real(games, tid)` strips a college hoops team's
     non-D1 tune-ups (sports_breakdown_v24._real); `fair`: the league is one where schedules differ wildly (college)."""
     if not SELL or lg not in _READ:
@@ -608,7 +984,20 @@ def sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, real=None, e
     try:
         if lg in ("ncaab", "nba"):
             pt5 = profile(lg, gt, oid, last=5)
-            made = hoops_lines(lg, us, them, pu, pt, pt5, leg, d1, cmp_ok)
+            ptc, note = pt, ""
+            if not cmp_ok and lg == "ncaab" and TRIM:     # 🏫 11/23: their toughest games left out, and said
+                keep, left = fair_trim(lg, gu, gt, tid, oid, e)
+                pk_ = profile(lg, keep, oid) if keep else None
+                if pk_ and left:
+                    ptc, note, cmp_ok = pk_, trim_note(left), True
+            made = hoops_lines(lg, us, them, pu, pt, pt5, leg, d1, False) if note else []
+            made += [m for m in hoops_lines(lg, us, them, pu, ptc, None if note else pt5, leg, d1, cmp_ok, note)
+                     if not (note and m[0] == "three_luck") and not any(m[0] == k for k, *_ in made)]
+            if lg == "ncaab" and SCHED_FACTS:             # 🧭 11/23: the schedule said as the schedule
+                parts = leg.get("dog_read_parts") or {}
+                made += sched_lines(lg, us, them, gu, gt, tid, oid, fin, nond1, leg,
+                                    backed=(parts.get("ratings") or 0) > 0 or "stronger team" in " ".join(
+                                        str(x) for x in leg.get("reasons") or []).lower(), g=g, s_theirs=s_theirs)
         elif lg == "nhl":
             made = hockey_lines(us, them, pu, pt, leg)
         elif cmp_ok:
@@ -616,7 +1005,7 @@ def sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, real=None, e
         bw = best_win(lg, gu, tid, oid, e, us, them)
         if bw:
             made.append(bw)
-        who = leg.get("opp_top_out_who")                  # 11/23 board check (the Washington +11.5 stack play: its one
+        who = top_out_who(leg)                            # 11/23 board check (the Washington +11.5 stack play: its one
         if lg == "ncaab" and leg.get("opp_top_out") and who and who[0]:   # named reason - BYU's top scorer sat out their
             nm, ppg = who[0], who[1]                      # last game - was nowhere on the card: CARD AUDIT "NO WHY")
             made.append(("topout", [f"🪑 {_pos(them)} top scorer {nm} ({ppg} a game) sat out their last game.",
@@ -627,10 +1016,10 @@ def sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, real=None, e
         made = []
     made.sort(key=lambda m: (not m[2], -m[3]))
     out = []
-    for key, ways, reason, _w in made:
+    for key, ways, reason, _w, *short in made:           # (short: a wording only for the line under the pick)
         line = v.say("sell_" + key, ways, fact=True) if v is not None else ways[0]
         if line:
-            out.append((line, bool(reason), key, list(ways)))
+            out.append((line, bool(reason), key, list(ways) + list(short[0] if short else [])))
     return out
 
 
@@ -643,6 +1032,7 @@ def lead_of(line, us, lean=False, seed=""):
     em, _, rest = str(line or "").partition(" ")
     if not rest:
         return None
+    whole = em.startswith("🧭")                            # (a schedule line cut to its first sentence loses its point)
     heads = [f"We lean {us}:", f"Lean {us}:"] if lean else [f"Give me {us}:", f"We on {us}:", f"{us} the side:", f"Riding {us}:"]
     head = heads[sum(map(ord, str(seed))) % len(heads)]
     if rest.startswith(us + " "):                         # (the fact already opens on us: a tail, not a head)
@@ -652,7 +1042,7 @@ def lead_of(line, us, lean=False, seed=""):
             return t
         return f"{em} {rest}" if len(f"{em} {rest}") <= LEAD_MAX else None
     t = f"{em} {head} {rest}"
-    if len(t) > LEAD_MAX:
+    if len(t) > LEAD_MAX and not whole:
         first = re.split(r"(?<=[.!?])\s+", rest)[0]
         t = f"{em} {head} {first}"
     return t if len(t) <= LEAD_MAX else None
@@ -707,7 +1097,7 @@ def is_sell(line):
         return False                                      # (a game with its score: the fact check reads it)
     if t.startswith(SELL_EM):
         return True
-    return t.startswith(STAT_EM) and not t.startswith("📊") and bool(SEASON_SAID.search(t)) and not WINDOW_SAID.search(t) \
+    return t.startswith(STAT_EM) and not t.startswith(NOT_WHY) and bool(SEASON_SAID.search(t)) and not WINDOW_SAID.search(t) \
         and not str(stat_of(t) or "score").startswith("score")
 
 
@@ -721,8 +1111,19 @@ def numbers_wrong(line, us, them, lg, gu, gt, tid, oid):
         return ""
     if not ps[0] and not ps[1]:
         return "box-score numbers for teams we hold no box scores on"
-    ok = allowed(*ps, stat=stat_of(line))
     t = str(line)
+    m = TRIM_SAID.search(t)
+    if m:                                                 # 🏫 11/23: their numbers leave the named games out
+        out_ = [x.strip() for x in re.split(r" and ", m.group(1)) if x.strip()]
+        keep = [g for g in gt or [] if (g["away_name"] if str(g["home"]) == str(oid) else g["home_name"]) not in out_]
+        if len(keep) != len(gt or []) - len(out_):
+            return "games left out that the files don't hold"
+        try:
+            ps = (ps[0], profile(lg, keep, oid), None)
+        except Exception:                                 # noqa: BLE001
+            return ""
+        t = t[:m.start()] + t[m.end():]
+    ok = allowed(*ps, stat=stat_of(line))
     for nm in sorted((x for x in (us, them) if x), key=len, reverse=True):
         t = t.replace(nm, " ")
     t = t.replace("D1", " ")
@@ -730,6 +1131,9 @@ def numbers_wrong(line, us, them, lg, gu, gt, tid, oid):
         if "." in x or round(float(x)) not in ok:
             return x
     return ""
+
+
+NOT_WHY = ("📊", "⏱", "🏁", "🔥", "📋")     # the scoreboard, the halves, a streak, a record: form, not a matchup
 
 
 def reason_backed(line, leg):
@@ -769,7 +1173,7 @@ def reason_backed(line, leg):
         return "reason"                                   # (the tune-up angle: ours off a non-D1 game, theirs off a real one)
     if t.startswith("📋") and "Division I" in t:
         return "matchup"
-    if t.startswith(("🆚", "🔁", "🏆", "🧾", "🎬")) or is_sell(t) or (t.startswith(STAT_EM) and not t.startswith("📊")):
+    if t.startswith(("🆚", "🔁", "🏆", "🧾", "🎬", "🧭")) or is_sell(t) or (t.startswith(STAT_EM) and not t.startswith(NOT_WHY)):
         return "matchup"
     return ""
 

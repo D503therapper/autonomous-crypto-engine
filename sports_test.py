@@ -30397,10 +30397,12 @@ class _Fx1122:
         G, teams = {}, set()
         with open(os.path.join(d, "teamstats", f"{self.lg}.jsonl"), "w") as fh:
             for i, row in enumerate(self.rows):
-                st, a, an, as_, h, hn, hs, neu, ba, bh = row.split("|")
+                st, a, an, as_, h, hn, hs, neu, ba, bh, *more = row.split("|")
                 gid = f"{self.lg}:fx{i}"
                 G[gid] = {"id": gid, "league": self.lg, "start": st + "Z", "status": "final", "home": h, "away": a, "home_name": hn,
                           "away_name": an, "home_score": hs, "away_score": as_, "stype": "2", "neutral": neu, "elev": "100"}
+                if more and more[0]:                         # (11/23: an 11th field - the home team's closing spread)
+                    G[gid]["spread_home"] = more[0]
                 teams |= {a, h}
                 if ba and bh:
                     fh.write(json.dumps({"gid": gid, "start": st + "Z", "teams": {a: dict(zip(self.keys, ba.split())),
@@ -30563,8 +30565,15 @@ def test_cards_1122_the_nicholls_card_says_what_the_files_hold_and_never_more():
         for k in ("113", "52", "2351", "152", "2463", "2674"):
             e.r[k] += 80.0
         assert not cs.fair_cmp(gu, gt, "2447", "2653", e)
-        only = cs.sell_facts(_leg_nich_1122(), None, fx.G["ncaab:nich"], "Nicholls", "Troy", "2447", "2653", "ncaab", gu, gt, e=e, fair=True)
+        trim, cs.TRIM = cs.TRIM, False                   # (11/23: the trim switched off = the 11/22 guard)
+        try:
+            only = cs.sell_facts(_leg_nich_1122(), None, fx.G["ncaab:nich"], "Nicholls", "Troy", "2447", "2653", "ncaab", gu, gt, e=e, fair=True)
+        finally:
+            cs.TRIM = trim
         assert [s[2] for s in only if s[2] != "best_win"] == ["three_luck"], only
+        # 11/23: with the trim on, a comparison comes back only with their toughest games left out - and says so
+        more = cs.sell_facts(_leg_nich_1122(), None, fx.G["ncaab:nich"], "Nicholls", "Troy", "2447", "2653", "ncaab", gu, gt, e=e, fair=True)
+        assert all(s[2] in ("three_luck", "best_win") or "Troy" not in s[0] or "(not counting the " in s[0] for s in more), more
 
 
 _WIZ_1122 = (   # six games a side shaped like the 11/22 Wizards +170 card: a win over this opponent this year, the Magic
@@ -30925,7 +30934,7 @@ def test_daily_1123_a_tagged_unit_play_is_a_value_play_when_its_card_is_written(
     assert '"kind": "play" if kind in UNIT_PLAY_KINDS else kind' in src
     assert 'c["opp_top_out_who"] = (op["name"], op["ppg"])' in inspect.getsource(sports.mark_ncaab_top_out)
     sell = inspect.getsource(cs.sell_facts)
-    assert '"topout"' in sell and 'leg.get("opp_top_out_who")' in sell and "sat out their last game" in sell
+    assert '"topout"' in sell and "top_out_who(leg)" in sell and "sat out their last game" in sell   # (11/23: off the mark or the reason)
     line = "🪑 BYU's top scorer Robert Wright III (23.8 a game) sat out their last game."
     assert not cs.is_sell(line) and cs.numbers_wrong(line, "Washington", "BYU", "ncaab", [], [], "1", "2") == ""   # (a box fact - no stat line's number check)
     assert cs.reason_backed(line, {"sold": [cs.sig(line)], "reasons": []}) == "reason"
@@ -31017,6 +31026,343 @@ def test_daily_1123_the_hockey_dog_that_gives_the_puck_away_on_the_road_is_a_hal
     # the college hoops league map: LAST season's league play is January-March of the year this season starts in
     ksrc = inspect.getsource(nk.conferences)
     assert 'f"{season}-01-03", f"{season}-03-01"' in ksrc and "season - 1}-01-03" not in ksrc
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 11/23 - EVERY REASON ON THE CARD (results/studies/cards_1123/README.md). The owner, 11/23, after cards_1122: "I'm reading
+# through the full breakdowns, and they're really short and vague on some of them. We need to be more thorough on these
+# breakdowns, on why we're choosing them, and sell our picks, basically." The three cards of the day, off the real games
+# and team boxes going into 11/23 (the _Fx1122 rows + an 11th field: the home team's closing spread; the rows after the
+# comment are the other D1 games of the teams these two played - the scores only).
+# ---------------------------------------------------------------------------------------------------------------------
+_SJSU_UCSD_1123 = (
+    "2026-11-02T20:00|2636|UTSA|74|23|San José St|95|0|27-63 12-34 8-13 22 9 14 28 12 16 11 2|33-56 10-26 19-22 43 13 21 46 19 24 9 1|-8.5",
+    "2026-11-03T03:00|2850|Whittier|75|28|UC San Diego|100|0|26-64 10-30 13-21 37 8 12 26 11 11 4 3|36-75 9-29 19-26 49 15 8 54 19 16 9 2|",
+    "2026-11-08T03:00|23|San José St|79|300|UC Irvine|91|0|29-64 13-32 8-11 24 6 11 24 8 15 10 1|33-63 6-19 19-27 46 16 15 44 11 16 5 7|-8.5",
+    "2026-11-08T03:00|278|Fresno St|65|28|UC San Diego|81|0|26-68 9-37 4-5 40 16 13 34 5 14 4 5|33-65 9-25 6-10 38 11 8 48 21 11 8 1|-10.5",
+    "2026-11-13T03:00|27|UC Riverside|80|23|San José St|75|0|28-51 11-24 13-23 21 5 15 28 18 16 14 1|26-43 6-14 17-25 29 6 24 34 5 16 7 1|-8.5",
+    "2026-11-14T03:00|28|UC San Diego|82|328|Utah State|120|0|30-67 13-33 9-11 26 7 13 32 5 15 6 1|42-68 21-38 15-18 38 7 9 40 9 24 7 1|-13.5",
+    "2026-11-16T02:00|2011|Alabama St|68|23|San José St|80|0|27-55 10-25 4-5 21 6 9 30 10 15 3 2|27-52 8-20 18-24 34 13 7 38 8 18 2 2|-13.5",
+    "2026-11-17T03:00|2640|Texas Southern|92|28|UC San Diego|97|0|33-61 7-23 19-22 34 8 16 36 19 12 7 6|34-74 7-29 22-37 43 23 8 52 12 21 9 0|-18.5",
+    "2026-11-19T02:00|278|Fresno St|86|23|San José St|92|0|30-58 13-27 13-19 33 9 14 34 7 20 4 1|29-58 12-25 22-29 32 9 12 30 19 18 7 3|-6.5",
+    "2026-11-23T02:45|28|UC San Diego|64|2547|Seattle U|90|1|23-51 9-24 9-16 25 6 16 28 6 18 8 3|29-59 11-27 21-30 39 13 11 30 6 16 10 2|1.5",
+    "2026-11-23T04:59|2350|Loyola Chicago|72|23|San José St|63|1|23-46 6-20 20-25 30 5 20 28 16 15 10 1|15-48 3-18 30-41 28 10 17 22 7 10 11 3|4.5",
+    # the teams they played: their other games against D1 teams (the scores)
+    "2026-11-03T01:00|2643|The Citadel|52|2350|Loyola Chicago|77|0|||-14.5",
+    "2026-11-03T02:00|2640|Texas Southern|79|2253|Grand Canyon|103|0|||-28.5",
+    "2026-11-03T02:30|304|Idaho St|58|328|Utah State|94|0|||-26.5",
+    "2026-11-03T04:59|2547|Seattle U|73|62|Hawai'i|74|0|||-1.5",
+    "2026-11-04T01:00|2011|Alabama St|66|245|Texas A&M|97|0|||-32.5",
+    "2026-11-06T01:00|2698|West Georgia|53|2350|Loyola Chicago|76|0|||-17.5",
+    "2026-11-07T01:00|2640|Texas Southern|51|99|LSU|92|0|||-35.5",
+    "2026-11-07T21:00|2437|Omaha|56|328|Utah State|90|0|||-29.5", "2026-11-07T22:00|2678|VMI|68|2636|UTSA|70|0|||-5.5",
+    "2026-11-08T00:30|2172|Denver|60|27|UC Riverside|64|0|||-1.5",
+    "2026-11-08T03:00|2502|Portland St|60|2547|Seattle U|79|0|||-10.5",
+    "2026-11-11T02:00|3101|Utah Tech|86|328|Utah State|118|0|||-25.5",
+    "2026-11-11T02:00|2247|Georgia St|92|278|Fresno St|95|0|||-5.5",
+    "2026-11-11T20:00|2350|Loyola Chicago|93|2005|Air Force|107|0|||10.5",
+    "2026-11-12T03:00|2636|UTSA|86|2547|Seattle U|59|0|||-16.5",
+    "2026-11-14T01:00|2640|Texas Southern|78|93|Murray St|99|0|||-28.5",
+    "2026-11-14T18:30|2350|Loyola Chicago|73|36|Colorado St|58|0|||-7.5",
+    "2026-11-14T23:00|27|UC Riverside|80|278|Fresno St|89|0|||-3.5",
+    "2026-11-15T21:00|304|Idaho St|70|2547|Seattle U|77|0|||-15.5", "2026-11-16T01:00|326|Texas St|87|2636|UTSA|67|0|||3.5",
+    "2026-11-18T02:00|2011|Alabama St|75|302|UC Davis|68|0|||-12.5",
+    "2026-11-18T03:00|2547|Seattle U|83|2856|CA Baptist|54|0|||8.5",
+    "2026-11-18T03:00|300|UC Irvine|61|24|Stanford|65|0|||-6.5",
+    "2026-11-19T01:00|2724|Wichita St|79|2350|Loyola Chicago|75|0|||1.5",
+    "2026-11-19T01:00|50|Florida A&M|78|2636|UTSA|98|0|||-17.5",
+    "2026-11-19T02:00|2692|Weber St|71|328|Utah State|101|0|||-28.5",
+    "2026-11-19T02:30|27|UC Riverside|62|301|San Diego|71|0|||-6.5",
+    "2026-11-19T03:00|2640|Texas Southern|51|21|San Diego St|97|0|||-24.5",
+    "2026-11-21T03:00|2011|Alabama St|68|278|Fresno St|80|0|||-10.5",
+    "2026-11-21T21:30|301|San Diego|67|300|UC Irvine|64|1|||4.5", "2026-11-21T22:00|2005|Air Force|68|2636|UTSA|90|0|||-5.5",
+    "2026-11-22T01:30|2443|LSU N Orleans|75|2640|Texas Southern|70|0|||-1.5",
+    "2026-11-22T21:30|2351|LMU|72|300|UC Irvine|68|1|||1.5",)
+_SJSU_UCSD_1123_ELO = {"2005": 1285, "2011": 1301, "21": 1751, "2172": 1327, "2247": 1314, "2253": 1682, "23": 1411,
+    "2350": 1523, "2351": 1490, "24": 1648, "2437": 1357, "2443": 1444, "245": 1794, "2502": 1450, "2547": 1594,
+    "2636": 1422, "2640": 1278, "2643": 1370, "2678": 1224, "2692": 1354, "2698": 1283, "27": 1396, "2724": 1732,
+    "278": 1463, "28": 1497, "2850": 1500, "2856": 1391, "300": 1518, "301": 1562, "302": 1429, "304": 1344,
+    "3101": 1411, "326": 1703, "328": 1800, "36": 1575, "50": 1261, "62": 1470, "93": 1680, "99": 1659}
+
+_INST_ECU_1123 = (
+    "2026-11-03T00:00|2908|SC Upstate|70|151|East Carolina|83|0|29-59 7-20 5-8 31 10 20 40 10 19 6 1|27-57 12-25 17-25 31 11 11 20 14 15 9 2|-15.5",
+    "2026-11-03T00:00|2429|Charlotte|78|282|Indiana St|70|0|26-52 12-25 14-19 40 12 16 26 4 10 3 5|27-61 6-20 10-12 25 8 7 36 5 15 9 4|5.5",
+    "2026-11-07T00:00|282|Indiana St|69|2050|Ball State|66|0|22-55 8-17 17-23 36 11 14 28 9 10 7 0|24-54 3-16 15-26 36 11 14 30 0 7 6 2|-1.5",
+    "2026-11-07T19:00|350|UNC Wilmington|78|151|East Carolina|75|0|25-58 9-24 19-35 48 13 19 32 15 17 4 1|23-62 9-37 20-24 31 7 11 26 14 14 9 4|5.5",
+    "2026-11-11T21:00|2448|NC A&T|67|151|East Carolina|72|0|16-54 4-15 31-46 46 19 18 12 19 10 8 2|24-57 7-21 17-26 39 12 17 26 14 18 10 7|-11.5",
+    "2026-11-12T00:00|270|Milwaukee|82|282|Indiana St|73|0|31-60 4-11 16-26 43 7 8 42 17 13 2 6|25-59 7-23 16-27 33 6 9 34 9 18 4 3|-4.5",
+    "2026-11-14T21:00|2169|Delaware St|48|151|East Carolina|72|0|19-59 5-19 5-7 36 13 17 22 8 10 5 2|24-56 9-33 15-19 36 11 9 26 8 17 6 5|-15.5",
+    "2026-11-15T00:00|2189|Earlham|37|282|Indiana St|109|0|14-59 4-19 5-10 28 10 20 18 0 9 4 1|45-81 9-29 10-12 56 19 6 72 24 20 9 7|",
+    "2026-11-20T20:00|282|Indiana St|76|2617|SF Austin|86|1|21-46 8-22 26-41 23 5 16 22 7 15 8 1|24-48 7-13 31-40 40 11 19 34 8 12 6 0|-4.5",
+    "2026-11-21T01:00|151|East Carolina|79|3084|Utah Valley|90|1|23-52 11-25 22-29 26 8 13 24 20 14 4 2|29-56 5-16 27-40 38 14 13 42 11 15 7 3|3.5",
+    "2026-11-21T20:00|2393|MTSU|69|282|Indiana St|59|1|26-49 4-13 13-17 28 3 11 40 7 11 7 1|21-59 9-29 8-11 30 11 14 22 4 17 2 1|2.5",
+    "2026-11-21T22:30|79|S Illinois|85|151|East Carolina|69|1|28-53 3-15 26-34 39 12 19 48 5 12 6 3|21-53 6-24 21-25 23 7 15 24 4 10 14 1|1.5",
+    # the teams they played: their other games against D1 teams (the scores)
+    "2026-11-03T00:00|2050|Ball State|55|290|GA Southern|67|0|||1.5",
+    "2026-11-03T03:30|270|Milwaukee|63|30|USC|95|0|||-26.5",
+    "2026-11-05T03:00|270|Milwaukee|72|2541|Santa Clara|95|0|||-16.5",
+    "2026-11-06T00:00|2169|Delaware St|60|2426|Navy|66|0|||-9.5",
+    "2026-11-06T00:00|2247|Georgia St|67|2429|Charlotte|77|0|||-11.5",
+    "2026-11-06T23:30|2569|SC State|78|2908|SC Upstate|70|0|||-3.5",
+    "2026-11-07T02:00|2393|MTSU|45|2305|Kansas|89|0|||-28.5",
+    "2026-11-07T02:15|79|S Illinois|93|140|Kansas City|100|0|||1.5", "2026-11-07T18:00|2448|NC A&T|70|195|Ohio|80|0|||-14.5",
+    "2026-11-08T02:00|3084|Utah Valley|101|2692|Weber St|93|0|||7.5",
+    "2026-11-10T00:00|2908|SC Upstate|56|324|Coastal|65|0|||-10.5",
+    "2026-11-10T02:00|2550|Seton Hall|68|2429|Charlotte|62|1|||4.5",
+    "2026-11-10T23:30|2169|Delaware St|78|46|Georgetown|83|0|||-30.5",
+    "2026-11-11T00:30|339|Evansville|68|2393|MTSU|73|0|||-9.5",
+    "2026-11-12T00:00|2309|Kent State|73|350|UNC Wilmington|91|0|||-7.5",
+    "2026-11-12T01:00|2617|SF Austin|76|2000|Abilene Chrstn|71|0|||6.5",
+    "2026-11-13T01:00|257|Richmond|70|79|S Illinois|80|0|||2.5",
+    "2026-11-14T00:00|2026|App State|66|2429|Charlotte|60|0|||-8.5",
+    "2026-11-14T00:30|2546|SE Missouri|75|2393|MTSU|88|0|||-5.5", "2026-11-14T01:00|270|Milwaukee|64|2628|TCU|76|0|||-22.5",
+    "2026-11-14T02:00|2050|Ball State|65|2567|SMU|90|0|||-22.5", "2026-11-14T19:00|242|Rice|81|2617|SF Austin|78|0|||-9.5",
+    "2026-11-14T21:30|2908|SC Upstate|77|2097|Campbell|93|0|||-9.5",
+    "2026-11-15T03:00|3084|Utah Valley|73|2440|Nevada|71|0|||-9.5",
+    "2026-11-17T23:00|2335|Liberty|87|79|S Illinois|78|1|||-2.5",
+    "2026-11-18T00:00|2050|Ball State|71|52|Florida St|85|0|||-25.5",
+    "2026-11-18T00:00|2429|Charlotte|73|2166|Davidson|66|0|||-3.5",
+    "2026-11-18T01:00|2393|MTSU|85|290|GA Southern|78|0|||1.5",
+    "2026-11-19T00:00|350|UNC Wilmington|114|112358|Long Island|115|0|||8.5",
+    "2026-11-19T00:00|2415|Morgan St|70|2448|NC A&T|82|0|||-8.5",
+    "2026-11-19T01:30|2535|Samford|74|2908|SC Upstate|64|0|||7.5", "2026-11-20T17:30|218|Temple|85|2393|MTSU|76|1|||3.5",
+    "2026-11-20T22:30|2630|UT Martin|76|79|S Illinois|73|1|||-2.5",
+    "2026-11-21T00:00|315|Niagara|103|2169|Delaware St|101|0|||-1.5",
+    "2026-11-21T16:00|2908|SC Upstate|66|2430|UNC Greensboro|85|0|||-6.5",
+    "2026-11-21T20:00|2900|St Thomas|98|270|Milwaukee|70|0|||1.5",
+    "2026-11-21T23:00|350|UNC Wilmington|89|2450|Norfolk St|80|0|||11.5",
+    "2026-11-22T22:30|218|Temple|70|2617|SF Austin|72|1|||1.5",
+    "2026-11-23T01:10|2630|UT Martin|76|3084|Utah Valley|78|1|||-6.5",)
+_INST_ECU_1123_ELO = {"112358": 1356, "140": 1272, "151": 1383, "195": 1515, "2000": 1353, "2026": 1576, "2050": 1358,
+    "2097": 1495, "2166": 1599, "2169": 1176, "218": 1492, "2189": 1500, "2247": 1314, "2305": 1827, "2309": 1451,
+    "2335": 1555, "2393": 1541, "2415": 1284, "242": 1507, "2426": 1497, "2429": 1568, "2430": 1423, "2440": 1616,
+    "2448": 1353, "2450": 1242, "2535": 1508, "2541": 1738, "2546": 1430, "2550": 1742, "2567": 1678, "2569": 1349,
+    "257": 1474, "2617": 1627, "2628": 1723, "2630": 1516, "2692": 1354, "270": 1372, "282": 1355, "290": 1456,
+    "2900": 1592, "2908": 1202, "30": 1679, "3084": 1701, "315": 1261, "324": 1463, "339": 1359, "350": 1627,
+    "46": 1700, "52": 1722, "79": 1498}
+
+_WASH_BYU_1123 = (
+    "2026-11-03T02:00|194|Ohio State|83|252|BYU|94|1|28-57 9-28 18-19 31 10 12 38 8 18 6 3|31-57 11-24 21-27 30 10 8 36 14 12 3 0|-3.5",
+    "2026-11-03T03:00|2142|Colgate|76|264|Washington|90|0|27-62 7-22 13-26 35 12 10 34 0 15 4 2|25-54 10-28 30-36 34 10 10 26 16 10 6 5|-14.5",
+    "2026-11-07T02:00|2437|Omaha|67|252|BYU|108|0|26-61 8-23 7-13 27 8 12 24 0 14 3 1|39-70 16-35 14-18 46 15 8 46 31 22 6 6|-33.5",
+    "2026-11-10T03:00|2400|Miss Valley St|64|264|Washington|77|0|19-52 7-22 19-23 25 6 8 20 12 8 8 2|28-67 17-50 4-7 46 16 13 22 14 23 6 2|",
+    "2026-11-11T02:00|2511|Queens|82|252|BYU|98|0|28-69 14-34 12-14 38 13 13 24 14 22 11 3|35-65 17-37 11-17 37 8 12 36 18 20 9 8|-28.5",
+    "2026-11-13T02:00|147|Montana St|71|252|BYU|86|0|27-62 10-34 7-13 30 9 12 24 4 16 7 2|32-55 9-22 13-24 38 8 12 46 28 15 11 2|-21.5",
+    "2026-11-18T03:00|2829|Simon Fraser|59|264|Washington|96|0|20-55 9-28 10-11 22 6 14 16 11 10 7 5|36-66 14-38 10-19 47 18 11 34 13 23 7 2|",
+    "2026-11-19T02:00|2458|N Colorado|54|252|BYU|98|0|20-47 6-18 8-17 21 0 24 28 12 12 9 1|37-69 11-33 13-15 45 13 17 52 36 20 13 4|-28.5",
+    "2026-11-20T02:00|3101|Utah Tech|69|264|Washington|82|0|26-60 8-19 9-14 33 14 13 26 2 8 7 2|30-64 12-27 10-12 40 16 11 28 4 20 8 1|-17.5")
+_WASH_BYU_1123_ELO = {"147": 1514, "194": 1719, "2142": 1374, "2400": 1075, "2437": 1357, "2458": 1428, "2511": 1519,
+    "2829": 1500, "3101": 1411}
+
+
+_DOG_READ_1123 = ("the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - "
+                  "dogs reading 4+ beat their price every season 2018-25")
+
+
+def _leg_1123(gid, side, team, opp, odds, **kw):
+    dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+    leg = {"game_id": gid, "league": "ncaab", "side": side, "home": side == "home", "neutral": True, "team": team, "opp": opp,
+           "market": "ml", "odds": odds, "dec": round(dec, 4), "p": 0.46, "p_market": 0.467, "edge_own": -0.05, "tier": "value",
+           "is_lean": False, "games_in": 6, "opp_games_in": 5}
+    leg.update(kw)
+    return leg
+
+
+def _dog_slot_1123(**kw):
+    return dict({"ncaab_slot": "dog", "dog_read": 4.0, "dog_ctx": {"cw5": 0, "hits_top": False, "opp_won": False, "won": False},
+                 "dog_read_parts": {"facts": [], "games_ok": True, "knowledge": 0, "ratings": 2, "weights": 2.0},
+                 "ncaab_fired": ["the favorite lost its last"], "reasons": [_DOG_READ_1123]}, **kw)
+
+
+class _Seen1123:
+    """Every team's games are on file (the fixture is a slice of the season - the pace test would call it short)."""
+
+    def __enter__(self):
+        import sports_breakdown_v24 as v24, sports_card_sell as cs
+        self.keep = (v24.seen_all, cs.TRIM, cs.SCHED_FACTS, cs.REASONS_1123)
+        v24.seen_all = lambda *a, **k: True
+        cs._IDX.clear()
+        return self
+
+    def __exit__(self, *a):
+        import sports_breakdown_v24 as v24, sports_card_sell as cs
+        v24.seen_all, cs.TRIM, cs.SCHED_FACTS, cs.REASONS_1123 = self.keep
+        cs._IDX.clear()
+
+
+def test_cards_1123_the_san_jose_st_card_says_the_schedule_when_the_boxes_cant_be_compared():
+    """The San José St +105 1u card (11/23, the college hoops dog slot - the read: the ratings back the dog on this floor,
+    the favorite lost its last) posted as three lines: UC San Diego's last loss, the last 3 on the scoreboard, a scorer.
+    UC San Diego's schedule ran 96 rating points tougher than ours (one trip to Utah State), so the schedule guard
+    (SCHED_EDGE) cut EVERY box-score line and nothing took their place. From 11/23: (1) the schedule is said as the
+    schedule - the two D1 teams UC San Diego beat (Fresno St, Texas Southern) won 3 of 11 against D1 teams, and the night
+    they were an 18.5-point favorite over Texas Southern they won by 5 - what "the ratings back this side" stands on, so
+    it leads the card; (2) the box comparison leaves their toughest game out and says so ("not counting the Utah State
+    game"); (3) every one of those numbers is re-derived on the page."""
+    import sports_card_sell as cs, sports_card_check as cc
+    pre = {"id": "ncaab:sjsu", "start": "2026-11-24T04:59Z", "home": "28", "away": "23", "home_name": "UC San Diego",
+           "away_name": "San José St", "neutral": "1"}
+    leg0 = _leg_1123("ncaab:sjsu", "away", "San José St", "UC San Diego", 105, **_dog_slot_1123(eff_p=0.5528, to_net=-0.0306, opp_tp_net=-0.038, reb_gap=4.37))
+    with _Fx1122("ncaab", _SJSU_UCSD_1123, pre, non_d1=("2850",), ratings=_SJSU_UCSD_1123_ELO) as fx, _Seen1123():
+        leg, facts, page = fx.card(leg0)
+        txt = "\n".join(page + [leg["why_line"]])
+        why = leg["why_line"]
+        assert len(facts) >= 6, txt                                                        # the floor - it posted with three
+        assert why.startswith("🧭") and "San José St" in why and "Fresno St and Texas Southern" in why and "won 3 of 11" in why, why
+        assert cs.reason_backed(why, leg) == "reason" and leg["why_key"] == "w_sell", (why, leg["why_key"])
+        fav = next(x for x in facts if x.startswith("🧭") and "18.5" in x)
+        assert "Texas Southern" in fav and "won by 5" in fav, fav
+        glass = next(x for x in facts if x.startswith("🧲"))
+        assert "(not counting the Utah State game)" in glass and "3" in glass and "2" in glass, glass
+        assert cc.sell_numbers(glass, leg, fx.G) == "" and cc.sell_numbers(why, leg, fx.G) == "" and cc.sell_numbers(fav, leg, fx.G) == ""
+        assert cc.Q_BOX in cc.sell_numbers(glass.replace("(not counting the Utah State game)", "").strip(), leg, fx.G)   # with Utah State in, it's 5
+        assert cc.Q_BOX in cc.sell_numbers(why.replace("3 of 11", "5 of 11"), leg, fx.G)
+        assert cc.Q_BOX in cc.sell_numbers(why.replace("Texas Southern", "Utah State"), leg, fx.G)
+        assert cc.Q_BOX in cc.sell_numbers(fav.replace("18.5", "8.5"), leg, fx.G)
+        assert cc.sell_numbers(why.replace("3 of 11", "3 of 10"), leg, fx.G) == ""         # (written a game ago: still stands)
+        assert cs.dedupe(facts[1:], "San José St", "UC San Diego", why)[1] == [], txt
+        assert sum(1 for x in facts if cs.reason_backed(x, leg) == "reason") >= 2, txt     # 🧭 + their last loss
+        assert not any(x.startswith("⚖️") for x in facts) and not _BAD_TALK_1122.search(txt), txt
+        assert not re.search(r"Utah State.{0,40}(?:trash|ass|bum)", txt, re.I), txt
+        # the guard itself stands: the schedules ARE 50+ apart, and without the trim the comparison is still quiet
+        gu = [g for g in fx.G.values() if g["status"] == "final" and "23" in (g["home"], g["away"])]
+        gt = [g for g in fx.G.values() if g["status"] == "final" and "28" in (g["home"], g["away"]) and "2850" not in (g["home"], g["away"])]
+        e = fx.elo["ncaab"]
+        assert not cs.fair_cmp(gu, gt, "23", "28", e)
+        keep, left = cs.fair_trim("ncaab", gu, gt, "23", "28", e)
+        assert left == ["Utah State"] and len(keep) == 3 and cs.fair_cmp(gu, keep, "23", "28", e), (left, keep)
+        assert cs.trim_note(left) == " (not counting the Utah State game)" and cs.trim_note(["A", "B"]) == " (not counting the A and B games)"
+        # the switches: off = the three-line card of 11/23
+        cs.TRIM = cs.SCHED_FACTS = cs.REASONS_1123 = False
+        cc.reset()
+        _leg, old, _page = fx.card(leg0)
+        assert len(old) < 6 and not any(x.startswith(("🧭", "🧲")) for x in old), old
+
+
+def test_cards_1123_the_indiana_st_card_says_who_they_beat_and_one_half_not_two():
+    """The Indiana St +124 1u card (11/23) was East Carolina's last loss + "East Carolina been trash as fuck", the second
+    half of the last 5 on the scoreboard, the FIRST half of the last 5 on the scoreboard (one fact said twice) and a
+    scorer - nothing on why. Now: the three D1 teams East Carolina beat (SC Upstate, NC A&T, Delaware St) won 1 of 13
+    against D1 teams - the reason line, under the pick; East Carolina put teams on the line 28 times a game; ONE half
+    line, the better one (189-159, not 197-181). The files hold five facts for this side - the card says five."""
+    import sports_card_sell as cs, sports_card_check as cc
+    pre = {"id": "ncaab:inst", "start": "2026-11-23T17:30Z", "home": "151", "away": "282", "home_name": "East Carolina",
+           "away_name": "Indiana St", "neutral": "1"}
+    leg0 = _leg_1123("ncaab:inst", "away", "Indiana St", "East Carolina", 124, opp_games_in=6,
+                     **_dog_slot_1123(eff_p=0.5025, to_net=-0.0062, opp_tp_net=0.025, reb_gap=5.16))
+    with _Fx1122("ncaab", _INST_ECU_1123, pre, non_d1=("2189",), ratings=_INST_ECU_1123_ELO) as fx, _Seen1123():
+        leg, facts, page = fx.card(leg0)
+        txt = "\n".join(page + [leg["why_line"]])
+        why = leg["why_line"]
+        assert why.startswith("🧭") and "SC Upstate, NC A&T and Delaware St" in why and "won 1 of 13" in why, why
+        assert cs.reason_backed(why, leg) == "reason" and "trash" not in txt, txt
+        halves = [x for x in facts if x.startswith(("⏱", "🏁"))]
+        assert len(halves) <= 1, halves                         # (the fixture rows carry no line scores: the rule is below)
+        fouls = next(x for x in facts if x.startswith("🎁"))
+        assert "East Carolina" in fouls and "28" in fouls and "23" in fouls and cc.sell_numbers(fouls, leg, fx.G) == "", fouls
+        assert any(x.startswith(("📅", "🥊")) and "85-69" in x and "S Illinois" in x for x in facts), txt   # the study angle: they lost their last
+        assert len(facts) >= 4 and cs.dedupe(facts[1:], "Indiana St", "East Carolina", why)[1] == [], txt   # (+ the half line live)
+        assert not any(x.startswith("🧲") for x in facts), txt       # they get beat on the glass as bad as we do: no glass line
+        assert not _BAD_TALK_1122.search(txt), txt
+    # the two halves are one fact; a quarter and a period are not halves
+    a = "⏱️ The second half, last 5 games: 197 points for Indiana St, 181 against."
+    b = "🏁 Indiana St outscored teams 189 to 159 in the first half over their last 5 games. They come out ready."
+    assert cs.same_stat(a, b, "Indiana St", "East Carolina") and cs.dedupe([a, b], "Indiana St", "East Carolina") == ([b], [a])
+    assert cs.dedupe([b, a], "Indiana St", "East Carolina") == ([b], [a])
+    assert cs.dedupe([a, b], "Indiana St", "East Carolina", leg={"bv": 85}) == ([a, b], [])   # a started card from before stays whole
+    assert cs.dedupe([a, b], "Indiana St", "East Carolina", leg={"bv": 86}) == ([b], [a]) and cs.HALF_BV == 86
+    assert not cs.same_stat("⏱️ The 4th quarter, last 5 games: 140 points for the Kings, 120 against.",
+                            "🏁 The Kings outscored teams 150 to 130 in the 1st quarter over their last 5 games.", "Kings", "Suns")
+    assert not cs.same_stat(a, b.replace("Indiana St", "East Carolina"), "Indiana St", "East Carolina")
+    # the same record twice is one fact too
+    r1, r2 = "🔥 Washington hasn't lost in 4 - 4-0 overall.", "📋 Washington sits 4-0; their last one was an 82-69 win over Utah Tech."
+    assert cs.dedupe([r1, r2], "Washington", "BYU") == ([r1], [r2])
+    assert cs.dedupe(["🔥 UTEP (3-1) won 3 in a row and they ain't done.", "📋 Both of UTEP's wins came at home."], "UTEP", "X")[1] == []
+    assert cs.reason_backed(a, {}) == "" and cs.reason_backed(r1, {}) == ""            # form, never a 'why'
+
+
+def test_cards_1123_the_washington_card_says_the_reason_the_engine_is_on_it():
+    """The Washington +11.5 ½u card (11/23, the college hoops spread stack: BYU's top scorer Robert Wright III, 23.8 a
+    game, sat their last game + BYU lucky from three) was eight lines about Washington's scoring - the same record
+    twice, both halves - and its ONE named reason was nowhere on it. The leg was posted before the mark kept the name
+    (no opp_top_out_who): the card reads it off the reason the leg carries. It leads; BYU's threes (64 for 151, 42%)
+    are the second reason line, said as it coming back down - never praise; the record and the halves once each."""
+    import sports_card_sell as cs, sports_card_check as cc, sports_breakdown_v24 as v24
+    pre = {"id": "ncaab:wash", "start": "2026-11-23T22:00Z", "home": "252", "away": "264", "home_name": "BYU", "away_name": "Washington", "neutral": "1"}
+    leg0 = _leg_1123("ncaab:wash", "away", "Washington", "BYU", -112, market="spread", line=11.5, p=0.5047, p_market=0.5283, games_in=4,
+                     opp_top_out=True, opp_tp_net=0.081, spread_stack=0.05, spread_stack_n=2, dog_ctx={"cw5": 0, "hits_top": False, "opp_won": True, "won": True},
+                     reasons=["their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)"])
+    assert cs.top_out_who(leg0) == ("Robert Wright III", 23.8) and cs.top_out_who(dict(leg0, opp_top_out_who=("A B", 9.1))) == ("A B", 9.1)
+    assert cs.top_out_who(dict(leg0, opp_top_out=False)) is None
+    with _Fx1122("ncaab", _WASH_BYU_1123, pre, non_d1=("2829",), ratings=_WASH_BYU_1123_ELO) as fx, _Seen1123():
+        leg, facts, page = fx.card(leg0)
+        txt = "\n".join(page + [leg["why_line"]])
+        why = leg["why_line"]
+        assert why.startswith("🪑") and "Washington" in why and "Robert Wright III" in why and "23.8" in why, why
+        assert cs.reason_backed(why, leg) == "reason" and leg["why_key"] == "w_sell", why
+        three = next(x for x in facts if x.startswith("👌"))
+        assert "BYU" in three and "64 for 151" in three and "42%" in three and cs.reason_backed(three, leg) == "reason", three
+        assert not re.search(r"BYU (?:can shoot|shoots? it well|are? great)", three), three
+        assert cc.sell_numbers(three, leg, fx.G) == "" and cc.Q_BOX in cc.sell_numbers(three.replace("151", "141"), leg, fx.G)
+        assert cc.sell_numbers(why, leg, fx.G) == "" and cc.Q_BOX in cc.sell_numbers(why.replace("Robert Wright III", "Somebody Else"), leg, fx.G)
+        assert len(facts) >= 6 and sum(1 for x in facts if x.startswith(("⏱", "🏁"))) <= 1, txt
+        assert sum(1 for x in facts if re.search(r"\b4-0\b", x)) <= 1, txt                  # the record once
+        assert cs.dedupe(facts[1:], "Washington", "BYU", why)[1] == [], txt
+        assert not any(x.startswith("🧲") for x in facts), txt    # Washington played nobody: no box comparison can be made fair
+        assert "+11.5" in page[-1] and not _BAD_TALK_1122.search(txt), txt
+        gu = [g for g in fx.G.values() if g["status"] == "final" and "264" in (g["home"], g["away"]) and "2829" not in (g["home"], g["away"])]
+        gt = [g for g in fx.G.values() if g["status"] == "final" and "252" in (g["home"], g["away"])]
+        assert cs.fair_trim("ncaab", gu, gt, "264", "252", fx.elo["ncaab"]) == (None, [])
+        # the other reasons a stack side carries, each as a fact: the side across that keeps beating the spread (a count,
+        # never a price claim) and the top-25 team's road games
+        made = cs.sched_lines("ncaab", "Washington", "BYU", gu, gt, "264", "252", None, None, dict(leg0, ats_gap=-4.2), g=fx.G["ncaab:wash"], s_theirs=gt)
+        ats = next(m for m in made if m[0] == "ats_hot")
+        k, n = cs.covers(gt, "252")
+        assert (k, n) == (3, 5) and ats[2] is True and all(f"{k} of" in w and "spread" in w.lower() or "covered" in w for w in ats[1]), (k, n, ats)
+        assert not any(re.search(r"number|price|line makers|books|inflated|overvalued", w, re.I) for w in ats[1]), ats
+        assert cs.sched_wrong(ats[1][0], "Washington", "BYU", gu, gt, "264", "252", None, None, s_theirs=gt) == ""
+        assert cs.sched_wrong(ats[1][0].replace("3 of", "4 of"), "Washington", "BYU", gu, gt, "264", "252", None, None, s_theirs=gt)
+        assert not any(m[0] == "ats_hot" for m in cs.sched_lines("ncaab", "Washington", "BYU", gu, gt, "264", "252", None, None, leg0, s_theirs=gt))
+        home_g = dict(fx.G["ncaab:wash"], neutral="0")
+        made = cs.sched_lines("ncaab", "Washington", "BYU", gu, gt, "264", "252", None, None, dict(leg0, vs_ranked_road=True), g=home_g, s_theirs=gt)
+        road = next(m for m in made if m[0] == "road_first")
+        assert road[2] is True and "true road game" in road[1][0] and "BYU" in road[1][0], road
+        assert cs.sched_wrong(road[1][0], "Washington", "BYU", gu, gt, "264", "252", None, None, s_theirs=gt) == ""
+        assert not any(m[0] == "road_first" for m in cs.sched_lines(
+            "ncaab", "Washington", "BYU", gu, gt, "264", "252", None, None, dict(leg0, vs_ranked_road=True), g=fx.G["ncaab:wash"], s_theirs=gt))
+    # the line under the pick is the biggest reason: a streak / the records / their last loss give way to a reason line -
+    # a back-to-back, a named absence, a goalie, a quarterback never do
+    sold = [("🪑 BYU's top scorer Robert Wright III (23.8 a game) sat out their last game.", True, "topout", [])]
+    for key in ("w_hot", "w_cold", "w_better", "w_their_loss", "", "w_num"):
+        up = v24.lead_upgrade({"why_key": key, "why_line": "🔥 x"}, sold, "Washington", "BYU", {"id": "g"}, "away", body=None)
+        assert up and up[1] == sold[0][0] and up[0].startswith("🪑") and "Washington" in up[0], (key, up)
+    for key in ("w_rest", "w_hurt_named", "w_hurt", "w_goalie", "w_qb"):
+        assert v24.lead_upgrade({"why_key": key, "why_line": "😴 x"}, sold, "Washington", "BYU", {"id": "g"}, "away", body=None) is None, key
+
+
+def test_cards_1123_the_standing_rules_and_the_count_of_big_wins_is_not_a_record():
+    """The standing rules of 11/23: a 🧭 schedule line is a line that says why (the audit's count), never jargon, never
+    'our ratings'; "won 3 of their last 5 games by 10 or more" counts the BIG wins - the page read it as the record,
+    called it false on a 4-1 team and cut a true line (four candidate cards on 11/24); the open cards are rewritten."""
+    import sports_card_sell as cs, sports_card_check as cc, sports_breakdown, sports_breakdown_v24 as v24, inspect
+    assert sports_breakdown.VERSION >= 86 and cs.TRIM and cs.SCHED_FACTS and cs.REASONS_1123
+    assert cs.reason_backed("🧭 The D1 teams Iona beat this year (Vermont and NJIT) won 2 of 9 against D1 teams between them.", {}) == "matchup"
+    assert "🧭" in v24.LEAD_RANK and v24.lead_rank("🧭 x") < v24.lead_rank("📊 x")
+    src = inspect.getsource(cs.sched_lines) + inspect.getsource(cs.hoops_lines)
+    assert not re.search(r"our ratings|the ratings|our read|our number|the books|line makers|real talk|\bchalk\b", src, re.I)
+    src = inspect.getsource(cc.facts)
+    assert "or more" in src and "BIG wins" in src
+    assert cs.half_gap("🏁 The first half, last 4 games: 188 points for Washington, 133 against.") == 55
+    # a fair schedule is never trimmed; a hopeless one is never forced
+    class _E:
+        r = {"a": 1500.0, "b": 1500.0, "c": 1800.0, "d": 1790.0, "e": 1780.0, "f": 1770.0}
+    mk = lambda t, o: {"home": t, "away": o, "home_name": t, "away_name": o.upper()}       # noqa: E731
+    gu = [mk("us", "a"), mk("us", "b"), mk("us", "a")]
+    assert cs.fair_trim("ncaab", gu, [mk("th", "a"), mk("th", "b"), mk("th", "b")], "us", "th", _E) == ([mk("th", "a"), mk("th", "b"), mk("th", "b")], [])
+    keep, left = cs.fair_trim("ncaab", gu, [mk("th", "c"), mk("th", "a"), mk("th", "b"), mk("th", "b")], "us", "th", _E)
+    assert left == ["C"] and len(keep) == 3
+    assert cs.fair_trim("ncaab", gu, [mk("th", "c"), mk("th", "d"), mk("th", "e"), mk("th", "f"), mk("th", "a")], "us", "th", _E) == (None, [])
+    assert cs.fair_trim("ncaab", gu, [mk("th", "c"), mk("th", "a"), mk("th", "b")], "us", "th", _E) == (None, [])   # MIN_BOX left
+
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

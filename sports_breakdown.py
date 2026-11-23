@@ -10,7 +10,12 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 85          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 86          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+#   (86 - 11/23 EVERY REASON ON THE CARD, the owner: "they're really short and vague on some of them. We need to be more
+#    thorough on these breakdowns, on why we're choosing them, and sell our picks" - every reason a college hoops leg
+#    carries has its fact line (the man who sat, the hot threes, the glass, the schedule the ratings stand on - who they
+#    beat, who beat us), a schedule too tough to compare leaves its toughest games out and says so instead of going
+#    quiet, the two halves / the record once, the line under the pick is the biggest reason; results/studies/cards_1123)
 #   (83 - 11/22 THE CARD SELLS THE PICK, the owner: "The breakdowns are short and vague ... the breakdowns basically need
 #    to sell our picks why we taking them and needs to be in our lingo" - the matchup on the floor off both teams' box
 #    scores (sports_card_sell), the reason-backed line leads, one stat a team, college hoops season lines D1 games only;
