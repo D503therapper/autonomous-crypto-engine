@@ -26618,7 +26618,7 @@ def test_sweep_1117_a_long_dogs_line_never_calls_a_blowout_or_a_sure_thing():
     import inspect, sports_breakdown_v24 as b, sports_card_check as cc
     long_leg = {"market": "ml", "odds": 350, "p": 0.24, "dec": 4.5, "team": "Ball State", "opp": "Ohio", "league": "ncaaf"}
     assert b.long_dog(long_leg) and b.long_dog(long_leg, 0.233)
-    assert not b.long_dog({**long_leg, "odds": 140}), "a short dog is no long dog"
+    assert not b.long_dog({**long_leg, "odds": 140, "p": 0.48}), "a short dog read near even is no long dog (11/23: under 45% it is)"
     assert not b.long_dog({**long_leg, "p": 0.46}, 0.46), "a +150 dog the engine has near even is no long dog"
     assert not b.long_dog({**long_leg, "market": "spread"}) and not b.long_dog({**long_leg, "odds": -142, "p": 0.62})
     for trash in (False, True):
@@ -29196,6 +29196,18 @@ def test_live_1121_an_open_pick_whose_game_should_be_over_is_graded_without_wait
     assert sl.overdue_picks(at(23, 59).replace(day=22, hour=6), pp, ep) == []             # long past: a postponed game stops
     src = open(sl.__file__, encoding="utf-8").read()
     assert "and overdue_picks():" in src
+
+
+def test_cards_1123_a_spread_bottom_line_carries_its_points_and_a_short_dog_under_45_gets_no_beatdown_talk():
+    """11/23 pre-board: "✅ Bottom line: Washington at -115. That's the bet." on Washington +12.5 (the points gone - it read
+    like a moneyline), and "East Carolina fin to get spanked" on Indiana St +130 with an own read of 41%."""
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__, encoding="utf-8").read()
+    assert "{us} at {_am(leg['odds'])}" not in src and "{bet} at {_am(leg['odds'])}" in src
+    ind = {"market": "ml", "odds": 130, "p": 0.46, "edge_own": 0.41 * 2.3 - 1, "dec": 2.3}
+    assert v24.long_dog(ind)
+    assert not v24.long_dog({**ind, "p": 0.52, "edge_own": 0.5 * 2.3 - 1})
+    assert not v24.long_dog({**ind, "odds": -130})
 
 
 def inspect_source(obj):
