@@ -98,11 +98,15 @@ def merge_picks(ours, theirs, base=None):
             if (k not in o_ and t_.get(k, p) == p) or (k not in t_ and o_.get(k, p) == p):
                 gone.add(k)
     out = {}
+    late = set()                                             # (date, posted) of a run that re-posted a pick already up
     for p in (ours or []) + (theirs or []):
         k = _pkey(p)
         if k in gone:
             continue
         old = out.get(k)
+        if old is not None and _straight(p) and _straight(old) and (p.get("date") or "") >= STALE_FROM \
+                and p.get("posted") and old.get("posted") and p["posted"] != old["posted"]:
+            late.add((p.get("date"), max(p["posted"], old["posted"])))
         if old is not None and RANK.get(p.get("status"), 0) == RANK.get(old.get("status"), 0) \
                 and (p.get("posted") or "9") < (old.get("posted") or "9") and not p.get("legs", [{}])[0].get("result"):
             out[k] = p                                       # (the same pick twice: the first one posted stays)
@@ -127,6 +131,13 @@ def merge_picks(ours, theirs, base=None):
     rows = [p for p in rows if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")   # Dog copy goes
                                     and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
     rows = one_per_game(rows)
+    if late:                                                 # 11/23: a stale run's OTHER picks never merge in (STALE_FROM)
+        was = {_pkey(p) for p in base or []}
+        for p in rows:
+            if _straight(p) and (p.get("date"), p.get("posted")) in late and _pkey(p) not in was:
+                print(f"merge: dropped {(p.get('legs') or [{}])[0].get('team')} of {p.get('date')} ({p.get('posted')}) - "
+                      "posted by a run that never saw the board that was already up", file=sys.stderr)
+        rows = [p for p in rows if not (_straight(p) and (p.get("date"), p.get("posted")) in late and _pkey(p) not in was)]
     rows, back = keep_posted(rows, base)                     # 📌 11/16: a posted pick is never dropped by a merge
     for p in back:
         print(f"merge: kept the posted {p.get('kind')} {(p.get('legs') or [{}])[0].get('team')} of {p.get('date')} - "
@@ -135,6 +146,14 @@ def merge_picks(ours, theirs, base=None):
 
 
 RACE_FROM = "2026-10-17"
+STALE_FROM = "2026-11-24"   # 11/23 board check: "results 16:20: 0 graded, 5 new" - the live watcher's grader ran on a copy
+#   without the 8 AM board and posted its own: the Kings Dog, Indiana St and Washington again, plus San José St +105 and
+#   a SECOND 🏀 NBA floor play (Pacers +160 - its copy held the Trail Blazers on the Embiid news; the NBA floor is one a
+#   day). The 11/2 rule only spots a second board by a Lock / Dog that LOST to an earlier one - here the stale Dog was the
+#   same Kings pick, the copies folded into one key and the two new picks merged in. From this date (picks dated on /
+#   after it; the 11/23 picks are posted and stay): a run that re-posts a pick already up with a LATER posted stamp never
+#   saw the board - none of its other new picks merge in (a pick both jobs already held - in the base - always stays; the
+#   next run, seeing the whole board, posts whatever still clears the rules).
 
 
 def _straight(p):

@@ -22213,10 +22213,10 @@ def test_cbb10_1112_turnover_matchup_dog_rusty_home_side_and_league_leader_on_th
     assert nk.leader_cushion(GL, "A", "B", "2027-02-10T00:30Z") == 6.0 and nk.leader_cushion(GL, "B", "A", "2027-02-10T00:30Z") is None
     assert nk.leader_cushion(GL, "A", "nobody", "2027-02-10T00:30Z") is None
     # the league is THIS season's (January on): last season's schedule would join two leagues a school moved between
-    old = {f"ncaab:o{i}": {"id": f"ncaab:o{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2025-01-{5 + i:02d}T00:30Z",
+    old = {f"ncaab:o{i}": {"id": f"ncaab:o{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-01-{5 + i:02d}T00:30Z",
                            "home": "A", "away": o, "home_score": "70", "away_score": "60", "neutral": "0"} for i, o in enumerate(("X", "Y", "Z", "W"))}
     for i, (h, a_) in enumerate((("X", "Y"), ("Y", "Z"), ("Z", "W"), ("W", "X"), ("X", "Z"), ("Y", "W"), ("B", "X"), ("B", "Y"), ("B", "Z")), 10):
-        old[f"ncaab:o{i}"] = {"id": f"ncaab:o{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2025-01-{5 + i:02d}T00:30Z",
+        old[f"ncaab:o{i}"] = {"id": f"ncaab:o{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-01-{5 + i:02d}T00:30Z",
                               "home": h, "away": a_, "home_score": "70", "away_score": "60", "neutral": "0"}
     both = {**GL, **old}
     assert "X" in nk.conferences(both, 2026) and "X" not in nk.conferences(both, 2026, last=False)
@@ -30640,6 +30640,290 @@ def test_cards_1122_one_stat_a_team_and_the_pools_say_facts_never_our_ratings():
     assert sports_breakdown.VERSION >= 83 and v24.SELL_FROM == "2026-11-22" and cs.SELL
 
 
+
+
+def test_daily_1123_the_hoops_identity_reads_division_i_games_only_from_the_11_24_games():
+    """11/23 daily studies, the bug (STATUS 11/22): Nicholls +195 - the 11/22 ⭐ - read "defense-first" (+2 of a dog read
+    of 4) on a 110-56 win over a non-D1 school. From sports_ncaab_box.D1_FROM the identity's offense / defense numbers
+    (and the shooting form) count the games between two Division I teams only; the turnover fields keep every boxed
+    game (the replay says the tune-ups don't spoil them); can't tell who is D1 / under 5 D1 games = as before / unknown."""
+    import json as _json
+    import tempfile
+    import sports_ncaab_box as nb
+    import sports_ncaab_roster as nr
+    import sports_ncaab_knowledge as nk
+    assert nb.D1_FROM == "2026-11-24T12" and nb.d1_from("2026-11-24T23:00Z") and not nb.d1_from("2026-11-24T03:00Z")
+    assert (nb.DEF_GOOD_D1, nb.OFF_HI_D1, nb.OFF_LO_D1) == (nb.DEF_GOOD, nb.OFF_HI, nb.OFF_LO) and nb.OFF_FIRST_D1 == (3.3, -3.0)
+    tmp = tempfile.mkdtemp()
+    os.makedirs(os.path.join(tmp, "teamstats"), exist_ok=True)
+    G, lines = {}, []
+
+    def game(gid, day, home, away, hs, as_, fg_h="25-60", fg_a="25-60"):
+        G[gid] = {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-11-{day:02d}T00:00Z",
+                  "home": home, "away": away, "home_score": str(hs), "away_score": str(as_), "neutral": "0"}
+        base = {"threePointFieldGoalsMade-threePointFieldGoalsAttempted": "5-20", "freeThrowsMade-freeThrowsAttempted": "15-20",
+                "offensiveRebounds": "10", "defensiveRebounds": "25", "totalTurnovers": "10"}
+        lines.append(_json.dumps({"gid": gid, "start": G[gid]["start"], "teams": {
+            home: {**base, "fieldGoalsMade-fieldGoalsAttempted": fg_h}, away: {**base, "fieldGoalsMade-fieldGoalsAttempted": fg_a}}}))
+    for i in range(8):                                       # the league: eight D1 games at 70-70 (the average = 100.7 a 100)
+        game(f"ncaab:f{i}", 5 + i, f"a{i}", f"b{i}", 70, 70)
+    for i in range(5):                                       # N: five D1 games, 60-70 - an average defense, a poor offense
+        game(f"ncaab:n{i}", 6 + 2 * i, "N", f"a{i}", 60, 70)
+        game(f"ncaab:q{i}", 6 + 2 * i, "Q", f"b{i}", 60, 70)     # Q: the same - a bottom offense
+        game(f"ncaab:m{i}", 6 + 2 * i, "M", f"a{i}", 82, 70) if i < 4 else None   # M: four D1 games only
+    game("ncaab:tune", 17, "N", "X", 110, 40, fg_a="12-60")    # ...and N's 110-40 tune-up over X, a non-D1 school
+    game("ncaab:tuneM1", 17, "M", "X", 99, 50)
+    game("ncaab:tuneM2", 19, "M", "X", 99, 50)
+    open(os.path.join(tmp, "teamstats", "ncaab.jsonl"), "w").write("\n".join(lines) + "\n")
+    d1 = {t for g in G.values() for t in (g["home"], g["away"])} - {"X"}
+    keep = (nb.DATA, nb.LEAGUE_MIN_GAMES, nr.d1_set, nb.D1_FROM)
+    nb.DATA, nb.LEAGUE_MIN_GAMES = tmp, 5
+    nb._BOX.clear(); nb._SEASON.clear()
+    try:
+        nr.d1_set = lambda games: d1
+        old, new = nb.identity(G, "N", "2026-11-23T20:00Z"), nb.identity(G, "N", "2026-11-25T00:00Z")
+        assert old["n"] == 6 and "d1" not in old and old["def"] <= nb.DEF_GOOD and nb.def_first(old), old   # the tune-up made it "defense-first"
+        assert new["n"] == 6 and new["d1"] is True and new["n_d1"] == 5 and abs(new["def"]) < 3.0 and not nb.def_first(new), new
+        assert new["off"] < -10 and nb.off_low(new) and not nb.off_first(new)
+        assert (new["tom"], new["tor"], new["ftor"], new["tp_share"]) == (old["tom"], old["tor"], old["ftor"], old["tp_share"])   # turnovers: every game
+        assert nb.identity(G, "N", "2026-11-23T20:00Z", d1_only=True)["d1"] and "d1" not in nb.identity(G, "N", "2026-11-25T00:00Z", d1_only=False)
+        m = nb.identity(G, "M", "2026-11-25T00:00Z")         # 6 boxed games, 4 of them D1: the efficiency numbers are UNKNOWN
+        assert m["n"] == 6 and m["n_d1"] == 4 and m["off"] is None and m["def"] is None, m
+        assert not nb.off_first(m) and not nb.def_first(m) and not nb.off_low(m)
+        assert nb.identity(G, "M", "2026-11-23T20:00Z")["off"] > nb.OFF_HI          # (as built: a top-third offense, tune-ups in)
+        assert not nb.off_first(None) and not nb.def_first({}) and not nb.off_low({"off": None})
+        # the marks on the board's sides: the dog N at Q, before / from the date
+        for day, want in (("2026-11-23T20:00Z", True), ("2026-11-25T00:00Z", False)):
+            GP = {**G, "ncaab:T": {"id": "ncaab:T", "league": "ncaab", "status": "pre", "stype": "2", "start": day,
+                                   "home": "Q", "away": "N", "neutral": "0"}}
+            c = {"league": "ncaab", "market": "ml", "game_id": "ncaab:T", "side": "away", "start": day, "odds": 195, "reasons": []}
+            f = {"league": "ncaab", "market": "ml", "game_id": "ncaab:T", "side": "home", "start": day, "odds": -230, "reasons": []}
+            sports.mark_ncaab_identity(GP, [c, f])
+            assert c["def_first"] is want and c["opp_off_low"] is True and c["off_first"] is False, (day, c)
+            assert ("def_first_vs_bad_off" in sports.ncaab_dog_facts(c)) is want
+            k = nk.read(GP, "N", "Q", day, False, away=True)
+            assert set(k) == set(nk.FIELDS) and k["def_first"] is want and k["off_low"] is True
+            assert ("def_first_vs_bad_offense" in k["good_facts"]) is want, (day, k["good_facts"])
+        GP = {**G, "ncaab:T": {"id": "ncaab:T", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-11-25T00:00Z",
+                               "home": "Q", "away": "M", "neutral": "0"}}
+        c = {"league": "ncaab", "market": "ml", "game_id": "ncaab:T", "side": "away", "start": "2026-11-25T00:00Z", "odds": 150, "reasons": []}
+        sports.mark_ncaab_identity(GP, [c])                  # an unknown efficiency read never crashes a mark
+        assert c["off_first"] is False and c["def_first"] is False and c["to_margin"] == 0.0
+        assert nk.dog_facts({"def_first": True}, {"off": -1.0})["good"] == ["def_first_vs_bad_offense"]   # (an old read with no off_low)
+        # the shooting form: a tune-up is never form
+        assert nb.shooting(G, "N", "2026-11-23T20:00Z")["n"] == 6 and nb.shooting(G, "N", "2026-11-25T00:00Z")["n"] == 5
+        assert nb.shooting(G, "M", "2026-11-25T00:00Z") is None and nb.three_net(G, "N", "2026-11-25T00:00Z")["n"] == 6
+        # can't tell who is Division I = every game, as before; the switch off = as before
+        nr.d1_set = lambda games: None
+        nb._SEASON.clear()
+        assert nb.identity(G, "N", "2026-11-25T00:00Z") == old and nb.shooting(G, "N", "2026-11-25T00:00Z")["n"] == 6
+        nr.d1_set = lambda games: d1
+        nb._SEASON.clear()
+        nb.D1_FROM = None
+        assert nb.identity(G, "N", "2026-11-25T00:00Z") == old
+    finally:
+        nb.DATA, nb.LEAGUE_MIN_GAMES, nr.d1_set, nb.D1_FROM = keep
+        nb._BOX.clear(); nb._SEASON.clear()
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "nb.def_first(me)" in src and "nb.off_low(op)" in src and "nb.OFF_HI" not in src and "nb.DEF_GOOD" not in src
+
+
+def test_daily_1123_a_stale_run_that_reposts_the_same_dog_never_merges_in_its_other_picks():
+    """11/23 board check: the watcher's 'results 16:20: 0 graded, 5 new' run never saw the 8 AM board (Kings Dog,
+    Indiana St, Washington, Trail Blazers NBA floor) and posted its own - the same three again plus San José St and a
+    SECOND NBA floor play (Pacers +160). The 11/2 rule needs a Dog that LOST to an earlier one; the same Dog twice folded
+    into one key and the new picks merged in. From merge_json.STALE_FROM a run that re-posts a pick already up with a
+    later stamp is a stale run: none of its other new picks merge in; picks dated before it stay as posted."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+    assert merge_json.STALE_FROM == "2026-11-24"
+
+    def pk(day, kind, gid, posted, **kw):
+        return {"date": day, "kind": kind, "round": 1, "posted": posted, "status": "open", "lean": False,
+                "legs": [{"game_id": gid, "side": "away", "team": gid, "league": gid.split(":")[0]}], **kw}
+
+    def board(day, at):
+        return [pk(day, "dog", "nhl:kings", f"{day}T{at}Z"), pk(day, "play", "ncaab:indst", f"{day}T{at}Z", ncaab_play={"slot": "dog"}),
+                pk(day, "play", "ncaab:wash", f"{day}T{at}Z", stack_play={"stack": 0.05})]
+    for day, n_want in (("2026-11-24", 4), ("2026-11-23", 6)):
+        ours = board(day, "16:00") + [pk(day, "play", "nba:blazers", f"{day}T16:00Z", floor={"nba": True})]
+        theirs = board(day, "16:21") + [pk(day, "play", "ncaab:sjsu", f"{day}T16:21Z", ncaab_play={"slot": "dog"}),
+                                        pk(day, "play", "nba:pacers", f"{day}T16:21Z", floor={"nba": True})]
+        for a, b in ((ours, theirs), (theirs, ours)):
+            got = merge_json.merge_picks([dict(p) for p in a], [dict(p) for p in b], base=[])
+            teams = sorted(p["legs"][0]["team"] for p in got)
+            assert len(got) == n_want, (day, teams)
+            assert all(p["posted"].endswith("16:00Z") for p in got if p["legs"][0]["team"] in ("nhl:kings", "ncaab:indst", "ncaab:wash", "nba:blazers"))
+            assert ("nba:pacers" in teams) is (day < merge_json.STALE_FROM) and ("ncaab:sjsu" in teams) is (day < merge_json.STALE_FROM)
+    # a later run that SAW the board (it holds the 16:00 copies) and adds a pick: nothing is dropped
+    day = "2026-11-24"
+    ours = board(day, "16:00")
+    theirs = board(day, "16:00") + [pk(day, "play", "ncaab:sjsu", f"{day}T17:05Z", ncaab_play={"slot": "dog"})]
+    assert len(merge_json.merge_picks(ours, theirs, base=board(day, "16:00"))) == 4
+    # a pick both jobs already held (in the base) always stays, whatever its stamp: once posted, it stays
+    base = board(day, "16:00") + [pk(day, "play", "nba:pacers", f"{day}T16:21Z", floor={"nba": True})]
+    theirs = board(day, "16:21") + [pk(day, "play", "nba:pacers", f"{day}T16:21Z", floor={"nba": True})]
+    got = merge_json.merge_picks([dict(p) for p in base], theirs, base=base)
+    assert sorted(p["legs"][0]["team"] for p in got) == ["nba:pacers", "ncaab:indst", "ncaab:wash", "nhl:kings"]
+    # a graded copy and an open copy of the same pick are no stale run
+    g = [dict(p) for p in board(day, "16:00")]
+    g[0]["status"] = "won"
+    g[0]["legs"] = [{**g[0]["legs"][0], "result": "won"}]
+    theirs = board(day, "16:00") + [pk(day, "play", "ncaab:sjsu", f"{day}T16:00Z", ncaab_play={"slot": "dog"})]
+    assert len(merge_json.merge_picks(g, theirs, base=[])) == 4
+
+
+def test_daily_1123_the_nba_dog_that_shuts_the_paint_says_so_on_its_card():
+    """11/23 board check: the Pacers +160 ½u NBA floor play cleared the floor on the 11/22 paint weight (+1 on the dog
+    score) and its card had no line that said so (CARD AUDIT: NO WHY). The card now carries the fact - the share of the
+    points the team gives up that come in the paint, and what the other team scores in there - and the page's number
+    check reads it off the box scores."""
+    import sports_card_sell as cs
+    import sports_breakdown
+    assert sports_breakdown.VERSION >= 85                    # (the open cards are rewritten - wording only)
+    base = {"n": 10, "pf": 1100.0, "pa": 1150.0, "fgm": 400.0, "o_fgm": 420.0, "fga": 880.0, "o_fga": 900.0, "tpm": 120.0,
+            "o_tpm": 150.0, "tpa": 350.0, "o_tpa": 400.0, "ftm": 180.0, "o_ftm": 160.0, "fta": 230.0, "o_fta": 220.0,
+            "reb": 430.0, "o_reb": 440.0, "oreb": 100.0, "o_oreb": 100.0, "to": 140.0, "o_to": 140.0, "paint": 480.0,
+            "o_paint": 437.0, "fast": 150.0, "o_fast": 150.0, "ast": 250.0, "o_ast": 250.0, "stl": 75.0, "o_stl": 75.0}
+    pu, pt = dict(base), {**base, "paint": 512.0, "o_paint": 500.0}
+    leg = {"league": "nba", "market": "ml", "odds": 160, "paint_shut": True, "reasons": []}
+    got = [x for x in cs.hoops_lines("nba", "Pacers", "Thunder", pu, pt, pt, leg) if x[0] == "paint"]
+    assert len(got) == 1 and got[0][2] is True, got
+    for line in got[0][1]:
+        assert "38%" in line and "51" in line and "in the paint" in line and line.startswith("🎨"), line   # 437 / 1150, 512 / 10
+        assert cs.is_sell(line) and cs.stat_of(line) == "paint" and cs.reason_backed(line, leg) == "matchup"
+    assert 38 in cs.allowed(pu, stat="paint") and 38 not in cs.allowed(pu, stat="glass")
+    for off in ({**leg, "paint_shut": False}, {k: v for k, v in leg.items() if k != "paint_shut"}, {**leg, "league": "ncaab"}):
+        lg = off["league"]
+        assert not any("of the points they give up" in w or "of what teams score on" in w or "of the points against" in w
+                       for k, ways, *_ in cs.hoops_lines(lg, "Pacers", "Thunder", pu, pt, pt, off) for w in ways)
+
+
+def test_daily_1123_nobody_is_cooking_while_his_team_gets_outscored_with_him_on_the_floor():
+    """11/23 board check, the Pacers +160 card: "Andrew Nembhard is cooking - with him on the floor lately the team's
+    down 4.8 points a full game (last season: down 10.6)". Hot = better than his last season; the card says "cooking"
+    only when the team is actually UP with him out there (and "in a slump" only when it is down)."""
+    import sports_nba_roster as nr_
+    g = {"home": "11", "away": "25", "home_name": "Pacers", "away_name": "Thunder"}
+    cur = {"teams": {"11": [{"pid": "p1"}, {"pid": "p2"}, {"pid": "p3"}]}, "bench": {}, "styles": {"11": {"depth": 8}}, "flags": {},
+           "form": {"p1": {"name": "Andrew Nembhard", "recent": -4.8, "usual": -10.6, "tag": "hot"},
+                    "p2": {"name": "Pascal Siakam", "recent": 6.2, "usual": 1.0, "tag": "hot"},
+                    "p3": {"name": "Slumping Guy", "recent": 2.0, "usual": 9.0, "tag": "slump"}}}
+    line = nr_.card_line(g, "home", cur)
+    assert "Nembhard" not in line and "Slumping Guy" not in line, line
+    assert "Pascal Siakam is cooking - with him on the floor lately the team's up 6.2 points a full game (last season: up 1)" in line, line
+    cur["form"] = {"p3": {"name": "Slumping Guy", "recent": -3.0, "usual": 4.0, "tag": "slump"}}
+    assert "Slumping Guy is in a slump - with him on the floor lately the team's down 3 points a full game" in nr_.card_line(g, "home", cur)
+
+
+def test_daily_1123_a_tagged_unit_play_is_a_value_play_when_its_card_is_written():
+    """11/23 yesterday's review: the card check rewrote "Lean only" / "A lean" / "we ain't putting money on it" off the
+    college hoops dog slot cards three days running (Robert Morris +102, Nicholls +195, Indiana St +124 - each posted
+    with a bare bottom line). The card was written while the leg still read 'lean' (its raw read sits under its price -
+    the slot rides the dog read); every tagged unit play is a VALUE PLAY before its card is written. And the stack
+    play's own reason - the other team's top scorer sat their last game - is a line on its card (the Washington +11.5
+    card had none: CARD AUDIT 'NO WHY')."""
+    import inspect
+    import sports_card_sell as cs
+    src = inspect.getsource(sports.post_board)
+    assert set(sports.UNIT_PLAY_KINDS) == {"gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay", "stackplay", "ncaabmax"}
+    a, b, c = src.index('c["tier"] = "lean" if kind == "lean" else play_tier(c)'), src.index("if kind in UNIT_PLAY_KINDS:"), src.index("dress(b)                                                #")
+    assert a < b < c and 'c["tier"] = "value"' in src[b:c]
+    assert '"kind": "play" if kind in UNIT_PLAY_KINDS else kind' in src
+    assert 'c["opp_top_out_who"] = (op["name"], op["ppg"])' in inspect.getsource(sports.mark_ncaab_top_out)
+    sell = inspect.getsource(cs.sell_facts)
+    assert '"topout"' in sell and 'leg.get("opp_top_out_who")' in sell and "sat out their last game" in sell
+    line = "🪑 BYU's top scorer Robert Wright III (23.8 a game) sat out their last game."
+    assert not cs.is_sell(line) and cs.numbers_wrong(line, "Washington", "BYU", "ncaab", [], [], "1", "2") == ""   # (a box fact - no stat line's number check)
+    assert cs.reason_backed(line, {"sold": [cs.sig(line)], "reasons": []}) == "reason"
+
+
+def test_daily_1123_the_hockey_dog_that_gives_the_puck_away_on_the_road_is_a_half_weight_and_the_shelled_dog_a_lead():
+    """11/23 daily studies S4 / S6: takeaways minus giveaways a game in a team's ROAD games (ESPN's NHL team box, season
+    to date, 10+ box games, 4+ on the road, ranked among the league that night) - the bottom fifth as a dog -18.5% on
+    884 (train -19.9% / held -17.2%, same-price placebo 1 of 2,000), not the built out-shot read. A WEIGHT inside
+    STUDY_CAP from the 11/24 games at HALF the usual hockey dog weight (the replay board's own posted dogs carrying it
+    did fine: +9.0% on 64): -1 on that dog; never a favorite, a gate or a size; unread = 0. The dog that gave up 40+
+    shots last game and plays again within 2 days is a tracker lead only. And the college hoops league map reads LAST
+    season's league play (it read the season before last)."""
+    import inspect
+    import datetime as _dt
+    import sports_puck as pk
+    import sports_leads as sl
+    import sports_ncaab_knowledge as nk
+
+    def box(gv, tk, shots=30):
+        return {"giveaways": str(gv), "takeaways": str(tk), "shotsTotal": str(shots)}
+    rows, games = [], {}
+    for rnd in range(10):                                    # 20 teams, 10 games each, 5 on the road: the road team i
+        for i in range(10):                                  # gives it away 5 + i times and takes it away 6
+            a, b = (i, 10 + (i + rnd) % 10) if rnd % 2 == 0 else (10 + (i + rnd) % 10, i)
+            gid = f"nhl:{rnd}_{i}"
+            rows.append({"gid": gid, "start": f"2026-11-{1 + rnd:02d}T00:00Z", "teams": {str(a): box(5 + a, 6), str(b): box(99, 0)}})
+            games[gid] = {"stype": "2", "home": str(b), "away": str(a)}
+    st = pk.states("2026-11-22T20:00Z", games, rows=rows)
+    assert len(st) == 20 and st["0"]["n"] == 10 and st["0"]["rn"] == 5 and st["0"]["rnet"] == 1.0 and st["19"]["rnet"] == -18.0
+    assert st["19"]["pct"] == 0.0 and st["0"]["pct"] == 1.0                      # the HOME game's count (99 giveaways) never read
+    assert [t for t in map(str, range(20)) if pk.sloppy(st, t)] == ["16", "17", "18", "19"]       # the league's bottom fifth
+    assert pk.sloppy(st, "0") is False and pk.sloppy(st, "nobody") is None
+    assert pk.states("2026-11-05T12:00Z", games, rows=list(rows))["0"].get("pct") is None          # no look-ahead: 4 games = unread
+    pre = {k: {**v, "stype": "1"} for k, v in games.items()}
+    assert pk.states("2026-11-22T20:00Z", pre, rows=rows + []) == {}                              # preseason boxes never count
+    assert pk.states("2026-11-22T20:00Z", {}, rows=rows[:]) == {}                                 # a game we can't place = no read
+    # shelled: 40+ shots against in the last game, playing again within 2 days
+    rows2 = rows + [{"gid": "nhl:last", "start": "2026-11-21T00:00Z", "teams": {"0": box(5, 6, 22), "19": box(9, 3, 44)}}]
+    g2 = {**games, "nhl:last": {"stype": "2", "home": "19", "away": "0"}}
+    s2 = pk.states("2026-11-22T20:00Z", g2, rows=rows2)
+    assert pk.shelled(s2, "0", "2026-11-22T00:30Z") is True and pk.shelled(s2, "19", "2026-11-22T00:30Z") is False
+    assert pk.shelled(s2, "0", "2026-11-24T00:30Z") is False and pk.shelled(s2, "nobody", "2026-11-22T00:30Z") is None
+    # the weight
+    c = {"league": "nhl", "market": "ml", "odds": 150, "start": "2026-11-25T00:30Z", "side": "away", "game_id": "nhl:x",
+         "dog_ctx": {}, "dog_more": {}}
+    assert sports.NHL_SLOPPY_FROM == "2026-11-24" and sports.NHL_SLOPPY_PTS == 1
+    assert sports.nhl_sloppy_pts({**c, "puck_sloppy": True}) == -1
+    assert sports.nhl_sloppy_pts({**c, "puck_sloppy": False}) == 0 and sports.nhl_sloppy_pts(c) == 0     # unread = 0
+    assert sports.nhl_sloppy_pts({**c, "puck_sloppy": True, "odds": -130}) == 0                         # never a favorite
+    assert sports.nhl_sloppy_pts({**c, "puck_sloppy": True, "league": "nba"}) == 0
+    assert sports.nhl_sloppy_pts({**c, "puck_sloppy": True, "start": "2026-11-24T00:30Z"}) == 0         # the 11/23 Pacific slate: untouched
+    assert sports.nhl_sloppy_pts({**c, "shelled": True}) == 0                                           # the shelled dog: a lead, no weight
+    assert round(sports.dog_spots({**c, "puck_sloppy": True}) - sports.dog_spots(c), 6) == -1           # in the study points (capped)
+    assert "sc += nhl_sloppy_pts(c)" in inspect.getsource(sports.dog_spots) and "STUDY_CAP" in inspect.getsource(sports.dog_score)
+    keep = sports.NHL_SLOPPY_FROM
+    try:
+        sports.NHL_SLOPPY_FROM = "9999"                                                                 # the switch
+        assert sports.nhl_sloppy_pts({**c, "puck_sloppy": True}) == 0
+    finally:
+        sports.NHL_SLOPPY_FROM = keep
+    # the stamps: both sides of a hockey moneyline; nothing on another league; a broken read never blocks
+    keep_st = pk.states
+    try:
+        pk.states = lambda now_iso, games, rows=None: s2
+        gm = {"nhl:x": {"home": "0", "away": "19", "start": "2026-11-22T00:30Z"}}
+        cs = [{"league": "nhl", "market": "ml", "side": "home", "game_id": "nhl:x"}, {"league": "nhl", "market": "ml", "side": "away", "game_id": "nhl:x"},
+              {"league": "nba", "market": "ml", "side": "home", "game_id": "nhl:x"}]
+        sports.mark_nhl_puck(gm, cs, _dt.datetime(2026, 11, 21, 16, tzinfo=_dt.timezone.utc))
+        assert cs[0]["puck_sloppy"] is False and cs[0]["shelled"] is True and cs[1]["puck_sloppy"] is True and cs[1]["shelled"] is False
+        assert "puck_sloppy" not in cs[2]
+
+        def boom(*a, **k):
+            raise RuntimeError("no file")
+        pk.states = boom
+        cs2 = [{"league": "nhl", "market": "ml", "side": "home", "game_id": "nhl:x"}]
+        sports.mark_nhl_puck(gm, cs2, _dt.datetime(2026, 11, 21, 16, tzinfo=_dt.timezone.utc))
+        assert "puck_sloppy" not in cs2[0]
+    finally:
+        pk.states = keep_st
+    assert "mark_nhl_puck(games, out, now)" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    # the tracker tags
+    d = {**c, "puck_sloppy": True, "shelled": True}
+    assert sl.daily_1123_tags(d, sports) == [sl.NHL_SLOPPY_DOG_TAG, sl.NHL_SHELLED_DOG_TAG]
+    assert sl.daily_1123_tags({**d, "puck_sloppy": False}, sports) == [sl.NHL_SHELLED_DOG_TAG]
+    assert sl.daily_1123_tags({**d, "odds": -120}, sports) == [] and sl.daily_1123_tags({**d, "odds": 400}, sports) == []
+    assert sl.daily_1123_tags({**d, "start": "2026-11-24T00:30Z"}, sports) == []
+    assert "daily_1123_tags(c, sports)" in inspect.getsource(sl.tags)
+    # the college hoops league map: LAST season's league play is January-March of the year this season starts in
+    ksrc = inspect.getsource(nk.conferences)
+    assert 'f"{season}-01-03", f"{season}-03-01"' in ksrc and "season - 1}-01-03" not in ksrc
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

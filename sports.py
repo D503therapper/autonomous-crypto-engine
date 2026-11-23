@@ -1304,6 +1304,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_west_coast_road_fav(games, out)
     weigh_hoops_inside(games, out, now)
     mark_nba_paint(games, out, now)                   # 🏀 11/22 daily S1: the NBA team that shuts the paint (+1 / -1 on the dog)
+    mark_nhl_puck(games, out, now)                    # 🏒 11/23 daily S4 / S6: sloppy on the road (-1 on the dog) / shelled (a lead)
     mark_doubleheader_game2(games, out)
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     mark_nba_lost_man(games, out)                     # 🏀 11/3 daily: the NBA team that lost a rotation man (-2 / -0.03)
@@ -2864,6 +2865,7 @@ def dog_spots(c):
         #                            college +7.5% on 242 (4 of 6) at fair prices - discounted: the line moves to them
         #                            60-65% by kickoff (the NFL +3 is OFF from the 11/16 games - NFL_BYE_DOG_OFF_FROM)
     sc += nba_paint_pts(c)         # 🏀 11/22 daily S1: the NBA dog that shuts the paint +1 / the dog facing one -1 (NBA_PAINT_FROM)
+    sc += nhl_sloppy_pts(c)        # 🏒 11/23 daily S4: the hockey dog that gives the puck away on the road -1 (NHL_SLOPPY_FROM)
     if nfl_vs_bye(c):
         sc -= NFL_VS_BYE_PTS       # 11/15 TEN STUDIES S1: the NFL dog on a normal week FACING a team off its bye -18.8% on
         #                            234 at the close 2006-26 (train -15.1% / held -23.5%, 15 of 21 seasons down)
@@ -3293,6 +3295,10 @@ def leg_tier(c):
         #                                                      against the price, and got blown out. The Lock rule
         #                                                      holds for the label too: no own read, no LOCK.
     return "lock" if lock_ok(c) else "lean"                  # 53-56% = a strong lean (a real play, counts)
+
+
+UNIT_PLAY_KINDS = ("gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay", "stackplay", "ncaabmax")   # post_board's
+#   tagged unit plays (saved as kind "play"): each is a VALUE PLAY from the moment its card is written (11/23)
 
 
 def play_tier(c):
@@ -4992,6 +4998,7 @@ def mark_ncaab_top_out(games, cands):
             c["top_out_run"] = me.get("run") or 1                # (11/4 EXPERT: games missed running - 5+ = one more point)
         if op and op["out"]:
             c["opp_top_out"] = True
+            c["opp_top_out_who"] = (op["name"], op["ppg"])     # (11/23: the card says who - sports_card_sell.sell_facts)
             c["reasons"] = c.get("reasons", []) + [f"their top scorer {op['name']} ({op['ppg']} a game) missed their "
                                                     "last game - the books under-price that (4 of 4 seasons)"]
 
@@ -5531,12 +5538,12 @@ def mark_ncaab_identity(games, cands):
         op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
         if me:
             c["to_margin"] = me["tom"]
-            c["off_first"] = me["off"] >= nb.OFF_HI and me["def"] > nb.DEF_GOOD
-            c["def_first"] = me["def"] <= nb.DEF_GOOD and me["off"] < nb.OFF_HI
+            c["off_first"] = nb.off_first(me)                # (11/23: from sports_ncaab_box.D1_FROM the offense / defense
+            c["def_first"] = nb.def_first(me)                #  numbers read Division I games only - a tune-up is no identity)
             if me.get("tp_share") is not None:
                 c["tp_share"] = me["tp_share"]               # 11/12 FABLE study 1: threes as a share of its shots (a lead)
         if op:
-            c["opp_off_low"] = op["off"] <= nb.OFF_LO
+            c["opp_off_low"] = nb.off_low(op)
         if me and op and me.get("tor") is not None and op.get("tor") is not None:
             # 11/12 FABLE study 8: THE TURNOVER MATCHUP per possession - my (forced - given away) minus theirs
             c["to_net"] = round((me["ftor"] - me["tor"]) - (op["ftor"] - op["tor"]), 4)
@@ -6330,6 +6337,58 @@ NBA_PAINT_PTS = 1               # s1c_nba_paint_controls.py; ESPN's team box 202
 #   Unknown (under 10 box games, under 20 teams read, no box file) = 0. Tracker tags "NBA dog that shuts the paint" /
 #   "NBA dog vs a team that shuts the paint (fade)" are the judge - at 60 graded: the first under -5% or the second
 #   over +5% = that half comes off; both holding (+5% or better / -5% or worse) = the full 2.
+
+
+NHL_SLOPPY_FROM = "2026-11-24"   # 🏒 11/23 DAILY STUDIES S4 (results/studies/daily_1123/s_today.py -> s_follow.py ->
+NHL_SLOPPY_PTS = 1                # s4c_board_replay.py; ESPN's NHL team box 2021-26, the close, train 2021-23 / held 2024-26):
+#   THE HOCKEY DOG THAT GIVES THE PUCK AWAY ON THE ROAD. Takeaways minus giveaways a game in a team's ROAD games (no home
+#   scorer's count), season to date (10+ box games, 4+ on the road), ranked among the league that night - the bottom
+#   fifth (sports_puck.sloppy). That dog +100..+350: -18.5% on 884 (train -19.9%, 0 of 3 seasons up / held -17.2%:
+#   2024 -21.8, 2025 -7.9, 2026 -46.2 on 28; a same-price random 884 as bad 1 of 2,000) against -6.7% for every dog;
+#   ESPN's open -18.2% on 454 (placebo 10), the paid morning -16.2% on 112; with the built out-shot read OFF -16.0% on
+#   656 (placebo 25), off no back-to-back -13.4% on 702; home -13.0% / road -21.2%; +100..+150 -16.7% / +151..+350
+#   -22.0%; a step at the bottom fifth (league place 20-40 -4.0%); the favorite across +4.0% on 776 (both halves).
+#   A WEIGHT, never a gate, a pick or a size - and HALF the usual hockey dog weight on purpose: the 11/17 replay board's
+#   own posted hockey dogs that carried it went +9.0% on 64 against +10.8% on 320 without it (the dog score's other
+#   weights had already left the bad ones off), about 400 cells were read that day. -NHL_SLOPPY_PTS on the dog score's
+#   study points (dog_spots, inside STUDY_CAP) for a hockey moneyline dog on / after NHL_SLOPPY_FROM (the Pacific day;
+#   "9999" = off). No favorite read moves. Tracker tag "NHL dog that gives the puck away on the road (fade)" is the
+#   judge at 60 graded: -5% or worse = the full 2, over +5% = off. THE SHELLED DOG (40+ shots against last game,
+#   playing again within 2 days: -23.6% on 426, both halves, same-price placebo 4 of 2,000) is a tracker LEAD only -
+#   "NHL dog that gave up 40+ shots last game, within 2 days (fade)", judge at 40 - no weight.
+
+
+def mark_nhl_puck(games, cands, now):
+    """🏒 11/23 daily S4 / S6: stamp every hockey moneyline side with puck_sloppy (its team is in the league's bottom
+    fifth of takeaways minus giveaways on the road) and shelled (40+ shots against last game, within 2 days) -
+    sports_puck.states. Unread = no stamp."""
+    nhl = [c for c in cands if c.get("league") == "nhl" and c.get("market") == "ml"]
+    if not nhl:
+        return
+    try:
+        import sports_puck
+        st = sports_puck.states(now.strftime("%Y-%m-%dT%H:%MZ"), games)
+    except Exception as e:                                   # noqa: BLE001 - extra facts never block the board
+        print(f"nhl puck read failed: {str(e)[:60]}")
+        return
+    for c in nhl:
+        g = games.get(c["game_id"]) or {}
+        me = sports_puck.sloppy(st, g.get(c["side"]))
+        if me is not None:
+            c["puck_sloppy"] = me
+        sh = sports_puck.shelled(st, g.get(c["side"]), g.get("start") or c.get("start"))
+        if sh is not None:
+            c["shelled"] = sh
+
+
+def nhl_sloppy_pts(c):
+    """🏒 11/23 daily S4: -NHL_SLOPPY_PTS on a hockey moneyline DOG whose team gives the puck away on the road; 0 for a
+    favorite, an unread team or a game before NHL_SLOPPY_FROM."""
+    if c.get("league") != "nhl" or c.get("market", "ml") != "ml" or (c.get("odds") or 0) < 100:
+        return 0
+    if not NHL_SLOPPY_FROM or pt_day(c) < NHL_SLOPPY_FROM:
+        return 0
+    return -NHL_SLOPPY_PTS if c.get("puck_sloppy") is True else 0
 
 
 def mark_nba_paint(games, cands, now):
@@ -9852,10 +9911,13 @@ def post_board(games, model, picks, now, day, force=False):
                 #                                      a dog and three leans, no matter what" - it goes up, named)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             c["tier"] = "lean" if kind == "lean" else play_tier(c)   # (10/29 sweep: the card is written with its label -
-            if kind == "stackplay":                                  #  (🏀 11/11: the spread play rides the stack - a
-                c["tier"] = "value"                                  #   unit play's card never closes "a lean, no units")
+            if kind in UNIT_PLAY_KINDS:                              #  (🏀 11/11: the spread play rides the stack - a
+                c["tier"] = "value"                                  #   unit play's card never closes "a lean, no units";
+                #   11/23: EVERY tagged unit play - the college hoops slot cards of 11/22-11/23 (Robert Morris, Nicholls,
+                #   Indiana St) were written "Lean only" / "A lean" three days running and the card check had to rewrite
+                #   each to a bare bottom line: the card was written before the play got its VALUE label)
             dress(b)                                                #  a VALUE PLAY never reads "Lock it in")
-            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay", "stackplay", "ncaabmax") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+            pk = {"date": iso, "kind": "play" if kind in UNIT_PLAY_KINDS else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}

@@ -1,13 +1,13 @@
 {
- "day": "2026-11-22",
+ "day": "2026-11-23",
  "picks": {
-  "lock|nfl:401873068|home|ml": {
-   "key": "lock|nfl:401873068|home|ml",
-   "kind": "lock",
-   "team": "Panthers",
-   "odds": -145,
-   "league": "nfl",
-   "units": 0.5,
+  "dog|nhl:401892774|away|ml": {
+   "key": "dog|nhl:401892774|away|ml",
+   "kind": "dog",
+   "team": "Kings",
+   "odds": 130,
+   "league": "nhl",
+   "units": 2.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -16,14 +16,14 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
-    "card": "fixed: 1 line(s) rewritten or dropped"
+    "card": "pass"
    }
   },
-  "play|ncaab:401928790|away|ml": {
-   "key": "play|ncaab:401928790|away|ml",
+  "play|ncaab:401921209|away|ml": {
+   "key": "play|ncaab:401921209|away|ml",
    "kind": "ncaabplay",
-   "team": "Robert Morris",
-   "odds": 102,
+   "team": "Indiana St",
+   "odds": 124,
    "league": "ncaab",
    "units": 1.0,
    "lean": false,
@@ -36,34 +36,14 @@
     "injuries": "pass",
     "college_games": "pass",
     "d1": "pass",
-    "card": "fixed: 1 line(s) rewritten or dropped"
+    "card": "fixed: 2 line(s) rewritten or dropped"
    }
   },
-  "play|ncaab:401925066|home|ml": {
-   "key": "play|ncaab:401925066|home|ml",
-   "kind": "ncaabplay",
-   "team": "Nicholls",
-   "odds": 195,
-   "league": "ncaab",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
-    "card": "fixed: 1 line(s) rewritten or dropped"
-   }
-  },
-  "play|ncaab:401918455|away|spread": {
-   "key": "play|ncaab:401918455|away|spread",
+  "play|ncaab:401921708|away|spread": {
+   "key": "play|ncaab:401921708|away|spread",
    "kind": "stackplay",
-   "team": "William & Mary",
-   "odds": -110,
+   "team": "Washington",
+   "odds": -112,
    "league": "ncaab",
    "units": 0.5,
    "lean": false,
@@ -77,14 +57,14 @@
     "college_games": "pass",
     "d1": "pass",
     "stack": "pass",
-    "card": "pass"
+    "card": "fixed: 1 line(s) rewritten or dropped"
    }
   },
-  "play|nba:401910031|home|ml": {
-   "key": "play|nba:401910031|home|ml",
+  "play|nba:401910037|away|ml": {
+   "key": "play|nba:401910037|away|ml",
    "kind": "nbafloor",
-   "team": "Wizards",
-   "odds": 170,
+   "team": "Trail Blazers",
+   "odds": 139,
    "league": "nba",
    "units": 0.5,
    "lean": false,
@@ -99,6 +79,6 @@
    }
   }
  },
- "updated": "2026-11-22T16:00Z",
+ "updated": "2026-11-23T16:00Z",
  "held": []
 }

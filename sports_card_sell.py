@@ -341,6 +341,16 @@ def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True):
                                   f"🎨 In the paint{vs}: {_r(pa_t)} a game for {them}, {_r(gave)} against. Soft inside.",
                                   f"🎨 {T} score {_r(gave)} a game in the paint on {them}{yr}. They only get {_r(pa_t)} back."],
                         in_r, 6.0 + (gave - pa_t) / 6))
+    # 7a. the paint wall (11/23 board check - the Pacers +160 card: the 11/22 paint weight moved the dog score and the
+    #     card had no line that said so): OUR team is in the league's best fifth at keeping points out of the paint
+    #     (sports.mark_nba_paint -> leg["paint_shut"]) - the share of the points it gives up that come in there
+    if lg == "nba" and leg.get("paint_shut") is True and pu.get("o_paint") and pu.get("pa") and pt.get("paint") is not None \
+            and not any(k == "paint" for k, *_ in out):
+        sh, in_t = 100.0 * pu["o_paint"] / pu["pa"], pt["paint"] / pt["n"]
+        out.append(("paint", [f"🎨 {us} wall off the rim: only {_r(sh)}% of the points they give up come in the paint{vs}, one of the lowest shares in the league. {them} get {_r(in_t)} a game in there.",
+                              f"🎨 Only {_r(sh)}% of what teams score on {us} comes in the paint{vs} - one of the lowest shares in the league. {them} score {_r(in_t)} a night in there.",
+                              f"🎨 {them} get {_r(in_t)} points a game in the paint{vs}. {us} don't give that up: just {_r(sh)}% of the points against 'em come in there, one of the lowest shares in the league."],
+                    True, 8.5))
     # 7b. hands: our steals (a defense that takes the ball)
     if pu.get("stl") is not None and pt.get("stl") is not None and not any(k == "to" for k, *_ in out):
         st_u, st_t = pu["stl"] / pu["n"], pt["stl"] / pt["n"]
@@ -606,6 +616,13 @@ def sell_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, real=None, e
         bw = best_win(lg, gu, tid, oid, e, us, them)
         if bw:
             made.append(bw)
+        who = leg.get("opp_top_out_who")                  # 11/23 board check (the Washington +11.5 stack play: its one
+        if lg == "ncaab" and leg.get("opp_top_out") and who and who[0]:   # named reason - BYU's top scorer sat out their
+            nm, ppg = who[0], who[1]                      # last game - was nowhere on the card: CARD AUDIT "NO WHY")
+            made.append(("topout", [f"🪑 {_pos(them)} top scorer {nm} ({ppg} a game) sat out their last game.",
+                                    f"🪑 {nm} is {_pos(them)} top scorer at {ppg} a game and he didn't play their last one.",
+                                    f"🪑 {them} played their last game without {nm}, their top scorer ({ppg} a game)."],
+                         True, 9.6))
     except Exception:                                     # noqa: BLE001
         made = []
     made.sort(key=lambda m: (not m[2], -m[3]))
@@ -676,6 +693,8 @@ def allowed(*profiles, stat=None):
         for a, b in _MARGINS:
             if p.get(a) is not None and p.get(b) is not None and (want is None or a in want):
                 ok.add(round(abs(p[a] - p[b]) / n))
+        if p.get("o_paint") and p.get("pa") and (want is None or "paint" in want):
+            ok.add(round(100.0 * p["o_paint"] / p["pa"]))    # (11/23: the paint's share of the points a team gives up)
         if p.get("o_ppo") is not None and p.get("o_ppg") is not None and (want is None or "ppo" in want):
             ok.add(round(p["o_ppo"] - p["o_ppg"]))
     return ok

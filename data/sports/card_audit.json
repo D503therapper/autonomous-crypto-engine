@@ -1,24 +1,92 @@
 {
- "at": "2026-11-23T13:22Z",
- "bad_cards": 0,
- "by_class": {},
- "cards": 0,
- "lines": 0,
- "problems": [],
+ "at": "2026-11-23T18:14Z",
+ "bad_cards": 3,
+ "by_class": {
+  "no why": 2,
+  "short": 1
+ },
+ "cards": 5,
+ "lines": 39,
+ "problems": [
+  {
+   "class": "no why",
+   "date": "2026-11-23",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "Washington",
+   "why": "a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or a pool is missing)"
+  },
+  {
+   "class": "short",
+   "date": "2026-11-23",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "San José St",
+   "why": "a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  },
+  {
+   "class": "no why",
+   "date": "2026-11-23",
+   "kind": "play",
+   "league": "nba",
+   "line": "",
+   "team": "Pacers",
+   "why": "a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side, or a pool is missing)"
+  }
+ ],
  "quality": {
-  "avg_facts": 0,
-  "cards": 0,
-  "cards_that_say_why": 0,
-  "matchup_lines": 0,
-  "no_why": [],
-  "reason_lines": 0,
-  "score": 100,
-  "short": [],
+  "avg_facts": 5.6,
+  "cards": 5,
+  "cards_that_say_why": 3,
+  "matchup_lines": 4,
+  "no_why": [
+   {
+    "date": "2026-11-23",
+    "league": "ncaab",
+    "team": "Washington"
+   },
+   {
+    "date": "2026-11-23",
+    "league": "nba",
+    "team": "Pacers"
+   }
+  ],
+  "reason_lines": 2,
+  "score": 97,
+  "short": [
+   {
+    "date": "2026-11-23",
+    "facts": 2,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "San José St",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   }
+  ],
   "shown": {},
   "thin": 0,
-  "under_floor": 0,
-  "worst": [],
-  "written": {}
+  "under_floor": 1,
+  "worst": [
+   {
+    "date": "2026-11-23",
+    "facts": 6,
+    "league": "ncaab",
+    "score": 85,
+    "shown": [],
+    "team": "Washington",
+    "written": [
+     [
+      "repeats",
+      "🔥 Washington hasn't lost in 4 - 4-0 overall."
+     ]
+    ]
+   }
+  ],
+  "written": {
+   "repeats": 1
+  }
  },
  "shown": true
 }

@@ -694,6 +694,10 @@ def card_line(g, side, cur):
     fm = cur.get("form") or {}
     for pid in [k for k in fm if k in roster_pids and fm[k]["tag"]][:2]:
         f = fm[pid]
+        if (f["tag"] == "hot" and f["recent"] <= 0) or (f["tag"] == "slump" and f["recent"] >= 0):
+            continue                                     # (11/23 board check, the Pacers card: "Andrew Nembhard is cooking -
+            #   with him on the floor lately the team's down 4.8 points a full game (last season: down 10.6)" - better
+            #   than last season is not cooking while the team still gets outscored with him out there; no line)
         ud = lambda x: f"{'up' if x >= 0 else 'down'} {abs(x):g}"   # noqa: E731
         parts.append(f"{f['name']} {'is cooking' if f['tag'] == 'hot' else 'is in a slump'} - with him on the floor lately "
                      f"the team's {ud(f['recent'])} points a full game (last season: {ud(f['usual'])})")
