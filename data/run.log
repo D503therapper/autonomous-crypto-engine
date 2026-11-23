@@ -27493,3 +27493,15 @@ $XLV: possibly delisted; no price data found  (period=1y)
    [alert] Today +9.86 | Total -47.71: Stocks: $448.46  today +6.03  total -51.54
 DEX: $1,003.83  today +3.83  total +3.83
 DEX: $1,003.83 (+3.83) · Scammed: 0
+   dex re-screen: XTO@solana:91GG7PWs data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT DRV@solana liq $391,822,628 - top-10 holders 100%
+   dex screen: UNREACHABLE DRV@solana liq $382,405,531 - goplus unreachable
+   dex screen: REJECT DRV@base liq $2,833,890 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 54%
+   dex screen: REJECT DRV@ethereum liq $954,403 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 85%; lp locked 0% < 95%
+   dex screen: REJECT OPENAI@solana liq $73,472 - liquidity $73,472 < $100,000; 24h volume $33,825 < $100,000
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       d0a5ca83f2ce97d7e9b3cc1acae22c10a6bf068d -> main (cannot lock ref 'refs/heads/main': is at fe76bc1e36c43cd13ff37
+   dex screen: PASS ANTS@solana liq $187,881
+   dex screen: UNREACHABLE LOOSY@ethereum liq $359,799 - honeypot.is unreachable
+   dex screen: REJECT HSOL@solana liq $103,711 - mint authority; top-10 holders 73%; lp holders unknown
+   dex re-screen: XTO@solana:91GG7PWs data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
