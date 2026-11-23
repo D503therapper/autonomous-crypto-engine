@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T20:30Z",
+ "updated": "2026-11-23T20:32Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -157,21 +157,6 @@
    "start": "2026-11-23T20:00Z",
    "away": "Ecclesia",
    "home": "Grambling",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "ncaab:401921207",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-23T20:20Z",
-   "away": "MTSU",
-   "home": "S Illinois",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1033,8 +1018,8 @@
     "market": "ml",
     "line": null,
     "odds": -120,
-    "p": 0.529,
-    "win_p": 0.529,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -1316,7 +1301,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Miami",
-    "p": 0.655,
+    "p": 0.666,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1325,20 +1310,17 @@
    "start": "2026-11-24T20:00Z",
    "away": "Miami",
    "home": "TCU",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Miami",
-    "opp": "TCU",
-    "market": "ml",
-    "line": null,
-    "odds": -285,
-    "p": 0.733,
-    "win_p": 0.733,
-    "reasons": [
-     "rolling off a blowout win",
-     "out-rebounding people by +13.3 a game to their -3.6 - the books don't price the glass (5 of 5 seasons)"
-    ]
+    "team": "TCU",
+    "opp": "Miami",
+    "market": "spread",
+    "line": 5.5,
+    "odds": -110,
+    "p": 0.5,
+    "win_p": 0.26,
+    "reasons": []
    }
   },
   {
@@ -1347,8 +1329,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tennessee",
-    "p": 0.615,
-    "tie": 0.041,
+    "p": 0.652,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1363,11 +1345,12 @@
     "opp": "Maryland",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.683,
-    "win_p": 0.683,
+    "odds": -270,
+    "p": 0.729,
+    "win_p": 0.729,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1422,9 +1405,9 @@
     "team": "San Diego St",
     "opp": "Iowa State",
     "market": "spread",
-    "line": 7.5,
-    "odds": -110,
-    "p": 0.501,
+    "line": 11.5,
+    "odds": -112,
+    "p": 0.505,
     "win_p": 0.227,
     "reasons": []
    }
@@ -1526,7 +1509,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.351,
+    "p": 0.363,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1538,13 +1521,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Oilers",
+    "team": "Oilers",
+    "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.717,
-    "win_p": 0.501,
+    "odds": -270,
+    "p": 0.689,
+    "win_p": 0.473,
     "reasons": []
    }
   },
@@ -1662,9 +1645,9 @@
     "team": "Oregon",
     "opp": "St John's",
     "market": "spread",
-    "line": 8.5,
-    "odds": -110,
-    "p": 0.502,
+    "line": 11.5,
+    "odds": -112,
+    "p": 0.505,
     "win_p": 0.204,
     "reasons": []
    }
