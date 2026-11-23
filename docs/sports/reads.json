@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T22:38Z",
+ "updated": "2026-11-23T22:50Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -173,8 +173,8 @@
    "away": "MTSU",
    "home": "S Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -188,8 +188,8 @@
    "away": "William & Mary",
    "home": "IU Indy",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -552,7 +552,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.671,
+    "p": 0.666,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -570,7 +570,7 @@
     "line": -10.5,
     "odds": -107,
     "p": 0.501,
-    "win_p": 0.768,
+    "win_p": 0.762,
     "reasons": [
      "the stronger team"
     ]
@@ -802,7 +802,7 @@
     "opp": "Bulls",
     "market": "spread",
     "line": -8.5,
-    "odds": -116,
+    "odds": -117,
     "p": 0.5,
     "win_p": 0.748,
     "reasons": [
@@ -1267,7 +1267,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.408,
+    "p": 0.411,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -1283,9 +1283,9 @@
     "opp": "Sharks",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.628,
-    "win_p": 0.628,
+    "odds": -180,
+    "p": 0.635,
+    "win_p": 0.635,
     "reasons": [
      "the stronger team"
     ]
@@ -1349,6 +1349,38 @@
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401927398",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Wright St",
+    "p": 0.483,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T15:00Z",
+   "away": "Wright St",
+   "home": "St Bonaventure",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Wright St",
+    "opp": "St Bonaventure",
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.507,
+    "win_p": 0.507,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
+     "coughing it up 0.8 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
