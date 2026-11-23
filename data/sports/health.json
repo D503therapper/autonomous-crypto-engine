@@ -1,18 +1,17 @@
 {
- "at": "2026-11-23T21:02Z",
+ "at": "2026-11-23T22:33Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - started sports.yml"
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "card audit: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side,",
   "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (159s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card quality: 97/100 on 5 live cards (bad lines the write-up put on them: 1, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 1)",
+  "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 1)",
   "slate check: all 64 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -20,13 +19,22 @@
   "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 2h ago",
-  "engine ran 12 min ago",
+  "studies ran 6h ago",
+  "simulator ran 4h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-23T22:33Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-23T21:02Z",
    "fixes": [
@@ -551,11 +559,6 @@
   },
   {
    "at": "2026-11-22T10:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T10:51Z",
    "fixes": [],
    "problems": []
   }
