@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T00:07Z",
+ "updated": "2026-11-23T00:17Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -620,8 +620,8 @@
    "away": "Richmond",
    "home": "Liberty",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -665,8 +665,8 @@
    "away": "NJIT",
    "home": "Boston College",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -710,8 +710,8 @@
    "away": "UNC Asheville",
    "home": "Samford",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -776,6 +776,36 @@
    "lean": null
   },
   {
+   "id": "nba:401910030",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-22T23:00Z",
+   "away": "Thunder",
+   "home": "Heat",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921420",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Delaware",
+   "home": "UCLA",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401910031",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -801,6 +831,81 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "nba:401910033",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Mavericks",
+   "home": "Jazz",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401910032",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Nuggets",
+   "home": "Bulls",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892770",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Oilers",
+   "home": "Blues",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892771",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Penguins",
+   "home": "Stars",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917541",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Portland",
+   "home": "CA Baptist",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892772",
@@ -915,7 +1020,7 @@
     "line": -6.5,
     "odds": -110,
     "p": 0.5,
-    "win_p": 0.743,
+    "win_p": 0.742,
     "reasons": [
      "the stronger team"
     ]
@@ -927,7 +1032,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.566,
+    "p": 0.562,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -943,9 +1048,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.624,
-    "win_p": 0.624,
+    "odds": -197,
+    "p": 0.618,
+    "win_p": 0.618,
     "reasons": [
      "better QB play lately",
      "the stronger team"
