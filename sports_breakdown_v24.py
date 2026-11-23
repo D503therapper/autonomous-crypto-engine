@@ -1665,7 +1665,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         out.append(v.say("bottom_floor_over", [                 #  5+ points - "close to even" was false)
             f"✅ Bottom line: {price}. The book's selling {us} short - that price pays like they got no shot, and our read says they live. Half a unit on it.",
             f"✅ Bottom line: {price}. Too much plus money for a team this live. Half a unit on the upset.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. That number's too big and {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate. Half a unit.",
+            f"✅ Bottom line: {bet} at {_am(leg['odds'])}. That number's too big and {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate. Half a unit.",
             f"✅ Bottom line: {price}. The books got {us} priced like a team that can't win - we don't see that. Half a unit, scared money don't make no money."]) or
                    _short(v, price, False, "Our read beats the price."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock" \
@@ -1677,7 +1677,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             #  the words): the bottom line never knocks our own pick - a ½u says it's a smaller bet in plain words
             f"✅ Bottom line: {price}. Half a unit on {us}.",
             f"✅ Bottom line: {price}. Plus money on {us} - half a unit.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Half a unit.",
+            f"✅ Bottom line: {bet} at {_am(leg['odds'])}. Half a unit.",
             f"✅ Bottom line: {price}. Half-unit play on {us}."]) or
                    _short(v, price, False, "Half a unit."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
@@ -1686,7 +1686,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             #    sense. Half unit is a thin edge tread lightly" - a ½u play says it's a thin edge, never "the best dog")
             f"✅ Bottom line: {price}. Thin edge - half a unit. Tread lightly.",
             f"✅ Bottom line: {price}. Half a unit on {us}. Thin edge, tread lightly.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin edge - go light, half a unit.",
+            f"✅ Bottom line: {bet} at {_am(leg['odds'])}. Thin edge - go light, half a unit.",
             f"✅ Bottom line: {price}. Small edge, small bet - half a unit."]) or
                    _short(v, price, False, "The dog angles like it."))
     elif leg.get("near_price"):                                          # the always-a-Lock backup (the owner, 10/1):
@@ -1703,7 +1703,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         out.append(v.say("bottom_unit_fair", [
             f"✅ Bottom line: {price}. {us} the side tonight.",      # (11/20, the Niagara +2.5 card: "because of
             f"✅ Bottom line: {price}. We on {us}.",                 #  the spot, and the units say how much" said nothing,
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. That's the bet."]) or   # "fair price" ran it down)
+            f"✅ Bottom line: {bet} at {_am(leg['odds'])}. That's the bet."]) or   # "fair price" ran it down)
                    _short(v, price, False, ""))
     elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml" \
             and _sb_mod.coin_side(leg, _own):                                # (11/13: never at a -148 price / a 60% win %)
@@ -3776,12 +3776,14 @@ LONG_DOG_READ = 0.40   # the brakes off 'em"): a moneyline dog at +150 or longer
 def long_dog(leg, read=None):
     """A long dog by the price AND the read: a moneyline side +LONG_DOG_ODDS or longer the engine has under LONG_DOG_READ."""
     try:
-        if leg.get("market") != "ml" or (leg.get("odds") or 0) < LONG_DOG_ODDS:
+        if leg.get("market") != "ml" or (leg.get("odds") or 0) <= 0:
             return False
         r = read if read is not None else leg.get("p")
         own = leg.get("own_p")
         if own is None and leg.get("edge_own") is not None and leg.get("dec"):
             own = (leg["edge_own"] + 1) / leg["dec"]
+        if (leg.get("odds") or 0) < LONG_DOG_ODDS:        # (11/23 pre-board: "East Carolina fin to get spanked" on Indiana
+            return (own is not None and own < LONG_DOG_SAFE) or (r is not None and r < LONG_DOG_SAFE)   # St +130, own 41%)
         #   (11/21 pre-board: "South Alabama fin to get spanked" on Southern Miss +164 - a weighed read of 44%, its own
         #    read 39%: a dog either read has under 45% never calls a beatdown)
         return (r is not None and r < LONG_DOG_READ) or (own is not None and own < LONG_DOG_READ) \
