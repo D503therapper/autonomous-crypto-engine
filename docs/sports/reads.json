@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T00:17Z",
+ "updated": "2026-11-23T01:04Z",
  "games": [
   {
    "id": "ncaab:401911024",
@@ -560,8 +560,8 @@
    "away": "Jaguars",
    "home": "Giants",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -575,8 +575,8 @@
    "away": "Raiders",
    "home": "Broncos",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -680,8 +680,8 @@
    "away": "Rice",
    "home": "Lamar",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -695,8 +695,8 @@
    "away": "Sabres",
    "home": "Lightning",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -725,8 +725,8 @@
    "away": "Temple",
    "home": "SF Austin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -769,6 +769,21 @@
    "start": "2026-11-22T23:00Z",
    "away": "Utah",
    "home": "Minnesota",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920905",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-23T00:00Z",
+   "away": "Delaware",
+   "home": "UCLA",
    "h1": null,
    "why": "started",
    "done": false,
@@ -908,191 +923,56 @@
    "lean": null
   },
   {
-   "id": "nhl:401892772",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blackhawks",
-    "p": 0.359,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
+   "id": "ncaab:401919020",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-23T01:00Z",
-   "away": "Blackhawks",
-   "home": "Canucks",
-   "why": "no_value",
+   "start": "2026-11-23T00:40Z",
+   "away": "Rhode Island",
+   "home": "UAB",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Canucks",
-    "opp": "Blackhawks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.695,
-    "win_p": 0.48,
-    "reasons": [
-     "opponent drama: suspension"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401926774",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "USC",
-    "p": 0.947,
-    "tie": 0.011,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-23T01:00Z",
    "away": "Louisiana",
    "home": "USC",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Louisiana",
-    "opp": "USC",
-    "market": "spread",
-    "line": 31.5,
-    "odds": -105,
-    "p": 0.525,
-    "win_p": 0.019,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "nba:401910034",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Knicks",
-    "p": 0.64,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-23T01:00Z",
-   "away": "Pacers",
-   "home": "Knicks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Knicks",
-    "opp": "Pacers",
-    "market": "ml",
-    "line": null,
-    "odds": -296,
-    "p": 0.728,
-    "win_p": 0.728,
-    "reasons": [
-     "the stronger team",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921206",
+   "id": "ncaab:401929595",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Utah Valley",
-    "p": 0.668,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-23T01:00Z",
-   "away": "UT Martin",
-   "home": "Utah Valley",
-   "why": "coin_flip",
+   "away": "Menlo",
+   "home": "Saint Mary's",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Utah Valley",
-    "opp": "UT Martin",
-    "market": "spread",
-    "line": -6.5,
-    "odds": -110,
-    "p": 0.5,
-    "win_p": 0.742,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873077",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "49ers",
-    "p": 0.562,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-23T01:20Z",
-   "away": "Vikings",
-   "home": "49ers",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "49ers",
-    "opp": "Vikings",
-    "market": "ml",
-    "line": null,
-    "odds": -197,
-    "p": 0.618,
-    "win_p": 0.618,
-    "reasons": [
-     "better QB play lately",
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nba:401910035",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Celtics",
-    "p": 0.644,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-23T01:30Z",
-   "away": "Celtics",
-   "home": "Warriors",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Celtics",
-    "opp": "Warriors",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -114,
-    "p": 0.5,
-    "win_p": 0.734,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401917542",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "UC San Diego",
+    "team": "Seattle U",
     "p": 0.479,
     "tie": 0.044,
     "name": "1st half"
@@ -1100,21 +980,21 @@
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-23T02:30Z",
-   "away": "Seattle U",
-   "home": "UC San Diego",
+   "away": "UC San Diego",
+   "home": "Seattle U",
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "UC San Diego",
-    "opp": "Seattle U",
+    "team": "Seattle U",
+    "opp": "UC San Diego",
     "market": "ml",
     "line": null,
     "odds": -110,
-    "p": 0.501,
-    "win_p": 0.501,
+    "p": 0.502,
+    "win_p": 0.502,
     "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+     "rolling off a blowout win",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
   },
@@ -1124,15 +1004,15 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Loyola Chicago",
-    "p": 0.586,
+    "p": 0.573,
     "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-23T04:59Z",
-   "away": "San Jos\u00e9 St",
-   "home": "Loyola Chicago",
+   "away": "Loyola Chicago",
+   "home": "San Jos\u00e9 St",
    "why": "tight",
    "board": null,
    "lean": {
@@ -1141,11 +1021,11 @@
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.641,
-    "win_p": 0.641,
+    "p": 0.63,
+    "win_p": 0.63,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way",
+     "the stronger team",
      "the turnover matchup is ours by 10.8 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
    }
