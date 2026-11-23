@@ -27021,3 +27021,98 @@ error: failed to push some refs to 'https://githu
 [2026-11-23 14:10 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-23 14:10 UTC] crypto/hold_btc  equity $390.72 (-21.9%) 1 open  market DOWN
    social heat top: PENGU 29 (29/0/0), BTC 27 (27/0/0), PUMP 25 (13/0/12), VVV 21 (21/0/0), AERO 20 (16/0/4)
+   git sync: push rejected (try 1/5)
+   footprint: QNT: footprint 3/4 (drift+quiet+hikes) 48h +16.2%, 5 volume hikes, 62% quiet hours @ 161.308
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +7.7%, 4 volume hikes, 38% quiet hours @ 3.1267
+   scanner: UNI: +6.1% in 15 min on 17.9x volume @ 4.9986 spread 0.04%
+   scanner: INJ: +5.2% in 15 min on 6.8x volume @ 6.744 spread 0.30%
+   dex screen: PASS UCASH@solana liq $106,873
+   dex screen: REJECT BP@solana liq $2,536,087 - freeze authority; mint authority; top-10 holders 96%
+   dex screen: REJECT NOCK@base liq $839,959 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
+   dex screen: REJECT NVDA@solana liq $466,059 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 65%; lp holders unknown
+   scanner: SUI: +8.0% in 30 min on 62.3x volume @ 0.72248 spread 0.14%
+   scanner: ARB: +8.0% in 30 min on 10.9x volume @ 0.120979 spread 0.13%
+   scanner: UNI: +8.3% in 30 min on 10.0x volume @ 5.1427 spread 0.04%
+   scanner: NEAR: +8.6% in 30 min on 7.3x volume @ 3.2546 spread 0.07%
+   scanner: ARB: +8.3% in 30 min on 10.9x volume @ 0.121193 spread 0.09%
+   scanner: UNI: +9.0% in 30 min on 10.0x volume @ 5.1578 spread 0.04%
+   scanner: NEAR: +8.2% in 30 min on 8.9x volume @ 3.242 spread 0.06%
+   scanner: INJ: +8.5% in 30 min on 7.6x volume @ 6.923 spread 0.36%
+   scanner: ARB: +8.0% in 30 min on 11.3x volume @ 0.120782 spread 0.13%
+   scanner: UNI: +8.7% in 30 min on 10.1x volume @ 5.1429 spread 0.04%
+   scanner: SUI: +8.0% in 30 min on 63.2x volume @ 0.72162 spread 0.10%
+   scanner: ARB: +8.9% in 30 min on 11.7x volume @ 0.12171 spread 0.15%
+   scanner: UNI: +8.9% in 30 min on 10.1x volume @ 5.1527 spread 0.24%
+   scanner: NEAR: +8.5% in 30 min on 9.5x volume @ 3.2465 spread 0.25%
+   scanner: UNI: +8.5% in 30 min on 10.1x volume @ 5.1358 spread 0.04%
+   scanner: SUI: +8.2% in 30 min on 64.0x volume @ 0.72169 spread 0.10%
+   scanner: UNI: +9.0% in 30 min on 10.1x volume @ 5.1568 spread 0.15%
+   scanner: PEPE: +8.1% in 30 min on 3.7x volume @ 3.685e-06 spread 0.14%
+   scanner: SUI: +8.2% in 30 min on 64.2x volume @ 0.72186 spread 0.03%
+   scanner: ARB: +8.2% in 30 min on 12.7x volume @ 0.120812 spread 0.05%
+   scanner: UNI: +9.6% in 30 min on 10.1x volume @ 5.1652 spread 0.04%
+   scanner: NEAR: +8.3% in 30 min on 11.4x volume @ 3.2315 spread 0.06%
+   scanner: PEPE: +8.4% in 30 min on 4.3x volume @ 3.695e-06 spread 0.22%
+   scanner: SUI: +8.2% in 30 min on 64.2x volume @ 0.72238 spread 0.03%
+   scanner: ARB: +8.2% in 30 min on 13.0x volume @ 0.120901 spread 0.03%
+   scanner: UNI: +9.7% in 30 min on 10.2x volume @ 5.1682 spread 0.04%
+   scanner: PEPE: +8.8% in 30 min on 4.5x volume @ 3.707e-06 spread 0.16%
+   scanner: UNI: +10.6% in 30 min on 10.2x volume @ 5.2107 spread 0.04%
+   scanner: UNI: +8.5% in 30 min on 10.2x volume @ 5.2546 spread 0.04%
+   scanner: UNI: +8.1% in 30 min on 10.2x volume @ 5.2749 spread 0.04%
+   scanner: QNT: +5.5% in 15 min on 7.1x volume @ 170.904 spread 0.21%
+   dex screen: REJECT SI@solana liq $374,180 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT SI@solana liq $16,944,159 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT MUC@base liq $24,357 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 83%; lp locked 0% < 95%
+   dex screen: REJECT NVDAON@ethereum liq $104,725 - 24h volume $98,660 < $100,000
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $123,878 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT FLOCK@base liq $522,751 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; top-10 holders 70%; lp locked 0% < 95%
+   dex screen: REJECT DRB@base liq $924,107 - lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT KTA@base liq $2,724,961 - top-10 holders 66%
+   dex screen: REJECT PIPPIN@solana liq $3,472,764 - top-10 holders 71%
+   dex screen: REJECT CIRBTC@ethereum liq $5,001,342 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%
+   dex screen: PASS DESSA@solana liq $147,110
+   dex re-screen: XTO@solana:91GG7PWs data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 2,536 pools (solana 1,789 / base 443 / ethereum 304), refresh cycle 165s (hot 158s), 1953 calls (97 feed, 429s 0, failed 0), 55,679 refreshed (8002 no pair), +91 added / -95 dropped (dead 67, stale 28, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-23 15:09 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/mover     equity $118.59 (-76.3%) 2 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/social_heat equity $328.61 (-34.3%) 3 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] crypto/hold_btc  equity $387.92 (-22.4%) 1 open  market DOWN
+$BITF: possibly delisted; no price data found  (period=407d)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF']: possibly delisted; no price data found  (period=407d)
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-11-23 15:09 UTC] stocks/rsi2      equity $446.68 (-10.7%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 0, NVDA 0, GLD 0, XLB 0
+   >> stocks/breakout52: SELL $99.78 of DOCU @ 76.1869, P/L $-1.72 (closed below its 50-day average)
+[2026-11-23 15:09 UTC] stocks/breakout52 equity $448.64 (-10.3%) 2 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-23 15:09 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 41.00 vs its 200-day average 65.64: BELOW (cash)
+[2026-11-23 15:09 UTC] stocks/dual_momentum equity $443.16 (-11.4%) 2 open  market DOWN
+   >> stocks/trend_ensemble: SELL $89.92 of XLV @ 178.98, P/L $+3.65 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: SELL $89.48 of AAPL @ 348.381, P/L $+1.13 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: SELL $88.92 of LLY @ 1369.66, P/L $+7.51 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: SELL $86.81 of MSFT @ 503.508, P/L $-3.69 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: SELL $85.60 of COST @ 1085.4, P/L $+2.59 (trend_ensemble: dropped from targets)
+[2026-11-23 15:09 UTC] stocks/trend_ensemble equity $490.72 (-1.9%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-23 15:09 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: BUY $132.79 of COST @ 1086.48 (entry)
+[2026-11-23 15:09 UTC] stocks/trend     equity $442.56 (-11.5%) 1 open  market DOWN
+[2026-11-23 15:09 UTC] stocks/hold_spy  equity $471.72 (-5.7%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), HYPE 33 (27/0/6), PENGU 24 (24/0/0), SKY 21 (21/0/0), VVV 16 (16/0/0)
