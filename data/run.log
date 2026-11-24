@@ -28127,3 +28127,48 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-24 16:21 UTC] stocks/trend     equity $440.60 (-11.9%) 0 open  market DOWN
 [2026-11-24 16:21 UTC] stocks/hold_spy  equity $468.33 (-6.3%) 1 open  market DOWN
    social heat top: BTC 35 (35/0/0), MON 32 (32/0/0), VVV 29 (24/0/5), PENGU 19 (19/0/0), SKY 16 (16/0/0)
+   scanner: 970 tickers, sample: {'i': 'BTC_USD', 'h': '62746.00', 'l': '59319.22', 'a': '59662.51', 'v': '8179.6685', 'vv': '494857285.70', 'c': '-0.0491', 'b': '59654.96', 'k': '59654.97', 'oi': '0', 't': 1795537290661}
+   dex screen: PASS PEPE@ethereum liq $22,465,207
+   dex screen: PASS SPX@ethereum liq $7,835,305
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $218,501 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ONDO@ethereum liq $1,303,055 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT DRB@base liq $839,006 - lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $209,434 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: XTO@solana:91GG7PWs data flag #20 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $217,015 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT BILL@solana liq $246,703,971 - top-10 holders 100%
+   dex scanner: 2,294 pools (solana 1,642 / base 366 / ethereum 286), refresh cycle 96s (hot 92s), 1942 calls (92 feed, 429s 1, failed 2), 55,458 refreshed (10288 no pair), +239 added / -75 dropped (dead 73, stale 2, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-24 17:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/mover     equity $106.79 (-78.6%) 1 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/social_heat equity $311.49 (-37.7%) 2 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] crypto/hold_btc  equity $367.74 (-26.5%) 1 open  market DOWN
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-24 17:07 UTC] stocks/rsi2      equity $449.09 (-10.2%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLE 2 BUY, UBER 25, AVGO 33, XLP 38
+[2026-11-24 17:07 UTC] stocks/breakout52 equity $452.31 (-9.5%) 2 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-24 17:07 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 49.13 vs its 200-day average 65.38: BELOW (cash)
+[2026-11-24 17:07 UTC] stocks/dual_momentum equity $438.20 (-12.4%) 2 open  market DOWN
+[2026-11-24 17:07 UTC] stocks/trend_ensemble equity $490.72 (-1.9%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] stocks/trend     equity $440.60 (-11.9%) 0 open  market DOWN
+[2026-11-24 17:07 UTC] stocks/hold_spy  equity $469.37 (-6.1%) 1 open  market DOWN
+   social heat top: MON 35 (35/0/0), BTC 32 (32/0/0), ZRO 24 (24/0/0), NEAR 21 (21/0/0), SUI 19 (19/0/0)
