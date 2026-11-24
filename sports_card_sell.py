@@ -430,7 +430,35 @@ def road_games(gs, t):
 CLOSE_BY = 5                 # 🧭 11/24: a game we finished within this many points of a winning team ...
 CLOSE_MIN = 4                # ... that has played this many D1 games (and won TOUGH_LOSSES of them or more)
 CLOSE_NAMES = 3
-CLOSE = True                 # the switch (False = the 11/23 card)
+CLOSE = False                # ❌ 11/24 (later the same day): OFF FOR GOOD. Victor on the ⭐ Illinois St +100 card this line
+#   led: "he said Illinois state good becuz it lost to st Mary's and Santa Clara ... lol". A close loss is a LOSS - a moral
+#   victory is never a reason to bet a team. No pool writes one and every render cuts one (MORAL below).
+
+# ❌ 11/24 NO MORAL VICTORIES: a line that sells our side with a game it LOST ("finished within 3 of", "only lost by",
+# "hung with", "took them to the wire", "gave them all they could handle") is cut everywhere - sports_card_check, the
+# template pools and the writer's card (sports_card_writer.line_wrong).
+MORAL = re.compile(r"\bfinished within \d+ of\b|\bwithin \d+ (?:points? )?of (?:beating|knocking off|upsetting)\b|"
+                   r"\bonly lost (?:by|to)\b|\blost by (?:just|only)\b|\b(?:just|only) a \d+-point loss\b|"
+                   r"\bhung (?:with|around|in there|tough)\b|\bhang with\b|\bto the wire\b|\ball (?:they|he) could handle\b|"
+                   r"\bplayed [^.;]{0,40} (?:close|tough|tight)\b|\bstayed (?:close|within|in it)\b|\bkept it close\b|"
+                   r"\b(?:a )?one[- ]possession loss\b|\bmoral victor", re.I)
+
+
+LOSS_LINES = False           # ❌ 11/24: "the teams that beat us are winning teams" is the same moral victory said the long way
+#   - who we LOST to is never a card line (the 11/23 🧭 'who beat us' line is off; a posted one is cut on render)
+LOST_TO = r"(?:teams? (?:that|to) (?:beat|got)|team to beat|[Ee]very team that got|[Oo]nly [\w.'& -]+ got) "
+
+
+def lost_to(line, us):
+    """A 🧭 line that sells `us` with the teams it LOST to ("The teams that beat Northern Iowa this year ... won 7 of 7")."""
+    t = str(line or "")
+    return bool(us) and t.startswith("🧭") and bool(re.search(LOST_TO.replace(" got) ", " got) ?") + r"(?:the )?" + re.escape(us) + r"\b", t)
+                                                       or re.search(r"\bgot " + re.escape(us) + r"\b", t))
+
+
+def moral(line):
+    """Does this line sell a side with a game it lost (a moral victory)? - never a card line (11/24)."""
+    return bool(MORAL.search(str(line or "")))
 
 
 def close_calls(gu, tid, idx, since, nond1):
@@ -481,7 +509,7 @@ def sched_lines(lg, us, them, gu, gt, tid, oid, fin, nond1, leg, backed=False, g
                 out.append(("sched_w", ways, bool(backed), 8.8 + (SOFT_WINS - w / n) * 3, short))   # (short: under the pick only)
         # 2. who beat us
         names, each = beat_by(lost_u, idx, since, nond1)
-        if 1 <= len(names) <= SCHED_NAMES and them not in names:
+        if LOSS_LINES and 1 <= len(names) <= SCHED_NAMES and them not in names:
             w, n = sum(a for a, _ in each), sum(a + b for a, b in each)
             if n >= 3 * len(names) and w >= TOUGH_LOSSES * n and all(a > b for a, b in each):
                 if len(names) == 1:
@@ -492,7 +520,8 @@ def sched_lines(lg, us, them, gu, gt, tid, oid, fin, nond1, leg, backed=False, g
                             f"🧭 Every team that got {us} this year is a winning team: {_names(names)} won {w} of {n} against D1 teams between them."]
                 short = [] if len(names) == 1 else [
                     f"🧭 The {_NUM.get(len(names), len(names))} teams that beat {us} this year won {w} of {n} against D1 teams between them."]
-                out.append(("sched_l", ways, bool(backed), 8.2 + (w / n - TOUGH_LOSSES) * 3, short))
+                # (11/24: who beat us explains a record - it is never the REASON and never the line under the pick)
+                out.append(("sched_l", ways, False, 5.0 + (w / n - TOUGH_LOSSES) * 3))
         # 2b. 🧭 11/24 board check (the ⭐ Illinois St +100 card had no reason line at all -
         # it had beaten one D1 team, and finished 5 from Saint Mary's and 3 from Santa Clara, who won 12 of 14): the
         # games we finished within CLOSE_BY points of a WINNING team - said as how close, never as a loss
@@ -608,6 +637,106 @@ def sched_wrong(line, us, them, gu, gt, tid, oid, fin, nond1, s_theirs=None):
     except Exception:                                     # noqa: BLE001 - the check never breaks a card
         return ""
     return ""
+
+
+# 🧱 11/24 THE CASE BUILDER (the owner, after six template passes: "Fable needs to permanently fix this. These breakdowns
+# have been so fucking bad"; Victor on the ⭐ Illinois St +100 card: "Ur algo had terrible breakdown on the game lol").
+# A pool that picks facts one at a time can't build an ARGUMENT. The case is the MATCHUP: what our side does well against
+# what their side does badly ON THE SAME THING - our shooting against the shooting they allow, their turnovers against
+# our takeaways, our threes against their arc, the glass, the line, the paint, the break; and the same the other way
+# round (their offense against our defense). Every edge is scored the same way - how far OUR number sits on the good
+# side of an ordinary team's, plus how far THEIRS sits on the bad side, each in that stat's own spread - so the edges
+# can be RANKED. The biggest leads the card, the next CASE_MAX - 1 back it up, each line both teams' numbers in one
+# sentence. An edge needs both halves (a strength that meets a strength is no edge: CASE_HALF) and a real size
+# (CASE_MIN). No edge = no line - the card is shorter, never padded. Only when the schedules were about as tough
+# (cmp_ok / fair_trim - the Oakland rule); college hoops reads D1 games only. False = the 11/23 card.
+CASE = True
+CASE_MIN = 1.25              # the two halves together, in spreads
+CASE_HALF = 0.25             # each half at least this: ours really on the good side of ordinary, theirs really on the bad side
+CASE_MAX = 4                 # the lead + three
+CASE_BASE = {   # stat -> (an ordinary team's number, one spread) a league
+    "ncaab": {"fg": (44.0, 3.0), "tp": (33.5, 3.5), "to": (12.5, 2.0), "reb": (0.0, 4.0), "fta": (20.0, 4.0),
+              "paint": (30.0, 5.0), "fast": (10.0, 3.0)},
+    "nba": {"fg": (46.5, 2.0), "tp": (36.0, 2.0), "to": (14.5, 1.5), "reb": (0.0, 3.0), "fta": (23.0, 3.0),
+            "paint": (48.0, 5.0), "fast": (15.0, 3.0)},
+}
+
+
+def case_edges(lg, us, them, pu, pt, d1=""):
+    """The matchup edges for our side, biggest first: [(key, size, ways)] - see CASE. `pu` / `pt`: the two teams'
+    box-score profiles over the same kind of games."""
+    base = CASE_BASE.get(lg)
+    if not CASE or not base or not pu or not pt:
+        return []
+    vs = " against D1 teams" if d1 else " this year"
+    nu, nt = float(pu["n"]), float(pt["n"])
+    out = []
+
+    def edge(key, stat, ours, theirs, ways, flip=False):
+        """ours / theirs: the two numbers, both 'higher = better for us' unless flip (then lower is)."""
+        if ours is None or theirs is None:
+            return
+        b, sp = base[stat]
+        a_, t_ = ((b - ours) / sp, (b - theirs) / sp) if flip else ((ours - b) / sp, (theirs - b) / sp)
+        if a_ >= CASE_HALF and t_ >= CASE_HALF and a_ + t_ >= CASE_MIN:
+            out.append((key, round(a_ + t_, 2), ways))
+
+    fgu, fgt = pct(pu, "fgm", "fga"), pct(pt, "fgm", "fga")
+    dfu, dft = pct(pu, "o_fgm", "o_fga"), pct(pt, "o_fgm", "o_fga")
+    if None not in (fgu, dft) and _r(fgu) != _r(dft):
+        edge("shooting", "fg", fgu, dft,
+             [f"🪣 {us} shoot {_r(fgu)}% from the field{vs} and {them} let teams shoot {_r(dft)}%.",
+              f"🪣 {them} let teams hit {_r(dft)}% of their shots{vs}. {us} shoot {_r(fgu)}%. Buckets.",
+              f"🪣 {_r(fgu)}% shooting for {us}{vs}, and the {them} defense gives up {_r(dft)}%."])
+    if None not in (dfu, fgt):                               # (their offense against our defense: lower is ours)
+        edge("defense", "fg", dfu, fgt,
+             [f"🛡️ {them} shoot {_r(fgt)}% from the field{vs} and {us} hold teams to {_r(dfu)}%.",
+              f"🛡️ {us} hold teams to {_r(dfu)}% shooting{vs}. {them} only shoot {_r(fgt)}% to begin with.",
+              f"🛡️ {_r(fgt)}% shooting for {them}{vs}, and now they get a {us} defense that allows {_r(dfu)}%."], flip=True)
+    u3, o3t = pct(pu, "tpm", "tpa"), pct(pt, "o_tpm", "o_tpa")
+    t3, o3u = pct(pt, "tpm", "tpa"), pct(pu, "o_tpm", "o_tpa")
+    if None not in (u3, o3t) and pu["tpa"] >= 50 and pt["o_tpa"] >= 50:
+        m_ = _r(pu["tpm"] / nu)
+        edge("threes", "tp", u3, o3t,
+             [f"👌 {us} make {m_} threes a game at {_r(u3)}%{vs} and {them} let teams shoot {_r(o3t)}% from three.",
+              f"👌 {them} give up {_r(o3t)}% from three{vs}. {us} make {m_} a game at {_r(u3)}%.",
+              f"👌 {m_} threes a game at {_r(u3)}% for {us}{vs} - and {them} can't guard the arc ({_r(o3t)}% allowed)."])
+    if None not in (t3, o3u) and pt["tpa"] >= 50 and pu["o_tpa"] >= 50:
+        edge("arc", "tp", o3u, t3,
+             [f"👌 {them} hit {_r(t3)}% from three{vs} and teams shoot {_r(o3u)}% from three against {us}.",
+              f"👌 Teams shoot {_r(o3u)}% from three against {us}{vs}. {them} only hit {_r(t3)}% from three on anybody.",
+              f"👌 {_r(t3)}% from three for {them}{vs}, and {us} hold teams to {_r(o3u)}% from three."], flip=True)
+    tt, fu = pt["to"] / nt, pu["o_to"] / nu
+    if _r(tt) != "0":
+        edge("to", "to", fu, tt,
+             [f"🧤 {them} turn it over {_r(tt)} times a game{vs} and {us} take it away {_r(fu)} times a night.",
+              f"🧤 {us} force {_r(fu)} turnovers a game{vs}. {them} already give it away {_r(tt)} times a night.",
+              f"🧤 {_r(tt)} turnovers a game for {them}{vs}, and {us} force {_r(fu)}. Free possessions."])
+    ru, rt = (pu["reb"] - pu["o_reb"]) / nu, (pt["reb"] - pt["o_reb"]) / nt
+    if ru >= 0.5 and rt <= -0.5:
+        edge("glass", "reb", ru, -rt,
+             [f"🧲 {us} out-rebound teams by {_r(ru)} a game{vs} and {them} get out-rebounded by {_r(-rt)}.",
+              f"🧲 The glass is ours: {us} plus {_r(ru)} rebounds a game{vs}, {them} minus {_r(-rt)}.",
+              f"🧲 {them} get out-rebounded by {_r(-rt)} a game{vs} and {us} win the boards by {_r(ru)}. Second chances all night."])
+    ftu, oft = pu["fta"] / nu, pt["o_fta"] / nt
+    edge("line", "fta", ftu, oft,
+         [f"🎁 {us} get to the line {_r(ftu)} times a game{vs} and {them} put teams on the line {_r(oft)} times a night.",
+          f"🎁 {them} put teams on the line {_r(oft)} times a game{vs}. {us} get to the line {_r(ftu)} times a night.",
+          f"🎁 {_r(oft)} free throws a game is what {them} hand out{vs}, and {us} get to the line {_r(ftu)} times a night."])
+    if pu.get("paint") is not None and pt.get("o_paint") is not None:
+        pa_u, gave = pu["paint"] / nu, pt["o_paint"] / nt
+        edge("paint", "paint", pa_u, gave,
+             [f"🎨 {us} score {_r(pa_u)} a game in the paint{vs} and {them} give up {_r(gave)} in the paint.",
+              f"🎨 {them} give up {_r(gave)} a game in the paint{vs} and {us} get {_r(pa_u)} in the paint every night.",
+              f"🎨 Points in the paint{vs}: {us} score {_r(pa_u)} a game, {them} allow {_r(gave)}."])
+    if pu.get("fast") is not None and pt.get("o_fast") is not None:
+        fb_u, fb_a = pu["fast"] / nu, pt["o_fast"] / nt
+        edge("fast", "fast", fb_u, fb_a,
+             [f"💨 {us} get {_r(fb_u)} fast-break points a game{vs} and {them} give up {_r(fb_a)} on the break.",
+              f"💨 {them} give up {_r(fb_a)} fast-break points a game{vs}. {us} score {_r(fb_u)} on the break.",
+              f"💨 On the break{vs}: {_r(fb_u)} points a game for {us}, {_r(fb_a)} allowed by {them}."])
+    out.sort(key=lambda r: -r[1])
+    return out[:CASE_MAX]
 
 
 def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True, note=""):
@@ -792,6 +921,14 @@ def hoops_lines(lg, us, them, pu, pt, pt5, leg, d1="", cmp_ok=True, note=""):
                                     f"🤝 Assists a game{vs}: {_r(as_u)} for {us}, {_r(as_t)} for {them}. They play one-on-one.",
                                     f"🤝 Only {_r(as_t)} assists a game for {them}{vs} - everybody for himself. {us} get {_r(as_u)}."],
                         False, 5.5 + (as_u - as_t) / 6))
+    case = case_edges(lg, us, them, pu, pt, d1)            # 🧱 11/24: the matchup edges, ranked - they ARE the case
+    if case:
+        same = {"arc": "threes"}                              # (one line a stat: a ranked edge takes its pool line's place)
+        gone = {same.get(k, k) for k, *_ in case} | ({"steals"} if any(k == "to" for k, *_ in case) else set())
+        out[n0:] = [o for o in out[n0:] if o[0] not in gone]
+        if any(o[0] == "three_luck" for o in out):         # ("their threes come back down" is the card's line on the arc)
+            case = [c for c in case if c[0] not in ("threes", "arc")]
+        out += [(k, ways, bool(backed), 10.0 + size) for k, size, ways in case]   # (the REASON when the leg carries the dog read)
     if note:                                              # (their numbers leave their toughest games out - said on the line)
         out[n0:] = [(k, [w + note if them in w else w for w in ways], r, wt) for k, ways, r, wt in out[n0:]]
     return out

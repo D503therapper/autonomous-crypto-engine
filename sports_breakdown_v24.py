@@ -3028,6 +3028,10 @@ def _cs_sig(line):
     return _cs.sig(line)
 
 
+NO_LEAD = ("sched_l", "sched_c")   # ❌ 11/24 (Victor: "he said Illinois state good becuz it lost to st Mary's and Santa
+#   Clara"): who beat us / how close we lost never takes the line under the pick
+
+
 def lead_upgrade(leg, sold, us, them, g, side, body=()):
     """🗣️ 11/22 (the owner: "the breakdowns basically need to sell our picks why we taking them" - the Wizards +170 card
     led with "The Wizards are on a 2-game winning streak" while its body held a 103-94 win over this same team; Robert
@@ -3052,9 +3056,10 @@ def lead_upgrade(leg, sold, us, them, g, side, body=()):
         if t:
             return t, h2h
     if body is not None and sold and not reason:          # (the second pass: no reason line, no meeting - the best stat)
-        t = _cs.lead_from(sold[0], us, lean, seed)
+        best = next((s_ for s_ in sold if s_[2] not in NO_LEAD), None)   # (11/24: never a line about our own losses)
+        t = _cs.lead_from(best, us, lean, seed) if best else None
         if t:
-            return t, sold[0][0]
+            return t, best[0]
     return None
 #   the line under the pick when no reason matched a fact: the strongest MATCHUP fact first - their tired legs, their
 #   men out, the game these two already played, where they got run - then form, then the scoreboard
@@ -3166,6 +3171,12 @@ def fill_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         pu_, pt_ = (_per_game(d1_u, tid), _per_game(d1_t, oid)) if _both else (None, None)   # 4b. the matchup on the year
         _ty, _oy = ("against D1 teams", "Against D1 teams") if _cut else ("this year", "On the year")
         step = 0.1 if nhl or lg == "mlb" else 3 if _sell and lg in ("nba", "ncaab") else 1   # (75 against 76 says nothing)
+        try:                                              # 🏫 11/24: THEIR schedule clearly tougher (the SCHED_EDGE guard) -
+            import sports_card_sell as _cs2               # never "we score more / allow less" off season averages that
+            if lg in SCHEDULE_FAIR and e is not None and not _cs2.fair_cmp(d1_u, d1_t, tid, oid, e):   # don't know who
+                pu_ = pt_ = None                          # each team played
+        except Exception:                                 # noqa: BLE001
+            pass
         if pu_ and pt_ and pt_[1] - pu_[1] >= step:
             out.append(say("fill_d", [f"🛡️ {them} {vb(them, 'give', 'gives')} up {fmt(pt_[1])} {unit} a game {_ty}. {us} {vb(us, 'give', 'gives')} up {fmt(pu_[1])}.",
                                         f"🛡️ {_oy} {us} {vb(us, 'allow', 'allows')} {fmt(pu_[1])} a game, {them} {fmt(pt_[1])}."], fact=True)
