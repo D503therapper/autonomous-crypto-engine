@@ -831,10 +831,105 @@ def team_names(league):
     return _NAMES[league]
 
 
+INJ_SRC = {}           # 🔁 11/23 DOUBLE-CHECKED, EVERY SOURCE (the owner: "double checking sources always"):
+#   {league: {team key: [[shown name, {source: status}]]}} - what EACH source said about each man on the last read
+#   (espn / rotowire / covers / official), kept beside the merged rows the engine weighs. The merged rows are unchanged;
+#   the card reads this to say a man no stronger than his sources do (said_as / cautious_rows).
+SRC_WORD = {"espn": "ESPN", "rotowire": "Rotowire", "covers": "Covers", "official": "the official report"}
+
+
+def _same_man(a, b):
+    """Two report spellings of one man: the same plain name, or the same last name + first initial when one of them is
+    an initial ('J. Knuth' = 'Jacob Knuth' - Covers' page abbreviates)."""
+    a, b = _plain(a).split(), _plain(b).split()
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    return len(a) > 1 and len(b) > 1 and a[-1] == b[-1] and a[0][:1] == b[0][:1] and (len(a[0]) == 1 or len(b[0]) == 1)
+
+
+def _src_note(league, src, teams):
+    """Remember what one source said: teams = {team key: [(player, pos, status)]}."""
+    book = INJ_SRC.setdefault(league, {})
+    for tid, rows in (teams or {}).items():
+        men = book.setdefault(str(tid), [])
+        for r in rows or []:
+            if not r or not r[0]:
+                continue
+            hit = next((m for m in men if _same_man(m[0], r[0])), None)
+            if hit is None:
+                men.append([r[0], {src: str(r[2])}])
+            else:
+                hit[1][src] = str(r[2])
+
+
+def status_class(status):
+    """'out' (out / doubtful / an injured list / suspended), 'q' (questionable / game-time / day-to-day / probable) or ''."""
+    t = str(status or "").lower()
+    if any(x in t for x in UNSURE) or "probable" in t:
+        return "q"
+    return "out" if any(x in t for x in SHORT_TERM + LONG_OUT) else ""
+
+
+def sources_of(league, team_id, team_name, name):
+    """{source: status} - every source that named this man on the last injury read ({} = none on file)."""
+    book = INJ_SRC.get(league) or {}
+    men = book.get(str(team_id))
+    if men is None:
+        men = next((v for k, v in book.items() if team_name and not k.isdigit()
+                    and (k.endswith(" " + team_name) or k == team_name)), [])
+    hit = next((m for m in men if _same_man(m[0], name)), None)
+    return dict(hit[1]) if hit else {}
+
+
+def said_as(league, team_id, team_name, name, status=None):
+    """How the card may say a man: {"word": 'out' / 'q' / '', "src": {source: status}, "conflict": bool}. Two sources
+    that disagree (one out, one questionable) = the more CAUTIOUS word - questionable, a game-time call - never the
+    stronger one; one source alone is said as that source says it."""
+    src = sources_of(league, team_id, team_name, name)
+    cls = {status_class(v) for v in src.values()} - {""}
+    own = status_class(status) if status is not None else ""
+    if own:
+        cls.add(own)
+    word = "q" if "q" in cls else ("out" if "out" in cls else "")
+    return {"word": word, "src": src, "conflict": len(cls) > 1}
+
+
+def cautious_rows(league, team_id, team_name, rows):
+    """The rows as a CARD may say them: a man one source has out and another questionable reads 'Questionable'. The
+    engine's own weighing keeps the merged rows - this is wording only."""
+    out = []
+    for r in rows or []:
+        try:
+            s_ = said_as(league, team_id, team_name, r[0], r[2])
+        except Exception:                                # noqa: BLE001 - can't tell = the row as it is
+            s_ = None
+        if s_ and s_["conflict"] and status_class(r[2]) == "out":
+            out.append((r[0], r[1], "Questionable"))
+        else:
+            out.append(r)
+    return out
+
+
+def conflicts(league, inj=None):
+    """[(team key, player, {source: status})] - every man two sources disagree on, on the last read."""
+    out = []
+    for tid, men in (INJ_SRC.get(league) or {}).items():
+        if not str(tid).isdigit() and any(str(k).isdigit() for k in (INJ_SRC.get(league) or {})):
+            continue                                     # (ESPN files a team under its id AND its name: once)
+        for nm, src in men:
+            if len({status_class(v) for v in src.values()} - {""}) > 1:
+                out.append((tid, nm, dict(src)))
+    return out
+
+
 def fetch_injuries(league):
     """{team id or name: [(player, position, status)]} for players listed Out / Doubtful - ESPN's feed plus the
     official availability reports we keep (injuries_official.json). None = we DON'T KNOW (the board waits on it)."""
     got = _fetch_espn_injuries(league)
+    INJ_SRC[league] = {}
+    _src_note(league, "espn", got)
     espn_down = got is None
     if espn_down and league in PRO:
         return None
@@ -845,11 +940,16 @@ def fetch_injuries(league):
         return None                                      # healthy" - covered() reads a missing pro team as nobody hurt,
     #                                                      so a blank feed would have cleared every team to be picked blind
     if league in WEB_INJ:                                # college: Rotowire's report fills every school it lists
-        for tid, rows in web_injuries(league, team_names(league)).items():   # (ESPN's college feed: ~3 teams)
+        web_ = web_injuries(league, team_names(league))
+        _src_note(league, "rotowire", web_)
+        for tid, rows in web_.items():                   # (ESPN's college feed: ~3 teams)
             got.setdefault(tid, list(rows))
     if league in WEB_PAGE:                               # college football: Covers' page - every school, healthy ones too
-        for tid, rows in page_injuries(league, team_names(league)).items():
+        page_ = page_injuries(league, team_names(league))
+        _src_note(league, "covers", page_)
+        for tid, rows in page_.items():
             got.setdefault(tid, list(rows))
+    _src_note(league, "official", official(league))
     for tid, rows in official(league).items():
         named = {_plain(r[0]) for r in rows}             # the official report is the full game-status list for that
         long = [r for r in got.get(tid) or [] if any(s in str(r[2]).lower() for s in LONG_OUT)   # team; ESPN's long-term

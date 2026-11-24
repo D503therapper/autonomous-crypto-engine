@@ -220,6 +220,16 @@ try:
         #   🧹 11/18 the card-quality score (results/studies/cards_1118): a 'quality' problem above = a line that knocks our
         #   own pick / repeats / talks jargon still on the page, a write-up that put 3+ bad lines on a live card, or a thin
         #   unit card. The score itself is said every hour so a slide shows before it's a problem.
+        #   🔁 11/23 DOUBLE-CHECKED, EVERY SOURCE (the owner: "double checking sources always"): every injury / starter /
+        #   price claim on a live card with what backs it. Two sources that DISAGREE on a man, or a posted price a second
+        #   source doesn't show, is a PROBLEM that names the card; a claim one source alone makes is named on the line.
+        try:
+            import sports_verify
+            dc_p, dc_ok = sports_verify.health_lines(ca.get("double_check") or {})
+            problems.extend(dc_p)
+            ok.extend(dc_ok)
+        except Exception as e:                           # noqa: BLE001
+            problems.append(f"double check unreadable: {str(e)[:60]}")
         q_ = ca.get("quality") or {}
         if q_.get("cards"):
             ok.append(f"card quality: {q_.get('score')}/100 on {q_.get('cards')} live cards (bad lines the write-up put "

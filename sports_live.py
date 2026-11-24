@@ -2165,6 +2165,7 @@ def orphan_grading(now=None):
 
 
 CARD_NEWS_S = 5 * 60          # 11/13 (the owner: "the goalie info on the Predators card needs to update as soon as he's
+GAMEDAY_AFTER_MIN = 150       # 🟢 11/23: ...and this long after the start while a questionable man is unsettled
 CARD_NEWS_AHEAD_H = 4         # ruled to play ... always up to date"): while the watch runs, every 5 minutes the posted
 #                               cards whose games start within 4 hours re-read the goalie page and the injury report
 #                               (the hourly engine run did it alone - a goalie confirmed at 3:10 showed at 4:00)
@@ -2186,8 +2187,13 @@ def card_news_due(games, picks, now=None):
                 t = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
             except ValueError:
                 continue
-            if 0 <= (t - now).total_seconds() <= CARD_NEWS_AHEAD_H * 3600:
+            ahead = (t - now).total_seconds()
+            if 0 <= ahead <= CARD_NEWS_AHEAD_H * 3600:
                 out.append(l)
+            elif -GAMEDAY_AFTER_MIN * 60 <= ahead < 0 and any(
+                    c == "q" and n not in (l.get("gameday") or {}) for n, c in (l.get("rep_status") or {}).items()):
+                out.append(l)                                # 🟢 11/23: a man still on the card's ❓ game-time line
+                #   after the start - the live box score settles him ("is playing"), so the card keeps being re-read
     return out
 
 
@@ -2210,7 +2216,8 @@ def publish_card_news(msg):
             import sports_goalies
             sports_goalies.sync(games)
         injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs} if lg in sd.INJ_LEAGUES}
-        key = lambda: json.dumps([(l.get("stale"), l.get("fresh"), l.get("confirmed")) for l in legs], sort_keys=True)
+        key = lambda: json.dumps([(l.get("stale"), l.get("fresh"), l.get("confirmed"), l.get("gameday"))
+                                  for l in legs], sort_keys=True)
         before = key()
         sports.fresh_card_facts(games, legs, injuries)
         if key() == before:

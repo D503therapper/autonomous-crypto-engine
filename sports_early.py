@@ -720,6 +720,15 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         print(f"   nba out over failed: {str(e)[:120]}")
     for c in new:
         stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
+    try:                                                     # 🔁 11/23 DOUBLE-CHECKED, EVERY SOURCE: each new play's
+        import sports_verify                                 # price looked up on a second plain source and stamped
+        rows_, at_ = {}, now.strftime("%Y-%m-%dT%H:%MZ")     # (price_2nd) - flagged in the log, never a play held
+        for c in st["picks"]:
+            if c.get("posted") == at_ and not c.get("result") and "price_2nd" not in c:
+                if sports_verify.stamp(c, games, now, rows_) is not None and sports_verify.words(c):
+                    print(sports_verify.words(c), flush=True)
+    except Exception as e:                                   # noqa: BLE001 - the second look never blocks a play
+        print(f"   early price check failed: {str(e)[:60]}")
     watch(st, games, injuries, now)
     try:
         sync_starts(st, games)                               # 🕐 11/19: a moved game moves its row
@@ -1166,7 +1175,8 @@ def news_lines(p):
     if not p.get("key_news") and p.get("key_out"):           # (a row stamped by the old watch: the name only)
         out.append(f"⚠️ INJURY ALERT: {p['key_out']} ruled out since we posted it. The pick stays - don't chase it at a new price.")
     for n in p.get("key_back") or []:
-        out.append(f"🔄 Update: {n} is off the injury report now - expected to play.")
+        out.append(f"🔄 Update: {n} is off the injury report now.")   # (🔁 11/23: what the source says, never
+        #   stronger - "expected to play" was said of a man who sat)
     return out
 
 
