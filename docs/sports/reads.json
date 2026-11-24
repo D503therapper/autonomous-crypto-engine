@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T17:14Z",
+ "updated": "2026-11-24T17:31Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -11,8 +11,8 @@
    "away": "Wright St",
    "home": "St Bonaventure",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -30,37 +30,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401928358",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "FIU",
-    "p": 0.702,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T18:00Z",
-   "away": "Southern Utah",
-   "home": "FIU",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Southern Utah",
-    "opp": "FIU",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -115,
-    "p": 0.502,
-    "win_p": 0.223,
-    "reasons": [
-     "sharp money moving this way",
-     "out-rebounding people by +9.9 a game to their -0.2 - the books don't price the glass (5 of 5 seasons)"
-    ]
-   }
   },
   {
    "id": "ncaab:401906806",
@@ -829,7 +798,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Harvard",
-    "p": 0.623,
+    "p": 0.624,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -2901,7 +2870,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.391,
+    "p": 0.386,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2910,17 +2879,19 @@
    "start": "2026-11-26T03:00Z",
    "away": "Sharks",
    "home": "Ducks",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Sharks",
     "opp": "Ducks",
     "market": "spread",
     "line": 1.5,
-    "odds": -175,
-    "p": 0.638,
-    "win_p": 0.422,
-    "reasons": []
+    "odds": -180,
+    "p": 0.649,
+    "win_p": 0.433,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
