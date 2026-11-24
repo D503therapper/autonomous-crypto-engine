@@ -1,30 +1,38 @@
 {
- "at": "2026-11-24T03:48Z",
+ "at": "2026-11-24T05:01Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "tennis slate due (8am PT) and not up - started sports.yml"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (213s)",
+  "live watcher fresh (29s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "card audit: 1 live cards, 8 lines - nothing false, outdated or senseless",
+  "double check: 0 injury / starter / price claims on 1 live cards - 0 confirmed by a second source, 0 single-sourced, 0 waiting on a game-day word",
   "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 0)",
   "slate check: all 64 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 12 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 20 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-24T05:01Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-24T03:48Z",
    "fixes": [
@@ -528,18 +536,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Bulbarella vs Ayala: no points for 515s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T16:55Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Bulbarella vs Ayala: no points for 720s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
     "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
