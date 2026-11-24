@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 137,
+  "n": 138,
   "beat": 46,
-  "same": 59,
+  "same": 60,
   "worse": 32,
   "avg_pts": 0.3
  },
  "unit_plays": {
-  "n": 137,
+  "n": 138,
   "beat": 46,
-  "same": 59,
+  "same": 60,
   "worse": 32,
   "avg_pts": 0.3
  },
  "by_kind": {
   "dog": {
-   "n": 34,
+   "n": 35,
    "beat": 7,
-   "same": 17,
+   "same": 18,
    "worse": 10,
-   "avg_pts": -0.21
+   "avg_pts": -0.2
   },
   "lock": {
    "n": 16,
@@ -73,11 +73,11 @@
    "avg_pts": 0.73
   },
   "nhl": {
-   "n": 51,
+   "n": 52,
    "beat": 16,
-   "same": 22,
+   "same": 23,
    "worse": 13,
-   "avg_pts": 0.17
+   "avg_pts": 0.16
   }
  },
  "lock_by_size": {
@@ -1985,6 +1985,20 @@
    "close": 164,
    "pts": 0.8,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-23",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Kings",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 130,
+   "pts": 0.0,
+   "units": 2.0,
    "result": "won"
   },
   {

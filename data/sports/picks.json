@@ -26980,6 +26980,7 @@
      "us:week3000"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -27000,6 +27001,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,0",
+     "h": "0,1,0"
+    },
     "form_state": [
      -2.0,
      -1,
@@ -27075,10 +27080,12 @@
      "Mike Matheson": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Kings 2 @ Canadiens 1",
     "season_games": null,
+    "settled": "2026-11-24T03:42Z",
     "side": "away",
     "sold": [],
     "spare": [
@@ -27102,12 +27109,14 @@
    }
   ],
   "p_hit": 0.4216,
-  "pnl": 0.0,
+  "pnl": 130.0,
   "posted": "2026-11-23T16:00Z",
   "round": 1,
+  "settled": "2026-11-24T03:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 124,
