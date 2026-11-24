@@ -27576,6 +27576,7 @@
      "us:road3in6"
     ],
     "dec": 2.3899999999999997,
+    "decider": {},
     "depth_gap": 1,
     "dog_ctx": {
      "cw5": 0,
@@ -27628,6 +27629,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 2.11,
+    "flow": {
+     "a": "30,39,32,27",
+     "h": "32,37,23,19"
+    },
     "form_state": [
      -1.0,
      -1,
@@ -27724,10 +27729,12 @@
      "Vit Krejci": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Trail Blazers 128 @ 76ers 111",
     "season_games": 16,
+    "settled": "2026-11-24T02:27Z",
     "side": "away",
     "sold": [],
     "spare": [
@@ -27754,12 +27761,14 @@
    }
   ],
   "p_hit": 0.402,
-  "pnl": 0.0,
+  "pnl": 139.0,
   "posted": "2026-11-23T16:00Z",
   "round": 1,
+  "settled": "2026-11-24T02:27Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 105,
