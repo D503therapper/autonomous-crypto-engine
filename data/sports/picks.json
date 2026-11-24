@@ -28497,5 +28497,251 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
+ },
+ {
+  "american": 102,
+  "date": "2026-11-24",
+  "dec": 2.02,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 3,
+    "b2b_me": false,
+    "bd_tags": [
+     "f_last:0",
+     "latest:4",
+     "w_their_loss:102",
+     "sell_sched_w:1",
+     "sell_to:1",
+     "sell_shooting:1",
+     "sell_best_win:0",
+     "sell_assists:0",
+     "f_pts:3",
+     "bottom_unit_fair:1",
+     "fill_star:0",
+     "fill_year_t:0",
+     "fill_o:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\udde4 14 turnovers a game for Coastal against D1 teams, 10 for Campbell. Free possessions. (not counting the Tennessee game)",
+     "\ud83e\udea3 Coastal can't shoot it - 40% from the field against D1 teams. (not counting the Tennessee game)",
+     "\ud83c\udfc6 Campbell already beat Kansas St this year, 80-70 on the road.",
+     "\ud83e\udd1d Coastal gets 9 assists a game against D1 teams. Campbell: 15. One team moves the ball. (not counting the Tennessee game)",
+     "\ud83d\udcca Against D1 teams Coastal gives up 81 points a game and scores 64.",
+     "\ud83d\udcc5 Coastal took a 78-51 loss to Tennessee last time out.",
+     "\u2705 Bottom line: Campbell (+102). We on Campbell."
+    ],
+    "bv": 86,
+    "coach": [
+     null,
+     false
+    ],
+    "coach_name": "Jimmie Williams",
+    "coach_tenure": 1,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "us:road3in6"
+    ],
+    "dec": 2.02,
+    "def_first": false,
+    "dog_bad": [
+     "out_rebounded"
+    ],
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_good": [],
+    "dog_more": {},
+    "dog_p": 0.5039,
+    "dog_read": 3.0,
+    "dog_read_parts": {
+     "facts": [],
+     "games_ok": true,
+     "knowledge": 0,
+     "ratings": 2,
+     "weights": 1.0
+    },
+    "dog_score": 3.0,
+    "drift": -0.046,
+    "edge": -0.05400032611846173,
+    "edge_own": -0.05213838150784611,
+    "eff_p": 0.555,
+    "efg_gap": 0.03,
+    "elo_edge": -48.3,
+    "elo_raw": 31.7,
+    "fact": "Coastal just got beat 78-51 by Tennessee.",
+    "facts": [
+     [
+      "Coastal just got beat 78-51 by Tennessee.",
+      "Coastal are coming off a 78-51 beating from Tennessee.",
+      "Last time out Coastal took a 78-51 L to Tennessee.",
+      "Coastal got handled 78-51 by Tennessee last time out."
+     ],
+     [
+      "Campbell are fresh off a 80-70 win over Kansas St.",
+      "Campbell just beat Kansas St 80-70.",
+      "Last time out Campbell took Kansas St 80-70.",
+      "Campbell handled Kansas St 80-70 last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     10.0,
+     1,
+     1000,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401920742",
+    "games_in": 6,
+    "home": false,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {},
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "men_side": {},
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0179,
+    "ncaab_fired": [
+     "the favorite lost its last"
+    ],
+    "ncaab_new_coach": true,
+    "ncaab_read": 0.5039,
+    "ncaab_score": 3.0,
+    "ncaab_skid": 0,
+    "ncaab_slot": "dog",
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 102,
+    "off_first": true,
+    "on_report": [],
+    "opp": "Coastal",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": 0.0,
+    "opp_games_in": 6,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": true,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "opp_roster_new": 0.116,
+    "opp_tp_net": -0.043,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4683166702383853,
+    "p_market": 0.4739134147382803,
+    "pdo": null,
+    "pdo_parts": null,
+    "price_2nd": {
+     "at": "2026-11-24T17:09Z",
+     "odds": 100,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.43,
+    "reasons": [
+     "sharp money moving this way",
+     "the dog read is 3 (our efficiency ratings have them the better team on this floor) - road dogs reading 3 beat their price in 6 of 8 seasons 2018-25"
+    ],
+    "reb_gap": -9.83,
+    "rep_status": {},
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_cm": 3.7,
+    "road_games": 5,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.502,
+    "roster_tin": 0.319,
+    "season_games": null,
+    "side": "away",
+    "sold": [
+     "\ud83e\udde4|14,1,10",
+     "\ud83e\udea3|40,1",
+     "\ud83e\udded|1,0,6,1"
+    ],
+    "spare": [
+     "\ud83d\udcca Against D1 teams Campbell put up 73 a game, Coastal 64.",
+     "\ud83d\udcaf Rashawn Inglemon is giving Campbell 21 a night over the last 5 games he's played."
+    ],
+    "spread_stack": -0.02,
+    "spread_stack_n": 1,
+    "start": "2026-11-25T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Campbell",
+    "team_id": "2097",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": 0.17,
+    "to_net": 0.0483,
+    "tp_gap": 0.025,
+    "tp_net": -0.059,
+    "tp_net_line": [
+     0.344,
+     0.402
+    ],
+    "tp_share": 0.4579,
+    "trap": false,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "waiting": [],
+    "why_key": "w_sell",
+    "why_line": "\ud83e\udded Give me Campbell: The one D1 team Coastal beat this year is SC Upstate, who won 0 of 6 against D1 teams."
+   }
+  ],
+  "midday": true,
+  "ncaab_play": {
+   "dog_read": 3.0,
+   "edge": 0.0179,
+   "fired": [
+    "the favorite lost its last"
+   ],
+   "read": 0.5039,
+   "road3": true,
+   "score": 3.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.4683,
+  "pnl": 0.0,
+  "posted": "2026-11-24T17:09Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]
