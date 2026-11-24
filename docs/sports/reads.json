@@ -146,8 +146,8 @@
    "away": "Ole Miss",
    "home": "BYU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -161,8 +161,8 @@
    "away": "App State",
    "home": "Yale",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1792,8 +1792,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Charleston",
-    "p": 0.514,
-    "tie": 0.043,
+    "p": 0.499,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1801,16 +1801,16 @@
    "start": "2026-11-25T01:30Z",
    "away": "Charleston",
    "home": "UTEP",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Charleston",
     "opp": "UTEP",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -125,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -2031,8 +2031,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.617,
-    "tie": 0.035,
+    "p": 0.623,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2040,16 +2040,16 @@
    "start": "2026-11-25T03:00Z",
    "away": "Mavericks",
    "home": "Nuggets",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Nuggets",
     "opp": "Mavericks",
-    "market": "ml",
-    "line": null,
-    "odds": -297,
-    "p": 0.697,
-    "win_p": 0.697,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -112,
+    "p": 0.5,
+    "win_p": 0.705,
     "reasons": [
      "the stronger team",
      "altitude edge"
