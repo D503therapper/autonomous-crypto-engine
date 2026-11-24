@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T07:05Z",
+ "updated": "2026-11-24T07:22Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -1017,7 +1017,7 @@
    "home": "UC San Diego",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "San Jos\u00e9 St",
@@ -1030,7 +1030,7 @@
     "reasons": [
      "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -1526,6 +1526,34 @@
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "coughing it up 0.5 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401921710",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Arizona",
+    "p": 0.692,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:00Z",
+   "away": "Providence",
+   "home": "Arizona",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Providence",
+    "opp": "Arizona",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.234,
+    "reasons": []
    }
   },
   {
@@ -2036,7 +2064,7 @@
     "opp": "James Madison",
     "market": "spread",
     "line": 13.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.507,
     "win_p": 0.103,
     "reasons": []
@@ -3330,7 +3358,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.633,
+    "p": 0.628,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3348,7 +3376,7 @@
     "line": -8.5,
     "odds": -105,
     "p": 0.5,
-    "win_p": 0.72,
+    "win_p": 0.713,
     "reasons": [
      "the stronger team",
      "altitude edge"
@@ -3381,6 +3409,36 @@
     "p": 0.503,
     "win_p": 0.195,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401921712",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "VCU",
+    "p": 0.634,
+    "tie": 0.04,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T03:30Z",
+   "away": "VCU",
+   "home": "Colorado St",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "VCU",
+    "opp": "Colorado St",
+    "market": "ml",
+    "line": null,
+    "odds": -245,
+    "p": 0.706,
+    "win_p": 0.706,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {

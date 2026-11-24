@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 138,
+  "n": 139,
   "beat": 46,
   "same": 60,
-  "worse": 32,
-  "avg_pts": 0.3
+  "worse": 33,
+  "avg_pts": 0.28
  },
  "unit_plays": {
-  "n": 138,
+  "n": 139,
   "beat": 46,
   "same": 60,
-  "worse": 32,
-  "avg_pts": 0.3
+  "worse": 33,
+  "avg_pts": 0.28
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 87,
+   "n": 88,
    "beat": 30,
    "same": 38,
-   "worse": 19,
-   "avg_pts": 0.35
+   "worse": 20,
+   "avg_pts": 0.32
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.89
   },
   "ncaab": {
-   "n": 10,
+   "n": 11,
    "beat": 4,
    "same": 3,
-   "worse": 3,
-   "avg_pts": 0.51
+   "worse": 4,
+   "avg_pts": 0.27
   },
   "ncaaf": {
    "n": 43,
@@ -2027,6 +2027,20 @@
    "close": -110,
    "pts": 10.5,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-23",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "San Jos\u00e9 St",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 114,
+   "pts": -2.1,
+   "units": 1.0,
    "result": "won"
   },
   {

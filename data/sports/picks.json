@@ -27824,6 +27824,7 @@
      "game:conf"
     ],
     "dec": 2.05,
+    "decider": {},
     "def_first": false,
     "dog_bad": [],
     "dog_ctx": {
@@ -27863,6 +27864,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "43,45",
+     "h": "42,37"
+    },
     "form_state": [
      -9.0,
      -1,
@@ -27938,7 +27943,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -27947,7 +27952,9 @@
     ],
     "roster_new": 0.104,
     "roster_tin": 0.704,
+    "score": "San Jos\u00e9 St 88 @ UC San Diego 79",
     "season_games": null,
+    "settled": "2026-11-24T07:15Z",
     "side": "away",
     "sold": [
      "\ud83e\udded|1,3,11,1"
@@ -27991,12 +27998,14 @@
    "two_at": 5
   },
   "p_hit": 0.4626,
-  "pnl": 0.0,
+  "pnl": 105.0,
   "posted": "2026-11-23T16:21Z",
   "round": 1,
+  "settled": "2026-11-24T07:15Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 160,
