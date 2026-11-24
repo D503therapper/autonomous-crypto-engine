@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T17:40Z",
+ "updated": "2026-11-24T17:52Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -25,6 +25,21 @@
    "start": "2026-11-24T16:00Z",
    "away": "Ohio",
    "home": "New Mexico St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928835",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T17:30Z",
+   "away": "Belmont",
+   "home": "Akron",
    "h1": null,
    "why": "started",
    "done": false,
@@ -111,26 +126,26 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Oregon St",
-    "p": 0.72,
+    "team": "San Francisco",
+    "p": 0.713,
     "tie": 0.036,
     "name": "1st half"
    },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-24T19:00Z",
-   "away": "Oregon St",
-   "home": "San Francisco",
+   "away": "San Francisco",
+   "home": "Oregon St",
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "San Francisco",
-    "opp": "Oregon St",
+    "team": "Oregon St",
+    "opp": "San Francisco",
     "market": "spread",
     "line": 8.5,
     "odds": -112,
     "p": 0.502,
-    "win_p": 0.198,
+    "win_p": 0.205,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -300,15 +315,15 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Arkansas St",
-    "p": 0.598,
+    "p": 0.587,
     "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-24T20:30Z",
-   "away": "Long Beach St",
-   "home": "Arkansas St",
+   "away": "Arkansas St",
+   "home": "Long Beach St",
    "why": "tight",
    "board": null,
    "lean": {
@@ -317,11 +332,11 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.656,
-    "win_p": 0.656,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way",
+     "the stronger team",
      "out-rebounding people by +4.2 a game to their -10.4 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
@@ -689,8 +704,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Furman",
-    "p": 0.692,
-    "tie": 0.037,
+    "p": 0.685,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -704,10 +719,10 @@
     "team": "Elon",
     "opp": "Furman",
     "market": "spread",
-    "line": 7.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.235,
+    "line": 6.5,
+    "odds": -102,
+    "p": 0.5,
+    "win_p": 0.242,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win"
@@ -1065,7 +1080,7 @@
     "opp": "Indiana",
     "market": "spread",
     "line": 28.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.522,
     "win_p": 0.017,
     "reasons": []
@@ -1226,8 +1241,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.529,
-    "tie": 0.036,
+    "p": 0.521,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1235,16 +1250,16 @@
    "start": "2026-11-25T00:00Z",
    "away": "Pistons",
    "home": "Magic",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Pistons",
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1391,7 +1406,7 @@
     "opp": "Iowa",
     "market": "spread",
     "line": 28.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.522,
     "win_p": 0.015,
     "reasons": [
@@ -1405,7 +1420,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Vanderbilt",
-    "p": 0.494,
+    "p": 0.502,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1421,9 +1436,9 @@
     "opp": "Ohio State",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.523,
-    "win_p": 0.523,
+    "odds": -130,
+    "p": 0.534,
+    "win_p": 0.534,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +17.0 a game to their +6.8 - the books don't price the glass (5 of 5 seasons)",
@@ -2054,9 +2069,9 @@
     "team": "Idaho St",
     "opp": "Boise St",
     "market": "spread",
-    "line": 18.5,
-    "odds": -105,
-    "p": 0.512,
+    "line": 19.5,
+    "odds": -112,
+    "p": 0.513,
     "win_p": 0.056,
     "reasons": [
      "rolling off a blowout win"
@@ -2069,7 +2084,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Washington St",
-    "p": 0.613,
+    "p": 0.623,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -2085,9 +2100,9 @@
     "opp": "Sam Houston",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.676,
-    "win_p": 0.676,
+    "odds": -230,
+    "p": 0.688,
+    "win_p": 0.688,
     "reasons": [
      "the turnover matchup is ours by 7.3 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
@@ -2142,9 +2157,9 @@
     "team": "UNC Greensboro",
     "opp": "Santa Barbara",
     "market": "spread",
-    "line": 18.5,
-    "odds": -112,
-    "p": 0.512,
+    "line": 17.5,
+    "odds": -108,
+    "p": 0.511,
     "win_p": 0.055,
     "reasons": []
    }
@@ -2442,7 +2457,7 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -180,
+    "odds": -198,
     "p": 0.628,
     "win_p": 0.408,
     "reasons": [
@@ -2528,7 +2543,7 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -230,
     "p": 0.666,
     "win_p": 0.448,
     "reasons": []
@@ -2556,7 +2571,7 @@
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
+    "odds": -185,
     "p": 0.628,
     "win_p": 0.411,
     "reasons": []
@@ -2584,7 +2599,7 @@
     "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -225,
     "p": 0.671,
     "win_p": 0.453,
     "reasons": []
