@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T01:02Z",
+ "updated": "2026-11-24T01:09Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -692,6 +692,66 @@
    }
   },
   {
+   "id": "ncaab:401909788",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "Denver",
+   "home": "Kansas",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401913102",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "Monmouth",
+   "home": "North Carolina",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401929392",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "UW-Stout",
+   "home": "N Dakota St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401913530",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "Winthrop",
+   "home": "Illinois",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401909536",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -924,7 +984,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -12.5,
-    "odds": -109,
+    "odds": -105,
     "p": 0.502,
     "win_p": 0.831,
     "reasons": [
@@ -1151,7 +1211,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "FIU",
-    "p": 0.694,
+    "p": 0.705,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1166,10 +1226,10 @@
     "team": "Southern Utah",
     "opp": "FIU",
     "market": "spread",
-    "line": 8.5,
-    "odds": -109,
-    "p": 0.502,
-    "win_p": 0.233,
+    "line": 7.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.221,
     "reasons": [
      "sharp money moving this way",
      "out-rebounding people by +10.3 a game to their -0.2 - the books don't price the glass (5 of 5 seasons)"
@@ -1244,8 +1304,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon St",
-    "p": 0.757,
-    "tie": 0.033,
+    "p": 0.747,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1262,7 +1322,7 @@
     "line": 10.5,
     "odds": -110,
     "p": 0.504,
-    "win_p": 0.159,
+    "win_p": 0.169,
     "reasons": []
    }
   },
@@ -1294,6 +1354,38 @@
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401929285",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "App State",
+    "p": 0.499,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T20:00Z",
+   "away": "App State",
+   "home": "Yale",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "App State",
+    "opp": "Yale",
+    "market": "ml",
+    "line": null,
+    "odds": -125,
+    "p": 0.53,
+    "win_p": 0.53,
+    "reasons": [
+     "the stronger team",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "coughing it up 0.5 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -2387,8 +2479,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Florida St",
-    "p": 0.927,
-    "tie": 0.014,
+    "p": 0.937,
+    "tie": 0.012,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2402,10 +2494,10 @@
     "team": "UNC Asheville",
     "opp": "Florida St",
     "market": "spread",
-    "line": 25.0,
-    "odds": -109,
+    "line": 25.5,
+    "odds": -110,
     "p": 0.519,
-    "win_p": 0.028,
+    "win_p": 0.023,
     "reasons": []
    }
   },
