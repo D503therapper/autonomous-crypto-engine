@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T22:33Z",
+ "updated": "2026-11-24T22:51Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -176,8 +176,8 @@
    "away": "Miami",
    "home": "TCU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -206,8 +206,8 @@
    "away": "Tennessee",
    "home": "Maryland",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -307,6 +307,66 @@
    "start": "2026-11-24T22:00Z",
    "away": "Providence",
    "home": "Arizona",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401909495",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:30Z",
+   "away": "Creighton",
+   "home": "Michigan",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401924859",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:30Z",
+   "away": "Emerson",
+   "home": "Quinnipiac",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921707",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:30Z",
+   "away": "Kent State",
+   "home": "Wyoming",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401909775",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:30Z",
+   "away": "San Diego St",
+   "home": "Iowa State",
    "h1": null,
    "why": "started",
    "done": false,
@@ -948,7 +1008,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Florida",
-    "p": 0.876,
+    "p": 0.875,
     "tie": 0.021,
     "name": "1st half"
    },
@@ -993,8 +1053,8 @@
     "market": "ml",
     "line": null,
     "odds": -112,
-    "p": 0.509,
-    "win_p": 0.509,
+    "p": 0.51,
+    "win_p": 0.51,
     "reasons": [
      "altitude edge",
      "out-rebounding people by +0.8 a game to their -5.3 - the books don't price the glass (5 of 5 seasons)"
@@ -1380,8 +1440,8 @@
     "team": "Celtics",
     "opp": "Wizards",
     "market": "spread",
-    "line": -10.5,
-    "odds": -114,
+    "line": -11.5,
+    "odds": -104,
     "p": 0.501,
     "win_p": 0.777,
     "reasons": [
@@ -1609,7 +1669,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas Tech",
-    "p": 0.533,
+    "p": 0.527,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1625,9 +1685,9 @@
     "opp": "Louisville",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.578,
-    "win_p": 0.578,
+    "odds": -142,
+    "p": 0.569,
+    "win_p": 0.569,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -1731,7 +1791,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Washington St",
-    "p": 0.623,
+    "p": 0.622,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1849,7 +1909,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Alabama",
-    "p": 0.51,
+    "p": 0.511,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2468,7 +2528,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wisconsin",
-    "p": 0.891,
+    "p": 0.89,
     "tie": 0.019,
     "name": "1st half"
    },
