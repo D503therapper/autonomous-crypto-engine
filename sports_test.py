@@ -27263,7 +27263,7 @@ def test_early_injury_1118_the_early_card_alerts_loud_on_a_key_man_out_or_questi
         se.watch(st3, games, {"nfl": {"3": [], "21": them}}, now)
         assert p3["key_q"] is None and p3["key_news"] is None and p3["key_back"] == ["Caleb Williams"]
         h3 = se.html(st3, E, now)
-        assert "INJURY ALERT" not in h3 and "🔄 Update: Caleb Williams is off the injury report now - expected to play." in h3
+        assert "INJURY ALERT" not in h3 and "🔄 Update: Caleb Williams is off the injury report now." in h3
         se.watch(st3, games, {"nfl": {"3": [QO], "21": them}}, now)               # ...and out after all: the newest word
         assert p3["key_out"] == "Caleb Williams (QB)" and not p3.get("key_back")
         assert len(se.news_lines(p3)) == 1
@@ -31372,6 +31372,320 @@ def test_cards_1123_the_standing_rules_and_the_count_of_big_wins_is_not_a_record
     assert cs.fair_trim("ncaab", gu, [mk("th", "c"), mk("th", "a"), mk("th", "b")], "us", "th", _E) == (None, [])   # MIN_BOX left
 
 
+def _acc1123_soon(minutes):
+    return (datetime.now(timezone.utc) + timedelta(minutes=minutes)).strftime("%Y-%m-%dT%H:%MZ")
+
+
+def _acc1123_roster(active, inactive, pad=44):
+    """An NFL game-day roster list the way ESPN's per-game roster answers: every man active or not."""
+    ent = [{"displayName": n, "active": True} for n in active] + [{"displayName": n, "active": False} for n in inactive]
+    ent += [{"displayName": f"Player {i} Number{i}", "active": True} for i in range(pad)]
+    return {"entries": ent}
+
+
+def test_accuracy_1123_waller_questionable_at_post_active_at_kickoff_gets_an_update_line():
+    """11/23 (the owner: "I just want to make sure we're always getting the accurate information across lines, injuries,
+    everything, and double checking sources always"; Victor: "It said Darren Waller was out for Panthers and he was
+    playing"): the 11/22 Panthers card had Tommy Tremble and Darren Waller on its questionable line - true at the post -
+    and never said another word: ESPN's report keeps "Questionable" on a man straight through a game he plays in, and the
+    header's game-time men were never re-read at all. Now they are stamped with the report's word as the card posts and,
+    inside the game-day window, looked up on the game-day read (sports_gameday - the NFL inactives list, the live box
+    score): active -> a 🔄 line says so and he leaves the ❓ line; inactive -> OUT, on the 🚑 line; no source says -> he
+    stays a game-time call, never "out" and never "playing". The pick, its price and its units never move."""
+    import copy
+    import sports_gameday as gd
+    import sports_card_check as cc
+    import sports_dashboard as dash
+    g = {"id": "nfl:401873068", "league": "nfl", "status": "pre", "home": "29", "away": "33", "home_name": "Panthers",
+         "away_name": "Ravens", "start": _acc1123_soon(70)}
+    leg = {"game_id": g["id"], "league": "nfl", "team": "Panthers", "opp": "Ravens", "side": "home", "market": "ml",
+           "odds": -145, "outs": ["Bobby Okereke (LB)"], "opp_outs": ["Marlon Humphrey (CB)"], "waiting": [],
+           "our_q": "TE Tommy Tremble (starter), TE Darren Waller (starter)",
+           "breakdown": ["📋 Ravens sit 4-6. Losing record.", "✅ Bottom line: Panthers (-145). Strongest favorite on the slate."]}
+    inj = {"nfl": {"29": [("Bobby Okereke", "LB", "Out"), ("Tommy Tremble", "TE", "Questionable"),
+                          ("Darren Waller", "TE", "Questionable")], "33": [("Marlon Humphrey", "CB", "Out")]}}
+    leg["on_report"] = sports.on_report(leg, g, inj)
+    leg["rep_status"] = sports.card_report_status(leg, g, inj)        # (stamped when the card posts)
+    assert leg["rep_status"].get("Darren Waller") == "q" and leg["rep_status"].get("Tommy Tremble") == "q", leg["rep_status"]
+    leg["men_side"] = sports.men_sides(leg, g, inj)
+    assert leg["men_side"]["Darren Waller"] == "home"
+    posted = copy.deepcopy(leg)
+    chips = dict((t, (m, q)) for t, m, q in cc.out_chips(leg))
+    assert "Darren Waller" in chips["Panthers"][1] and not any("Waller" in x for x in chips["Panthers"][0])   # ❓, never 🚑
+    keep = (gd.GET, gd.ON[0])
+    seen = []
+    try:
+        # (1) no source says: an answer that is not an inactives list (everybody "active") is never a claim
+        def no_list(url):
+            seen.append(url)
+            if "/roster" in url:
+                return _acc1123_roster(["Darren Waller", "Tommy Tremble", "Bobby Okereke"], [])
+            raise AssertionError("the box score is only read once the game is on")
+        gd.GET = no_list
+        sports.fresh_card_facts({g["id"]: g}, [leg], inj)
+        assert not leg.get("fresh") and not leg.get("gameday"), (leg.get("fresh"), leg.get("gameday"))
+        chips = dict((t, (m, q)) for t, m, q in cc.out_chips(leg))
+        assert "Darren Waller" in chips["Panthers"][1] and "Tommy Tremble" in chips["Panthers"][1]
+        assert not any("Waller" in x or "Tremble" in x for x in chips["Panthers"][0]), "a game-time man is never 'out'"
+        assert all("sports.core.api.espn.com" in u or "site.api.espn.com" in u for u in seen)
+        # (2) the inactives are filed: Waller is active, Tremble is not
+        def filed(url):
+            if "/roster" in url and "/competitors/29/" in url:
+                return _acc1123_roster(["D. Waller"], ["Tommy Tremble", "Bobby Okereke", "A One", "B Two", "C Three"])
+            if "/roster" in url:
+                return _acc1123_roster([], ["Marlon Humphrey", "D Four", "E Five", "F Six"])
+            raise AssertionError("the box score is only read once the game is on")
+        gd.GET = filed
+        sports.fresh_card_facts({g["id"]: g}, [leg], inj)
+        assert "🔄 Update: Darren Waller is active for the Panthers." in leg["fresh"], leg["fresh"]
+        assert "🔄 Update: Tommy Tremble is OUT now for the Panthers." in leg["fresh"], leg["fresh"]
+        assert leg["gameday"] == {"Darren Waller": "active", "Tommy Tremble": "inactive", "Bobby Okereke": "inactive",
+                                  "Marlon Humphrey": "inactive"}, leg["gameday"]
+        chips = dict((t, (m, q)) for t, m, q in cc.out_chips(leg))
+        assert chips["Panthers"][1] == "", chips                       # nobody left on the ❓ line
+        assert any("Tommy Tremble" in x for x in chips["Panthers"][0]) and any("Okereke" in x for x in chips["Panthers"][0])
+        assert not any("Waller" in x for x in chips["Panthers"][0]), chips
+        assert any("Darren Waller is active" in x for x in dash.fresh_lines(leg, leg["breakdown"]))
+        # (3) ESPN's report still says "Questionable" on the next run: the game-day word stays the word
+        n = list(leg["fresh"])
+        sports.fresh_card_facts({g["id"]: g}, [leg], inj)
+        sports.fresh_card_facts({g["id"]: g}, [leg], {"nfl": {"29": [("Bobby Okereke", "LB", "Out")], "33": [("Marlon Humphrey", "CB", "Out")]}})
+        sports.fresh_card_facts({g["id"]: g}, [leg], {"nfl": {"29": [("Bobby Okereke", "LB", "Out")], "33": [("Marlon Humphrey", "CB", "Out")]}})
+        assert leg["fresh"] == n, leg["fresh"]
+        assert not any("questionable now" in x or "off the injury report" in x for x in leg["fresh"])
+        for k in ("odds", "side", "team", "market"):
+            assert leg[k] == posted[k]                                 # the pick never moves
+        # (4) a man the card listed OUT who is on the active list (11/12: Skattebo) - the card says so
+        l2 = copy.deepcopy(posted)
+        gd.GET = lambda url: (_acc1123_roster(["Bobby Okereke", "Darren Waller"], ["Tommy Tremble", "A One", "B Two"])
+                              if "/competitors/29/" in url else _acc1123_roster([], ["Marlon Humphrey", "D Four", "E Five"]))
+        sports.fresh_card_facts({g["id"]: g}, [l2], inj)
+        assert "🔄 Update: Bobby Okereke is active for the Panthers - he's not out." in l2["fresh"], l2["fresh"]
+        assert not any("Okereke" in x for x in dict((t, m) for t, m, q in cc.out_chips(l2))["Panthers"])
+        # (5) once the game is on, the live box score settles a man the inactives list never named
+        g3 = {"id": "nba:9", "league": "nba", "status": "live", "home": "5", "away": "6", "home_name": "Heat",
+              "away_name": "Pistons", "start": _acc1123_soon(-20)}
+        l3 = {"game_id": "nba:9", "league": "nba", "team": "Heat", "opp": "Pistons", "side": "home", "market": "ml",
+              "odds": 120, "outs": [], "opp_outs": [], "our_q": "G Pelle Larsson", "breakdown": ["📋 Heat are 9-5."],
+              "rep_status": {"Pelle Larsson": "q"}, "men_side": {"Pelle Larsson": "home"}, "on_report": []}
+        box = {"boxscore": {"players": [{"team": {"id": "5"}, "statistics": [{"keys": ["minutes", "points"], "athletes": [
+            {"athlete": {"displayName": "Pelle Larsson"}, "starter": False, "stats": ["6", "2"]},
+            {"athlete": {"displayName": "Bench Guy"}, "starter": False, "stats": ["0", "0"]}]}]}]}}
+        gd.GET = lambda url: box
+        sports.fresh_card_facts({"nba:9": g3}, [l3], {"nba": {"5": [("Pelle Larsson", "G", "Questionable")], "6": []}})
+        assert "🔄 Update: Pelle Larsson is playing for the Heat." in l3["fresh"], l3.get("fresh")
+        assert gd.parse_box("nba", box)["5"] == {"Pelle Larsson": "playing"}   # (no minutes = not playing; never "out")
+    finally:
+        gd.GET, gd.ON[0] = keep
+    # the parsers never turn a shape they don't know into a claim
+    assert gd.parse_roster({"entries": [{"displayName": "A B", "active": True}] * 50}) == {}          # nobody inactive
+    assert gd.parse_roster({"entries": [{"displayName": "A B", "active": False}] * 50}) == {}         # everybody inactive
+    assert gd.parse_roster({"items": []}) == {} and gd.parse_roster({}) == {} and gd.parse_box("nfl", {"x": 1}) == {}
+    assert gd.parse_roster({"entries": [{"displayName": "A B", "active": "yes"}] * 50}) == {}
+    far = dict(g, start=_acc1123_soon(600))
+    assert not gd.due(far) and gd.due(g) and gd.read(far) == {}
+    # the live watch keeps re-reading a started game while a man is still on its ❓ line - and stops once he's settled
+    started = dict(g, status="live", start=_acc1123_soon(-30))
+    open_q = {"game_id": g["id"], "league": "nfl", "rep_status": {"Darren Waller": "q"}}
+    assert sports_live.card_news_due({g["id"]: started}, [{"status": "open", "legs": [open_q]}]) == [open_q]
+    done_q = dict(open_q, gameday={"Darren Waller": "active"})
+    assert sports_live.card_news_due({g["id"]: started}, [{"status": "open", "legs": [done_q]}]) == []
+    # "off the report" is said as what the source says - never "expected to play" (Adem Bona, 11/23: said, and he sat)
+    import inspect
+    assert "- expected to play" not in inspect.getsource(sports.fresh_card_facts)
+
+
+def test_accuracy_1123_a_man_one_source_has_out_and_another_questionable_is_said_as_questionable():
+    """11/23 DOUBLE-CHECKED: every source's own word on a man is kept beside the merged report (sd.INJ_SRC). Two that
+    disagree = the more cautious word on the card (questionable - the ❓ game-time line), never the stronger one, and a
+    health-check PROBLEM names him. One source alone is named single-sourced. The engine's own read keeps the merged
+    rows - wording only."""
+    import sports_verify as sv
+    import sports_card_check as cc
+    keep = (sd._fetch_espn_injuries, sd.official, sd.web_injuries, sd.page_injuries, dict(sd.INJ_SRC))
+    try:
+        sd._fetch_espn_injuries = lambda lg: {"2": [("Jacob Knuth", "QB", "Out"), ("Solo Man", "RB", "Out")],
+                                              "8": [("Their Guy", "WR", "Out")]}
+        sd.web_injuries = lambda lg, names: {}
+        sd.page_injuries = lambda lg, names: {"2": [("J. Knuth", "QB", "Questionable")], "8": [("Their Guy", "WR", "Out")]}
+        sd.official = lambda lg, day=None: {}
+        inj = {"ncaaf": _REAL_FETCH_INJURIES("ncaaf")}
+        assert ("Jacob Knuth", "QB", "Out") in inj["ncaaf"]["2"]                   # (the merged rows: unchanged)
+        assert sd.sources_of("ncaaf", "2", "Auburn", "Jacob Knuth") == {"espn": "Out", "covers": "Questionable"}
+        k = sd.said_as("ncaaf", "2", "Auburn", "Jacob Knuth", "Out")
+        assert k["word"] == "q" and k["conflict"] is True
+        s1 = sd.said_as("ncaaf", "2", "Auburn", "Solo Man", "Out")
+        assert s1["word"] == "out" and not s1["conflict"] and list(s1["src"]) == ["espn"]
+        both = sd.said_as("ncaaf", "8", "Alabama", "Their Guy", "Out")
+        assert both["word"] == "out" and not both["conflict"] and len(both["src"]) == 2
+        assert [r[2] for r in sd.cautious_rows("ncaaf", "2", "Auburn", inj["ncaaf"]["2"])] == ["Questionable", "Out"]
+        assert [c[1] for c in sd.conflicts("ncaaf")] == ["Jacob Knuth"]
+        g = {"id": "ncaaf:1", "league": "ncaaf", "status": "pre", "home": "2", "away": "8", "home_name": "Auburn",
+             "away_name": "Alabama", "start": "2026-11-28T20:30Z"}
+        leg = {"game_id": "ncaaf:1", "league": "ncaaf", "team": "Auburn", "opp": "Alabama", "side": "home", "market": "ml",
+               "odds": 130, "breakdown": []}
+        leg["outs"] = sports.card_outs({"ncaaf:1": g}, g, "home", "Auburn", inj)
+        leg["opp_outs"] = sports.card_outs({"ncaaf:1": g}, g, "away", "Alabama", inj)
+        assert not any("Knuth" in x for x in leg["outs"]) and any("Solo Man" in x for x in leg["outs"]), leg["outs"]
+        sports.source_check(leg, g, inj)
+        assert "Jacob Knuth" in leg["our_q"] and len(leg["src_notes"]) == 1, (leg.get("our_q"), leg.get("src_notes"))
+        assert "ESPN out" in leg["src_notes"][0] and "Covers questionable" in leg["src_notes"][0]
+        assert leg["inj_src"] == {"Solo Man": ["espn"], "Their Guy": ["covers", "espn"]}, leg["inj_src"]
+        chips = dict((t, (m, q)) for t, m, q in cc.out_chips(leg))
+        assert "Jacob Knuth" in chips["Auburn"][1] and not any("Knuth" in x for x in chips["Auburn"][0])
+        line = sports.injury_line(g, "home", inj)
+        assert "out:" not in line.split("questionable:")[0] or "Knuth" not in line.split("questionable:")[0], line
+        rep = sv.report([{"status": "open", "date": "2026-11-28", "legs": [leg]}], {"ncaaf:1": g})
+        assert len(rep["disagree"]) == 1 and "Jacob Knuth" in rep["disagree"][0], rep
+        assert any("Solo Man out" in x for x in rep["single"]) and rep["confirmed"] == 1, rep     # (Their Guy: two sources)
+        probs, ok = sv.health_lines(rep)
+        assert len(probs) == 1 and probs[0].startswith("double check: SOURCES DISAGREE") and "Jacob Knuth" in probs[0]
+        assert ok and "1 confirmed by a second source, 1 single-sourced" in ok[0], ok
+        # their man the same way: off the OUT list, on their ❓ line
+        sd._fetch_espn_injuries = lambda lg: {"2": [], "8": [("Their Guy", "WR", "Out")]}
+        sd.page_injuries = lambda lg, names: {"8": [("Their Guy", "WR", "Questionable")]}
+        inj = {"ncaaf": _REAL_FETCH_INJURIES("ncaaf")}
+        l2 = dict(leg, outs=[], opp_outs=sports.card_outs({"ncaaf:1": g}, g, "away", "Alabama", inj), our_q="")
+        sports.source_check(l2, g, inj)
+        chips = dict((t, (m, q)) for t, m, q in cc.out_chips(l2))
+        assert chips["Alabama"] == ([], "WR Their Guy"), chips
+    finally:
+        sd._fetch_espn_injuries, sd.official, sd.web_injuries, sd.page_injuries = keep[:4]
+        sd.INJ_SRC.clear()
+        sd.INJ_SRC.update(keep[4])
+    assert sd._same_man("J. Knuth", "Jacob Knuth") and not sd._same_man("Jordan Knuth", "Jacob Knuth")
+    assert not sd._same_man("J. Knuth", "T. Knuth") and sd._same_man("Jacob Knuth Jr.", "jacob knuth jr")
+
+
+def test_accuracy_1123_a_posted_price_no_second_source_confirms_is_flagged_never_held():
+    """11/23 DOUBLE-CHECKED: all 62 board moneylines of 11/2-11/23 were the number on our own tape at the post minute -
+    and the tape IS the source (ESPN / DraftKings); not one had a second source's number saved beside it. Now every
+    pick's price is looked up on a second plain source as it posts (sports_verify - Action Network's consensus line,
+    then BetRivers) and stamped on the leg: confirmed, NOT confirmed (the two numbers, loud), or single-sourced. A pick
+    is never held, changed or re-priced for it."""
+    import inspect
+    import sports_verify as sv
+    import sports_early as se
+    g = {"id": "nba:7", "league": "nba", "status": "pre", "home": "5", "away": "6", "home_name": "Heat",
+         "away_name": "Pistons", "start": "2026-11-25T00:30Z"}
+    g2 = dict(g, id="nba:8", home_name="Lakers", away_name="Kings")
+
+    def an(ml=(-140, 120), sp=(-2.5, -110, -110), tot=(228.5, -108, -112)):
+        return {"games": [{"start_time": "2026-11-25T00:30:00.000Z", "home_team_id": 1, "away_team_id": 2,
+                           "teams": [{"id": 1, "full_name": "Miami Heat"}, {"id": 2, "full_name": "Detroit Pistons"}],
+                           "odds": [{"book_id": 15, "type": "game", "ml_home": ml[0], "ml_away": ml[1], "spread_home": sp[0],
+                                     "spread_home_line": sp[1], "spread_away_line": sp[2], "total": tot[0], "over": tot[1],
+                                     "under": tot[2]}]}]}
+    keep = (sv.GET, sv.ON[0], dict(__import__("sports_http").SEEN))
+    urls = []
+    try:
+        sv.GET = lambda url: (urls.append(url), an())[1]
+        rows = sv.second("nba", {"nba:7": g, "nba:8": g2}, datetime(2026, 11, 24, 18, tzinfo=timezone.utc))
+        assert list(rows) == ["nba:7"] and rows["nba:7"]["src"] == "actionnetwork" and rows["nba:7"]["ml_home"] == -140
+        assert all(u.startswith("https://api.actionnetwork.com/web/v2/scoreboard/nba?bookIds=15&date=") for u in urls), urls
+        assert __import__("sports_http").SEEN["actionnetwork_pregame"]["ok"]
+        ok_leg = {"game_id": "nba:7", "league": "nba", "market": "ml", "side": "home", "odds": -145, "team": "Heat"}
+        r = sv.stamp(ok_leg, {"nba:7": g}, rows={"nba": rows})
+        assert r["ok"] is True and r["odds"] == -140 and r["src"] == "actionnetwork" and sv.words(ok_leg) == ""
+        bad = {"game_id": "nba:7", "league": "nba", "market": "ml", "side": "away", "odds": 160, "team": "Pistons"}
+        r = sv.stamp(bad, {"nba:7": g}, rows={"nba": rows})
+        old = dict(bad, price_2nd=dict(r, at="2026-11-01T16:00Z"))                 # (hours later it's a note, not a problem)
+        assert [c["state"] for c in sv.claims({}, old)] == ["single"]
+        assert r["ok"] is False and "posted +160" in r["why"] and "+120" in r["why"], r
+        assert sv.words(bad).startswith("PRICE CHECK: Pistons 160 NOT confirmed by a second source"), sv.words(bad)
+        assert bad["odds"] == 160 and bad["side"] == "away"                       # the pick is never touched
+        lone = {"game_id": "nba:8", "league": "nba", "market": "ml", "side": "home", "odds": -120, "team": "Lakers"}
+        r = sv.stamp(lone, {"nba:8": g2}, rows={"nba": rows})
+        assert r["ok"] is None and "single-sourced" in sv.words(lone), r
+        # a spread / a total: the same NUMBER, the juice inside 4 points
+        assert sv.confirm({"market": "spread", "side": "away", "line": 2.5, "odds": -112}, rows["nba:7"])["ok"] is True
+        assert sv.confirm({"market": "spread", "side": "away", "line": 3.5, "odds": -112}, rows["nba:7"])["ok"] is False
+        assert sv.confirm({"market": "total", "side": "over", "line": 228.5, "odds": -110}, rows["nba:7"])["ok"] is True
+        assert sv.confirm({"market": "total", "side": "over", "line": 227.5, "odds": -110}, rows["nba:7"])["ok"] is False
+        assert sv.confirm({"side": "home", "odds": -150}, rows["nba:7"])["ok"] is True    # (an early play: no market key = ml)
+        # the standing health line names the card
+        picks = [{"status": "open", "date": "2026-11-24", "legs": [bad]}, {"status": "open", "date": "2026-11-24", "legs": [ok_leg]},
+                 {"status": "open", "date": "2026-11-24", "legs": [lone]}]
+        rep = sv.report(picks, {"nba:7": g, "nba:8": g2})
+        assert rep["confirmed"] == 1 and len(rep["unconfirmed"]) == 1 and len(rep["single"]) == 1, rep
+        probs, ok = sv.health_lines(rep)
+        assert probs == [p for p in probs if p.startswith("double check: PRICE NOT CONFIRMED - Pistons card")] and len(probs) == 1
+        assert "1 single-sourced" in ok[0] and "Lakers card" in ok[0]
+        # a source that answers nothing / refuses: quiet, said so, nothing confirmed
+        sv.GET = lambda url: (_ for _ in ()).throw(OSError("HTTP 403"))
+        assert sv.second("nba", {"nba:7": g}) == {}
+        assert not __import__("sports_http").SEEN["actionnetwork_pregame"]["ok"]
+        # the reads off (a test run): nothing is stamped either way
+        sv.GET, sv.ON[0] = None, False
+        l0 = {"game_id": "nba:7", "league": "nba", "market": "ml", "side": "home", "odds": -145}
+        assert sv.stamp(l0, {"nba:7": g}) is None and "price_2nd" not in l0
+    finally:
+        sv.GET, sv.ON[0] = keep[:2]
+        __import__("sports_http").SEEN.clear()
+        __import__("sports_http").SEEN.update(keep[2])
+    # wired where every pick and every early play posts - and never a hold
+    src = inspect.getsource(sports.rule_check)
+    assert "sports_verify.stamp(l, games, now, price_rows)" in src and "never a pick held for it" in src
+    assert "sports_verify.stamp(c, games, now, rows_)" in inspect.getsource(se.post)
+    import sports_gameday as gd
+    for mod in (sv, gd):                                               # plain requests only - the engine's own name
+        code = inspect.getsource(mod)
+        assert "sh.JSON_HDR" in code and "Referer" not in code and "Origin" not in code and "Mozilla" not in code
+
+
+def test_accuracy_1123_off_the_injury_report_is_never_said_of_a_man_who_was_ruled_out():
+    """11/23 (the accuracy audit): 7 of the 10 "is off the injury report" lines the 11/2-11/23 cards showed were about
+    men who SAT - five of them on the 11/23 NBA cards (Joel Embiid, Jaylen Brown, Shai Gilgeous-Alexander, Pascal
+    Siakam, Aday Mara: each went from day-to-day to OUT). The watch's key list only carries an NBA man while he is
+    questionable; ruled out, he left the list and read as "off the report" - beside a 🔄 line saying he was out. The
+    report itself is asked first now: still on it = his real status, never "off"."""
+    import sports_dashboard as dash_
+    g = {"id": "nba:401910037", "league": "nba", "home": "20", "away": "22", "home_name": "76ers", "away_name": "Trail Blazers",
+         "status": "pre", "start": "2026-11-24T00:00Z"}
+    leg = {"game_id": g["id"], "league": "nba", "team": "Trail Blazers", "opp": "76ers", "side": "away", "market": "ml",
+           "odds": 139, "key_seen": {}}
+    picks = [{"status": "open", "legs": [leg]}]
+    real, real_st = sports.sd.fetch_injuries, sports.sd.STARTER_OF
+    sports.sd.STARTER_OF = lambda lg, tid, name: True
+    q = {"20": [("Joel Embiid", "C", "Day-To-Day")], "22": []}
+    out = {"20": [("Joel Embiid", "C", "Out")], "22": []}
+    try:
+        for rep in (q, out, out, out):
+            sports.sd.fetch_injuries = lambda lg, rep=rep: rep
+            sports.injury_watch({g["id"]: g}, picks, push=False)
+        alerts = list(leg.get("injury_alerts") or [])
+        assert not any("off the injury report" in a for a in alerts), alerts
+        assert dash_.latest_alerts(alerts)[-1].startswith("Joel Embiid (76ers C) is now out"), alerts
+        # ...and a man who really is gone from the report two runs in a row still reads off it
+        leg2 = dict(leg, key_seen={}, injury_alerts=[])
+        for rep in (q, {"20": [], "22": []}, {"20": [], "22": []}):
+            sports.sd.fetch_injuries = lambda lg, rep=rep: rep
+            sports.injury_watch({g["id"]: g}, [{"status": "open", "legs": [leg2]}], push=False)
+        assert any("Joel Embiid (76ers C) is off the injury report" in a for a in leg2["injury_alerts"]), leg2["injury_alerts"]
+    finally:
+        sports.sd.fetch_injuries, sports.sd.STARTER_OF = real, real_st
+
+
+def test_accuracy_1123_the_standing_rule_and_the_health_line():
+    """The owner's rule is written down, the hourly health check reads the double-check report, and the card audit
+    builds it on every page."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    rules = open(os.path.join(here, "CLAUDE.md")).read()
+    assert "DOUBLE-CHECKED, EVERY SOURCE" in rules and "sports_gameday" in rules and "sports_verify" in rules
+    assert "double_check" in open(os.path.join(here, "tools", "card_audit.py")).read()
+    assert "sports_verify.health_lines" in open(os.path.join(here, "tools", "health.py")).read()
+    assert os.path.exists(os.path.join(here, "results", "studies", "accuracy_1123", "README.md"))
+    import sports_verify as sv
+    assert sv.health_lines({}) == ([], [])
+    p, ok = sv.health_lines({"cards": 2, "claims": 3, "confirmed": 3, "single": [], "disagree": [], "unconfirmed": [], "waiting": []})
+    assert p == [] and "3 confirmed by a second source, 0 single-sourced, 0 waiting" in ok[0]
+    rep = sv.report([{"status": "open", "date": "2026-11-22", "legs": [
+        {"game_id": "nfl:1", "team": "Panthers", "odds": -145, "outs": ["Bobby Okereke (LB)"], "inj_src": {"Bobby Okereke": ["espn"]},
+         "rep_status": {"Darren Waller": "q", "Bobby Okereke": "out"}}]}], {"nfl:1": {"status": "pre"}})
+    assert any("Darren Waller questionable" in x and "never out" in x for x in rep["waiting"]), rep
+    assert any("Bobby Okereke out" in x and "ESPN" in x for x in rep["single"]), rep
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
@@ -31400,6 +31714,9 @@ if __name__ == "__main__":
     import sports_capper; sports_capper.PATH = os.path.join(tempfile.mkdtemp(), "capper_drbob.json")  # (nor the capper record)
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")              # (nor the Lock near-miss)
     sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "lean_sides.json")           # (nor the lean memory)
+    import sports_gameday, sports_verify   # (11/23: never a real game-day / second-price read from a test)
+    sports_gameday.ON[0] = False
+    sports_verify.ON[0] = False
     import sports_starters               # (11/19: never the real snap-count file, never a real download)
     sports_starters.PATH = os.path.join(tempfile.mkdtemp(), "nfl_snaps.json")
     sports_starters.ON[0] = False

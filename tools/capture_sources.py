@@ -38,6 +38,10 @@ S = {
     "espn_roster_nyy": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/roster",
     "espn_summary_nyy": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401907924",
     "espn_inj_mlb": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/injuries",
+    # 🟢 11/23 the game-day read (sports_gameday): the NFL per-game roster (who is active) + a game summary's box score -
+    # the 11/22 Ravens @ Panthers game (Darren Waller: questionable on the report, active, played)
+    "espn_gameday_roster_nfl": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873068/competitions/401873068/competitors/29/roster?limit=200",
+    "espn_gameday_summary_nfl": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873068",
 }
 os.makedirs("samples", exist_ok=True)
 man = {"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "sources": {}}

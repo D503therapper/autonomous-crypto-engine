@@ -13,6 +13,29 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 11/23 - DOUBLE-CHECKED, EVERY SOURCE (the owner: "I just want to make sure we're always getting the accurate information across lines, injuries, everything, and double checking sources always"; Victor: "It said Darren Waller was out for Panthers and he was playing"): THE QUESTIONABLE MEN WERE NEVER SETTLED (0 OF 15), "OFF THE INJURY REPORT" WAS SAID OF MEN RULED OUT (7 OF 10 SAT), NO POSTED PRICE HAD A SECOND SOURCE - ALL THREE FIXED AT THE ROOT; NO PICK, PRICE OR SIZE CHANGED (results/studies/accuracy_1123/ - README.md, measure.py, measure_out.txt, measure.json; sports_gameday.py, sports_verify.py, sd.INJ_SRC / said_as / cautious_rows, sports.source_check / men_sides / _report_word, sports_card_check.q_left; tests test_accuracy_1123_* (five))
+
+**The measure** (66 board cards + 21 early plays, 11/2-11/23; every claim against the box scores, every price against our own line tape at the post minute):
+
+| claim | n | right | corrected on the card before the start | never corrected |
+|---|---|---|---|---|
+| a man listed OUT (with a box score) | 138 | 134 | 1 | 3 (all before 11/13) |
+| a man listed QUESTIONABLE | 15 | 6 played / 9 sat | 0 | **15** |
+| a star "in the lineup" | 5 | 5 | - | - |
+| a goalie with numbers | 32 | 22 | 4 | 6 (none since 11/16) |
+| a quarterback with numbers | 15 | 14 | 0 | 1 (Wentz 11/15) |
+| update: "is OUT now" / "out too" | 14 | 14 | | |
+| update: a goalie confirmed / changed | 10 | 10 | | |
+| update: "off the injury report" / "expected to play" | 10 | **3** | | 7 sat |
+| price = our tape at the post minute | 62 board + 13 early | 75 of 75 | | |
+| price with a second source's number saved | 76 | **0** | | |
+
+**What was wrong.** (1) ESPN's report keeps "Questionable" on a man through a game he plays in and the card's ❓ men were not even among the names re-read - a questionable man could never be settled (Waller). (2) The injury watch's key list carries an NBA man only while he's questionable; ruled out he left the list and read "off the injury report" two runs later (five men on 11/23) - the Avdija class through another door. (3) "Expected to play" was stronger than "off the report" (Adem Bona sat). (4) Every price was the feed's number, and nothing ever looked at a second one.
+
+**BUILT** (facts and flags only): the game-day read (the NFL inactives list - guarded, it says nothing unless the answer looks like a real list; the live box score once the game is on) settles a questionable / out man on the card, no source = he stays ❓; the report is asked before "off the injury report" is said; every source's own word on a man is kept and two that disagree read as the cautious word + a health PROBLEM; every posted price is looked up on Action Network's consensus line (then BetRivers) as it posts and stamped; the hourly "double check:" health line names every claim not confirmed.
+
+**NOT BUILT / OPEN**: a second plain reader for the pros' own injury reports (the NBA's is a PDF) - until then a pro "out" before game day is ESPN's word alone and the health line says so; the NFL inactives reader could not be tried against ESPN from the build sandbox - watch source_status.json "espn_gameday_roster" on the first live NFL day; an NBA starting five is not claimed before the tip; a union of a college team's rows across ESPN + Covers (today the first source to list a school wins the whole school) - a data change that moves the weighed rows, so it wants its own look.
+
 ## 11/23 - FABLE: EVERY REASON ON THE CARD (the owner, after cards_1122: "they're really short and vague on some of them. We need to be more thorough on these breakdowns, on why we're choosing them, and sell our picks")
 
 results/studies/cards_1123/README.md (every card before / after; dry.py re-runs it). No pick, price or units changed; breakdown VERSION 86.

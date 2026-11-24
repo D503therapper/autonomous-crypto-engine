@@ -8481,6 +8481,68 @@ def _sat_lately(g, side, name):
         return False
 
 
+def src_conflict(g, side, name):
+    """True when two injury sources disagree on this man right now (one out, one questionable) - sd.said_as."""
+    try:
+        return bool(sd.said_as(g["league"], g[side], g[side + "_name"], name)["conflict"])
+    except Exception:                                        # noqa: BLE001 - can't tell = no conflict claimed
+        return False
+
+
+def source_check(leg, g, injuries):
+    """🔁 11/23 DOUBLE-CHECKED, EVERY SOURCE (the owner: "always getting the accurate information ... double checking
+    sources always"): what the card's injury claims stand on, stamped as it posts.
+      leg["inj_src"]   {man the card lists out: [the sources that say so]} - one source = single-sourced, and the
+                       health line names it;
+      leg["src_notes"] the men two sources DISAGREE on (one out, one questionable) - they come off the OUT lists
+                       (card_outs) and go on the ❓ game-time line (our_q / opp_q): the more cautious word, never the
+                       stronger one; a health-check PROBLEM names each.
+    Wording only - the read the pick was built on keeps the merged report rows."""
+    lg = leg.get("league")
+    inj = (injuries or {}).get(lg)
+    other = "away" if leg.get("side") == "home" else "home"
+    if inj is None or leg.get("side") not in ("home", "away"):
+        return
+    notes, srcs = [], {}
+    for side, key, qkey in ((leg["side"], "outs", "our_q"), (other, "opp_outs", "opp_q")):
+        tn = g[side + "_name"]
+        raw = who_plays_first(g, side, sd.team_injuries(inj, g[side], tn))[:6]
+        for r in raw:
+            s_ = sd.said_as(lg, g[side], tn, r[0], r[2])
+            if not s_["conflict"]:
+                continue
+            said = ", ".join(f"{sd.SRC_WORD.get(k, k)} {str(v).lower()}" for k, v in sorted(s_["src"].items()))
+            notes.append(f"{r[0]}: {tn} - {said} - the card says questionable")
+            leg[key] = [x for x in leg.get(key) or [] if not _on_list(_named(x), [r[0]])]
+            cur = str(leg.get(qkey) or "")
+            if r[0] not in cur:
+                leg[qkey] = (cur + ", " if cur else "") + f"{r[1]} {r[0]}".strip()
+        for x in leg.get(key) or []:
+            nm = _named(x)
+            if nm:
+                srcs[nm] = sorted(sd.sources_of(lg, g[side], tn, nm))
+    leg["inj_src"] = srcs
+    leg.pop("src_notes", None)
+    if notes:
+        leg["src_notes"] = notes
+        for n_ in notes:
+            print(f"🔁 sources disagree ({leg.get('team')} card): {n_}")
+
+
+def men_sides(leg, g, injuries):
+    """{man the card's report-status names: 'home' / 'away'} - kept on the leg so the game-day read knows whose list to
+    look him up on even after the report drops him."""
+    inj = (injuries or {}).get(leg.get("league"))
+    out = dict(leg.get("men_side") or {})
+    if inj is None:
+        return out
+    for s_ in ("home", "away"):
+        for r in sd._team_rows(inj, g[s_], g[s_ + "_name"]):
+            if r[0] in (leg.get("rep_status") or {}):
+                out[r[0]] = s_
+    return out
+
+
 def card_outs(games, g, side, name, injuries, n=4):
     """The card's who's-out list for a side: the report's Out / Doubtful men, the ones who play first, AND a key man the
     absence penalty weighs from a long-term status (10/27 daily run: Jalen Hurts went on injured reserve before the 10/26
@@ -8488,6 +8550,8 @@ def card_outs(games, g, side, name, injuries, n=4):
     Out / Doubtful only (sd.team_injuries), so the most important fact on the card never showed). A key man who sat the
     team's last 2 box scores is old news and stays off (_sat_lately)."""
     rows = who_plays_first(g, side, sd.team_injuries((injuries or {}).get(g["league"]), g[side], name))
+    rows = [r for r in rows if not src_conflict(g, side, r[0])]   # (🔁 11/23 DOUBLE-CHECKED: a man one source has out
+    #   and another questionable is never on the OUT list; source_check puts him on the card's ❓ game-time line)
     named = [f"{r[0]} ({r[1]})" if r[1] else r[0] for r in rows]
     try:
         import sports_absences
@@ -8498,7 +8562,7 @@ def card_outs(games, g, side, name, injuries, n=4):
     extra = []
     for x in gone:
         role, nm = (x.split(" ", 1) if g["league"] in ("nfl", "ncaaf") and " " in x else ("", x))
-        if nm.lower() not in have and not _sat_lately(g, side, nm):
+        if nm.lower() not in have and not _sat_lately(g, side, nm) and not src_conflict(g, side, nm):
             extra.append(f"{nm} ({role})" if role else nm)
             have.add(nm.lower())
     # 🧱 11/19 (the owner, the Colts' two tackles): a starter the box score can't show who went on injured reserve this
@@ -8523,7 +8587,9 @@ def injury_line(g, side, injuries):
     matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions -
     the players who play first (who_plays_first)."""
     inj = (injuries or {}).get(g["league"])
-    rows = who_plays_first(g, side, sd._team_rows(inj, g[side], g[side + "_name"]))
+    rows = who_plays_first(g, side, sd.cautious_rows(g["league"], g[side], g[side + "_name"],
+                                                     sd._team_rows(inj, g[side], g[side + "_name"])))   # (🔁 11/23: a
+    #   man two sources disagree on reads questionable - never the stronger word)
     try:                                                  # 🚑 11/18 (cards_1118 - the owner on the Nuggets card: "Strawther
         import sports_absences                            #  is not a key player"): the card's list names only men who
         rows = [r for r in rows if "suspen" in r[2].lower() or sports_absences.matters(   # MATTER by the box scores
@@ -9325,6 +9391,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
                 seen[l["game_id"]] = p
                 n_on[l["game_id"]] = n_on.get(l["game_id"], 0) + 1
     ctx, rep = {}, []
+    price_rows = {}                                          # (🔁 11/23: one second-source price read per league a run)
     LAST_PICK_CHECK[:] = []
     for pk in list(new):
         l = (pk.get("legs") or [{}])[0]
@@ -9415,6 +9482,22 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
         for n, r, w in chk:
             if r == "warn":
                 print(f"PICK CHECK note: {l.get('team')} {l.get('odds')}: {n} - {w}", flush=True)
+        if pk in new and games is not None and pk.get("kind") not in PARLAY_KINDS and not l.get("price_2nd"):
+            # 🔁 11/23 DOUBLE-CHECKED, EVERY SOURCE: the price a pick posts at, looked up on a second plain source
+            # (sports_verify - Action Network's consensus line, then BetRivers) and stamped on the leg. A price the
+            # second source doesn't show is flagged loud (the run log, the pick check, the hourly health line) -
+            # never a pick held for it.
+            try:
+                import sports_verify
+                r2 = sports_verify.stamp(l, games, now, price_rows)
+                if r2 is not None and rep:
+                    rep[-1]["checks"]["price_2nd"] = ("pass" if r2.get("ok") is True else
+                                                      f"warn: {r2.get('why') or 'no second source'}")
+                    say = sports_verify.words(l)
+                    if say:
+                        print(say, flush=True)
+            except Exception as e:                           # noqa: BLE001 - the second look never blocks a pick
+                print(f"price check failed: {str(e)[:60]}")
     LAST_PICK_CHECK[:] = rep
     if report is not None:
         report.extend(rep)
@@ -9743,8 +9826,13 @@ def post_board(games, model, picks, now, day, force=False):
             except Exception:                                                # noqa: BLE001
                 pass
             card_extras(leg, g, injuries)                       # 🚑 who's out · 🏀 the roster read · 🥅 who's in net
+            try:                                                # (🔁 11/23: what each injury claim stands on)
+                source_check(leg, g, injuries)
+            except Exception as e:                              # noqa: BLE001 - never blocks a card
+                print(f"source check failed: {str(e)[:60]}")
             try:                                                # (11/17: the report's word on every man the card names)
                 leg["rep_status"] = card_report_status(leg, g, injuries)
+                leg["men_side"] = men_sides(leg, g, injuries)
             except Exception:                                   # noqa: BLE001
                 pass
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
@@ -10347,6 +10435,20 @@ def injury_watch(games, picks, push=True):
             if leg["key_seen"].get(who) == "Confirmed in net":
                 continue                                     # (the page went stale / changed its mind: unknown again is
             #                                                  never "off the injury report"; a new starter gets his own line)
+            # 🔁 11/23 DOUBLE-CHECKED (the accuracy audit: 5 of the 11/23 NBA cards' alerts said "Joel Embiid / Shai
+            # Gilgeous-Alexander / Pascal Siakam ... is off the injury report" - each had gone from day-to-day to OUT
+            # and sat). The key list only carries an NBA man while he is QUESTIONABLE; ruled out, he left the list and
+            # read as "off the report". The report itself is asked before anything is said: still on it = his real
+            # status, never "off".
+            st_now = _report_word(inj, games[leg["game_id"]], who) if leg["key_seen"].get(who) != "Not in the lineup" else ""
+            if st_now:
+                wait.pop(who, None)
+                if _rep_class(st_now) == "out" and _rep_class(leg["key_seen"].get(who)) != "out":
+                    msg = f"{who} is now {st_now.lower()} — our pick: {leg_label(leg)}"
+                    if msg not in leg.setdefault("injury_alerts", []):
+                        leg["injury_alerts"] = [x for x in leg["injury_alerts"] if not x.startswith(f"{who} is ")] + [msg]
+                        alerts.append(msg)
+                continue
             if games[leg["game_id"]]["status"] != "pre":     # 🚑 11/18: after the tip ESPN's feed flaps (Avdija OUT at
                 wait[who] = 1                                #  5:43 and 6:40 PM, gone at 6:14 / 6:26) - a man missing
                 continue                                     #  from it is never "off the report" once the game is on
@@ -10372,6 +10474,16 @@ def injury_watch(games, picks, push=True):
 
 
 FRESH_CARD = True     # 11/12 (Victor, then the owner: "outdated information") - see fresh_card_facts
+
+
+def _report_word(inj, g, who):
+    """The report's status RIGHT NOW on a key man the watch names 'Name (Team POS)' - '' when he isn't on it."""
+    nm = str(who or "").split(" (")[0]
+    for s_ in ("home", "away"):
+        for r in sd._team_rows(inj, g[s_], g[s_ + "_name"]):
+            if r[0] and _on_list(nm, [r[0]]):
+                return str(r[2])
+    return ""
 
 
 def _nm_key(name):
@@ -10431,7 +10543,9 @@ def card_report_status(leg, g, injuries):
     inj = (injuries or {}).get(leg.get("league"))
     if inj is None:
         return None
-    body = " ".join(str(x) for x in (leg.get("breakdown") or []) + [leg.get("why_line") or ""])
+    body = " ".join(str(x) for x in (leg.get("breakdown") or []) + [leg.get("why_line") or "", leg.get("our_q") or "",
+                                                                   leg.get("opp_q") or ""])   # (🔁 11/23: the header's ❓
+    #   men - Darren Waller sat on the 11/22 Panthers card's questionable line and was never re-read: he played)
     named = report_names(leg)
     out = {}
     for s_ in ("home", "away"):
@@ -10506,11 +10620,18 @@ def fresh_card_facts(games, legs, injuries):
         offw = leg.setdefault("rep_off_wait", {})            # (11/18: off the report needs two runs in a row)
         stale_lines = list(leg.get("stale_lines") or [])
         confirmed_ = list(leg.get("confirmed") or [])
+        gday = dict(leg.get("gameday") or {})                # 🟢 11/23: the game-day word on a man outranks the report
+        if leg.get("src_notes") and inj is not None and sd.INJ_SRC.get(leg["league"]):
+            left_ = [n_ for n_ in leg["src_notes"] if any(src_conflict(g, s_, n_.split(":")[0]) for s_ in ("home", "away"))]
+            if left_ != leg["src_notes"]:                    # (🔁 the sources agree again: the health line stops
+                leg["src_notes"] = left_                     #  naming him - the card's word stays the cautious one)
         if inj is not None and leg["league"] in sd.INJ_LEAGUES:
             listed = [r[0] for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])]
             if listed:                                       # (a report with nobody on it for either side: a hiccup -
                 seen = set(leg.get("on_report") or [])       #  never 'cleared')
                 for nm in report_names(leg):
+                    if nm in gday:
+                        continue                             # (🟢 the inactives list / the box score already spoke)
                     if _on_list(nm, listed):
                         seen.add(nm)
                         offw.pop(nm, None)
@@ -10520,7 +10641,9 @@ def fresh_card_facts(games, legs, injuries):
                     elif nm in seen and nm not in stale:     # ONLY a man the report HAD and dropped: a name the card
                         stale.append(nm)                     # got from the box scores (Kane / Vilmanis sat the last
                         fresh = [x for x in fresh if f"Update: {nm} is " not in x] + \
-                            [f"🔄 Update: {nm} is off the injury report now - expected to play."]   # games, never
+                            [f"🔄 Update: {nm} is off the injury report now."]   # (🔁 11/23: what the source says,
+                        #   never stronger - "expected to play" was said of Adem Bona on 11/23 and he sat; the game-day
+                        #   read below says "is active" / "is playing" when a source really shows it)   # games, never
                 leg["on_report"] = sorted(seen)              # on the report) is never called 'playing' - that'd be false
                 # 🔄 11/17 THE BREAKDOWN SWEEP (the owner: "false, outdated information of injuries and stuff ... always
                 # accurate and up to date"): the check above only read the card's who's-out LISTS. Every man the card
@@ -10538,7 +10661,7 @@ def fresh_card_facts(games, legs, injuries):
                         for nm, c in now_st.items():
                             offw.pop(nm, None)
                             old = was.get(nm)
-                            if old == c:
+                            if old == c or nm in gday:
                                 continue
                             tn = g[side_of.get(nm, leg["side"]) + "_name"]
                             if old is None and _on_list(nm, report_names(leg)):
@@ -10551,17 +10674,18 @@ def fresh_card_facts(games, legs, injuries):
                                 stale.append(nm)
                             fresh = [x for x in fresh if f"Update: {nm} is " not in x] + [msg]
                             was[nm] = c
-                        for nm in [n for n in was if n not in now_st]:
-                            if not _on_list(nm, listed):     # (off the report: he's expected to play)
+                        for nm in [n for n in was if n not in now_st and n not in gday]:
+                            if not _on_list(nm, listed):     # (off the report)
                                 if not offw.get(nm) or g.get("status") != "pre":   # (11/18: Avdija - one run off
                                     offw[nm] = 1             #  ESPN's list, then OUT: wait for a second run before
                                     continue                 #  saying he plays; after the tip, never)
                                 if nm not in stale:
                                     stale.append(nm)
                                 fresh = [x for x in fresh if f"Update: {nm} is " not in x] + \
-                                    [f"🔄 Update: {nm} is off the injury report now - expected to play."]
+                                    [f"🔄 Update: {nm} is off the injury report now."]
                                 was.pop(nm, None)
                     leg["rep_status"] = was
+                    leg["men_side"] = men_sides(leg, g, injuries)
                     import sports_card_check as _cc
                     mine = [r for r in sd._team_rows(inj, g[leg["side"]], g[leg["side"] + "_name"])
                             if any(x in str(r[2]).lower() for x in sd.SHORT_TERM + sd.UNSURE)]
@@ -10589,6 +10713,59 @@ def fresh_card_facts(games, legs, injuries):
                         leg["added_outs"] = added
                 except Exception as e:                       # noqa: BLE001 - never blocks the board
                     print(f"card report check failed: {str(e)[:60]}")
+        try:                                             # 🟢 11/23 DOUBLE-CHECKED - GAME DAY (Victor: "It said Darren
+            #   Waller was out for Panthers and he was playing"): the report keeps "questionable" on a man straight
+            #   through a game he plays in - of the 15 men the 11/2-11/23 cards called questionable the card never said
+            #   how ONE ended. Inside the game-day window every man the card has questionable or out is looked up on
+            #   the game-day read (sports_gameday: the NFL inactives list, the live box score) and the card says what
+            #   it shows - "is active" / "is starting" / "is playing", or OUT for a man on the inactives list. No
+            #   source says = no word: he stays on the ❓ game-time line, never "out", never "playing".
+            import sports_gameday
+            other_ = "away" if leg.get("side") == "home" else "home"
+            sides_ = dict(leg.get("men_side") or {})
+            watch = {}
+            for nm in [_named(x) for x in list(leg.get("outs") or []) + list(leg.get("absent") or [])]:
+                watch[nm] = (leg.get("side"), "out")
+            for nm in [_named(x) for x in leg.get("opp_outs") or []]:
+                watch[nm] = (other_, "out")
+            for nm, c in (leg.get("rep_status") or {}).items():
+                if c in ("q", "out") and (c == "q" or nm not in watch):
+                    watch[nm] = (sides_.get(nm) or (watch.get(nm) or (None,))[0], c)
+            todo = [nm for nm in watch if nm and nm not in gday and (nm not in stale or watch[nm][1] == "q")]
+            if todo and leg.get("side") in ("home", "away") and sports_gameday.due(g):
+                got = sports_gameday.read(g)
+                the_ = "the " if leg["league"] in sd.PRO else ""
+                rs_ = dict(leg.get("rep_status") or {})
+                for nm in todo:
+                    side_, was_ = watch[nm]
+                    w_ = None
+                    for s_ in ([side_] if side_ in ("home", "away") else ["home", "away"]):
+                        w_ = sports_gameday.word(got, s_, nm)[0]
+                        if w_:
+                            side_ = s_
+                            break
+                    if not w_:
+                        continue
+                    gday[nm] = w_
+                    tn = g[side_ + "_name"]
+                    if w_ == "inactive":
+                        if was_ == "out":
+                            continue                         # (listed out and on the inactives list: confirmed)
+                        msg = f"🔄 Update: {nm} is OUT now for {the_}{tn}."
+                        rs_[nm] = "out"
+                    else:
+                        msg = f"🔄 Update: {nm} is {w_} for {the_}{tn}" + (" - he's not out." if was_ == "out" else ".")
+                        rs_[nm] = "in"
+                    offw.pop(nm, None)
+                    if nm not in stale:
+                        stale.append(nm)
+                    fresh = [x for x in fresh if f"Update: {nm} is " not in x] + [msg]
+                if rs_ != (leg.get("rep_status") or {}):
+                    leg["rep_status"] = rs_
+            if gday != (leg.get("gameday") or {}):
+                leg["gameday"] = gday
+        except Exception as e:                               # noqa: BLE001 - never blocks the board
+            print(f"game-day check failed: {str(e)[:60]}")
         pre = g.get("status") == "pre"                   # (11/18: after the tip only the injury report keeps watching -
         #                                                  the QB call / goalie projection are pre-game reads)
         if pre and leg["league"] in ("nfl", "ncaaf"):       # 🏈 11/16: a quarterback the card gives numbers for who is
@@ -10716,7 +10893,11 @@ def add_breakdowns(games, model, picks):
         try:                                              # (11/17: the rewritten card's names, stamped with the report's
             st_ = card_report_status(leg, games[leg["game_id"]], injuries)   # word as it reads now - never a made-up
             if st_ is not None:                                               # "update" off the old card's stamp)
+                for nm_, w_ in (leg.get("gameday") or {}).items():           # (🔁 11/23: the game-day word stays the
+                    if nm_ in st_ or w_ == "inactive":                       #  word - never back to the report's)
+                        st_[nm_] = "out" if w_ == "inactive" else "in"
                 leg["rep_status"] = st_
+                leg["men_side"] = men_sides(leg, games[leg["game_id"]], injuries)
                 leg.pop("stale_lines", None)
         except Exception:                                # noqa: BLE001
             pass

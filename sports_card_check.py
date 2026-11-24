@@ -2704,7 +2704,24 @@ def out_chips(leg, games=None, graded=False):
             q = s.split("questionable:", 1)[1].strip().rstrip(".")
             break
     q = q or str(leg.get("our_q") or "")
-    return [(opp, theirs, ""), (us, ours, q)]
+    # 🟢 11/23 DOUBLE-CHECKED (Victor: "It said Darren Waller was out for Panthers and he was playing"): the ❓ line is
+    # the men still a game-time call RIGHT NOW - a man the game-day read cleared (active / starting / playing), a man
+    # ruled out since (he is on the 🚑 line by his own update) and a man off the report come off it; their side's
+    # game-time men (a man two sources disagree on - sports.source_check) get the same line
+    return [(opp, theirs, q_left(leg, str(leg.get("opp_q") or ""))), (us, ours, q_left(leg, q))]
+
+
+def q_left(leg, q):
+    """The questionable line with every man whose status has been settled since taken off it."""
+    if not q:
+        return ""
+    rep = leg.get("rep_status") or {}
+    gone = set(leg.get("stale") or []) | set(leg.get("gameday") or {}) | {n for n, c in rep.items() if c in ("out", "in")}
+    parts = [p_.strip() for p_ in re.split(r",\s*(?![^()]*\))", str(q)) if p_.strip()]
+    keep = [p_ for p_ in parts if not any(n and n in p_ for n in gone)]
+    if keep and all(re.fullmatch(r"\+\d+ more", p_) for p_ in keep):
+        return ""
+    return ", ".join(keep)
 
 
 THIN_BODY = 2          # a unit play's card with fewer fact lines than this (after every cut) is a thin card

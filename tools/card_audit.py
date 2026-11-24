@@ -447,6 +447,11 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
         rep["bad_cards"] += bad
     for p in rep["problems"]:
         rep["by_class"][p["class"]] = rep["by_class"].get(p["class"], 0) + 1
+    try:                                                     # 🔁 11/23 DOUBLE-CHECKED, EVERY SOURCE: every injury /
+        import sports_verify                                 # starter / price claim on a live card with what backs it -
+        rep["double_check"] = sports_verify.report(picks, games)   # tools/health.py says it every hour
+    except Exception as e:                                   # noqa: BLE001 - the audit never breaks a run
+        rep["double_check"] = {"error": str(e)[:80]}
     rep["quality"] = {"score": round(Q["sum"] / Q["n"]) if Q["n"] else 100, "cards": Q["n"], "thin": Q["thin"],
                       "short": Q["short"][:20], "under_floor": len(Q["short"]),
                       "avg_facts": round(Q["facts"] / Q["n"], 1) if Q["n"] else 0,
