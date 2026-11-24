@@ -27977,3 +27977,22 @@ DEX: $1,003.83 (+3.83) · Scammed: 0
 [2026-11-24 13:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-24 13:05 UTC] crypto/hold_btc  equity $373.17 (-25.4%) 1 open  market DOWN
    social heat top: VVV 40 (40/0/0), BTC 37 (37/0/0), MON 32 (32/0/0), SOL 29 (29/0/0), SKY 24 (24/0/0)
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $188,701 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: XTO@solana:91GG7PWs data flag #13 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT WSTETH@ethereum liq $2,594,220 - is_mintable; honeypot_with_same_creator; top-10 holders 68%
+   dex screen: PASS TROLL@solana liq $1,675,446
+   dex screen: REJECT STUSDS@ethereum liq $363,371 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 56%; lp locked 0% < 95%
+   dex re-screen: XTO@solana:91GG7PWs data flag #14 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT ZCHF@ethereum liq $2,641,605 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 87%
+   dex screen: REJECT CULT@ethereum liq $622,689 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy
+   dex scanner: 2,167 pools (solana 1,582 / base 332 / ethereum 253), refresh cycle 93s (hot 89s), 2927 calls (110 feed, 429s 0, failed 0), 84,507 refreshed (15117 no pair), +50 added / -89 dropped (dead 75, stale 14, cap 0), movers 1 + warming 0 -> queued 1, screened 1 (passed 0), bought 0
+[2026-11-24 14:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/mover     equity $107.81 (-78.4%) 1 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/social_heat equity $316.42 (-36.7%) 2 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-24 14:05 UTC] crypto/hold_btc  equity $372.59 (-25.5%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), ZRO 35 (35/0/0), MON 32 (32/0/0), SKY 29 (29/0/0), SOL 28 (24/0/4)
