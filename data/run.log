@@ -28085,3 +28085,8 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-24 16:06 UTC] stocks/trend     equity $440.60 (-11.9%) 0 open  market DOWN
 [2026-11-24 16:06 UTC] stocks/hold_spy  equity $467.20 (-6.6%) 1 open  market DOWN
    social heat top: BTC 35 (35/0/0), MON 32 (32/0/0), SOL 22 (16/0/6), PENGU 21 (21/0/0), SKY 19 (19/0/0)
+   dex screen: PASS BLOB@solana liq $174,923
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $232,444 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT FLOAT@solana liq $327,565 - lp locked 0% < 95%
+   dex re-screen: XTO@solana:91GG7PWs data flag #19 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT IMD@ethereum liq $873,183 - goplus partial data: cannot_sell_all unknown; top-10 holders 63%; lp locked 0% < 95%
