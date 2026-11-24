@@ -1315,6 +1315,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
     mark_ncaab_tuneup(games, out)                     # 🏀 11/20 daily: off a non-D1 tune-up vs a team off a D1 game (spread rank)
+    mark_ncaab_deep(games, out)                       # 🏀 11/24 daily S9: the deep team on its second day (spread stack -/+0.02)
+    mark_split(games, out)                            # 🏠 11/24 daily S1 / S2: the pros' home / road split (two tracker leads)
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
     mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
     mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
@@ -4357,6 +4359,7 @@ def rank_p(c):
             #                                                     the freshman-heavy side vs an experienced team +0.02)
             + ncaab_star_back_spread_w(c)                      # (11/4 EXPERT: the star's 2nd game back -0.03 / +0.03 across)
             + ncaab_tuneup_spread_w(c)                         # (11/20 daily: off a non-D1 tune-up vs a team off a D1 game ±0.02)
+            + ncaab_deep_spread_w(c)                           # (11/24 daily: the deep team on its second day -0.02 / +0.02 across)
             + ncaab_across_spread_w(c)                         # (11/11 FABLE: ACROSS a lucky-from-three team +0.02 / a
             #                                                     top scorer out +0.03 - the built fades' other bench)
             + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
@@ -5695,7 +5698,8 @@ def ncaab_spread_stack(c):
     out (-/+0.03), lucky from three (-/+0.02), the hot-ATS gap (-/+0.03), the glass (+/-0.02), the top-25 road team
     in Nov-Dec (-/+0.03) - and, from NCAAB_STACK_TUNEUP_FROM, the non-D1 tune-up (+/-0.02, the 11/21 daily S3). On a
     spread side it equals ncaab_top_out_spread_w + ncaab_fable_spread_w + ncaab_across_spread_w (+
-    ncaab_tuneup_spread_w from that day) (pinned by the regression tests)."""
+    ncaab_tuneup_spread_w from that day, + ncaab_deep_spread_w - the deep team on its second day -/+0.02, the 11/24
+    daily S9 - from NCAAB_DEEP_FROM) (pinned by the regression tests)."""
     if c.get("league") != "ncaab":
         return 0.0, 0
     sp = dict(c, market="spread")
@@ -5713,6 +5717,7 @@ def ncaab_spread_stack(c):
         parts.append(NCAAB_REB_W if rg >= NCAAB_REB_GAP else -NCAAB_REB_W if rg <= -NCAAB_REB_GAP else 0.0)
     if pt_day(sp) >= NCAAB_STACK_TUNEUP_FROM:                # 🏀 11/21 daily S3: the non-D1 tune-up weight is IN the stack
         parts.append(ncaab_tuneup_spread_w(sp))              # (the stack play's replay with it added - see the constant)
+    parts.append(ncaab_deep_spread_w(sp))                    # 🏀 11/24 daily S9: the deep team on its second day (dated inside)
     return round(sum(parts), 3), sum(1 for x in parts if x)
 
 
@@ -5969,6 +5974,107 @@ def ncaab_tuneup_spread_w(c):
     if c.get("league") != "ncaab" or c.get("market") != "spread":
         return 0.0
     return NCAAB_TUNEUP_W if c.get("tuneup") else -NCAAB_TUNEUP_W if c.get("vs_tuneup") else 0.0
+
+
+NCAAB_DEEP_FROM = "2026-11-25"     # 🏀 11/24 DAILY STUDIES - S9 (results/studies/daily_1124/s_today.py s9 -> s_follow.py s9 ->
+NCAAB_DEEP_W = 0.02                # s9c_replay.py / s9d_check.py / s9e_engine_read.py; SPORTS_FINDINGS "11/24 - DAILY STUDIES"):
+#   THE DEEP TEAM ON ITS SECOND DAY. A college hoops team that spreads its minutes (the league's bottom fifth on the share
+#   of its minutes its top 5 men play, 4+ boxed games - sports_ncaab_roster.deep_second_day) playing the day after a game
+#   (the November events' back-to-backs, the league tournaments): ATS -27.4% on 276 at ESPN's close 2021-26 (train
+#   2021-23 -25.7%, 0 of 3 seasons up / held 2024-26 -29.6%: -41.2 / -19.1 / -26.8; 38% covered, 2.1 points a game
+#   under its number; a random same-size set of second-day sides as bad 0 of 2,000), the side ACROSS it +18.4% on 276
+#   (train +16.4% 3 of 3 / held +20.9%). The other four fifths on a second day: +2.4 / -7.8 / +4.2 / -10.4% - only the
+#   deep fifth. A second way to count depth (10+ men at 10+ minutes a team game) -32.4% on 147. The same teams with one
+#   day off +1.0% on 1,094, on a neutral floor NOT on a second day -1.9% on 187 - it is the second day, not the team.
+#   No twin game rows behind it (s9d: 0 of 1,639 second-day sides). The engine's own read (every boxed game before the
+#   tip, the cut that morning) finds the same cell: -26.2% on 259, across +17.5%. THE STACK PLAY'S REPLAY (the 11/16
+#   rows, s9c): a +0.02..+0.04 stack across a deep second-day team +20.7% on 38 (train +33.2% / held +6.8%), a +0.05+
+#   stack ON the deep team -51.9% on 12; the play pool +6.6% on 1,373 -> +7.4% on 1,400; the best three a night +4.6% on
+#   924 -> +6.3% on 943 (train +2.1% -> +4.9%, held +8.2% -> +8.4%). HONEST: the direction is the opposite of the old
+#   saying (depth is supposed to help on short rest) and nobody predicted it - the price seems to pay for the saying;
+#   ~600 cells were read today; about 8 plays a season move. So it goes in at the TUNE-UP's size (+/-0.02), not the
+#   0.03 the cover rate would buy, until its tracker tag judges it at 40 graded (the side across under 50% covered =
+#   out; 56%+ = 0.03). A WEIGHT in the spread stack and the spread rank, never a trigger: alone it is +0.02, never the
+#   +0.05 a play needs; when BOTH teams are deep on a second day it is nothing. Its moneyline dog (-31.7% on 116,
+#   same-price placebo 31 of 2,000) is a tracker LEAD - no dog weight, no moneyline read, no size moves. From the games
+#   of this Pacific day ("9999" = off); every posted play is untouched.
+
+
+def mark_ncaab_deep(games, cands):
+    """🏀 11/24: deep_b2b on a college hoops side whose team is deep (bottom fifth top-5 minutes share) and playing the
+    day after a game, vs_deep_b2b on the side across - nothing when both are, nothing when we can't tell. From
+    NCAAB_DEEP_FROM. The spread side across carries its named reason."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")
+             and c.get("side") in ("home", "away") and pt_day(c) >= NCAAB_DEEP_FROM]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_roster as nr
+    except Exception:                                        # noqa: BLE001
+        return
+    seen = {}
+    for c in hoops:
+        gid = c.get("game_id")
+        if gid not in seen:
+            g = (games or {}).get(gid) or {}
+            start = str(g.get("start") or c.get("start") or "")
+            seen[gid] = None
+            if len(start) < 10 or not g.get("home") or not g.get("away"):
+                continue
+            try:
+                seen[gid] = {s_: nr.deep_second_day(games, g[s_], start) for s_ in ("home", "away")}
+            except Exception:                                # noqa: BLE001 - a weight never breaks the board
+                seen[gid] = None
+        t = seen.get(gid)
+        if not t:
+            continue
+        me, op = t.get(c["side"]), t.get("away" if c["side"] == "home" else "home")
+        if me is True and op is not True:
+            c["deep_b2b"] = True
+        elif op is True and me is not True:
+            c["vs_deep_b2b"] = True
+            if c.get("market") == "spread":                  # in the stack = a named reason
+                c["reasons"] = c.get("reasons", []) + [
+                    f"{c.get('opp') or 'the other team'} spread their minutes across the whole bench and they played "
+                    "yesterday - teams like that on a second day missed their number 5 seasons running"]
+
+
+def ncaab_deep_spread_w(c):
+    """The 11/24 weight on a college hoops SPREAD side: - on the deep team on its second day, + on the side across - a
+    weight, never a trigger (unknown = 0; a game before NCAAB_DEEP_FROM = 0 whatever the leg carries)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or pt_day(c) < NCAAB_DEEP_FROM:
+        return 0.0
+    return -NCAAB_DEEP_W if c.get("deep_b2b") else NCAAB_DEEP_W if c.get("vs_deep_b2b") else 0.0
+
+
+SPLIT_FROM = "2026-11-25"          # 🏠 11/24 DAILY STUDIES - S1 / S2 (sports_split.py): the pros' home / road split - TWO
+#   TRACKER LEADS, no weight: the NHL home side whose home margin lags its road margin, the NBA home-heavy road dog with
+#   a winning margin. Stamps only (split_lags / vs_split_lags / home_heavy_road) - nothing on the board reads them.
+
+
+def mark_split(games, cands):
+    """🏠 11/24: the two home / road split stamps the tracker reads (sports_leads.daily_1124_tags) - never a weight."""
+    try:
+        import sports_split
+    except Exception:                                        # noqa: BLE001
+        return
+    for c in cands:
+        if c.get("market") != "ml" or c.get("league") not in ("nhl", "nba") or c.get("side") not in ("home", "away") \
+                or pt_day(c) < SPLIT_FROM:
+            continue
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or str(g.get("neutral") or "0") == "1" or not g.get("home") or not g.get("away"):
+            continue
+        try:
+            if c["league"] == "nhl":
+                lag = sports_split.lags_at_home(games, g["home"], start)
+                if lag is True:
+                    c["split_lags" if c["side"] == "home" else "vs_split_lags"] = True
+            elif c["side"] == "away" and sports_split.home_heavy_winner(games, g["away"], start) is True:
+                c["home_heavy_road"] = True
+        except Exception:                                    # noqa: BLE001 - a lead never breaks the board
+            continue
 
 
 def mark_ncaab_star_back(games, cands):

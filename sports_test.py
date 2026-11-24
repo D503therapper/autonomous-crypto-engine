@@ -31686,6 +31686,259 @@ def test_accuracy_1123_the_standing_rule_and_the_health_line():
     assert any("Bobby Okereke out" in x and "ESPN" in x for x in rep["single"]), rep
 
 
+
+def test_daily_1124_the_deep_team_on_its_second_day_is_a_stack_weight_from_the_11_25_games():
+    """11/24 daily studies S9 (results/studies/daily_1124/s_today.py s9 -> s_follow.py s9 -> s9c_replay.py / s9d_check.py /
+    s9e_engine_read.py): a college hoops team in the league's bottom fifth on the share of its minutes its top 5 play
+    (4+ boxed games), playing the day after a game: ATS -27.4% on 276 at the close 2021-26 (train -25.7% / held -29.6%,
+    5 of 5 seasons down, placebo 0 of 2,000), the side across +18.4%; the stack play's replay with it +6.6% on 1,373 ->
+    +7.4% on 1,400. From the 11/25 Pacific games the spread stack and the spread rank read -0.02 on that team and +0.02
+    across - a weight in a sum (alone never a play), nothing when both teams are deep on a second day, nothing on a
+    moneyline read or a dog score; the dog is a tracker lead."""
+    import csv as _csv
+    import gzip as _gz
+    import shutil
+    import tempfile
+    import sports_ncaab_roster as nr
+    import sports_leads as sl
+    assert sports.NCAAB_DEEP_FROM == "2026-11-25" and sports.NCAAB_DEEP_W == 0.02
+    assert nr.DEEP_MIN_BOX == 4 and nr.DEEP_PCT == 0.2 and nr.DEEP_DAYS == 1.3
+    new, old = "2026-11-25T20:00Z", "2026-11-24T20:00Z"                    # (the 11/25 Pacific slate / the posted 11/24 one)
+    mk = lambda **kw: {"league": "ncaab", "market": "spread", "game_id": "ncaab:9", "side": "away", "line": 3.5,   # noqa: E731
+                       "start": new, "odds": -110, "dec": 1.909, "p": 0.5, "reasons": [], **kw}
+    across, deep = mk(vs_deep_b2b=True), mk(deep_b2b=True)
+    assert sports.ncaab_spread_stack(across) == (0.02, 1) and not sports.ncaab_stack_play_ok(across)   # alone: never a play
+    assert sports.ncaab_spread_stack(deep) == (-0.02, 1)
+    both = mk(opp_top_out=True, vs_deep_b2b=True)                         # +0.03 and across the deep team: the play's bar
+    assert sports.ncaab_spread_stack(both) == (0.05, 2) and sports.ncaab_stack_play_ok(both)
+    drop = mk(opp_top_out=True, opp_tp_net=0.08, deep_b2b=True)           # +0.05 ON the deep team: under the bar
+    assert sports.ncaab_spread_stack(drop) == (0.03, 3) and not sports.ncaab_stack_play_ok(drop)
+    # the posted 11/24 slate reads the stack without it; the switch takes it out again
+    assert sports.ncaab_spread_stack(mk(opp_top_out=True, vs_deep_b2b=True, start=old)) == (0.03, 1)
+    assert sports.ncaab_deep_spread_w(mk(vs_deep_b2b=True, start=old)) == 0.0
+    keep = sports.NCAAB_DEEP_FROM
+    try:
+        sports.NCAAB_DEEP_FROM = "9999"
+        assert sports.ncaab_spread_stack(both) == (0.03, 1)
+    finally:
+        sports.NCAAB_DEEP_FROM = keep
+    # the stack is still the spread rank's own weights added up
+    for c in (across, deep, both, drop):
+        want = (sports.ncaab_top_out_spread_w(c) + sports.ncaab_fable_spread_w(c) + sports.ncaab_across_spread_w(c)
+                + sports.ncaab_tuneup_spread_w(c) + sports.ncaab_deep_spread_w(c))
+        assert abs(sports.ncaab_spread_stack(c)[0] - want) < 1e-9
+    # no moneyline read, no dog weight
+    ml = mk(market="ml", odds=140, dec=2.4, line=None, deep_b2b=True)
+    assert sports.ncaab_deep_spread_w(ml) == 0.0
+    plain = {k: v for k, v in ml.items() if k != "deep_b2b"}
+    assert sports.dog_spots({**ml, "dog_ctx": {}}) == sports.dog_spots({**plain, "dog_ctx": {}})
+    # the marks: the deep team's sides, the side across (its spread side carries the reason), nothing when both / unknown
+    keep_d = nr.deep_second_day
+    try:
+        games = {"ncaab:9": {"id": "ncaab:9", "start": new, "home": "20", "away": "10", "neutral": "1"},
+                 "ncaab:8": {"id": "ncaab:8", "start": old, "home": "20", "away": "10", "neutral": "1"}}
+        nr.deep_second_day = lambda g_, team, start: team == "20"
+        sp, sph, m = mk(opp="Home U"), mk(side="home", line=-3.5), mk(market="ml", odds=140, dec=2.4, line=None)
+        early = mk(game_id="ncaab:8", start=old)
+        sports.mark_ncaab_deep(games, [sp, sph, m, early])
+        assert sp.get("vs_deep_b2b") and m.get("vs_deep_b2b") and sph.get("deep_b2b")
+        assert not early.get("vs_deep_b2b") and not early.get("reasons")                 # the posted day: untouched
+        assert len(sp["reasons"]) == 1 and "Home U" in sp["reasons"][0] and "played yesterday" in sp["reasons"][0]
+        assert not m["reasons"] and not sph["reasons"]                                   # never a moneyline side's reason
+        nr.deep_second_day = lambda g_, team, start: True                                # both deep on a second day
+        b1, b2 = mk(), mk(side="home")
+        sports.mark_ncaab_deep(games, [b1, b2])
+        assert not any(c.get(k) for c in (b1, b2) for k in ("deep_b2b", "vs_deep_b2b"))
+        nr.deep_second_day = lambda g_, team, start: None                                # can't tell = nothing
+        u1 = mk()
+        sports.mark_ncaab_deep(games, [u1])
+        assert not u1.get("deep_b2b") and not u1.get("vs_deep_b2b")
+    finally:
+        nr.deep_second_day = keep_d
+    # the tracker: the weight's two cover records + the dog (a lead)
+    assert sl.daily_1124_tags(across, sports) == [sl.NCAAB_DEEP_ACROSS_TAG]
+    assert sl.daily_1124_tags(deep, sports) == [sl.NCAAB_DEEP_FADE_TAG]
+    assert sl.daily_1124_tags(ml, sports) == [sl.NCAAB_DEEP_DOG_TAG] and "(lead)" in sl.NCAAB_DEEP_DOG_TAG
+    assert sl.daily_1124_tags(mk(vs_deep_b2b=True, start=old), sports) == []
+    # the read itself, off a box file: the top-5 share, the league cut, the second day
+    tmp = tempfile.mkdtemp()
+    keep_dir = nr.DIR
+    try:
+        nr.DIR = tmp
+        nr._CACHE.clear()
+        nr._DEEP.clear()
+        rows = []
+        for gi, day in enumerate(("2026-11-10", "2026-11-13", "2026-11-16", "2026-11-19", "2026-11-23")):
+            for pid in range(10):                              # team 10: ten men, 20 minutes each -> top 5 play 50%
+                rows.append((f"ncaab:a{gi}", day + "T20:00Z", "10", f"a{pid}", 20))
+            for pid in range(7):                               # team 20: five men at 36, two at 10 -> top 5 play 90%
+                rows.append((f"ncaab:b{gi}", day + "T20:00Z", "20", f"b{pid}", 36 if pid < 5 else 10))
+        with _gz.open(os.path.join(tmp, "ncaab_2026.csv.gz"), "wt", newline="") as f:
+            w = _csv.writer(f)
+            w.writerow(["gid", "start", "team", "pid", "player", "pos", "group", "starter", "stats"])
+            for gid, st, team, pid, mn in rows:
+                w.writerow([gid, st, team, pid, pid, "G", "", "1", json.dumps({"minutes": str(mn), "points": "5"})])
+        tip = "2026-11-24T21:30Z"
+        assert abs(nr.top5_share("10", tip) - 0.5) < 1e-9 and abs(nr.top5_share("20", tip) - 0.9) < 1e-9
+        assert nr.top5_share("10", "2026-11-17T20:00Z") is None            # three boxed games: no read
+        assert nr.deep_cut(tip) == (nr.DEEP_FIXED, 2)                     # two teams read: the fixed cut
+        fin = {f"ncaab:a{i}": {"id": f"ncaab:a{i}", "league": "ncaab", "status": "final", "stype": "2", "home": "10",
+                               "away": "99", "start": d + "T20:00Z"}
+               for i, d in enumerate(("2026-11-10", "2026-11-13", "2026-11-16", "2026-11-19", "2026-11-23"))}
+        fin["ncaab:b4"] = {"id": "ncaab:b4", "league": "ncaab", "status": "final", "stype": "2", "home": "20", "away": "98",
+                           "start": "2026-11-21T20:00Z"}
+        assert nr.second_day(fin, "10", tip) is True and nr.second_day(fin, "20", tip) is False
+        assert nr.second_day(fin, "77", tip) is None
+        assert nr.deep_second_day(fin, "10", tip) is True                 # deep, and it played yesterday
+        assert nr.deep_second_day(fin, "20", tip) is False                # three days off
+        assert nr.deep_second_day(fin, "10", "2026-11-26T21:30Z") is False   # the same team with two days off
+    finally:
+        nr.DIR = keep_dir
+        nr._CACHE.clear()
+        nr._DEEP.clear()
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_daily_1124_the_pros_home_road_split_is_two_tracker_leads_and_moves_nothing():
+    """11/24 daily studies S1 / S2: a pro team's home margin minus its road margin, this season before tonight (15+
+    games, 6+ each way), placed in the league. The NHL home side in the bottom fifth -11.7% on 1,316 at -200..+350 (9 of
+    9 seasons down, same-price placebo 14 of 2,000) - but the replay board posted 20 of them in three seasons; the NBA
+    home-heavy road dog with a winning margin -25.3% on 306 - but the paid morning price doesn't confirm it. Two tracker
+    LEADS from the 11/25 games: stamps the tracker reads, nothing on a read, a dog score or a size."""
+    import inspect
+    import sports_split as ss
+    import sports_leads as sl
+    assert sports.SPLIT_FROM == "2026-11-25" and ss.MIN_GAMES == 15 and ss.MIN_EACH == 6 and ss.MIN_TEAMS == 20
+    games, n = {}, 0
+    for t in range(1, 23):                                     # 22 teams; team 1 wins on the road and loses at home
+        for k in range(8):
+            for home in (True, False):
+                n += 1
+                opp = 100 + t
+                m = (-2 if home else 3) if t == 1 else (3 if home else -1) if t == 2 else (1 if home else 0)
+                hs, as_ = (3 + m, 3) if home else (3, 3 + m)
+                games[f"nhl:{n}"] = {"id": f"nhl:{n}", "league": "nhl", "status": "final", "stype": "2",
+                                     "start": f"2026-10-{10 + k:02d}T23:00Z" if home else f"2026-11-{1 + k:02d}T23:00Z",
+                                     "home": str(t if home else opp), "away": str(opp if home else t),
+                                     "home_score": hs, "away_score": as_, "neutral": "0"}
+    tip = "2026-11-25T23:00Z"
+    r = ss.reads(games, "nhl", tip)
+    assert len(r) == 44 and abs(r["1"]["split"] - (-5.0)) < 1e-9 and abs(r["2"]["split"] - 4.0) < 1e-9, (len(r), r.get("1"))
+    assert ss.lags_at_home(games, "1", tip) is True and ss.lags_at_home(games, "2", tip) is False
+    assert ss.lags_at_home(games, "999", tip) is None                      # a team with no read: unknown, never a guess
+    assert ss.reads(games, "nhl", "2026-10-20T23:00Z") == {}               # too early: nobody has 6 road games yet
+    games["nhl:pre"] = {"id": "nhl:pre", "league": "nhl", "status": "pre", "start": tip, "home": "1", "away": "2", "neutral": "0"}
+    games["nhl:old"] = {"id": "nhl:old", "league": "nhl", "status": "pre", "start": "2026-11-24T23:00Z", "home": "1", "away": "2", "neutral": "0"}
+    mk = lambda **kw: {"league": "nhl", "market": "ml", "game_id": "nhl:pre", "side": "home", "start": tip, "odds": 120, **kw}   # noqa: E731
+    h_, a_, old_ = mk(), mk(side="away", odds=-140), mk(game_id="nhl:old", start="2026-11-24T23:00Z")
+    sports.mark_split(games, [h_, a_, old_])
+    assert h_.get("split_lags") and a_.get("vs_split_lags") and not old_.get("split_lags")   # (the posted day: untouched)
+    assert sl.daily_1124_tags(h_, sports) == [sl.NHL_SPLIT_HOME_TAG] and sl.daily_1124_tags(a_, sports) == [sl.NHL_SPLIT_ROAD_TAG]
+    assert all("(lead)" in t for t in (sl.NHL_SPLIT_HOME_TAG, sl.NHL_SPLIT_ROAD_TAG, sl.NBA_HOME_HEAVY_DOG_TAG))
+    assert sl.daily_1124_tags({"league": "nba", "market": "ml", "odds": 150, "home_heavy_road": True, "start": tip}, sports) == [sl.NBA_HOME_HEAVY_DOG_TAG]
+    assert sl.daily_1124_tags({"league": "nba", "market": "ml", "odds": -130, "home_heavy_road": True, "start": tip}, sports) == []
+    # LEADS: nothing on the board reads the stamps (mark_split writes them, nothing .get()s them)
+    src = inspect.getsource(sports)
+    for key in ("split_lags", "vs_split_lags", "home_heavy_road"):
+        assert f'.get("{key}")' not in src, key
+    plain = {"league": "nhl", "market": "ml", "side": "home", "odds": 120, "dog_ctx": {}}
+    assert sports.dog_spots({**plain, "split_lags": True}) == sports.dog_spots(plain)
+
+
+def test_daily_1124_board_check_the_note_once_the_close_ones_and_no_tune_ups_in_the_form_lines():
+    """The 11/24 board check's card fixes. (1) The Campbell +102 card said "(not counting the Tennessee game)" under three
+    lines running - the page shows the note once, the stored line keeps it (the number check reads it). (2) The ⭐
+    Illinois St +100 2u card had nothing for "the ratings back this side" (it had beaten one D1 team): the games we
+    finished within 5 of a WINNING team are a 🧭 line - "finished within 3 of Santa Clara and within 5 of Saint Mary's" -
+    said as how close, never as a loss, re-derived on every render. (3) Its "80+ in 3 of their last 5" / first-half lines
+    counted a 123-48 win over a non-D1 school: a college hoops team's big nights and halves read D1 games only. (4) A
+    🚑 body line that only repeats the card's header names is not written (the Magic card: cut on every render)."""
+    import inspect
+    import sports_card_sell as cs
+    import sports_card_check as cc
+    import sports_breakdown
+    import sports_breakdown_v24 as v24
+    import sports_dashboard
+    assert sports_breakdown.VERSION >= 87
+    # (1) the note once
+    n1 = " (not counting the Tennessee game)"
+    lines = ["🧭 Give me Campbell: The one D1 team Coastal beat this year is SC Upstate, who won 0 of 6 against D1 teams.",
+             "🧤 14 turnovers a game for Coastal against D1 teams, 10 for Campbell. Free possessions." + n1,
+             "🪣 Coastal can't shoot it - 40% from the field against D1 teams." + n1,
+             "🏆 Campbell already beat Kansas St this year, 80-70 on the road.",
+             "🤝 Coastal gets 9 assists a game against D1 teams. Campbell: 15. One team moves the ball." + n1]
+    out = cs.note_once(lines)
+    assert sum(n1 in x for x in out) == 1 and out[1].endswith(n1) and out[2] == lines[2][:-len(n1)] and out[3] == lines[3]
+    other = "🪣 X can't shoot it - 40% from the field against D1 teams. (not counting the Duke game)"
+    assert cs.note_once([lines[1], other]) == [lines[1], other]            # a different note stays
+    assert cs.note_once([]) == [] and cs.note_once(lines[:1]) == lines[:1]
+    assert "note_once" in inspect.getsource(sports_dashboard._breakdown) and "note_once" in inspect.getsource(sports_dashboard._leg_brain)
+
+    # (2) the close ones against winning teams
+    def g(i, day, home, away, hn, an, hs, as_):
+        return {"id": f"ncaab:{i}", "league": "ncaab", "status": "final", "stype": "2", "start": day + "T20:00Z", "home": home,
+                "away": away, "home_name": hn, "away_name": an, "home_score": hs, "away_score": as_, "neutral": "0"}
+    fin = [g(1, "2026-11-03", "S", "I", "Saint Mary's", "Illinois St", 90, 85),
+           g(2, "2026-11-10", "P", "I", "Purdue", "Illinois St", 76, 59),
+           g(3, "2026-11-14", "N", "I", "N Dakota St", "Illinois St", 82, 81),
+           g(4, "2026-11-18", "I", "B", "Illinois St", "Bellarmine", 76, 59),
+           g(5, "2026-11-23", "I", "C", "Illinois St", "Santa Clara", 99, 102)]
+    k = 10
+    for tid, nm, w, lo in (("S", "Saint Mary's", 5, 1), ("C", "Santa Clara", 5, 1), ("N", "N Dakota St", 2, 5), ("P", "Purdue", 3, 2)):
+        for j in range(w + lo):
+            k += 1
+            fin.append(g(k, f"2026-11-{4 + j:02d}", tid, f"z{k}", nm, f"Z{k}", 80 if j < w else 60, 70))
+    fin.sort(key=lambda x: x["start"])
+    gu = [x for x in fin if "I" in (x["home"], x["away"])]
+    gt = [g(90, "2026-11-20", "T", "q", "Tulsa", "Q", 80, 70), g(91, "2026-11-21", "T", "r", "Tulsa", "R", 60, 70),
+          g(92, "2026-11-22", "T", "u", "Tulsa", "U", 61, 72)]
+    nond1 = lambda t: False                                                # noqa: E731
+    cc_ = cs.close_calls(gu, "I", cs.by_team(fin), "2026-07-01", nond1)
+    assert [(r[0], r[1]) for r in cc_] == [("Santa Clara", 3), ("Saint Mary's", 5)], cc_   # N Dakota St (1 point) is a losing team
+    made = cs.sched_lines("ncaab", "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1, {"reasons": []}, backed=True)
+    line = next(m for m in made if m[0] == "sched_c")
+    assert line[2] is True and all("finished within 3 of Santa Clara and within 5 of Saint Mary's" in w for w in line[1]), line[1]
+    assert all("won 12 of 14" in w for w in line[1]) and not any(re.search(r"\blost\b|\bloss", w) for w in line[1]), line[1]
+    for w in line[1]:
+        assert cs.sched_wrong(w, "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1) == "", w
+        assert not cc.knocks_us(w, {"team": "Illinois St", "opp": "Tulsa"}), w
+    bad = line[1][0].replace("within 3 of Santa Clara", "within 2 of Santa Clara")
+    assert cs.sched_wrong(bad, "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1)          # a margin the files don't hold
+    assert cs.sched_wrong(line[1][0].replace("won 12 of 14", "won 14 of 14"), "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1)
+    one = cs.sched_lines("ncaab", "Illinois St", "Santa Clara", gu, gt, "I", "T", fin, nond1, {"reasons": []})
+    one = next(m for m in one if m[0] == "sched_c")                        # never the team we're playing tonight
+    assert "Santa Clara" not in one[1][0] and "within 5 of Saint Mary's" in one[1][0] and "won 6 of 7" in one[1][0], one[1]
+    assert cs.sched_wrong(one[1][0], "Illinois St", "Santa Clara", gu, gt, "I", "T", fin, nond1) == "", one[1][0]
+    assert cs.sched_wrong(one[1][1], "Illinois St", "Santa Clara", gu, gt, "I", "T", fin, nond1) == "", one[1][1]
+    keep = cs.CLOSE
+    try:
+        cs.CLOSE = False
+        assert not any(m[0] == "sched_c" for m in cs.sched_lines("ncaab", "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1, {"reasons": []}))
+    finally:
+        cs.CLOSE = keep
+    # (3) no tune-ups in the big nights / the halves
+    keep_d1 = v24._D1.get("set")
+    try:
+        v24._D1["set"] = {"I", "S", "P"}
+        rows = [g(1, "2026-11-03", "S", "I", "Saint Mary's", "Illinois St", 90, 85),
+                g(2, "2026-11-20", "I", "E", "Illinois St", "Eureka", 123, 48)]
+        assert [x["id"] for x in v24._form(rows, "I", "ncaab")] == ["ncaab:1"]           # Eureka (not D1) is no form
+        assert v24._form(rows, "I", "nba") == rows and v24.FORM_D1 is True
+        keep_f = v24.FORM_D1
+        try:
+            v24.FORM_D1 = False
+            assert v24._form(rows, "I", "ncaab") == rows
+        finally:
+            v24.FORM_D1 = keep_f
+    finally:
+        v24._D1["set"] = keep_d1
+    src = inspect.getsource(v24)
+    assert "big_nights(_form(s_theirs, oid, lg)" in src and "early_score(_form(s_ours, tid, lg)" in src
+    assert "late_score(_form(s_ours, tid, lg)" in src
+    # (4) the 🚑 names-only line is not written under a header that already has them
+    assert 'if theirs_out and coherent_on(g) and not _hole("opp_holes"):' in inspect.getsource(v24.more_facts)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

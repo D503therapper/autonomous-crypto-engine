@@ -267,6 +267,23 @@ def trim_note(left):
 TRIM_SAID = re.compile(r" \(not counting the (.+?) games?\)")
 
 
+def note_once(lines):
+    """📝 11/24 board check (the Campbell +102 card said "(not counting the Tennessee game)" under three lines running -
+    the owner: never repetitive): the games-left-out note shows ONCE a card, on the first line that carries it; the same
+    note on a later line is dropped from what the page shows (a different note stays). The stored line keeps its note -
+    the number check reads it to know which games the number leaves out."""
+    out, seen = [], set()
+    for x in lines or []:
+        if isinstance(x, str):
+            m = TRIM_SAID.search(x)
+            if m:
+                if m.group(0) in seen:
+                    x = (x[:m.start()] + x[m.end():]).strip()
+                seen.add(m.group(0))
+        out.append(x)
+    return out
+
+
 def top_out_who(leg):
     """(name, points a game) of THEIR top scorer who sat their last game - off the leg's mark, or (a card posted before
     the mark kept the name) off the reason the leg carries."""
@@ -410,6 +427,29 @@ def road_games(gs, t):
     return won, len(rows)
 
 
+CLOSE_BY = 5                 # 🧭 11/24: a game we finished within this many points of a winning team ...
+CLOSE_MIN = 4                # ... that has played this many D1 games (and won TOUGH_LOSSES of them or more)
+CLOSE_NAMES = 3
+CLOSE = True                 # the switch (False = the 11/23 card)
+
+
+def close_calls(gu, tid, idx, since, nond1):
+    """Our games against WINNING D1 teams that ended within CLOSE_BY points the wrong way, closest first:
+    [(the team, the margin, its D1 wins, its D1 losses)] - one row a team (its closest game)."""
+    _w, lost = _split(gu, tid)
+    best = {}
+    for oid_, nm, pf, pa, _g in lost:
+        by = pa - pf
+        if 0 < by <= CLOSE_BY and (str(oid_) not in best or by < best[str(oid_)][1]):
+            best[str(oid_)] = (nm, by, oid_)
+    out = []
+    for nm, by, oid_ in best.values():
+        w, lo = d1_record(idx, oid_, since, nond1)
+        if w + lo >= CLOSE_MIN and w >= TOUGH_LOSSES * (w + lo):
+            out.append((nm, by, w, lo))
+    return sorted(out, key=lambda r: (r[1], r[0]))
+
+
 def sched_lines(lg, us, them, gu, gt, tid, oid, fin, nond1, leg, backed=False, g=None, s_theirs=None):
     """🧭 College hoops: the schedule facts that argue for us - the teams THEY beat don't win (every D1 win named, those
     teams' own games against D1 teams counted), the teams that beat US do, the night they were a big favorite and it
@@ -453,6 +493,23 @@ def sched_lines(lg, us, them, gu, gt, tid, oid, fin, nond1, leg, backed=False, g
                 short = [] if len(names) == 1 else [
                     f"🧭 The {_NUM.get(len(names), len(names))} teams that beat {us} this year won {w} of {n} against D1 teams between them."]
                 out.append(("sched_l", ways, bool(backed), 8.2 + (w / n - TOUGH_LOSSES) * 3, short))
+        # 2b. 🧭 11/24 board check (the ⭐ Illinois St +100 card had no reason line at all -
+        # it had beaten one D1 team, and finished 5 from Saint Mary's and 3 from Santa Clara, who won 12 of 14): the
+        # games we finished within CLOSE_BY points of a WINNING team - said as how close, never as a loss
+        if CLOSE and not any(k == "sched_l" for k, *_ in out):
+            cc = [r for r in close_calls(gu, tid, idx, since, nond1) if r[0] != them][:CLOSE_NAMES]
+            if cc:
+                w, n = sum(r[2] for r in cc), sum(r[2] + r[3] for r in cc)
+                if len(cc) == 1:
+                    nm, by = cc[0][0], cc[0][1]
+                    ways = [f"🧭 {us} finished within {by} of {nm} this year, a team that won {w} of {n} against D1 teams.",
+                            f"🧭 {nm} won {w} of {n} against D1 teams this year, and {us} finished within {by} of {nm}."]
+                else:
+                    said = _names([f"within {r[1]} of {r[0]}" for r in cc])
+                    nn = _NUM.get(len(cc), str(len(cc)))
+                    ways = [f"🧭 {us} finished {said} this year. Those {nn} won {w} of {n} against D1 teams between them.",
+                            f"🧭 This year {us} finished {said} - {nn} teams that won {w} of {n} against D1 teams between them."]
+                out.append(("sched_c", ways, bool(backed), 7.9 + (w / n - TOUGH_LOSSES)))
     # 3. the night they were a big favorite and it was a game
     worst = fav_short(gt, oid)
     if worst:
@@ -512,6 +569,24 @@ def sched_wrong(line, us, them, gu, gt, tid, oid, fin, nond1, s_theirs=None):
             if said:
                 return "" if int(said.group(1) or said.group(2)) == n else "a road count the game files don't hold"
             return "" if n == 0 else "they've played a true road game"
+        if "finished within" in t:                           # 🧭 11/24: the close ones against winning teams
+            m = _WON_OF.search(t)
+            if not m or not fin or nond1 is None:
+                return ""
+            rows = {r[0]: r for r in close_calls(gu, tid, by_team(fin), _since(gu, gt), nond1)}
+            said = re.findall(r"within (\d+) of (.+?)(?=,| and within| this year| - |\.|$)", t)
+            if not said:
+                return "a close game the game files don't hold"
+            w = n = 0
+            for by, nm in said:
+                r = rows.get(nm.strip())
+                if not r or r[1] != int(by):
+                    return f"within {by} of {nm.strip()} - the game files don't hold it"
+                w, n = w + r[2], n + r[2] + r[3]
+            sw, sn = int(m.group(1)), int(m.group(2))
+            if not (sn <= n <= sn + len(said) and sw <= w <= sw + len(said)):
+                return f"won {sw} of {sn} - the game files say {w} of {n}"
+            return ""
         m = _WON_OF.search(t)
         if not m or not fin or nond1 is None:
             return ""

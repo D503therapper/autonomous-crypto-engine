@@ -1900,6 +1900,17 @@ def _real(gs, tid, lg):
     return [x for x in gs or [] if not non_d1(lg, _opp_id(x, tid))]
 
 
+FORM_D1 = True               # 🏀 11/24 board check (the ⭐ Illinois St +100 card: "80+ points for Illinois St in 3 of their last 5" and
+#   "outscored teams 207 to 167 in the first half over their last 5" - one of the five was a 123-48 win over Eureka, a
+#   non-D1 school, 65 of the 207 first-half points): from breakdown VERSION 87 a college hoops team's big nights and
+#   its halves are counted on Division I games only, like every other "lately" line (_real, 11/22). False = as before.
+
+
+def _form(gs, tid, lg):
+    """The games a college hoops form count reads: no non-D1 tune-ups (FORM_D1; every other league as is)."""
+    return _real(gs, tid, lg) if FORM_D1 else gs
+
+
 def _pts3(gs, tid, n=3, dec=0):
     """(scored, allowed) a game over the team's last n games on file, rounded - or None. dec=1: one decimal (hockey /
     baseball - 11/17: whole goals said "Stars average 4 for / 4 against ... Blue Jackets 3 for / 3 against", nothing)."""
@@ -2653,7 +2664,7 @@ def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         if cfg and f"{cfg[0]}+" not in low and f"{cfg[0]} or more" not in low:
             big, n = cfg
             unit = "goals" if nhl else "points"
-            bt, bu = big_nights(s_theirs, oid, lg, True), big_nights(s_ours, tid, lg, False)
+            bt, bu = big_nights(_form(s_theirs, oid, lg), oid, lg, True), big_nights(_form(s_ours, tid, lg), tid, lg, False)
             if bt and bt[0] >= 3 and fair(bt[1]):
                 n = bt[1]
                 say("big_t", [f"🚪 {them} gave up {big} or more {unit} in every one of their last {n} games.",
@@ -2676,7 +2687,7 @@ def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
         if "1st quarter" not in low and "first period" not in low and "first half" not in low and "halftime" not in low:
             what = {"nba": "the 1st quarter", "nhl": "the first period"}.get(lg, "the first half")
             n = (LATE_PART.get(lg) or (0, 0, 0, 0))[3]
-            eu, et = early_score(s_ours, tid, lg), early_score(s_theirs, oid, lg)
+            eu, et = early_score(_form(s_ours, tid, lg), tid, lg), early_score(_form(s_theirs, oid, lg), oid, lg)
             unit = "goals" if nhl else "points"
             if lg == "nba":
                 if eu and eu[2] * 10 >= eu[4] * START_MIN[lg] and eu[0] > eu[1]:
@@ -2687,7 +2698,7 @@ def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
                                     f"🏁 {et[3]} of the last {et[4]} times out, {them} were behind after {what}."])
             else:
                 if "half" in what and one_half() and LATE_PART.get(lg):   # (11/23: ... and never both halves)
-                    lu_, lt_ = late_score(s_ours, tid, lg), late_score(s_theirs, oid, lg)
+                    lu_, lt_ = late_score(_form(s_ours, tid, lg), tid, lg), late_score(_form(s_theirs, oid, lg), oid, lg)
                     if eu and lu_ and lu_[0] - lu_[1] >= LATE_MIN[lg] and lu_[0] - lu_[1] >= eu[0] - eu[1]:
                         eu = None
                     if et and lt_ and lt_[1] - lt_[0] >= LATE_MIN[lg] and lt_[1] - lt_[0] >= et[1] - et[0] and fair(lt_[4]):
@@ -3436,6 +3447,12 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     # up"): a lineup more than one starter short at one spot is SAID in plain words with the names - "Both starting
     # tackles out - backups protecting the QB." Theirs rides the 🚑 line; ours is only ever the ⚠️ knock.
     _hole = lambda k: (lambda h: f" {h[0].upper()}{h[1:]}." if h else "")(str(leg.get(k) or "").strip())   # noqa: E731
+    if theirs_out and coherent_on(g) and not _hole("opp_holes"):
+        # 🚑 11/24 board check (the Magic +114 card: "CARD CHECK (render): the 🚑 chip's names again: 🚑 Pistons are
+        # without Duncan Robinson (F)." on every run of the day): the card's 🚑 header already names who's out on both
+        # teams - a body line that is only those names again was written, counted toward the card's floor and then cut
+        # on every render. Not written; a line that says what the absence DOES (a spot two starters short) still is.
+        theirs_out = []
     if theirs_out and _also:
         add.append(v.say("f_outs_also", [f"🚑 Also out for {them}: {', '.join(theirs_out)}.{_hole('opp_holes')}",
                                          f"🚑 {them} are down {', '.join(theirs_out)} too.{_hole('opp_holes')}"]))
