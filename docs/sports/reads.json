@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T05:35Z",
+ "updated": "2026-11-24T05:49Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -956,8 +956,8 @@
    "away": "Jazz",
    "home": "Lakers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -986,8 +986,8 @@
    "away": "Wild",
    "home": "Sharks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1252,8 +1252,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon St",
-    "p": 0.755,
-    "tie": 0.033,
+    "p": 0.736,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1268,10 +1268,12 @@
     "opp": "Oregon St",
     "market": "spread",
     "line": 8.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.502,
-    "win_p": 0.16,
-    "reasons": []
+    "win_p": 0.181,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1590,8 +1592,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wyoming",
-    "p": 0.732,
-    "tie": 0.035,
+    "p": 0.711,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1606,9 +1608,9 @@
     "opp": "Wyoming",
     "market": "spread",
     "line": 8.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.502,
-    "win_p": 0.185,
+    "win_p": 0.208,
     "reasons": []
    }
   },
@@ -1814,9 +1816,9 @@
     "team": "Elon",
     "opp": "Furman",
     "market": "spread",
-    "line": 7.5,
-    "odds": -102,
-    "p": 0.501,
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.502,
     "win_p": 0.225,
     "reasons": [
      "rolling off a blowout win",
@@ -2032,7 +2034,7 @@
     "opp": "James Madison",
     "market": "spread",
     "line": 13.5,
-    "odds": -105,
+    "odds": -115,
     "p": 0.507,
     "win_p": 0.103,
     "reasons": []
@@ -3115,7 +3117,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Charleston",
-    "p": 0.494,
+    "p": 0.499,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -3131,9 +3133,9 @@
     "opp": "UTEP",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.523,
-    "win_p": 0.523,
+    "odds": -125,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
