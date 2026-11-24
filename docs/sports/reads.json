@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T21:55Z",
+ "updated": "2026-11-24T22:14Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -277,6 +277,36 @@
    "start": "2026-11-24T21:30Z",
    "away": "PSU Berks",
    "home": "Navy",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926061",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:00Z",
+   "away": "Bloomsburg",
+   "home": "Wagner",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921710",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:00Z",
+   "away": "Providence",
+   "home": "Arizona",
    "h1": null,
    "why": "started",
    "done": false,
@@ -2047,7 +2077,7 @@
     "opp": "Mavericks",
     "market": "spread",
     "line": -8.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.5,
     "win_p": 0.705,
     "reasons": [
@@ -2170,6 +2200,34 @@
     "odds": -115,
     "p": 0.509,
     "win_p": 0.08,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401921702",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Charlotte",
+    "p": 0.713,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T16:00Z",
+   "away": "Northern Iowa",
+   "home": "Charlotte",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Northern Iowa",
+    "opp": "Charlotte",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.21,
     "reasons": []
    }
   },
@@ -2353,6 +2411,36 @@
    }
   },
   {
+   "id": "ncaab:401925917",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UC Riverside",
+    "p": 0.591,
+    "tie": 0.042,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T22:00Z",
+   "away": "Portland St",
+   "home": "UC Riverside",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "UC Riverside",
+    "opp": "Portland St",
+    "market": "ml",
+    "line": null,
+    "odds": -192,
+    "p": 0.648,
+    "win_p": 0.648,
+    "reasons": [
+     "the turnover matchup is ours by 14.4 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892785",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2522,6 +2610,37 @@
     "p": 0.628,
     "win_p": 0.411,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920916",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "N Illinois",
+    "p": 0.606,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T00:00Z",
+   "away": "N Illinois",
+   "home": "SIUE",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "N Illinois",
+    "opp": "SIUE",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.671,
+    "win_p": 0.671,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +7.7 a game to their +0.1 - the books don't price the glass (5 of 5 seasons)"
+    ]
    }
   },
   {
@@ -2707,7 +2826,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.581,
+    "p": 0.552,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -2716,16 +2835,16 @@
    "start": "2026-11-26T00:30Z",
    "away": "Cavaliers",
    "home": "Knicks",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Knicks",
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -197,
-    "p": 0.647,
-    "win_p": 0.647,
+    "odds": -163,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
