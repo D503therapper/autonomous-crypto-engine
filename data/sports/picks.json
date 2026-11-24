@@ -28045,6 +28045,7 @@
      "them:west1000"
     ],
     "dec": 2.6,
+    "decider": {},
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 1,
@@ -28106,6 +28107,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 0.13,
+    "flow": {
+     "a": "27,24,40,29",
+     "h": "27,29,40,29"
+    },
     "form_state": [
      -7.0,
      -4,
@@ -28214,10 +28219,12 @@
      "Tyrese Haliburton": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Thunder 120 @ Pacers 125",
     "season_games": 17,
+    "settled": "2026-11-24T03:05Z",
     "side": "home",
     "sold": [
      "\ud83c\udfa8|38"
@@ -28243,11 +28250,13 @@
    }
   ],
   "p_hit": 0.3608,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-23T16:21Z",
   "round": 1,
+  "settled": "2026-11-24T03:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

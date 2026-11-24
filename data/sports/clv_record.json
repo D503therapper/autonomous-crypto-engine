@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 136,
+  "n": 137,
   "beat": 46,
-  "same": 58,
+  "same": 59,
   "worse": 32,
   "avg_pts": 0.3
  },
  "unit_plays": {
-  "n": 136,
+  "n": 137,
   "beat": 46,
-  "same": 58,
+  "same": 59,
   "worse": 32,
   "avg_pts": 0.3
  },
@@ -29,9 +29,9 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 86,
+   "n": 87,
    "beat": 30,
-   "same": 37,
+   "same": 38,
    "worse": 19,
    "avg_pts": 0.35
   }
@@ -45,11 +45,11 @@
    "avg_pts": 0.55
   },
   "nba": {
-   "n": 18,
+   "n": 19,
    "beat": 11,
-   "same": 5,
+   "same": 6,
    "worse": 2,
-   "avg_pts": 0.94
+   "avg_pts": 0.89
   },
   "ncaab": {
    "n": 10,
@@ -2012,6 +2012,20 @@
    "odds": 139,
    "close": -110,
    "pts": 10.5,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-23",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Pacers",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 160,
+   "pts": 0.0,
    "units": 0.5,
    "result": "won"
   }

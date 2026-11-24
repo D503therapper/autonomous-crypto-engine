@@ -8169,5 +8169,91 @@
   "score": "128-111",
   "margin": 17.0,
   "pnl_units": 0.69
+ },
+ {
+  "date": "2026-11-23",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nba",
+  "game_id": "nba:401910038",
+  "team": "Pacers",
+  "opp": "Thunder",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 160,
+  "posted": "2026-11-23T16:21Z",
+  "price_says": 0.385,
+  "win_p": 0.3608010995919357,
+  "own_read": 0.361,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.0620224701154809,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "the NBA dog score backs it: +0.1 (our read -0.9 points on the price, every NBA dog study weighed)"
+  ],
+  "angles": {
+   "blew_lead": false,
+   "comeback": false,
+   "games_in": 17,
+   "home_after_trip": 2,
+   "last_margin": -7.0,
+   "last_ot": false,
+   "last_pts": 106.0,
+   "last_upset": false,
+   "last_year_wp": 0.232,
+   "lose_streak": 4,
+   "opp_blew_lead": false,
+   "opp_comeback": false,
+   "opp_heavy_last": false,
+   "opp_last_margin": -10.0,
+   "opp_last_ot": false,
+   "opp_last_pts": 113.0,
+   "opp_last_upset": false,
+   "opp_next_days": 2,
+   "opp_next_soft": false,
+   "opp_next_wp": 0.706,
+   "opp_pace": 102.01,
+   "opp_rest": 1,
+   "opp_trip_game": 2,
+   "pace": 102.16,
+   "record": [
+    5,
+    12
+   ],
+   "rest": 0,
+   "slate": 10,
+   "spread_gap": -0.0146,
+   "total": 222.0,
+   "total_vs_league": -5.5,
+   "win_streak": 0
+  },
+  "injuries_seen": {
+   "Aday Mara (Thunder C)": "Day-To-Day",
+   "Pascal Siakam (Pacers F)": "Day-To-Day",
+   "Shai Gilgeous-Alexander (Thunder G)": "Day-To-Day"
+  },
+  "ours_out": [
+   "Tyrese Haliburton (G)",
+   "Johnny Furphy (G)",
+   "Ben Sheppard (G)"
+  ],
+  "theirs_out": [
+   "Thomas Sorber (C)",
+   "Cason Wallace (G)",
+   "Chet Holmgren (C)",
+   "Jalen Williams (G)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 160,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "125-120",
+  "margin": 5.0,
+  "pnl_units": 0.8
  }
 ]
