@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T22:14Z",
+ "updated": "2026-11-24T22:33Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -191,8 +191,8 @@
    "away": "North Dakota",
    "home": "Detroit Mercy",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -312,187 +312,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401909505",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Purdue",
-    "p": 0.556,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T23:00Z",
-   "away": "DePaul",
-   "home": "Purdue",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Purdue",
-    "opp": "DePaul",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.603,
-    "win_p": 0.603,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920949",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Kennesaw St",
-    "p": 0.607,
-    "tie": 0.041,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T23:00Z",
-   "away": "E Michigan",
-   "home": "Kennesaw St",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Kennesaw St",
-    "opp": "E Michigan",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.668,
-    "win_p": 0.668,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win",
-     "out-rebounding people by +18.0 a game to their +6.2 - the books don't price the glass (5 of 5 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401923262",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "FAU",
-    "p": 0.67,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T23:00Z",
-   "away": "Mercer",
-   "home": "FAU",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Mercer",
-    "opp": "FAU",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.26,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401922231",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Wofford",
-    "p": 0.48,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T23:00Z",
-   "away": "Queens",
-   "home": "Wofford",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Wofford",
-    "opp": "Queens",
-    "market": "ml",
-    "line": null,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.503,
-    "reasons": [
-     "out-rebounding people by +3.6 a game to their -7.0 - the books don't price the glass (5 of 5 seasons)",
-     "coughing it up 0.9 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401923395",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "VMI",
-    "p": 0.619,
-    "tie": 0.041,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T23:00Z",
-   "away": "S Indiana",
-   "home": "VMI",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "VMI",
-    "opp": "S Indiana",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.683,
-    "win_p": 0.683,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401924877",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rutgers",
-    "p": 0.903,
-    "tie": 0.017,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T23:00Z",
-   "away": "Sacred Heart",
-   "home": "Rutgers",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Sacred Heart",
-    "opp": "Rutgers",
-    "market": "spread",
-    "line": 22.5,
-    "odds": -115,
-    "p": 0.516,
-    "win_p": 0.04,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
   },
   {
    "id": "ncaab:401921142",
@@ -919,7 +738,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "W Michigan",
-    "p": 0.589,
+    "p": 0.585,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -935,9 +754,9 @@
     "opp": "Miami OH",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.627,
-    "win_p": 0.627,
+    "odds": -225,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "the stronger team"
     ]
@@ -2237,7 +2056,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia",
-    "p": 0.639,
+    "p": 0.651,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -2253,9 +2072,9 @@
     "opp": "Marquette",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.712,
-    "win_p": 0.712,
+    "odds": -265,
+    "p": 0.727,
+    "win_p": 0.727,
     "reasons": [
      "the stronger team"
     ]
@@ -2355,7 +2174,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.516,
+    "p": 0.49,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2364,16 +2183,16 @@
    "start": "2026-11-25T22:00Z",
    "away": "Heat",
    "home": "76ers",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "76ers",
     "opp": "Heat",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.552,
-    "win_p": 0.552,
+    "odds": -115,
+    "p": 0.513,
+    "win_p": 0.513,
     "reasons": [
      "the stronger team"
     ]
@@ -2416,7 +2235,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UC Riverside",
-    "p": 0.591,
+    "p": 0.584,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -2432,9 +2251,9 @@
     "opp": "Portland St",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.648,
-    "win_p": 0.648,
+    "odds": -185,
+    "p": 0.639,
+    "win_p": 0.639,
     "reasons": [
      "the turnover matchup is ours by 14.4 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
