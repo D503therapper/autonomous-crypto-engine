@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T19:54Z",
+ "updated": "2026-11-24T20:17Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -71,8 +71,8 @@
    "away": "Southern Utah",
    "home": "FIU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -152,36 +152,49 @@
    "lean": null
   },
   {
-   "id": "ncaab:401924267",
+   "id": "ncaab:401929285",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Arkansas St",
-    "p": 0.587,
-    "tie": 0.042,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-24T20:30Z",
-   "away": "Arkansas St",
-   "home": "Long Beach St",
-   "why": "tight",
+   "start": "2026-11-24T20:00Z",
+   "away": "App State",
+   "home": "Yale",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Arkansas St",
-    "opp": "Long Beach St",
-    "market": "ml",
-    "line": null,
-    "odds": -198,
-    "p": 0.647,
-    "win_p": 0.647,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "out-rebounding people by +4.2 a game to their -10.4 - the books don't price the glass (5 of 5 seasons)"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaab:401915941",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T20:00Z",
+   "away": "Miami",
+   "home": "TCU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401906853",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T20:00Z",
+   "away": "Tennessee",
+   "home": "Maryland",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401929035",
@@ -1250,7 +1263,7 @@
     "opp": "Iowa",
     "market": "spread",
     "line": 28.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.522,
     "win_p": 0.015,
     "reasons": [
@@ -2546,7 +2559,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.509,
+    "p": 0.503,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2562,9 +2575,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.54,
-    "win_p": 0.54,
+    "odds": -135,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": []
    }
   },
@@ -2574,7 +2587,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.386,
+    "p": 0.391,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2591,8 +2604,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.649,
-    "win_p": 0.433,
+    "p": 0.638,
+    "win_p": 0.422,
     "reasons": []
    }
   },
@@ -2648,7 +2661,7 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -198,
     "p": 0.618,
     "win_p": 0.402,
     "reasons": []
@@ -2690,7 +2703,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.365,
+    "p": 0.37,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2707,8 +2720,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.689,
-    "win_p": 0.471,
+    "p": 0.679,
+    "win_p": 0.461,
     "reasons": []
    }
   },
