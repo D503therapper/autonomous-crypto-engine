@@ -1,41 +1,3 @@
-nhl|rate: following hit 61.6% vs 60.8% the price said over 5551 (edge +0.1% older, +1.4% newer, z 1.18) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nba thursday: favorites win 14-1 (prices said 10) (10 straight) -> coin flip
-ACTIVE nfl sunday night: home team wins 10-1 (prices said 6.3) (6 straight) -> coin flip · next: Raiders @ Browns
-ACTIVE mlb monday: over 146-116 (6 straight) -> coin flip
-ACTIVE nba saturday: home team wins 22-11 (prices said 17.8) (6 straight) -> coin flip
-ACTIVE nhl monday: under 14-8 (6 straight) -> coin flip · next: Blue Jackets @ Devils, Kings @ Canadiens, Flames @ Senators
-ACTIVE nba home favorite: favorites win 99-44 (prices said 97.7) (8 straight) -> coin flip · next: Trail Blazers @ 76ers, Bucks @ Raptors, Nets @ Timberwolves
-ACTIVE nhl tuesday: over 46-35 (6 straight) -> coin flip · next: Golden Knights @ Oilers
-ACTIVE ncaaf away favorite: favorites win 295-140 (prices said 298.8) (9 straight) -> coin flip · next: Buffalo @ Akron, Toledo @ Ohio, Florida @ Florida St
-totals study: {'nfl': (0.5404, False), 'ncaaf': (0.4769, False), 'nba': (0.5145, False), 'ncaab': (0.5213, False), 'mlb': (0.4862, False), 'nhl': (0.4752, False)}
-public splits: 51 upcoming games
-self-check: 195 graded picks - we said 48%, they hit 53% (hitting at or above what we said)
-  market:ml: 188 graded, said 48%, hit 54% - hitting at or above what we said
-  drama:none: 171 graded, said 48%, hit 56% - hitting at or above what we said
-  source:pregame: 171 graded, said 47%, hit 54% - hitting at or above what we said
-  label:parlay leg: 116 graded, said 47%, hit 55% - hitting at or above what we said
-  price:+101..+179: 114 graded, said 47%, hit 46% - a little below what we said - within noise
-  ctx:game:conf: 75 graded, said 45%, hit 44% - a little below what we said - within noise (report only: forward-only tag)
-  league:nhl: 60 graded, said 48%, hit 53% - hitting at or above what we said
-  price:-149..-101: 59 graded, said 56%, hit 73% - hitting at or above what we said
-  league:ncaaf: 50 graded, said 45%, hit 40% - a little below what we said - within noise
-  ctx:game:div: 41 graded, said 49%, hit 46% - a little below what we said - within noise (report only: forward-only tag)
-  ctx:game:nonconf: 39 graded, said 47%, hit 69% - only 39 graded - report only (report only: forward-only tag)
-  label:dog: 36 graded, said 42%, hit 44% - only 36 graded - report only
-  league:nfl: 27 graded, said 56%, hit 67% - only 27 graded - report only
-  ctx:us:trip1000: 25 graded, said 48%, hit 44% - only 25 graded - report only (report only: forward-only tag)
-  label:live: 24 graded, said 57%, hit 50% - only 24 graded - report only
-  source:live: 24 graded, said 57%, hit 50% - only 24 graded - report only
-  ctx:them:trip1000: 23 graded, said 45%, hit 74% - only 23 graded - report only (report only: forward-only tag)
-  league:mlb: 21 graded, said 54%, hit 86% - only 21 graded - report only
-  ctx:game:rival: 20 graded, said 52%, hit 45% - only 20 graded - report only (report only: forward-only tag)
-  price:+180+: 19 graded, said 32%, hit 32% - only 19 graded - report only
-  label:lock: 18 graded, said 57%, hit 61% - only 18 graded - report only
-  ctx:us:road3in6: 17 graded, said 46%, hit 76% - only 17 graded - report only (report only: forward-only tag)
-  drama:theirs: 17 graded, said 48%, hit 41% - only 17 graded - report only
-  league:nba: 17 graded, said 40%, hit 35% - only 17 graded - report only
-  ctx:them:week3000: 16 graded, said 47%, hit 56% - only 16 graded - report only (report only: forward-only tag)
   ctx:them:east1000: 14 graded, said 46%, hit 64% - only 14 graded - report only (report only: forward-only tag)
   ctx:them:road3in6: 13 graded, said 41%, hit 38% - only 13 graded - report only (report only: forward-only tag)
   ctx:us:week3000: 13 graded, said 46%, hit 69% - only 13 graded - report only (report only: forward-only tag)
@@ -2997,4 +2959,42 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 0 matches
 1H line log: 0 rows (0 with a 1st-half line) from 129 AN games
 source check (0.6s): plain requests answered by 163 of 167 sources - quiet: dailyfaceoff, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
+CARD CHECK (render) 2026-11-23: Trail Blazers 139: our own men out inside the write-up (the 🚑 header says it once): 🔄 Update: Joel Embiid is out for the 76ers too.
+sync: 133665 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 83 games got weather, 0 new stadiums located, 10s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 1 games on the page, 1 matched, 0 confirmed
+qb depth charts: {'ncaaf': 0} read, 0s
+nfl starters (snap counts): 0 teams read
+nba rosters: 30 teams as of 2026-11-23, 0 failed, 0 moves
+beat the close: unit plays 46 of 138 better than the close, avg +0.3 pts
+public splits: 75 upcoming games
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 9 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (118 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 206 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   exam scan: NC State 180 - the raw read likes it, the studies don't beat the price - no early play
+   one voice: the main read fights UTEP 160 (38.3% vs the 38.5% the price needs) - no early play
+   one voice: the main read fights Magic 110 (45.0% vs the 47.6% the price needs) - no early play
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 206 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 9 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (118 players), 365 matched, 0 unmatched
+tennis sync: 74107 matches stored, 18 calls, 0 failed
+tennis study ATP: 26336 rated matches, acc 0.6455 (surface ratings alone 0.644), loss 0.6283 vs 0.6294, own weights [-0.004, 0.826, 0.073, 0.159, 0.421, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6283: experience 0.6277 (+0.64 mnats, z 0.74), age 0.6269 (+1.38 mnats, z 0.97), young_vs_aging 0.6281 (+0.24 mnats, z 0.58), last_match 0.6256 (+2.73 mnats, z 1.93), streaks 0.6287 (-0.42 mnats, z -0.41), first_set 0.6276 (+0.74 mnats, z 1.12), injury 0.6293 (-0.94 mnats, z -1.45), travel 0.6283 (+0.02 mnats, z 0.43) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30920 rated matches, acc 0.6445 (surface ratings alone 0.647), loss 0.6221 vs 0.6223, own weights [0.005, 0.904, -0.001, -0.074, 0.298, 0.025, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6192 (+2.92 mnats, z 1.72), age 0.6211 (+1.08 mnats, z 1.41), young_vs_aging 0.6218 (+0.34 mnats, z 2.17), last_match 0.6226 (-0.47 mnats, z -0.46), streaks 0.622 (+0.09 mnats, z 0.19), first_set 0.6219 (+0.24 mnats, z 0.51), injury 0.6215 (+0.63 mnats, z 1.09), travel 0.6222 (-0.11 mnats, z -0.63) -> KEPT young_vs_aging · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
+tennis reads: 0 matches
+1H line log: 79 rows (7 with a 1st-half line) from 129 AN games
+source check (0.4s): plain requests answered by 163 of 167 sources - quiet: bovada_nfl, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
 CARD CHECK (render) 2026-11-23: Trail Blazers 139: our own men out inside the write-up (the 🚑 header says it once): 🔄 Update: Joel Embiid is out for the 76ers too.
