@@ -890,6 +890,8 @@ def _breakdown(leg, pk=None, shown=""):
         [x for x in secs if isinstance(x, str) and latest_ok(x)], leg.get("league"), leg.get("team", ""), leg.get("opp", ""))]
     import sports_card_check                                 # 🧾 11/13 THE CARD CHECK: wording vs the bet, the facts vs
     lines = sports_card_check.check(pk, leg, lines, _GAMES_[0], why=shown)   # the game files, the lingo, no line twice
+    import sports_card_sell                                  # 📝 11/24: "(not counting the Tennessee game)" once a card
+    lines = sports_card_sell.note_once(([shown] if shown else []) + list(lines))[1 if shown else 0:]
     if done:                                                 # it's over: no "we gon' see" on a graded pick
         lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
     body = "".join(f"<p>{E(x)}</p>" for x in lines)
@@ -3174,6 +3176,8 @@ def _leg_brain(l, pk=None):
             fresh_lines(l, out["breakdown"]), l.get("league"), l.get("team", ""), l.get("opp", "")) if x]   # says now)
         import sports_card_check                             # (11/13: and the card check - the same lines the page shows)
         out["breakdown"] = [x for x in sports_card_check.check(pk, l, out["breakdown"], _GAMES_[0], where="brain") if x]
+        import sports_card_sell                              # (11/24: the games-left-out note once, as the page shows it)
+        out["breakdown"] = sports_card_sell.note_once(out["breakdown"])
     if out.get("opp_outs") and l.get("stale"):
         out["opp_outs"] = [x for x in out["opp_outs"] if not stale_in(x, l)]
     if out.get("outs") and l.get("stale"):

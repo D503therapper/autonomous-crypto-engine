@@ -1,31 +1,13 @@
 {
- "day": "2026-11-23",
+ "day": "2026-11-24",
  "picks": {
-  "dog|nhl:401892774|away|ml": {
-   "key": "dog|nhl:401892774|away|ml",
-   "kind": "dog",
-   "team": "Kings",
-   "odds": 130,
-   "league": "nhl",
-   "units": 2.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "card": "pass"
-   }
-  },
-  "play|ncaab:401921209|away|ml": {
-   "key": "play|ncaab:401921209|away|ml",
+  "play|ncaab:401921666|home|ml": {
+   "key": "play|ncaab:401921666|home|ml",
    "kind": "ncaabplay",
-   "team": "Indiana St",
-   "odds": 124,
+   "team": "Illinois St",
+   "odds": 100,
    "league": "ncaab",
-   "units": 1.0,
+   "units": 2.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -36,14 +18,15 @@
     "injuries": "pass",
     "college_games": "pass",
     "d1": "pass",
-    "card": "fixed: 2 line(s) rewritten or dropped"
+    "price_2nd": "pass",
+    "card": "pass"
    }
   },
-  "play|ncaab:401921708|away|spread": {
-   "key": "play|ncaab:401921708|away|spread",
-   "kind": "stackplay",
-   "team": "Washington",
-   "odds": -112,
+  "play|ncaab:401920742|away|ml": {
+   "key": "play|ncaab:401920742|away|ml",
+   "kind": "ncaabplay",
+   "team": "Campbell",
+   "odds": 102,
    "league": "ncaab",
    "units": 0.5,
    "lean": false,
@@ -56,15 +39,15 @@
     "injuries": "pass",
     "college_games": "pass",
     "d1": "pass",
-    "stack": "pass",
-    "card": "fixed: 1 line(s) rewritten or dropped"
+    "price_2nd": "pass",
+    "card": "pass"
    }
   },
-  "play|nba:401910037|away|ml": {
-   "key": "play|nba:401910037|away|ml",
+  "play|nba:401909314|home|ml": {
+   "key": "play|nba:401909314|home|ml",
    "kind": "nbafloor",
-   "team": "Trail Blazers",
-   "odds": 139,
+   "team": "Magic",
+   "odds": 114,
    "league": "nba",
    "units": 0.5,
    "lean": false,
@@ -75,10 +58,11 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
+    "price_2nd": "pass",
     "card": "pass"
    }
   }
  },
- "updated": "2026-11-23T16:00Z",
+ "updated": "2026-11-24T17:50Z",
  "held": []
 }

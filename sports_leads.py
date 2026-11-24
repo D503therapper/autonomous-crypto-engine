@@ -564,6 +564,7 @@ def tags(c, sports):
     t += daily_1121_tags(c, sports)                          # 11/21 daily studies: the dog under its prices vs a team over them
     t += daily_1122_tags(c, sports)                          # 11/22 daily studies: the NBA paint weight's two forward records
     t += daily_1123_tags(c, sports)                          # 11/23 daily studies: the hockey dog that gives the puck away / got shelled
+    t += daily_1124_tags(c, sports)                          # 11/24 daily studies: the deep hoops team on its second day, the pros' home / road split
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1130,6 +1131,40 @@ def daily_1123_tags(c, sports):
         t = [NHL_SLOPPY_DOG_TAG] if sports.nhl_sloppy_pts(c) < 0 else []
         if c.get("shelled") is True and sports.pt_day(c) >= sports.NHL_SLOPPY_FROM:
             t.append(NHL_SHELLED_DOG_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+NCAAB_DEEP_ACROSS_TAG = "college hoops spread side across a deep team on its second day"      # 11/24 daily S9: the BUILT stack
+NCAAB_DEEP_FADE_TAG = "college hoops spread side, the deep team on its second day (fade)"     # weight's two judges (at 40 each)
+NCAAB_DEEP_DOG_TAG = "college hoops dog, the deep team on its second day (fade) (lead)"       # a LEAD, tracked only
+NHL_SPLIT_HOME_TAG = "NHL home side whose home margin lags its road margin (fade) (lead)"     # 11/24 daily S2: a LEAD (judge at 60)
+NHL_SPLIT_ROAD_TAG = "NHL road side at a team whose home margin lags its road margin (lead)"  # ... its mirror
+NBA_HOME_HEAVY_DOG_TAG = "NBA road dog, home-heavy team with a winning margin (fade) (lead)"  # 11/24 daily S1: a LEAD (judge at 40)
+
+
+def daily_1124_tags(c, sports):
+    """11/24 daily studies: the deep college hoops team on its second day (the built spread-stack weight's two cover
+    records + its dog, a lead) and the pros' home / road split (two leads) - sports.mark_ncaab_deep / mark_split's
+    stamps; the leads are never read by the board."""
+    try:
+        t = []
+        lg, mk, o = c.get("league"), c.get("market"), c.get("odds") or 0
+        if lg == "ncaab" and sports.pt_day(c) >= sports.NCAAB_DEEP_FROM:
+            if mk == "spread" and c.get("vs_deep_b2b"):
+                t.append(NCAAB_DEEP_ACROSS_TAG)
+            if mk == "spread" and c.get("deep_b2b"):
+                t.append(NCAAB_DEEP_FADE_TAG)
+            if mk == "ml" and c.get("deep_b2b") and 100 <= o <= 350:
+                t.append(NCAAB_DEEP_DOG_TAG)
+        if mk == "ml" and -200 <= o <= 350:
+            if lg == "nhl" and c.get("split_lags"):
+                t.append(NHL_SPLIT_HOME_TAG)
+            if lg == "nhl" and c.get("vs_split_lags"):
+                t.append(NHL_SPLIT_ROAD_TAG)
+            if lg == "nba" and c.get("home_heavy_road") and 100 <= o <= 350:
+                t.append(NBA_HOME_HEAVY_DOG_TAG)
         return t
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
@@ -1850,6 +1885,7 @@ def spread_tags(c, sports):
     t += leans_1113_spread_tags(c, sports)                   # 11/13 FABLE: the college hoops leans - the cut's record + two LEADS
     t += daily_1113_spread_tags(c, sports)                   # 11/13 DAILY: one built weight's record + three spread LEADS
     t += daily_1120_tags(c, sports)                          # 11/20 DAILY: the non-D1 tune-up weight's record + the late-quarter closer (a LEAD)
+    t += daily_1124_tags(c, sports)                          # 11/24 DAILY: the deep team on its second day - the built stack weight's two cover records
     return t
 
 

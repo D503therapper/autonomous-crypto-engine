@@ -551,3 +551,98 @@ def roster_cuts(games, start):
     _CUTS.clear()
     _CUTS[key] = out
     return out
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 🏀 11/24 DAILY STUDIES - S9 (results/studies/daily_1124/s_today.py s9 -> s_follow.py s9 -> s9c_replay.py / s9d_check.py):
+# THE DEEP TEAM ON ITS SECOND DAY. A team that spreads its minutes (the bottom fifth of the league on the share of its
+# minutes its top 5 men play, 4+ boxed games) playing the day after a game - the events' back-to-backs and the league
+# tournaments - fails to cover: ATS -27.4% on 276 at the close 2021-26 (train -25.7%, 0 of 3 seasons up / held -29.6%:
+# -41.2 / -19.1 / -26.8), 38% covered, 2.1 points a game under its number; the side across +18.4%; a random set of
+# second-day sides as bad 0 of 2,000; a second way to count depth (10+ men at 10+ minutes a game) -32.4% on 147; one
+# day off instead +1.0% on 1,094, the same teams on a neutral floor NOT on a second day -1.9% - it is the second day.
+# sports.NCAAB_DEEP_FROM / mark_ncaab_deep read it; a WEIGHT on the spread stack, never a trigger.
+# ---------------------------------------------------------------------------------------------------------------------
+DEEP_MIN_BOX = 4             # the team needs 4+ boxed games this season before its minutes say anything
+DEEP_PCT = 0.2               # "deep" = the league's bottom fifth on the top-5 share that night
+DEEP_MIN_TEAMS = 100         # the league's own cut needs 100+ teams with a read; else the fixed one
+DEEP_FIXED = 0.61            # the Nov-Dec bottom-fifth cut 2021-25 (0.603-0.618)
+DEEP_DAYS = 1.3              # "the second day": its last game ended up to 1.3 days before this tip
+_DEEP = {}                   # (season, day) -> (cut, teams read)
+
+
+def top5_share(team, start):
+    """The share of the team's minutes this season (boxed games before `start`) its five busiest men played, or None
+    under DEEP_MIN_BOX boxed games / no minutes on file."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    tot, n = {}, 0
+    for s, _gid, ps in team_boxes(season_of(start)).get(str(team)) or []:
+        if s >= start:
+            break
+        got = False
+        for pid, v in ps.items():
+            if v[0]:
+                tot[pid] = tot.get(pid, 0.0) + v[0]
+                got = True
+        n += got
+    if n < DEEP_MIN_BOX or not tot:
+        return None
+    return sum(sorted(tot.values(), reverse=True)[:5]) / sum(tot.values())
+
+
+def deep_cut(start):
+    """(the league's bottom-fifth top-5 share as of `start`, teams read) - DEEP_FIXED under DEEP_MIN_TEAMS teams.
+    Cached per day."""
+    start = str(start or "")
+    if len(start) < 10:
+        return DEEP_FIXED, 0
+    key = (season_of(start), start[:10])
+    if key in _DEEP:
+        return _DEEP[key]
+    vals = []
+    try:
+        for team in list(team_boxes(key[0]).keys()):
+            v = top5_share(team, start[:10] + "T00:00Z")     # (the day's cut: every team as of this morning)
+            if v is not None:
+                vals.append(v)
+    except Exception:                                        # noqa: BLE001
+        return DEEP_FIXED, 0
+    if len(vals) < DEEP_MIN_TEAMS:
+        out = (DEEP_FIXED, len(vals))
+    else:
+        vals.sort()
+        out = (vals[int(DEEP_PCT * (len(vals) - 1))], len(vals))
+    if len(_DEEP) > 400:
+        _DEEP.clear()
+    _DEEP[key] = out
+    return out
+
+
+def second_day(games, team, start):
+    """True when the team's last finished game this season tipped within DEEP_DAYS days of `start`; False when it has
+    one further back; None when it has none."""
+    last = _last_final(games, team, start)
+    if not last:
+        return None
+    try:
+        from datetime import datetime
+        f = lambda x: datetime.strptime(str(x)[:16].replace("Z", ""), "%Y-%m-%dT%H:%M")   # noqa: E731
+        return (f(start) - f(last[0])).total_seconds() / 86400.0 <= DEEP_DAYS
+    except (ValueError, TypeError):
+        return None
+
+
+def deep_second_day(games, team, start):
+    """🏀 11/24: is this the deep team on its second day? True / False; None when we can't tell (under DEEP_MIN_BOX
+    boxed games, no game on file yet)."""
+    sd2 = second_day(games, team, start)
+    if sd2 is None:
+        return None
+    if not sd2:
+        return False
+    v = top5_share(team, start)
+    if v is None:
+        return None
+    return v <= deep_cut(start)[0]

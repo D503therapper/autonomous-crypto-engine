@@ -1,30 +1,359 @@
 {
- "at": "2026-11-24T03:48Z",
+ "at": "2026-11-24T18:56Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Burillo vs Ayala: no points for 527s",
+  "live tennis scores: tennis Kasintseva vs Sierra: no points for 527s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+ ],
  "ok": [
-  "live watcher fresh (213s)",
+  "live watcher fresh (80s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 1 live cards, 8 lines - nothing false, outdated or senseless",
-  "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 0)",
-  "slate check: all 64 of today's games named, priced and looked at",
+  "double check: 11 injury / starter / price claims on 3 live cards - 3 confirmed by a second source, 8 single-sourced, 0 waiting on a game-day word \u00b7 single: Magic card (2026-11-24): Jonathan Isaac out - only ESPN says so; Magic card (2026-11-24): Izaiyah Nelson out - only ESPN says so; Magic card (2026-11-24): Noah Penda out - only ESPN says so; Magic card (2026-11-24): Paolo Banchero out - only ESPN says so",
+  "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 1)",
+  "slate check: all 92 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 12 min ago",
+  "studies ran 0h ago",
+  "simulator ran 9h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-24T18:56Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Ayala: no points for 527s",
+    "live tennis scores: tennis Kasintseva vs Sierra: no points for 527s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T18:46Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Ayala: no points for 1906s",
+    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2042s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-24T18:45Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Ayala: no points for 1952s",
+    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2088s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-24T18:44Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Ayala: no points for 1859s",
+    "live tennis scores: tennis Kasintseva vs Sierra: no points for 1995s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-24T18:42Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml",
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Ayala: no points for 1906s",
+    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2042s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-24T17:09Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 2603s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T17:08Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 2603s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T17:03Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 2354s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 2354s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T16:53Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 1752s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 1752s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T16:43Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 1164s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 1164s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T16:33Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 280s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 280s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T16:30Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 280s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 280s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T16:28Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 280s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 280s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-24T14:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 2351s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 2351s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-24T14:51Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 2351s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 2351s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-24T14:50Z",
+   "fixes": [
+    "live watch 45403244335 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 2351s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 2351s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-24T14:40Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 1756s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 1756s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-24T14:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 1164s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 1164s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-24T14:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 827s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 827s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-24T12:54Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T12:51Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T12:40Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T11:09Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T11:08Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T10:40Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T09:07Z",
+   "fixes": [
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T09:04Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T08:53Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T08:51Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T07:17Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T07:16Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T07:12Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T07:05Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T05:33Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T05:32Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T05:24Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T05:01Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-24T03:48Z",
    "fixes": [
@@ -315,235 +644,6 @@
    "at": "2026-11-23T10:16Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-23T10:15Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T10:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T09:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T09:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T08:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T07:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T07:12Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T07:07Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T06:57Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T06:46Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T06:45Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T05:14Z",
-   "fixes": [
-    "live board 10 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T05:09Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T04:57Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T03:25Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T03:24Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T01:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T01:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T01:42Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T01:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T01:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T23:53Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T23:28Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T23:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T23:24Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T21:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Gormaz: no points for 1816s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-22T21:49Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Gormaz: no points for 1816s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-22T21:45Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Gormaz: no points for 1447s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-22T21:37Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Gormaz: no points for 1178s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-22T20:04Z",
-   "fixes": [],
-   "problems": [
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T20:03Z",
-   "fixes": [],
-   "problems": [
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T19:53Z",
-   "fixes": [],
-   "problems": [
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T19:43Z",
-   "fixes": [],
-   "problems": [
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T19:40Z",
-   "fixes": [],
-   "problems": [
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T18:05Z",
-   "fixes": [],
-   "problems": [
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T17:06Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bulbarella vs Ayala: no points for 515s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T16:55Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Bulbarella vs Ayala: no points for 720s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
   }
  ]
 }
