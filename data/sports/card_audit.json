@@ -1,31 +1,52 @@
 {
- "at": "2026-11-24T15:18Z",
- "bad_cards": 0,
- "by_class": {},
- "cards": 0,
+ "at": "2026-11-24T16:03Z",
+ "bad_cards": 1,
+ "by_class": {
+  "short": 1
+ },
+ "cards": 1,
  "double_check": {
-  "cards": 0,
-  "claims": 0,
-  "confirmed": 0,
+  "cards": 1,
+  "claims": 1,
+  "confirmed": 1,
   "disagree": [],
   "single": [],
   "unconfirmed": [],
   "waiting": []
  },
- "lines": 0,
- "problems": [],
+ "lines": 6,
+ "problems": [
+  {
+   "class": "short",
+   "date": "2026-11-24",
+   "kind": "play",
+   "league": "ncaab",
+   "line": "",
+   "team": "Illinois St",
+   "why": "a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  }
+ ],
  "quality": {
-  "avg_facts": 0,
-  "cards": 0,
-  "cards_that_say_why": 0,
+  "avg_facts": 4.0,
+  "cards": 1,
+  "cards_that_say_why": 1,
   "matchup_lines": 0,
   "no_why": [],
-  "reason_lines": 0,
+  "reason_lines": 1,
   "score": 100,
-  "short": [],
+  "short": [
+   {
+    "date": "2026-11-24",
+    "facts": 4,
+    "floor": 6,
+    "league": "ncaab",
+    "team": "Illinois St",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   }
+  ],
   "shown": {},
   "thin": 0,
-  "under_floor": 0,
+  "under_floor": 1,
   "worst": [],
   "written": {}
  },
