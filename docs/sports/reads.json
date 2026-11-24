@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T19:39Z",
+ "updated": "2026-11-24T19:54Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -41,8 +41,8 @@
    "away": "Belmont",
    "home": "Akron",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -56,8 +56,8 @@
    "away": "SE Louisiana",
    "home": "N Colorado",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -86,8 +86,8 @@
    "away": "VTSU Randolph",
    "home": "Stonehill",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -877,8 +877,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Old Dominion",
-    "p": 0.684,
-    "tie": 0.038,
+    "p": 0.69,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -893,9 +893,9 @@
     "opp": "Old Dominion",
     "market": "spread",
     "line": 7.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.501,
-    "win_p": 0.243,
+    "win_p": 0.236,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1025,8 +1025,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Nevada",
-    "p": 0.479,
+    "team": "Santa Clara",
+    "p": 0.496,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1038,15 +1038,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Nevada",
-    "opp": "Santa Clara",
+    "team": "Santa Clara",
+    "opp": "Nevada",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.501,
+    "odds": -118,
+    "p": 0.523,
+    "win_p": 0.523,
     "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "sharp money moving this way",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -1457,7 +1459,7 @@
     "opp": "Tennessee Tech",
     "market": "spread",
     "line": 14.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.508,
     "win_p": 0.072,
     "reasons": [
@@ -1986,7 +1988,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Santa Barbara",
-    "p": 0.88,
+    "p": 0.881,
     "tie": 0.02,
     "name": "1st half"
    },
@@ -2572,7 +2574,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.391,
+    "p": 0.386,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2588,9 +2590,9 @@
     "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.638,
-    "win_p": 0.422,
+    "odds": -205,
+    "p": 0.649,
+    "win_p": 0.433,
     "reasons": []
    }
   },
