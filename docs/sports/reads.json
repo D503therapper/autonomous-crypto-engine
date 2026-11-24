@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T20:20Z",
+ "updated": "2026-11-24T20:29Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -212,64 +212,33 @@
    "lean": null
   },
   {
-   "id": "ncaab:401929035",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "New Haven",
-    "p": 0.506,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T21:00Z",
-   "away": "New Haven",
-   "home": "Lindenwood",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "New Haven",
-    "opp": "Lindenwood",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.539,
-    "win_p": 0.539,
-    "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
-     "coughing it up 1.5 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401921666",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Illinois St",
-    "p": 0.48,
+    "team": "Tulsa",
+    "p": 0.482,
     "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-24T21:30Z",
-   "away": "Tulsa",
-   "home": "Illinois St",
+   "away": "Illinois St",
+   "home": "Tulsa",
    "why": "on_board",
    "board": "play",
    "lean": {
-    "team": "Illinois St",
-    "opp": "Tulsa",
+    "team": "Tulsa",
+    "opp": "Illinois St",
     "market": "ml",
     "line": null,
     "odds": -108,
-    "p": 0.502,
-    "win_p": 0.502,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "coughing it up 0.5 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -332,6 +301,37 @@
    }
   },
   {
+   "id": "ncaab:401921707",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Kent State",
+    "p": 0.714,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T22:30Z",
+   "away": "Kent State",
+   "home": "Wyoming",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Wyoming",
+    "opp": "Kent State",
+    "market": "spread",
+    "line": 9.5,
+    "odds": -118,
+    "p": 0.503,
+    "win_p": 0.205,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +14.5 a game to their +3.2 - the books don't price the glass (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401909775",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -356,34 +356,6 @@
     "odds": -108,
     "p": 0.503,
     "win_p": 0.194,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401921707",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Wyoming",
-    "p": 0.72,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-24T22:30Z",
-   "away": "Wyoming",
-   "home": "Kent State",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Kent State",
-    "opp": "Wyoming",
-    "market": "spread",
-    "line": 9.5,
-    "odds": -118,
-    "p": 0.503,
-    "win_p": 0.198,
     "reasons": []
    }
   },
@@ -2003,9 +1975,9 @@
     "team": "UNC Asheville",
     "opp": "Florida St",
     "market": "spread",
-    "line": 30.5,
-    "odds": -115,
-    "p": 0.524,
+    "line": 29.5,
+    "odds": -108,
+    "p": 0.523,
     "win_p": 0.013,
     "reasons": []
    }
