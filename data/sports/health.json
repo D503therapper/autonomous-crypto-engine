@@ -1,9 +1,13 @@
 {
- "at": "2026-11-24T12:54Z",
+ "at": "2026-11-24T14:25Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Samson vs Bosio: no points for 827s",
+  "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 827s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (265s)",
+  "live watcher fresh (36s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,13 +19,22 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 50 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 28 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-24T14:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Bosio: no points for 827s",
+    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 827s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-24T12:54Z",
    "fixes": [],
@@ -510,11 +523,6 @@
   },
   {
    "at": "2026-11-23T01:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T01:42Z",
    "fixes": [],
    "problems": []
   }
