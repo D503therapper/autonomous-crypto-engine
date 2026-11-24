@@ -28371,7 +28371,7 @@
     "g_role_opp": null,
     "game_id": "ncaab:401921666",
     "games_in": 7,
-    "home": true,
+    "home": false,
     "hot_deep": false,
     "hot_key": false,
     "hurt": [],
@@ -28449,7 +28449,8 @@
     "roster_new": 0.205,
     "roster_tin": 0.392,
     "season_games": null,
-    "side": "home",
+    "side": "away",
+    "side_moved": "home->away",
     "sold": [
      "\ud83e\udded|3,5,11,13,1"
     ],
@@ -28517,23 +28518,22 @@
      "sell_to:2",
      "sell_shooting:1",
      "sell_best_win:0",
-     "sell_assists:0",
-     "f_pts:2",
+     "sell_assists:2",
+     "f_pts:0",
      "fill_star:1",
-     "fill_year_t:1",
-     "fill_o:1"
+     "fill_year_t:1"
     ],
     "big_cover": false,
     "breakdown": [
      "\ud83e\udde4 Coastal turn it over 14 times a night against D1 teams and Campbell takes care of it (10). (not counting the Tennessee game)",
      "\ud83e\udea3 Coastal can't shoot it - 40% from the field against D1 teams. (not counting the Tennessee game)",
      "\ud83c\udfc6 Campbell already beat Kansas St this year, 80-70 on the road.",
-     "\ud83e\udd1d Coastal gets 9 assists a game against D1 teams. Campbell: 15. One team moves the ball. (not counting the Tennessee game)",
+     "\ud83e\udd1d Only 9 assists a game for Coastal against D1 teams - everybody for himself. Campbell gets 15. (not counting the Tennessee game)",
      "\ud83d\udcca Coastal against D1 teams: 81 points a game allowed, 64 scored. They get outscored.",
      "\ud83d\udcc5 Coastal took a 78-51 loss to Tennessee last time out.",
      "\u2705 Bottom line: Campbell (+102). Ride it."
     ],
-    "bv": 87,
+    "bv": 88,
     "coach": [
      null,
      false
@@ -28695,7 +28695,6 @@
      "\ud83e\udded|1,0,6,1"
     ],
     "spare": [
-     "\ud83d\udcca Against D1 teams Campbell put up 73 a game, Coastal 64.",
      "\ud83d\udcaf Campbell's top scorer Rashawn Inglemon is putting up 21 a night lately (5 games)."
     ],
     "spread_stack": -0.02,
@@ -28787,7 +28786,7 @@
      "\ud83c\udfc0 Magic: their bench outscored teams by 5 a game last season - deep squad \u00b7 8 guys play real minutes.",
      "\u2705 Bottom line: Magic (+114). Half a unit. Let it ride."
     ],
-    "bv": 87,
+    "bv": 88,
     "coach": [
      null,
      true
