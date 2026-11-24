@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T00:28Z",
+ "updated": "2026-11-24T00:48Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -264,7 +264,7 @@
    "home": "BYU",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Washington",
@@ -277,7 +277,7 @@
     "reasons": [
      "their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -518,6 +518,21 @@
    }
   },
   {
+   "id": "ncaab:401927353",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T00:30Z",
+   "away": "Carolina U",
+   "home": "NC Central",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892774",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -543,6 +558,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaab:401919032",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-24T00:30Z",
+   "away": "Texas A&M-CC",
+   "home": "Wichita St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401910038",
@@ -572,38 +602,6 @@
    }
   },
   {
-   "id": "nfl:401873078",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bengals",
-    "p": 0.667,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-24T01:15Z",
-   "away": "Bengals",
-   "home": "Commanders",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Bengals",
-    "opp": "Commanders",
-    "market": "spread",
-    "line": -6.0,
-    "odds": -120,
-    "p": 0.501,
-    "win_p": 0.747,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
    "id": "nba:401910043",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -624,8 +622,8 @@
     "team": "Rockets",
     "opp": "Clippers",
     "market": "spread",
-    "line": -12.5,
-    "odds": -115,
+    "line": -13.5,
+    "odds": -105,
     "p": 0.502,
     "win_p": 0.818,
     "reasons": [
@@ -2123,7 +2121,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Washington St",
-    "p": 0.614,
+    "p": 0.604,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -2139,9 +2137,9 @@
     "opp": "Sam Houston",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.677,
-    "win_p": 0.677,
+    "odds": -205,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "the turnover matchup is ours by 7.3 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
