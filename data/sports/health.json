@@ -1,9 +1,10 @@
 {
- "at": "2026-11-24T09:04Z",
- "fixes": [],
+ "at": "2026-11-24T09:07Z",
+ "fixes": [
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (104s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +18,18 @@
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 14 min ago",
+  "engine ran 18 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-24T09:07Z",
+   "fixes": [
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-24T09:04Z",
    "fixes": [],
@@ -510,14 +518,6 @@
    "at": "2026-11-22T23:24Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-22T21:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Gormaz: no points for 1816s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }
