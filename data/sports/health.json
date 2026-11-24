@@ -1,16 +1,16 @@
 {
- "at": "2026-11-24T16:43Z",
+ "at": "2026-11-24T16:53Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Cinalli vs De Reales: no points for 1164s",
-  "live tennis scores: tennis Linana vs Bronzetti: no points for 1164s",
+  "live tennis scores: tennis Cinalli vs De Reales: no points for 1752s",
+  "live tennis scores: tennis Linana vs Bronzetti: no points for 1752s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route",
   "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (11s)",
+  "live watcher fresh (15s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -24,12 +24,24 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 2 min ago",
+  "simulator ran 7h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-24T16:53Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs De Reales: no points for 1752s",
+    "live tennis scores: tennis Linana vs Bronzetti: no points for 1752s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-24T16:43Z",
    "fixes": [
@@ -571,11 +583,6 @@
   },
   {
    "at": "2026-11-23T07:07Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T06:57Z",
    "fixes": [],
    "problems": []
   }
