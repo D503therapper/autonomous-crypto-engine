@@ -1,20 +1,23 @@
 {
- "at": "2026-11-24T17:09Z",
+ "at": "2026-11-24T18:42Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "studies overdue (9h) - started sports_studies.yml",
+  "tennis slate due (8am PT) and not up - started sports.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Linana vs Bronzetti: no points for 2603s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  "live tennis scores: tennis Burillo vs Ayala: no points for 1906s",
+  "live tennis scores: tennis Kasintseva vs Sierra: no points for 2042s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (148s)",
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "double check: 1 injury / starter / price claims on 1 live cards - 1 confirmed by a second source, 0 single-sourced, 0 waiting on a game-day word",
-  "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 4.0, unit cards under the floor: 1)",
+  "double check: 11 injury / starter / price claims on 3 live cards - 3 confirmed by a second source, 8 single-sourced, 0 waiting on a game-day word \u00b7 single: Magic card (2026-11-24): Jonathan Isaac out - only ESPN says so; Magic card (2026-11-24): Izaiyah Nelson out - only ESPN says so; Magic card (2026-11-24): Noah Penda out - only ESPN says so; Magic card (2026-11-24): Paolo Banchero out - only ESPN says so",
+  "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 1)",
   "slate check: all 92 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -22,13 +25,26 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 8 min ago",
+  "simulator ran 8h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-24T18:42Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml",
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Ayala: no points for 1906s",
+    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2042s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-24T17:09Z",
    "fixes": [
@@ -596,11 +612,6 @@
   },
   {
    "at": "2026-11-23T09:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-23T08:19Z",
    "fixes": [],
    "problems": []
   }
