@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T01:26Z",
+ "updated": "2026-11-24T01:29Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -1193,7 +1193,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "N Colorado",
-    "p": 0.568,
+    "p": 0.551,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1209,9 +1209,9 @@
     "opp": "SE Louisiana",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.618,
-    "win_p": 0.618,
+    "odds": -155,
+    "p": 0.596,
+    "win_p": 0.596,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +0.8 a game to their -8.2 - the books don't price the glass (5 of 5 seasons)"
@@ -1239,9 +1239,9 @@
     "team": "Southern Utah",
     "opp": "FIU",
     "market": "spread",
-    "line": 7.5,
-    "odds": -105,
-    "p": 0.501,
+    "line": 8.5,
+    "odds": -112,
+    "p": 0.502,
     "win_p": 0.221,
     "reasons": [
      "sharp money moving this way",
@@ -1439,7 +1439,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "North Dakota",
-    "p": 0.565,
+    "p": 0.558,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1455,9 +1455,9 @@
     "opp": "Detroit Mercy",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.62,
-    "win_p": 0.62,
+    "odds": -166,
+    "p": 0.61,
+    "win_p": 0.61,
     "reasons": [
      "the stronger team",
      "the turnover matchup is ours by 13.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
@@ -1823,6 +1823,34 @@
    }
   },
   {
+   "id": "ncaab:401916291",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Indiana",
+    "p": 0.945,
+    "tie": 0.011,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:00Z",
+   "away": "Jacksonville",
+   "home": "Indiana",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Jacksonville",
+    "opp": "Indiana",
+    "market": "spread",
+    "line": 25.5,
+    "odds": -104,
+    "p": 0.519,
+    "win_p": 0.019,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401866470",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2036,6 +2064,62 @@
    }
   },
   {
+   "id": "ncaab:401925687",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Louisiana Tech",
+    "p": 0.869,
+    "tie": 0.022,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "Alcorn St",
+   "home": "Louisiana Tech",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Alcorn St",
+    "opp": "Louisiana Tech",
+    "market": "spread",
+    "line": 15.5,
+    "odds": -102,
+    "p": 0.509,
+    "win_p": 0.064,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920414",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "High Point",
+    "p": 0.733,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "High Point",
+   "home": "Duquesne",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Duquesne",
+    "opp": "High Point",
+    "market": "spread",
+    "line": 9.5,
+    "odds": -105,
+    "p": 0.503,
+    "win_p": 0.184,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401926154",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2099,7 +2183,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "North Alabama",
-    "p": 0.542,
+    "p": 0.548,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2115,9 +2199,9 @@
     "opp": "Alabama A&M",
     "market": "ml",
     "line": null,
-    "odds": -150,
-    "p": 0.584,
-    "win_p": 0.584,
+    "odds": -155,
+    "p": 0.592,
+    "win_p": 0.592,
     "reasons": []
    }
   },
@@ -2219,8 +2303,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Alabama",
-    "p": 0.867,
-    "tie": 0.022,
+    "p": 0.858,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2234,11 +2318,12 @@
     "team": "Florida A&M",
     "opp": "South Alabama",
     "market": "spread",
-    "line": 16.0,
-    "odds": -109,
-    "p": 0.509,
-    "win_p": 0.065,
+    "line": 16.5,
+    "odds": -115,
+    "p": 0.51,
+    "win_p": 0.073,
     "reasons": [
+     "sharp money moving this way",
      "their Aaron Goldstein (35 minutes a game) has missed 4 straight - the books stop adjusting for a long absence (0 of 5 seasons at the base)",
      "they've lost 1 rotation man in the last three weeks - Aaron Goldstein (35 minutes a game)"
     ]
