@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T05:11Z",
+ "updated": "2026-11-24T05:30Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -941,8 +941,8 @@
    "away": "E Washington",
    "home": "UNLV",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1280,7 +1280,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "BYU",
-    "p": 0.481,
+    "p": 0.498,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1296,9 +1296,9 @@
     "opp": "Ole Miss",
     "market": "ml",
     "line": null,
-    "odds": -108,
-    "p": 0.504,
-    "win_p": 0.504,
+    "odds": -120,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
@@ -1680,7 +1680,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "FAU",
-    "p": 0.663,
+    "p": 0.67,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1689,20 +1689,17 @@
    "start": "2026-11-24T23:00Z",
    "away": "Mercer",
    "home": "FAU",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "FAU",
-    "opp": "Mercer",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.736,
-    "win_p": 0.736,
-    "reasons": [
-     "the stronger team",
-     "out-rebounding people by +11.8 a game to their +1.1 - the books don't price the glass (5 of 5 seasons)"
-    ]
+    "team": "Mercer",
+    "opp": "FAU",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -118,
+    "p": 0.501,
+    "win_p": 0.26,
+    "reasons": []
    }
   },
   {
@@ -2131,7 +2128,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Old Dominion",
-    "p": 0.706,
+    "p": 0.698,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2146,11 +2143,13 @@
     "team": "Hampton",
     "opp": "Old Dominion",
     "market": "spread",
-    "line": 8.5,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.218,
-    "reasons": []
+    "line": 7.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.227,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -2666,8 +2665,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "SE Missouri",
-    "p": 0.526,
-    "tie": 0.043,
+    "p": 0.569,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2682,9 +2681,9 @@
     "opp": "Purdue FW",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -166,
+    "p": 0.62,
+    "win_p": 0.62,
     "reasons": []
    }
   },
