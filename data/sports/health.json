@@ -1,31 +1,86 @@
 {
- "at": "2026-11-23T22:40Z",
+ "at": "2026-11-24T02:12Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [
-  "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-  "sources down (the backups took over): betrivers:ncaab:1029953546 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (134s)",
+  "live watcher fresh (139s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 1)",
+  "card audit: 1 live cards, 8 lines - nothing false, outdated or senseless",
+  "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 0)",
   "slate check: all 64 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 10 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 4h ago",
-  "engine ran 1 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 8 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-24T02:12Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T02:10Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T02:04Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T01:54Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T01:48Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T01:47Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T00:15Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-24T00:13Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-23T22:40Z",
    "fixes": [
@@ -504,73 +559,6 @@
     "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
     "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
    ]
-  },
-  {
-   "at": "2026-11-22T16:39Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Osborne vs Rencheli: no points for 1720s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-22T16:29Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Osborne vs Rencheli: no points for 1121s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-22T16:27Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Osborne vs Rencheli: no points for 1025s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Robert Morris (2026-11-22): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "card audit: SHORT CARD - Nicholls (2026-11-22): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-22T14:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T14:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T14:39Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T13:08Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-22T13:07Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }

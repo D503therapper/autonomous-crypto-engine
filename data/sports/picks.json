@@ -26889,14 +26889,14 @@
      "m_common:0",
      "f_site:2",
      "f_net:2",
-     "f_pdo:2",
+     "f_pdo:1",
      "fill_star:0",
      "deep_role_t:2",
      "deep_late_t:0"
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83c\udff9 Kings put 282 shots on net their last 10 and gave up 263. More looks than the other guys, night after night.",
+     "\ud83c\udff9 Shots on net the last 10 games: 282 for Kings, 263 against. That's a team getting the better of it.",
      "\ud83c\udfac The Canadiens keep winning by one goal: 9 of their 14 wins this year, the last two 3-2 over the Devils and 2-1 over the Hurricanes.",
      "\ud83d\udd01 They both saw the Rangers lately: Kings got a 6-3 win on 10/26, Canadiens took a 3-1 loss on 11/16.",
      "\ud83e\uddf3 Last 3 on the road for Kings: 2 wins, a 3-0 win at the Bruins and a 4-3 win at the Maple Leafs.",
@@ -26905,13 +26905,14 @@
      "\ud83e\udd45 Jakub Dobes (Canadiens) has a 0.890 save % (8 goals on 73 shots) over his last 3 starts; Darcy Kuemper (Kings, projected, not confirmed) has a 0.908 save % (7 goals on 76 shots) over his last 3 starts. We like our goalie more.",
      "\u2705 Bottom line: Kings (+130). Let it ride."
     ],
-    "bv": 85,
+    "bv": 86,
     "coach": [
      22,
      false
     ],
     "confirmed": [
-     "Jakub Dobes"
+     "Jakub Dobes",
+     "Darcy Kuemper"
     ],
     "country": "Canada",
     "ctx": [],
@@ -26949,7 +26950,8 @@
      0
     ],
     "fresh": [
-     "\u2705 Update: Jakub Dobes is confirmed in net for the Canadiens."
+     "\u2705 Update: Jakub Dobes is confirmed in net for the Canadiens.",
+     "\u2705 Update: Darcy Kuemper is confirmed in net for the Kings."
     ],
     "g_role_me": null,
     "g_role_opp": null,
@@ -26959,7 +26961,7 @@
     "hot_key": false,
     "hurt": [],
     "inj_now": {
-     "away": "\ud83d\ude91 Kings questionable: LW Artemi Panarin, LW Trevor Moore, D Erik Gustafsson.",
+     "away": "",
      "home": ""
     },
     "inj_ok": true,
@@ -26990,7 +26992,6 @@
     ],
     "ot_last": null,
     "our_drama": [],
-    "our_q": "LW Trevor Moore, D Erik Gustafsson",
     "outs": [],
     "outshot_me": false,
     "outshot_opp": false,
@@ -27330,6 +27331,12 @@
      "us:west1000"
     ],
     "dec": 1.8928571428571428,
+    "decider": {
+     "d": 15,
+     "s": "83-77",
+     "type": "comeback",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27346,6 +27353,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "39,38",
+     "h": "31,52"
+    },
     "form_state": [
      13.0,
      4,
@@ -27407,7 +27418,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -27416,7 +27427,9 @@
     ],
     "roster_new": 0.063,
     "roster_tin": 0.584,
+    "score": "Washington 77 @ BYU 83",
     "season_games": null,
+    "settled": "2026-11-24T00:36Z",
     "side": "away",
     "sold": [],
     "spare": [],
@@ -27437,17 +27450,19 @@
    }
   ],
   "p_hit": 0.5047,
-  "pnl": 0.0,
+  "pnl": 89.29,
   "posted": "2026-11-23T16:00Z",
   "round": 1,
+  "settled": "2026-11-24T00:36Z",
   "stack_play": {
    "line": 11.5,
    "n": 2,
    "stack": 0.05
   },
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 139,
@@ -27461,6 +27476,9 @@
   "lean": false,
   "legs": [
    {
+    "added_outs": [
+     "Joel Embiid"
+    ],
     "ats_run": -2,
     "b2b_me": false,
     "bd_tags": [
@@ -27488,7 +27506,7 @@
      "\ud83c\udfc0 Trail Blazers: their bench outscored teams by 5 a game last season - deep squad \u00b7 8 guys play real minutes \u00b7 Deni Avdija is cooking - with him on the floor lately the team's up 7.9 points a full game (last season: down 0.4).",
      "\u2705 Bottom line: Trail Blazers (+139). The dog angles like it. Smart side."
     ],
-    "bv": 85,
+    "bv": 86,
     "coach": [
      null,
      true
@@ -27500,6 +27518,7 @@
      "us:road3in6"
     ],
     "dec": 2.3899999999999997,
+    "decider": {},
     "depth_gap": 1,
     "dog_ctx": {
      "cw5": 0,
@@ -27552,12 +27571,20 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 2.11,
+    "flow": {
+     "a": "30,39,32,27",
+     "h": "32,37,23,19"
+    },
     "form_state": [
      -1.0,
      -1,
      -112,
      false,
      0
+    ],
+    "fresh": [
+     "\ud83d\udd04 Update: Joel Embiid is out for the 76ers too.",
+     "\ud83d\udd04 Update: Adem Bona is off the injury report now - expected to play."
     ],
     "g_role_me": null,
     "g_role_opp": null,
@@ -27566,9 +27593,14 @@
     "home": false,
     "hot_key": false,
     "hurt": [],
+    "inj_now": {
+     "away": "",
+     "home": ""
+    },
     "inj_ok": true,
     "injury_alerts": [
-     "Joel Embiid (76ers C) is now day-to-day \u2014 our pick: Trail Blazers ML"
+     "Joel Embiid (76ers C) is off the injury report \u2014 our pick: Trail Blazers ML",
+     "Jaylen Brown (76ers G) is off the injury report \u2014 our pick: Trail Blazers ML"
     ],
     "intl": false,
     "is_lean": false,
@@ -27587,7 +27619,10 @@
     "neutral": false,
     "neutral_back": null,
     "odds": 139,
-    "off_wait": {},
+    "off_wait": {
+     "Jaylen Brown (76ers G)": 1,
+     "Joel Embiid (76ers C)": 1
+    },
     "on_report": [
      "Adem Bona",
      "Ariel Hukporti",
@@ -27625,9 +27660,10 @@
     "reasons": [
      "the NBA dog score backs it: +2.1 (our read +0.1 points on the price, every NBA dog study weighed)"
     ],
-    "rep_off_wait": {},
+    "rep_off_wait": {
+     "Adem Bona": 1
+    },
     "rep_status": {
-     "Adem Bona": "out",
      "Ariel Hukporti": "out",
      "Chris Youngblood": "out",
      "Ja Morant": "out",
@@ -27635,15 +27671,20 @@
      "Vit Krejci": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Trail Blazers 128 @ 76ers 111",
     "season_games": 16,
+    "settled": "2026-11-24T02:27Z",
     "side": "away",
     "sold": [],
     "spare": [
      "\ud83c\udfc1 76ers lost the 1st quarter in 6 of their last 10 games. Slow starters.",
      "\ud83d\udcaf Trail Blazers' top scorer Deni Avdija is putting up 24 a night lately (8 games)."
+    ],
+    "stale": [
+     "Adem Bona"
     ],
     "start": "2026-11-24T00:00Z",
     "stype": "2",
@@ -27662,12 +27703,14 @@
    }
   ],
   "p_hit": 0.402,
-  "pnl": 0.0,
+  "pnl": 139.0,
   "posted": "2026-11-23T16:00Z",
   "round": 1,
+  "settled": "2026-11-24T02:27Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 105,
@@ -27681,6 +27724,10 @@
     "b2b_me": false,
     "bd_tags": [
      "w_their_loss:102",
+     "sell_sched_w:2",
+     "sell_glass:1",
+     "sell_sched_fav:0",
+     "f_last:0",
      "f_pts:2",
      "fill_star:1",
      "fill_year:2",
@@ -27688,11 +27735,15 @@
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83d\udcca Scoreboard lately - San Jos\u00e9 St: 78 scored, 75 allowed a game (last 3). UC San Diego: 81 and 101.",
+     "\ud83e\uddf2 The glass is ours: San Jos\u00e9 St plus 3 rebounds a game against D1 teams, UC San Diego minus 2. (not counting the Utah State game)",
+     "\ud83e\udded UC San Diego went off as an 18.5-point favorite against Texas Southern this year and won by 5.",
+     "\ud83d\udcca Against D1 teams UC San Diego gives up 92 points a game and scores 81.",
+     "\ud83d\udcca 81 a game for San Jos\u00e9 St this year, 78 against. They outscore people.",
      "\ud83d\udcaf San Jos\u00e9 St's top scorer Mekhi Mason is putting up 18 a night lately (5 games).",
+     "\ud83d\udcc5 UC San Diego comes in off a 90-64 loss to Seattle U.",
      "\u2705 Bottom line: San Jos\u00e9 St (+105). Tap in."
     ],
-    "bv": 85,
+    "bv": 86,
     "coach": [
      18,
      false
@@ -27827,7 +27878,9 @@
     "roster_tin": 0.704,
     "season_games": null,
     "side": "away",
-    "sold": [],
+    "sold": [
+     "\ud83e\udded|1,3,11,1"
+    ],
     "spare": [],
     "start": "2026-11-24T04:59Z",
     "stype": "2",
@@ -27851,8 +27904,8 @@
     "turmoil": 0,
     "turmoil_who": [],
     "waiting": [],
-    "why_key": "w_their_loss",
-    "why_line": "\ud83e\udd4a San Jos\u00e9 St the side: UC San Diego got handled 90-64 by Seattle U last time out. Tap in."
+    "why_key": "w_sell",
+    "why_line": "\ud83e\udded Give me San Jos\u00e9 St: The D1 teams UC San Diego beat this year (Fresno St and Texas Southern) won 3 of 11 against D1 teams between them."
    }
   ],
   "ncaab_play": {
@@ -27920,7 +27973,7 @@
      "\ud83c\udfc0 Pacers: 8 guys play real minutes.",
      "\u2705 Bottom line: Pacers (+160). Half-unit play on Pacers."
     ],
-    "bv": 85,
+    "bv": 86,
     "coach": [
      22,
      false
@@ -28020,11 +28073,11 @@
      "away": "",
      "home": "\ud83d\ude91 Pacers out: G Aaron Nesmith (30 min a night last year) \u00b7 questionable: F Pascal Siakam (32 min a night last year)."
     },
-    "inj_ok": true,
+    "inj_ok": false,
     "injury_alerts": [
-     "Pascal Siakam (Pacers F) is now day-to-day \u2014 our pick: Pacers ML",
      "Aday Mara (Thunder C) is off the injury report \u2014 our pick: Pacers ML",
-     "Shai Gilgeous-Alexander (Thunder G) is off the injury report \u2014 our pick: Pacers ML"
+     "Shai Gilgeous-Alexander (Thunder G) is off the injury report \u2014 our pick: Pacers ML",
+     "Pascal Siakam (Pacers F) is off the injury report \u2014 our pick: Pacers ML"
     ],
     "intl": false,
     "is_lean": false,
@@ -28049,6 +28102,7 @@
     "odds": 160,
     "off_wait": {
      "Aday Mara (Thunder C)": 1,
+     "Pascal Siakam (Pacers F)": 1,
      "Shai Gilgeous-Alexander (Thunder G)": 1
     },
     "on_report": [
@@ -28072,7 +28126,6 @@
     ],
     "ot_last": null,
     "our_drama": [],
-    "our_q": "F Pascal Siakam (32 min a night last year)",
     "outs": [
      "Tyrese Haliburton (G)",
      "Johnny Furphy (G)",

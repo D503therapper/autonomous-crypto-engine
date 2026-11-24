@@ -29305,6 +29305,14 @@ def test_cards_1123_a_spread_bottom_line_carries_its_points_and_a_short_dog_unde
     assert not v24.long_dog({**ind, "odds": -130})
 
 
+def test_cards_1123_a_questionable_man_has_his_own_line_never_under_out():
+    """11/23 (Victor, via the owner): "It said Darren Waller was out for Panthers and he was playing" - the header read
+    "🚑 Panthers out: Bobby Okereke (LB) · questionable: TE Tommy Tremble (starter), TE Darren Waller (starter)"."""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__, encoding="utf-8").read()
+    assert 'questionable (may still play): ' in src and '" · ".join(bits_)' not in src
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)

@@ -1033,9 +1033,11 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
         # (his FULL injury data rule) and never inside the write-up ("I don't want bad shit in the breakdowns")
         outs = ""
         for tm_, men_, q_ in sports_card_check.out_chips(leg, _GAMES_[0], graded=bool(res)):
-            bits_ = ([f"out: {', '.join(men_)}"] if men_ else []) + ([f"questionable: {q_}"] if q_ and not res else [])
-            if bits_ and tm_:
-                outs += f'<div class="outs">🚑 {E(tm_)} {E(" · ".join(bits_))}</div>'
+            if men_ and tm_:                                  # (11/23, Victor via the owner: "It said Darren Waller was out
+                outs += f'<div class="outs">🚑 {E(tm_)} out: {E(", ".join(men_))}</div>'   #  for Panthers and he was
+            if q_ and tm_ and not res:                        #  playing" - the header read "Panthers out: Okereke ·
+                outs += f'<div class="outs">❓ {E(tm_)} questionable (may still play): {E(q_)}</div>'   #  questionable: Waller"
+            #                                                    on ONE line; a questionable man has his own ❓ line now)'
     alerts_ = latest_alerts(leg.get("injury_alerts"))
     if alerts_ and not res:                                  # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in alerts_[-3:])
