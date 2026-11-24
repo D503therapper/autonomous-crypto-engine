@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T01:09Z",
+ "updated": "2026-11-24T01:26Z",
  "games": [
   {
    "id": "ncaab:401921700",
@@ -290,8 +290,8 @@
    "away": "Temple",
    "home": "UT Martin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -320,8 +320,8 @@
    "away": "RIT",
    "home": "Buffalo",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -692,6 +692,21 @@
    }
   },
   {
+   "id": "nba:401910041",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "Cavaliers",
+   "home": "Bulls",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401909788",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -715,6 +730,21 @@
    "start": "2026-11-24T01:00Z",
    "away": "Monmouth",
    "home": "North Carolina",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401910042",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-24T01:00Z",
+   "away": "Suns",
+   "home": "Pelicans",
    "h1": null,
    "why": "started",
    "done": false,
@@ -752,36 +782,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401909536",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Providence",
-    "p": 0.503,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "nfl:401873078",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
    "season": "regular season",
-   "start": "2026-11-24T02:00Z",
-   "away": "VCU",
-   "home": "Providence",
-   "why": "coin_flip",
+   "start": "2026-11-24T01:15Z",
+   "away": "Bengals",
+   "home": "Commanders",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Providence",
-    "opp": "VCU",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.534,
-    "win_p": 0.534,
-    "reasons": [
-     "rolling off a blowout win",
-     "sharp money moving this way",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401921663",
@@ -968,7 +981,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.727,
+    "p": 0.724,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -983,10 +996,10 @@
     "team": "Spurs",
     "opp": "Kings",
     "market": "spread",
-    "line": -12.5,
-    "odds": -105,
-    "p": 0.502,
-    "win_p": 0.831,
+    "line": -11.5,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.827,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
