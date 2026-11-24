@@ -27858,3 +27858,27 @@ DEX: $1,003.83 (+3.83) · Scammed: 0
 [2026-11-24 10:29 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-24 10:29 UTC] crypto/hold_btc  equity $370.74 (-25.9%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), PENGU 35 (35/0/0), SOL 33 (29/0/4), MON 27 (27/0/0), VVV 24 (24/0/0)
+   scanner: 970 tickers, sample: {'i': 'BTC_USD', 'h': '64538.74', 'l': '59373.34', 'a': '59865.51', 'v': '7735.5438', 'vv': '475143427.61', 'c': '-0.0233', 'b': '59865.43', 'k': '59865.44', 'oi': '0', 't': 1795516150660}
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $160,039 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT RLUSD@ethereum liq $50,053,267 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 75%
+   dex re-screen: XTO@solana:91GG7PWs data flag #8 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT 1WIN@solana liq $755,089 - top-10 holders 85%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $151,430 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ICNT@base liq $103,444 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   dex screen: REJECT SPX@solana liq $1,507,242 - mint authority
+   dex screen: UNREACHABLE CLAUDIA@ethereum liq $146,829 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,364 pools (solana 1,702 / base 379 / ethereum 283), refresh cycle 93s (hot 90s), 1646 calls (65 feed, 429s 1, failed 1), 47,037 refreshed (8044 no pair), +54 added / -25 dropped (dead 25, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-24 11:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/mover     equity $108.49 (-78.3%) 2 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/social_heat equity $315.04 (-37.0%) 2 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-24 11:05 UTC] crypto/hold_btc  equity $369.55 (-26.1%) 1 open  market DOWN
+   social heat top: SOL 43 (32/0/11), BTC 40 (40/0/0), MON 37 (37/0/0), PENGU 35 (35/0/0), VVV 30 (24/0/6)
