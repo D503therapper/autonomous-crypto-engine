@@ -1206,6 +1206,11 @@ def news_record(st):
 def grade(st, games, now=None):
     now = now or datetime.now(timezone.utc)                  # (10/7: the run's clock, never the wall clock - a test's
     done = 0                                                 #  made-up game read as 4 days stale and voided)
+    try:                                                     # 🔀 11/24: the game file re-listed with the teams the other
+        import sports as _sp                                 # way round - the play stays on its TEAM (sports.sync_sides)
+        _sp.sync_sides(st["picks"], games, "early")
+    except Exception as ex:                                  # noqa: BLE001 - never blocks a grade
+        print(f"early side check failed: {str(ex)[:60]}")
     for p in st["picks"]:
         if p.get("result"):
             continue

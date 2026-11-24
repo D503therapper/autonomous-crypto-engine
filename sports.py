@@ -8760,6 +8760,45 @@ def lean(cands, kind, taken=None, floor=None):
 
 
 # ---------------------------------------------------------------- grading
+def sync_sides(legs, games, where="board"):
+    """🔀 11/24 (the ⭐ Illinois St +100 2u card): ESPN re-listed the neutral-floor game with the two teams the other way
+    round AFTER the pick posted - the leg still said side "home" (Illinois St's team id 2287) while the game file's home
+    team was now Tulsa. Everything that reads g[leg["side"]] then read the WRONG TEAM: the grade (an Illinois St win
+    would have graded a loss), the card check, a rewrite. The pick is the TEAM, never the label: when the game file holds
+    our team on the other side, the leg's side follows it. Team id first, the names when a play keeps no id; totals
+    untouched; a game where neither side is ours is left alone and said. -> the legs it moved."""
+    moved = []
+    for leg in legs or []:
+        if leg.get("result") or leg.get("market") not in ("ml", "spread") or leg.get("side") not in ("home", "away"):
+            continue
+        g = (games or {}).get(leg.get("game_id"))
+        if not g:
+            continue
+        side = leg["side"]
+        other = "away" if side == "home" else "home"
+        tid = str(leg.get("team_id") or "")
+        if tid:
+            here, there = str(g.get(side)) == tid, str(g.get(other)) == tid
+        else:
+            nm, opp = str(leg.get("team") or ""), str(leg.get("opp") or "")
+            here = g.get(side + "_name") == nm or g.get(other + "_name") == opp
+            there = bool(nm) and g.get(other + "_name") == nm and g.get(side + "_name") == opp
+        if here or not there:
+            if tid and not here:
+                print(f"🔀 SIDE CHECK ({where}): {leg.get('team')} is on neither side of {leg.get('game_id')} in the game file - left alone")
+            continue
+        leg["side"] = other
+        if isinstance(leg.get("home"), bool):
+            leg["home"] = other == "home"
+        if isinstance(leg.get("men_side"), dict):
+            leg["men_side"] = {k: ("away" if v == "home" else "home" if v == "away" else v) for k, v in leg["men_side"].items()}
+        leg["side_moved"] = f"{side}->{other}"
+        moved.append(leg)
+        print(f"🔀 SIDE CHECK ({where}): the game file re-listed {leg.get('game_id')} - {leg.get('team')} is the "
+              f"{other} team now; the pick stays on {leg.get('team')}")
+    return moved
+
+
 def grade_leg(leg, g, now):
     """won / lost / push / void, or None while the game isn't over."""
     def stale():                                             # 4 days past the start and still no final: void
@@ -8804,6 +8843,7 @@ def _final_at():
 
 def grade(picks, games, now=None):
     now = now or datetime.now(timezone.utc)
+    sync_sides([l for pk in picks for l in pk["legs"]], games)   # 🔀 11/24: the pick is the team, never the label
     settled = []
     stamp = now.strftime("%Y-%m-%dT%H:%MZ")
     ended = _final_at()
@@ -10964,6 +11004,8 @@ def _same_leg(a, b):
 def add_breakdowns(games, model, picks):
     """(Re)write the breakdown of posted plays whose games haven't started, when it's missing or was written by an
     older breakdown version. Only the explanation changes - the pick itself never does."""
+    for l_ in sync_sides([l for p in picks if p["status"] == "open" for l in p["legs"]], games, "cards"):
+        l_.pop("bv", None)                                   # 🔀 11/24: a card written off the wrong side is written again
     legs = [l for p in picks if p["status"] == "open" for l in p["legs"]
             if l.get("bv") != sports_breakdown.VERSION and l["game_id"] in games and games[l["game_id"]]["status"] == "pre"]
     if not legs:

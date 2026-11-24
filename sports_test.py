@@ -31216,8 +31216,10 @@ def test_cards_1123_the_san_jose_st_card_says_the_schedule_when_the_boxes_cant_b
         txt = "\n".join(page + [leg["why_line"]])
         why = leg["why_line"]
         assert len(facts) >= 6, txt                                                        # the floor - it posted with three
-        assert why.startswith("🧭") and "San José St" in why and "Fresno St and Texas Southern" in why and "won 3 of 11" in why, why
+        # (11/24 THE CASE BUILDER: the biggest matchup edge leads - the schedule line backs it up in the body)
+        assert why.startswith("🪣") and "San José St" in why and "50%" in why and "47%" in why and "UC San Diego" in why, why
         assert cs.reason_backed(why, leg) == "reason" and leg["why_key"] == "w_sell", (why, leg["why_key"])
+        why = next(x for x in facts if x.startswith("🧭") and "Fresno St and Texas Southern" in x and "won 3 of 11" in x)
         fav = next(x for x in facts if x.startswith("🧭") and "18.5" in x)
         assert "Texas Southern" in fav and "won by 5" in fav, fav
         glass = next(x for x in facts if x.startswith("🧲"))
@@ -31228,7 +31230,7 @@ def test_cards_1123_the_san_jose_st_card_says_the_schedule_when_the_boxes_cant_b
         assert cc.Q_BOX in cc.sell_numbers(why.replace("Texas Southern", "Utah State"), leg, fx.G)
         assert cc.Q_BOX in cc.sell_numbers(fav.replace("18.5", "8.5"), leg, fx.G)
         assert cc.sell_numbers(why.replace("3 of 11", "3 of 10"), leg, fx.G) == ""         # (written a game ago: still stands)
-        assert cs.dedupe(facts[1:], "San José St", "UC San Diego", why)[1] == [], txt
+        assert cs.dedupe(facts[1:], "San José St", "UC San Diego", leg["why_line"])[1] == [], txt
         assert sum(1 for x in facts if cs.reason_backed(x, leg) == "reason") >= 2, txt     # 🧭 + their last loss
         assert not any(x.startswith("⚖️") for x in facts) and not _BAD_TALK_1122.search(txt), txt
         assert not re.search(r"Utah State.{0,40}(?:trash|ass|bum)", txt, re.I), txt
@@ -31262,7 +31264,9 @@ def test_cards_1123_the_indiana_st_card_says_who_they_beat_and_one_half_not_two(
         leg, facts, page = fx.card(leg0)
         txt = "\n".join(page + [leg["why_line"]])
         why = leg["why_line"]
-        assert why.startswith("🧭") and "SC Upstate, NC A&T and Delaware St" in why and "won 1 of 13" in why, why
+        # (11/24 THE CASE BUILDER: the matchup edge leads - the line they live at - and who they beat backs it up)
+        assert why.startswith("🎁") and "23" in why and "28" in why, why
+        assert any(x.startswith("🧭") and "SC Upstate, NC A&T and Delaware St" in x and "won 1 of 13" in x for x in facts), txt
         assert cs.reason_backed(why, leg) == "reason" and "trash" not in txt, txt
         halves = [x for x in facts if x.startswith(("⏱", "🏁"))]
         assert len(halves) <= 1, halves                         # (the fixture rows carry no line scores: the rule is below)
@@ -31896,27 +31900,11 @@ def test_daily_1124_board_check_the_note_once_the_close_ones_and_no_tune_ups_in_
     nond1 = lambda t: False                                                # noqa: E731
     cc_ = cs.close_calls(gu, "I", cs.by_team(fin), "2026-07-01", nond1)
     assert [(r[0], r[1]) for r in cc_] == [("Santa Clara", 3), ("Saint Mary's", 5)], cc_   # N Dakota St (1 point) is a losing team
+    # ❌ later the same day (Victor: "he said Illinois state good becuz it lost to st Mary's and Santa Clara ... lol"): the
+    # close ones are OFF for good - a close loss is never a reason (test_cards_1124_no_moral_victories_ever)
+    assert cs.CLOSE is False
     made = cs.sched_lines("ncaab", "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1, {"reasons": []}, backed=True)
-    line = next(m for m in made if m[0] == "sched_c")
-    assert line[2] is True and all("finished within 3 of Santa Clara and within 5 of Saint Mary's" in w for w in line[1]), line[1]
-    assert all("won 12 of 14" in w for w in line[1]) and not any(re.search(r"\blost\b|\bloss", w) for w in line[1]), line[1]
-    for w in line[1]:
-        assert cs.sched_wrong(w, "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1) == "", w
-        assert not cc.knocks_us(w, {"team": "Illinois St", "opp": "Tulsa"}), w
-    bad = line[1][0].replace("within 3 of Santa Clara", "within 2 of Santa Clara")
-    assert cs.sched_wrong(bad, "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1)          # a margin the files don't hold
-    assert cs.sched_wrong(line[1][0].replace("won 12 of 14", "won 14 of 14"), "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1)
-    one = cs.sched_lines("ncaab", "Illinois St", "Santa Clara", gu, gt, "I", "T", fin, nond1, {"reasons": []})
-    one = next(m for m in one if m[0] == "sched_c")                        # never the team we're playing tonight
-    assert "Santa Clara" not in one[1][0] and "within 5 of Saint Mary's" in one[1][0] and "won 6 of 7" in one[1][0], one[1]
-    assert cs.sched_wrong(one[1][0], "Illinois St", "Santa Clara", gu, gt, "I", "T", fin, nond1) == "", one[1][0]
-    assert cs.sched_wrong(one[1][1], "Illinois St", "Santa Clara", gu, gt, "I", "T", fin, nond1) == "", one[1][1]
-    keep = cs.CLOSE
-    try:
-        cs.CLOSE = False
-        assert not any(m[0] == "sched_c" for m in cs.sched_lines("ncaab", "Illinois St", "Tulsa", gu, gt, "I", "T", fin, nond1, {"reasons": []}))
-    finally:
-        cs.CLOSE = keep
+    assert not any(m[0] in ("sched_c", "sched_l") for m in made), made
     # (3) no tune-ups in the big nights / the halves
     keep_d1 = v24._D1.get("set")
     try:
@@ -31938,6 +31926,283 @@ def test_daily_1124_board_check_the_note_once_the_close_ones_and_no_tune_ups_in_
     assert "late_score(_form(s_ours, tid, lg)" in src
     # (4) the 🚑 names-only line is not written under a header that already has them
     assert 'if theirs_out and coherent_on(g) and not _hole("opp_holes"):' in inspect.getsource(v24.more_facts)
+
+
+# ---------------------------------------------------------------- 11/24 THE CASE BUILDER (results/studies/cards_1124)
+# the real 2026-27 games going into Illinois St vs Tulsa (11/24): both teams' games with both box lines, their
+# opponents' other games (scores only) - results/studies/cards_1124/fixture.py
+_ILST_TULSA_1124 = (
+    "2026-11-02T08:00|2459|N Illinois|87|2755|Grambling|89|1||",
+    "2026-11-03T00:00|91|Bellarmine|47|238|Vanderbilt|93|0||",
+    "2026-11-03T00:00|101|Eureka|39|2565|SIUE|91|0||",
+    "2026-11-03T00:30|2635|Tennessee Tech|88|344|Mississippi St|106|0||",
+    "2026-11-03T00:30|2413|Morehead St|58|98|Western KY|83|0||",
+    "2026-11-03T00:30|2509|Purdue|72|2250|Gonzaga|78|1||",
+    "2026-11-03T01:00|2775|Ottawa (KS)|50|202|Tulsa|98|0|18-49 9-26 5-7 22 3 22 16 0 8 5 2|32-64 19-40 15-24 44 17 10 26 27 22 20 1",
+    "2026-11-03T01:00|2772|Minn Crook|59|2449|N Dakota St|90|0||",
+    "2026-11-03T01:30|198|Oral Roberts|55|2110|C Arkansas|85|0||",
+    "2026-11-03T02:30|2692|Weber St|61|204|Oregon St|102|0||",
+    "2026-11-03T03:00|2287|Illinois St|85|2608|Saint Mary's|90|0|28-58 13-27 16-23 33 10 18 24 15 20 5 0|34-68 4-17 18-26 41 16 11 54 15 18 12 2",
+    "2026-11-03T03:00|119|Towson|70|2541|Santa Clara|89|0||",
+    "2026-11-05T03:00|2449|N Dakota St|64|2608|Saint Mary's|105|0||",
+    "2026-11-05T03:00|270|Milwaukee|72|2541|Santa Clara|95|0||",
+    "2026-11-05T23:00|91|Bellarmine|69|84|Indiana|92|0||",
+    "2026-11-06T00:30|2466|N'Western St|44|344|Mississippi St|82|0||",
+    "2026-11-06T00:30|2316|KY Wesleyan|48|98|Western KY|82|0||",
+    "2026-11-06T01:00|2459|N Illinois|75|202|Tulsa|94|0|24-56 11-29 16-19 26 4 6 26 2 15 4 3|28-57 14-34 24-34 42 14 10 26 10 11 4 2",
+    "2026-11-06T01:00|2119|Central St|55|2287|Illinois St|100|0|23-53 5-14 4-8 24 7 17 22 6 9 6 2|33-53 16-30 18-29 35 11 10 34 22 23 9 3",
+    "2026-11-06T23:30|2674|Valparaiso|83|2509|Purdue|80|0||",
+    "2026-11-07T02:30|2856|CA Baptist|68|204|Oregon St|96|0||",
+    "2026-11-07T03:00|2449|N Dakota St|70|2539|San Francisco|79|0||",
+    "2026-11-07T22:00|91|Bellarmine|73|193|Miami OH|80|0||",
+    "2026-11-08T00:00|2459|N Illinois|81|2168|Dayton|76|0||",
+    "2026-11-08T00:30|2119|Central St|58|2184|Duquesne|68|0||",
+    "2026-11-08T01:00|2823|N'Western (OK)|39|198|Oral Roberts|94|0||",
+    "2026-11-08T03:00|16|Sacramento St|77|2541|Santa Clara|83|0||",
+    "2026-11-08T20:00|98|Western KY|94|2635|Tennessee Tech|97|0||",
+    "2026-11-08T21:30|2608|Saint Mary's|95|2440|Nevada|96|1||",
+    "2026-11-08T23:00|2449|N Dakota St|80|2934|Bakersfield|91|0||",
+    "2026-11-10T00:30|2296|Jackson St|57|344|Mississippi St|98|0||",
+    "2026-11-10T01:30|2287|Illinois St|59|2509|Purdue|76|0|23-49 5-25 8-11 17 4 9 26 4 14 7 2|26-46 8-19 16-18 30 6 12 22 7 15 6 0",
+    "2026-11-10T02:30|331|E Washington|84|204|Oregon St|94|0||",
+    "2026-11-12T00:00|2965|Clarke|43|2459|N Illinois|82|0||",
+    "2026-11-12T00:00|2233|Franklin|82|91|Bellarmine|99|0||",
+    "2026-11-12T00:30|2098|Campbellsville|51|98|Western KY|78|0||",
+    "2026-11-12T01:00|198|Oral Roberts|71|202|Tulsa|80|0|23-64 10-32 15-22 32 18 11 22 13 11 13 2|25-55 7-28 23-28 43 17 17 32 26 15 8 4",
+    "2026-11-12T01:00|2541|Santa Clara|76|249|North Texas|71|0||",
+    "2026-11-14T00:00|195|Ohio|62|2509|Purdue|80|0||",
+    "2026-11-14T01:00|2287|Illinois St|81|2449|N Dakota St|82|0|27-59 8-29 19-22 28 9 14 30 6 15 10 4|25-58 14-28 18-26 36 15 18 18 3 11 5 3",
+    "2026-11-14T02:00|2752|Xavier|81|344|Mississippi St|63|1||",
+    "2026-11-14T02:30|2400|Miss Valley St|65|204|Oregon St|81|0||",
+    "2026-11-14T03:00|82|UIC|61|2608|Saint Mary's|84|0||",
+    "2026-11-14T19:00|2459|N Illinois|72|91|Bellarmine|64|0||",
+    "2026-11-15T01:00|2481|Oklahoma City|39|198|Oral Roberts|82|0||",
+    "2026-11-15T03:00|167|New Mexico|85|2541|Santa Clara|90|0||",
+    "2026-11-15T19:00|2934|Bakersfield|73|2449|N Dakota St|69|0||",
+    "2026-11-17T00:00|98|Western KY|64|202|Tulsa|67|0|23-60 6-22 12-18 27 8 13 34 17 7 14 0|23-44 4-15 17-26 35 4 22 38 6 17 9 2",
+    "2026-11-17T02:30|2837|East Texas A&M|71|204|Oregon St|109|0||",
+    "2026-11-17T03:00|2502|Portland St|78|2608|Saint Mary's|94|0||",
+    "2026-11-17T23:30|288|Lipscomb|78|2509|Purdue|95|0||",
+    "2026-11-18T00:00|344|Mississippi St|86|2116|UCF|83|0||",
+    "2026-11-18T01:00|91|Bellarmine|59|2287|Illinois St|76|0|20-49 6-17 13-19 24 8 8 24 2 12 3 1|25-53 10-34 16-19 38 14 10 28 8 17 3 3",
+    "2026-11-18T01:00|198|Oral Roberts|72|2567|SMU|76|0||",
+    "2026-11-19T00:30|2459|N Illinois|65|269|Marquette|79|0||",
+    "2026-11-19T02:00|2449|N Dakota St|64|36|Colorado St|71|0||",
+    "2026-11-20T01:00|101|Eureka|48|2287|Illinois St|123|0|18-60 3-22 9-13 15 2 11 12 8 7 3 0|47-75 10-25 19-23 57 16 6 74 33 31 10 6",
+    "2026-11-20T02:00|204|Oregon St|82|2483|Oregon|71|1||",
+    "2026-11-20T03:30|2670|VCU|83|2541|Santa Clara|77|0||",
+    "2026-11-21T00:00|91|Bellarmine|79|2198|E Kentucky|76|0||",
+    "2026-11-21T00:00|2473|Oakland|49|2509|Purdue|95|0||",
+    "2026-11-21T00:00|98|Western KY|82|257|Richmond|68|1||",
+    "2026-11-21T00:30|202|Tulsa|61|344|Mississippi St|72|1|22-57 4-26 13-19 36 13 15 28 2 9 6 5|25-55 2-16 20-30 37 13 10 44 14 6 11 4",
+    "2026-11-21T04:00|139|Saint Louis|78|2608|Saint Mary's|95|0||",
+    "2026-11-21T19:00|2459|N Illinois|86|189|Bowling Green|68|0||",
+    "2026-11-22T01:00|357|Texas A&M-CC|74|198|Oral Roberts|78|0||",
+    "2026-11-22T19:00|45|G Washington|78|98|Western KY|86|1||",
+    "2026-11-23T01:00|2381|Menlo|78|2608|Saint Mary's|94|0||",
+    "2026-11-23T19:00|202|Tulsa|66|204|Oregon St|69|1|22-63 9-29 13-22 35 14 9 22 7 10 10 1|24-53 13-33 8-13 38 8 18 22 0 16 3 4",
+    "2026-11-24T00:00|2541|Santa Clara|102|2287|Illinois St|99|1|32-66 7-20 31-35 26 10 5 44 4 15 7 2|36-56 8-23 19-23 28 7 13 52 10 25 2 5",
+    "2026-11-24T01:00|2744|UW-Stout|49|2449|N Dakota St|84|0||",
+    "2026-11-24T19:00|2539|San Francisco|73|204|Oregon St|87|1||",)
+_ILST_TULSA_1124_ELO = {"101": 1500, "119": 1488, "139": 1674, "16": 1276, "167": 1650, "189": 1415, "193": 1757, "195": 1521, "198": 1362,
+    "202": 1624, "204": 1712, "2098": 1500, "2110": 1571, "2116": 1628, "2119": 1500, "2168": 1516, "2184": 1544,
+    "2198": 1360, "2233": 1500, "2250": 1824, "2287": 1578, "2296": 1358, "2316": 1500, "238": 1853, "2381": 1500,
+    "2400": 1075, "2413": 1380, "2440": 1644, "2449": 1426, "2459": 1447, "2466": 1279, "2473": 1415, "2481": 1500,
+    "2483": 1552, "249": 1564, "2502": 1450, "2509": 1811, "2539": 1484, "2541": 1751, "2565": 1375, "2567": 1678,
+    "257": 1474, "2608": 1812, "2635": 1479, "2670": 1741, "2674": 1535, "269": 1642, "2692": 1354, "270": 1372, "2744":
+    1500, "2752": 1602, "2755": 1288, "2772": 1500, "2775": 1500, "2823": 1500, "2837": 1371, "2856": 1391, "288": 1457,
+    "2934": 1367, "2965": 1500, "331": 1442, "344": 1626, "357": 1428, "36": 1567, "45": 1575, "82": 1558, "84": 1738,
+    "91": 1358, "98": 1579}
+_ILST_POSTED_WHY_1124 = ("🧭 Illinois St finished within 3 of Santa Clara and within 5 of Saint Mary's this year. Those two "
+                         "won 11 of 13 against D1 teams between them.")
+
+
+def test_cards_1124_no_moral_victories_ever():
+    """❌ 11/24 (the owner: "Fable needs to permanently fix this. These breakdowns have been so fucking bad"; Victor on the
+    ⭐ Illinois St +100 card: "he said Illinois state good becuz it lost to st Mary's and Santa Clara ... lol"): a close
+    loss is never a reason. The 🧭 'finished within N of' line is off for good, 'the teams that beat us are winning
+    teams' with it; every render cuts one a posted card still holds - in the body and under the pick."""
+    import sports_card_sell as cs, sports_card_check as cc, sports_breakdown, sports_breakdown_v24 as v24, inspect
+    assert cs.CLOSE is False and cs.LOSS_LINES is False and sports_breakdown.VERSION >= 88
+    for t in (_ILST_POSTED_WHY_1124, "📅 Illinois St only lost by 3 to Santa Clara.", "They hung with Purdue for a half.",
+              "🧭 Illinois St took Saint Mary's to the wire on the road.", "📅 A one-possession loss to Santa Clara last time out.",
+              "They played Purdue close.", "Illinois St kept it close at Saint Mary's."):
+        assert cs.moral(t), t
+    for t in ("📅 Tulsa is fresh off a 69-66 loss to Oregon St.", "🧤 Tulsa turn it over 15 times a game against D1 teams and Illinois St take it away 16 times a night.",
+              "🏆 Campbell already beat Kansas St this year, 80-70 on the road.", "🧭 The one D1 team Coastal beat this year is SC Upstate, who won 0 of 6 against D1 teams."):
+        assert not cs.moral(t), t
+    us = "Northern Iowa"
+    assert cs.lost_to("🧭 The teams that beat Northern Iowa this year (Furman and Michigan St) won 7 of 7 against D1 teams between them.", us)
+    assert cs.lost_to("🧭 Every team that got Northern Iowa this year is a winning team: Furman and Michigan St won 7 of 7 against D1 teams between them.", us)
+    assert cs.lost_to("🧭 Only Furman got Northern Iowa this year - and Furman won 5 of 5 against D1 teams.", us)
+    assert not cs.lost_to("🧭 The D1 teams Oakland beat this year (A and B) won 2 of 9 against D1 teams between them.", us)   # who THEY beat stays
+    leg = {"team": "Illinois St", "opp": "Tulsa", "league": "ncaab", "market": "ml", "odds": 100, "side": "away", "game_id": "x",
+           "p": 0.48, "tier": "value", "breakdown": []}
+    pk = {"date": "2026-11-24", "kind": "play", "tier": "value", "status": "open", "american": 100, "legs": [leg]}
+    seen = []
+    quiet, cc.note = cc.note, (lambda *a, **k: seen.append(a[2]))
+    try:
+        assert cc.check_one(pk, leg, _ILST_POSTED_WHY_1124, {}) == ""                      # never under a pick
+        kept = cc.check(pk, leg, [_ILST_POSTED_WHY_1124, "🧭 The teams that beat Illinois St this year (Purdue and Saint Mary's) won 9 of 11 against D1 teams between them.",
+                                  "✅ Bottom line: Illinois St (+100). Tap in."], {})
+    finally:
+        cc.note = quiet
+    assert not any("within" in x or "beat Illinois St" in x for x in kept), kept
+    assert seen.count(cc.Q_MORAL) == 3, seen
+    assert not cc.moral_victory("✅ Bottom line: Illinois St (+100). Tap in.")
+    # no pool writes one: the sched_c branch is behind the dead switch, and the who-beat-us line never leads
+    assert "sched_l" in v24.NO_LEAD and "sched_c" in v24.NO_LEAD
+    src = inspect.getsource(cs.hoops_lines) + inspect.getsource(cs.case_edges) + inspect.getsource(cs.hockey_lines) + inspect.getsource(cs.football_lines)
+    assert not cs.MORAL.search(src), cs.MORAL.search(src)
+    for doc, key in (("CLAUDE.md", "THE CASE BUILDER"), ("STATUS.md", "THE CASE BUILDER"), ("SPORTS_FINDINGS.md", "11/24 - THE CASE BUILDER"),
+                     (os.path.join("results", "studies", "cards_1124", "README.md"), "declined")):
+        assert key in open(doc).read(), doc
+
+
+def test_cards_1124_the_case_builder_ranks_the_matchup_edges():
+    """🧱 11/24 THE CASE BUILDER: an edge is our strength against THEIR weakness on the same thing, both halves real, the
+    edges ranked by size, the biggest first, four at most - each line both teams' numbers in one sentence, every number
+    the box scores'. A strength that meets a strength is no edge; no edge = no line."""
+    import sports_card_sell as cs
+
+    def prof(n=5, **kw):
+        p = {"n": n, "pf": 75 * n, "pa": 72 * n, "fgm": 26 * n, "fga": 59 * n, "o_fgm": 26 * n, "o_fga": 59 * n, "tpm": 7 * n, "tpa": 21 * n,
+             "o_tpm": 7 * n, "o_tpa": 21 * n, "ftm": 14 * n, "fta": 20 * n, "o_ftm": 14 * n, "o_fta": 20 * n, "reb": 35 * n, "o_reb": 35 * n,
+             "oreb": 10 * n, "o_oreb": 10 * n, "to": 12.5 * n, "o_to": 12.5 * n, "paint": 30 * n, "o_paint": 30 * n, "fast": 10 * n,
+             "o_fast": 10 * n, "ast": 13 * n, "o_ast": 13 * n, "stl": 6 * n, "o_stl": 6 * n}
+        p.update({k: v * n for k, v in kw.items()})
+        return p
+    plain = prof()
+    assert cs.case_edges("ncaab", "A", "B", plain, plain, "d1") == []                       # two ordinary teams: nothing to say
+    # we force 17 turnovers and they give it away 16; we shoot 50% and they allow 48%; they get to the line a little
+    us = prof(o_to=17, fgm=29.5, fga=59, fta=22)
+    them = prof(to=16, o_fgm=28.3, o_fga=59, o_fta=24)
+    got = cs.case_edges("ncaab", "A", "B", us, them, "d1")
+    assert [k for k, *_ in got] == ["to", "shooting", "line"], got                          # ranked: (2.25+1.75), (2+1.3), (.5+1)
+    assert got[0][1] > got[1][1] > got[2][1] >= cs.CASE_MIN
+    for k, size, ways in got:
+        assert len(ways) >= 3
+        for w in ways:
+            assert "A" in w.split() or " A " in w or w.split(" ", 1)[1].startswith("A "), w
+            assert " B " in w or " B." in w or w.rstrip(".").endswith(" B") or " B's" in w, w  # both teams in one sentence
+            assert "against D1 teams" in w and cs.is_sell(w) or cs.stat_of(w), w
+            nums = [int(x) for x in re.findall(r"(?<![\w.])\d+(?![\w])", w.replace("D1", ""))]
+            assert len(nums) >= 2 and set(nums) <= cs.allowed(us, them, stat=cs.stat_of(w)), (w, nums)
+            assert not cs.moral(w) and not re.search(r"our ratings|the ratings|our read|the books", w, re.I), w
+    # the Illinois St shape: we shoot 51% - and they hold teams to 41%. A strength that meets a strength is NO edge.
+    hot = prof(fgm=30, fga=59)
+    wall = prof(o_fgm=24, o_fga=59)
+    assert not any(k == "shooting" for k, *_ in cs.case_edges("ncaab", "A", "B", hot, wall, "d1"))
+    # their weakness with nothing of ours behind it (they turn it over 16, we take it away 11) is no edge either
+    assert cs.case_edges("ncaab", "A", "B", prof(o_to=11), prof(to=16), "d1") == []
+    # the other way round counts: their offense against our defense (they shoot 39%, we hold teams to 40%)
+    d = cs.case_edges("ncaab", "A", "B", prof(o_fgm=23.6, o_fga=59), prof(fgm=23, fga=59), "d1")
+    assert [k for k, *_ in d] == ["defense"] and "39%" in d[0][2][0] and "40%" in d[0][2][0], d
+    # four at most, and a card line carries them: reason-backed when the leg carries the dog read, biggest weight first
+    big_u = prof(o_to=17, fgm=29.5, fga=59, fta=26, reb=40, paint=38, fast=14)
+    big_t = prof(to=16, o_fgm=28.3, o_fga=59, o_fta=26, reb=31, o_paint=38, o_fast=14)
+    assert len(cs.case_edges("ncaab", "A", "B", big_u, big_t, "d1")) == cs.CASE_MAX == 4
+    leg = {"dog_read_parts": {"ratings": 2}, "reasons": [], "market": "ml", "odds": 110}
+    made = cs.hoops_lines("ncaab", "A", "B", us, them, None, leg, "d1", True)
+    case = sorted([m for m in made if m[3] >= 10], key=lambda m: -m[3])
+    assert [m[0] for m in case] == ["to", "shooting", "line"] and all(m[2] is True for m in case), made
+    assert sum(1 for m in made if m[0] == "to") == 1 and sum(1 for m in made if m[0] == "shooting") == 1, made   # one line a stat
+    plain_leg = {"reasons": ["sharp money moving this way"], "market": "ml", "odds": 170}
+    assert all(m[2] is False for m in cs.hoops_lines("ncaab", "A", "B", us, them, None, plain_leg, "d1", True) if m[3] >= 10)
+    assert cs.hoops_lines("ncaab", "A", "B", us, them, None, leg, "d1", False) == []        # their schedule clearly tougher: no side-by-side line
+    keep = cs.CASE
+    try:
+        cs.CASE = False
+        assert cs.case_edges("ncaab", "A", "B", us, them, "d1") == []
+    finally:
+        cs.CASE = keep
+
+
+def test_cards_1124_the_illinois_st_card_no_moral_victory_and_no_made_up_edge():
+    """The ⭐ Illinois St +100 card of 11/24 off the real rows. It posted leading with two close LOSSES. Now: no moral
+    victory anywhere; no line that sets our 51% shooting against a Tulsa defense that holds teams to 41% (a strength
+    that meets a strength); the box scores hold no real two-sided edge for Illinois St, so the card is SHORT - never
+    padded; the posted line is cut on the page. And a card that does hold an edge (San José St, Indiana St -
+    test_cards_1123_*) leads with it."""
+    import sports_card_sell as cs, sports_card_check as cc
+    pre = {"id": "ncaab:ilst", "start": "2026-11-24T21:30Z", "home": "202", "away": "2287", "home_name": "Tulsa",
+           "away_name": "Illinois St", "neutral": "1"}
+    leg0 = _leg_1123("ncaab:ilst", "away", "Illinois St", "Tulsa", 100, games_in=7, opp_games_in=6,
+                     **_dog_slot_1123(eff_p=0.5061, to_net=0.0092, opp_tp_net=0.009, reb_gap=-2.57))
+    with _Fx1122("ncaab", _ILST_TULSA_1124, pre, non_d1=("2775", "2119", "101"), ratings=_ILST_TULSA_1124_ELO) as fx, _Seen1123():
+        leg, facts, page = fx.card(leg0)
+        txt = "\n".join(page + [leg["why_line"]])
+        why = leg["why_line"]
+        assert why and not cs.moral(why) and not cs.lost_to(why, "Illinois St"), why
+        assert not any(cs.moral(x) or cs.lost_to(x, "Illinois St") for x in facts), txt
+        assert "Santa Clara" not in txt and "Saint Mary's" not in txt and "Purdue" not in txt, txt   # our losses stay off the card
+        assert "Illinois St" in why and re.search(r"\d", why), why                         # a fact about this game leads
+        assert not any("51%" in x and "41%" in x for x in facts), txt                       # strength vs strength: no line
+        gu = [g for g in fx.G.values() if g["status"] == "final" and "2287" in (g["home"], g["away"]) and not {"2119", "101"} & {g["home"], g["away"]}]
+        gt = [g for g in fx.G.values() if g["status"] == "final" and "202" in (g["home"], g["away"]) and "2775" not in (g["home"], g["away"])]
+        pu, pt = cs.profile("ncaab", gu, "2287"), cs.profile("ncaab", gt, "202")
+        assert pu["n"] == 5 and pt["n"] == 5                                                # D1 games only, both box lines
+        assert round(100 * pu["fgm"] / pu["fga"]) == 51 and round(100 * pt["o_fgm"] / pt["o_fga"]) == 41
+        assert cs.case_edges("ncaab", "Illinois St", "Tulsa", pu, pt, "d1") == []           # no real matchup edge on file
+        assert len(facts) <= 5 and any("69-66" in x and "Oregon St" in x for x in facts), txt   # short and true - never padded
+        assert not _BAD_TALK_1122.search(txt), txt
+        # the card as it POSTED: the line under the pick is cut on the page
+        posted = dict(leg, why_line=_ILST_POSTED_WHY_1124)
+        pk = {"date": "2026-11-24", "kind": "play", "tier": "value", "status": "open", "american": 100, "legs": [posted]}
+        assert cc.check_one(pk, posted, posted["why_line"], fx.G) == ""
+
+
+def test_cards_1124_their_tougher_schedule_blocks_the_season_scoreboard_comparison():
+    """🏫 11/24: when THEIR schedule ran clearly tougher (sports_card_sell.SCHED_EDGE) the card never sets the two
+    teams' season scoring side by side ("we score 80, they score 74" knows nothing about who each one played) - the
+    fill lines too, not only the sell lines. San José St vs UC San Diego: the schedules are 50+ apart."""
+    import sports_card_sell as cs
+    pre = {"id": "ncaab:sjsu", "start": "2026-11-24T04:59Z", "home": "28", "away": "23", "home_name": "UC San Diego",
+           "away_name": "San José St", "neutral": "1"}
+    leg0 = _leg_1123("ncaab:sjsu", "away", "San José St", "UC San Diego", 105, **_dog_slot_1123(eff_p=0.5528, to_net=-0.0306, opp_tp_net=-0.038, reb_gap=4.37))
+    both = re.compile(r"^(?:📊|🛡️) .*(?:against D1 teams|this year|[Oo]n the year).*San José St.*UC San Diego|^(?:📊|🛡️) .*San José St.*UC San Diego.*(?:against D1 teams|this year)")
+    with _Fx1122("ncaab", _SJSU_UCSD_1123, pre, non_d1=("2850",), ratings=_SJSU_UCSD_1123_ELO) as fx, _Seen1123():
+        leg, facts, page = fx.card(leg0)
+        every = facts + [str(x) for x in leg.get("spare") or []]
+        assert not any(both.search(x) and "(not counting" not in x for x in every), every
+        src = __import__("inspect").getsource(__import__("sports_breakdown_v24").fill_facts)
+        assert "fair_cmp(d1_u, d1_t, tid, oid, e)" in src
+
+
+def test_the_pick_is_the_team_when_the_game_file_flips_home_and_away():
+    """🔀 11/24 (the ⭐ Illinois St +100 2u play): ESPN re-listed the neutral-floor game with the teams the other way
+    round after the pick posted - the leg said side "home" (team id 2287, Illinois St) and the game file's home team
+    was now Tulsa. The grade reads g[side]: an Illinois St win would have graded a LOSS. The pick is the team: the
+    side follows it (sports.sync_sides), before every grade and every card rewrite; totals and a game we can't place
+    are left alone."""
+    import sports, sports_early, inspect
+    now = datetime(2026, 11, 25, 6, 0, tzinfo=timezone.utc)
+    g = {"id": "ncaab:1", "status": "final", "home": "202", "away": "2287", "home_name": "Tulsa", "away_name": "Illinois St",
+         "home_score": "70", "away_score": "75", "start": "2026-11-24T21:30Z"}
+    leg = {"game_id": "ncaab:1", "market": "ml", "side": "home", "home": True, "team": "Illinois St", "opp": "Tulsa", "team_id": "2287",
+           "odds": 100, "start": "2026-11-24T21:30Z", "men_side": {"A": "home", "B": "away"}, "bv": 88}
+    assert sports.grade_leg(dict(leg), g, now) == "lost"                                    # the bug: Illinois St WON 75-70
+    moved = sports.sync_sides([leg], {"ncaab:1": g})
+    assert moved == [leg] and leg["side"] == "away" and leg["home"] is False and leg["men_side"] == {"A": "away", "B": "home"}
+    assert leg["team"] == "Illinois St" and leg["odds"] == 100 and leg["side_moved"] == "home->away"   # the pick never changes
+    assert sports.grade_leg(leg, g, now) == "won"
+    assert sports.sync_sides([leg], {"ncaab:1": g}) == []                                   # already right: nothing moves
+    # a spread keeps its line with its team; a play with no id is placed by the names
+    sp_ = {"game_id": "ncaab:1", "market": "spread", "side": "home", "line": 2.5, "team": "Illinois St", "opp": "Tulsa"}
+    assert sports.sync_sides([sp_], {"ncaab:1": g}) == [sp_] and sp_["side"] == "away" and sp_["line"] == 2.5
+    # left alone: a total, a graded leg, a team on neither side, names that don't settle it
+    tot = {"game_id": "ncaab:1", "market": "total", "side": "over", "line": 150.5, "team": "Over 150.5"}
+    done = dict(leg, side="home", result="lost")
+    lost = {"game_id": "ncaab:1", "market": "ml", "side": "home", "team": "Drake", "opp": "Tulsa", "team_id": "2181"}
+    fuzzy = {"game_id": "ncaab:1", "market": "ml", "side": "home", "team": "Illinois State", "opp": "Tulsa Golden Hurricane"}
+    assert sports.sync_sides([tot, done, lost, fuzzy], {"ncaab:1": g}) == []
+    assert tot["side"] == "over" and done["side"] == "home" and lost["side"] == "home" and fuzzy["side"] == "home"
+    # wired: before every grade (the board's and the early plays') and before a card is written again
+    assert "sync_sides(" in inspect.getsource(sports.grade) and "sync_sides(" in inspect.getsource(sports.add_breakdowns)
+    assert "sync_sides(" in inspect.getsource(sports_early.grade)
+    pk = {"status": "open", "date": "2026-11-24", "kind": "play", "legs": [dict(leg, side="home", home=True, dec=2.0)], "stake": 100.0, "dec": 2.0}
+    sports.grade([pk], {"ncaab:1": g}, now)
+    assert pk["legs"][0]["result"] == "won" and pk["legs"][0]["side"] == "away", pk["legs"][0]
 
 
 if __name__ == "__main__":

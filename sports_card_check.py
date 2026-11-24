@@ -1410,6 +1410,23 @@ def chip_repeat(line, leg):
     return bool(toks) and all(w.strip(".") in have or w in have for w in toks)
 
 
+Q_MORAL = "a moral victory (a close loss sold as a reason)"
+
+
+def moral_victory(line, leg=None):
+    """❌ 11/24 (Victor on the ⭐ Illinois St +100 card: "he said Illinois state good becuz it lost to st Mary's and Santa
+    Clara ... lol"): a line that sells a side with a game it LOST - "finished within 3 of", "only lost by", "hung with",
+    "took them to the wire" (sports_card_sell.MORAL). Cut on every render, every card, the line under the pick too."""
+    t = str(line or "")
+    if not t or BOTTOM.match(t) or t.startswith(("⚠️", "🔄")):
+        return False
+    try:
+        import sports_card_sell as _cs
+        return _cs.moral(t) or _cs.lost_to(t, (leg or {}).get("team") or "")   # (and "the teams that beat us are good")
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
 def check(pk, leg, lines, games=None, why="", where="render"):
     """The card's lines as they may post: every line through the wording / lingo checks and the fact check, the same
     line never twice (nor the one-liner again), a 🚑 line that only repeats the card's 'missing' chip gone. Logs what it
@@ -1435,6 +1452,8 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             x1, sw = x, ""
         if sw and not x1:
             return "", Q_PRICE
+        if moral_victory(x1, leg):                           # ❌ 11/24: a close loss is never a reason
+            return "", Q_MORAL
         new, w = wording(x1, cx, leg)
         if sw:
             w = "; ".join(y for y in (Q_PRICE if "price" in sw else sw, w) if y)
@@ -1576,6 +1595,9 @@ def check_one(pk, leg, line, games=None, where="render"):
     if not line:
         return ""
     cx = ctx_of(pk, leg)
+    if moral_victory(line, leg):                             # ❌ 11/24: a close loss never sits under a pick
+        note(cx["date"], leg, Q_MORAL, line, where)
+        return ""
     line0 = line
     line, mv = _no_move(line)
     if mv:

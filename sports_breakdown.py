@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 87          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 88          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 #   (86 - 11/23 EVERY REASON ON THE CARD, the owner: "they're really short and vague on some of them. We need to be more
 #    thorough on these breakdowns, on why we're choosing them, and sell our picks" - every reason a college hoops leg
 #    carries has its fact line (the man who sat, the hot threes, the glass, the schedule the ratings stand on - who they
