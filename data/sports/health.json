@@ -1,28 +1,43 @@
 {
- "at": "2026-11-25T14:11Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-11-25T16:09Z",
+ "fixes": [
+  "slate check problem - re-pull before the board - started sports.yml",
+  "tennis slate due (8am PT) and not up - sports.yml already running"
+ ],
+ "problems": [
+  "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+ ],
  "ok": [
-  "live watcher fresh (146s)",
+  "live watcher fresh (125s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 1 live cards, 3 lines - nothing false, outdated or senseless",
-  "double check: 0 injury / starter / price claims on 0 live cards - 0 confirmed by a second source, 0 single-sourced, 0 waiting on a game-day word",
-  "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
+  "card audit: 3 live cards, 22 lines - nothing false, outdated or senseless",
+  "double check: 3 injury / starter / price claims on 2 live cards - 1 confirmed by a second source, 2 single-sourced, 0 waiting on a game-day word \u00b7 single: Kennesaw St card (2026-11-25): E. Ellis out - only Covers says so; Providence card (2026-11-25): the price -115 - no second source lists this game",
+  "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 5.0, unit cards under the floor: 0)",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 9 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 1 min ago",
   "pacer running",
-  "tennis slate on time"
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T16:09Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
   {
    "at": "2026-11-25T14:11Z",
    "fixes": [],
@@ -571,11 +586,6 @@
   },
   {
    "at": "2026-11-24T08:53Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T08:51Z",
    "fixes": [],
    "problems": []
   }
