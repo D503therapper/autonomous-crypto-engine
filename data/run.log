@@ -29179,3 +29179,23 @@ $SAVA: No data found, symbol may be delisted
    [alert] Today -22.25 | Total -63.42: Stocks: $449.57  today -1.43  total -50.43
 DEX: $987.00  today -20.83  total -13.00
 DEX: $987.00 (-13.00) · Scammed: 0
+   dex screen: REJECT DRV@ethereum liq $970,283 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%; lp locked 0% < 95%
+   dex screen: REJECT DRV@solana liq $382,405,478 - top-10 holders 100%
+   dex screen: REJECT DRV@base liq $2,897,263 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 54%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex re-screen: XTO@solana:91GG7PWs data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,006 pools (solana 1,966 / base 646 / ethereum 394), refresh cycle 125s (hot 120s), 2984 calls (111 feed, 429s 0, failed 0), 86,190 refreshed (13389 no pair), +62 added / -54 dropped (dead 49, stale 0, cap 5), movers 2 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT WASTED@base liq $257,586 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+[2026-11-25 23:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/social_heat equity $321.78 (-35.6%) 2 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-25 23:05 UTC] crypto/hold_btc  equity $370.87 (-25.8%) 1 open  market DOWN
+   social heat top: PENGU 37 (37/0/0), ATOM 32 (32/0/0), VVV 31 (27/0/4), DOGE 29 (29/0/0), BTC 21 (21/0/0)
