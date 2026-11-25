@@ -1,13 +1,28 @@
 {
- "updated": "2026-11-25T14:58Z",
+ "updated": "2026-11-25T15:16Z",
  "games": [
+  {
+   "id": "ncaab:401927399",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T15:00Z",
+   "away": "St Bonaventure",
+   "home": "Belmont",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaab:401921702",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Charlotte",
-    "p": 0.708,
+    "p": 0.713,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -23,9 +38,9 @@
     "opp": "Charlotte",
     "market": "spread",
     "line": 8.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.502,
-    "win_p": 0.215,
+    "win_p": 0.21,
     "reasons": []
    }
   },
@@ -487,8 +502,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Akron",
-    "p": 0.646,
-    "tie": 0.04,
+    "p": 0.654,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -503,9 +518,9 @@
     "opp": "App State",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.72,
-    "win_p": 0.72,
+    "odds": -265,
+    "p": 0.73,
+    "win_p": 0.73,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -832,7 +847,7 @@
     "opp": "Dartmouth",
     "market": "spread",
     "line": 11.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.505,
     "win_p": 0.127,
     "reasons": []
@@ -994,7 +1009,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "CSU Northridge",
-    "p": 0.534,
+    "p": 0.509,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1003,16 +1018,16 @@
    "start": "2026-11-25T23:00Z",
    "away": "CSU Northridge",
    "home": "Weber St",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "CSU Northridge",
     "opp": "Weber St",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.578,
-    "win_p": 0.578,
+    "odds": -135,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "opponent on a back-to-back",
      "out-rebounding people by +11.2 a game to their +1.8 - the books don't price the glass (5 of 5 seasons)",
@@ -1115,8 +1130,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "N Kentucky",
-    "p": 0.671,
-    "tie": 0.039,
+    "p": 0.677,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1124,19 +1139,18 @@
    "start": "2026-11-26T00:00Z",
    "away": "Bellarmine",
    "home": "N Kentucky",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "N Kentucky",
-    "opp": "Bellarmine",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.746,
-    "win_p": 0.746,
+    "team": "Bellarmine",
+    "opp": "N Kentucky",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.251,
     "reasons": [
-     "opponent on a back-to-back",
-     "out-rebounding people by +2.4 a game to their -7.8 - the books don't price the glass (5 of 5 seasons)"
+     "rolling off a blowout win"
     ]
    }
   },
@@ -1347,8 +1361,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "George Mason",
-    "p": 0.834,
-    "tie": 0.026,
+    "p": 0.846,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1363,9 +1377,9 @@
     "opp": "George Mason",
     "market": "spread",
     "line": 15.5,
-    "odds": -115,
+    "odds": -105,
     "p": 0.509,
-    "win_p": 0.09,
+    "win_p": 0.08,
     "reasons": []
    }
   },
@@ -1521,7 +1535,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Utah State",
-    "p": 0.587,
+    "p": 0.576,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -1537,9 +1551,9 @@
     "opp": "SMU",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.642,
-    "win_p": 0.642,
+    "odds": -175,
+    "p": 0.628,
+    "win_p": 0.628,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -2105,7 +2119,7 @@
     "opp": "Avalanche",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
+    "odds": -245,
     "p": 0.699,
     "win_p": 0.482,
     "reasons": [
@@ -2270,8 +2284,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacific",
-    "p": 0.613,
-    "tie": 0.041,
+    "p": 0.598,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2286,9 +2300,9 @@
     "opp": "Jax State",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.679,
-    "win_p": 0.679,
+    "odds": -205,
+    "p": 0.66,
+    "win_p": 0.66,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -2302,8 +2316,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.853,
-    "tie": 0.024,
+    "p": 0.858,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2320,7 +2334,7 @@
     "line": 16.5,
     "odds": -105,
     "p": 0.51,
-    "win_p": 0.075,
+    "win_p": 0.071,
     "reasons": [
      "off a tune-up against a school that isn't Division I while Hawai'i just played a real game - teams in that spot beat the spread in 8 of 9 seasons"
     ]
@@ -2363,7 +2377,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.509,
+    "p": 0.507,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2379,9 +2393,9 @@
     "opp": "Lions",
     "market": "ml",
     "line": null,
-    "odds": -124,
-    "p": 0.536,
-    "win_p": 0.536,
+    "odds": -122,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": [
      "revenge game"
     ]
@@ -2454,7 +2468,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Iowa State",
-    "p": 0.481,
+    "p": 0.492,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -2470,13 +2484,13 @@
     "opp": "Tennessee",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.504,
-    "win_p": 0.504,
+    "odds": -118,
+    "p": 0.518,
+    "win_p": 0.518,
     "reasons": [
+     "sharp money moving this way",
      "opponent's body clock is off",
-     "out-rebounding people by +10.2 a game to their +4.2 - the books don't price the glass (5 of 5 seasons)",
-     "the turnover matchup is ours by 11.1 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+     "out-rebounding people by +10.2 a game to their +4.2 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
   },
@@ -2595,8 +2609,8 @@
     "market": "ml",
     "line": null,
     "odds": -151,
-    "p": 0.56,
-    "win_p": 0.56,
+    "p": 0.559,
+    "win_p": 0.559,
     "reasons": [
      "the stronger team"
     ]
