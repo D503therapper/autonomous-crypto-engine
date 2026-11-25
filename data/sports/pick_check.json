@@ -30,8 +30,8 @@
    "league": "ncaab",
    "units": 0.5,
    "lean": false,
-   "held": true,
-   "why": "pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+   "held": false,
+   "why": "",
    "checks": {
     "game": "pass",
     "read": "pass",
@@ -41,7 +41,8 @@
     "d1": "pass",
     "stack": "pass",
     "reasons": "pass: 'the stronger team' with the read at 48%, rated +507.8 raw (taken off)",
-    "neutral_site": "fail: a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "neutral_site": "warn: dropped a home line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "price_2nd": "pass",
     "card": "pass"
    }
   },
@@ -68,8 +69,6 @@
    }
   }
  },
- "updated": "2026-11-25T18:19Z",
- "held": [
-  "stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
- ]
+ "updated": "2026-11-25T18:32Z",
+ "held": []
 }
