@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T23:49Z",
+ "updated": "2026-11-25T23:57Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -595,8 +595,8 @@
    "away": "Southern",
    "home": "Nebraska",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -732,125 +732,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nhl:401892789",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Red Wings",
-    "p": 0.435,
-    "tie": 0.293,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-26T00:30Z",
-   "away": "Canucks",
-   "home": "Red Wings",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Red Wings",
-    "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.673,
-    "win_p": 0.673,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909319",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Knicks",
-    "p": 0.568,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-26T00:30Z",
-   "away": "Cavaliers",
-   "home": "Knicks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Knicks",
-    "opp": "Cavaliers",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.627,
-    "win_p": 0.627,
-    "reasons": [
-     "the stronger team",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909320",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Thunder",
-    "p": 0.502,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-26T00:30Z",
-   "away": "Timberwolves",
-   "home": "Thunder",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Thunder",
-    "opp": "Timberwolves",
-    "market": "ml",
-    "line": null,
-    "odds": -135,
-    "p": 0.531,
-    "win_p": 0.531,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401929287",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Mississippi St",
-    "p": 0.573,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-26T00:30Z",
-   "away": "Wake Forest",
-   "home": "Mississippi St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Mississippi St",
-    "opp": "Wake Forest",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.625,
-    "win_p": 0.625,
-    "reasons": [
-     "out-rebounding people by +12.0 a game to their +4.0 - the books don't price the glass (5 of 5 seasons)"
-    ]
-   }
   },
   {
    "id": "ncaab:401920138",
@@ -1007,7 +888,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.509,
+    "p": 0.511,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1023,9 +904,9 @@
     "opp": "Packers",
     "market": "ml",
     "line": null,
-    "odds": -140,
-    "p": 0.541,
-    "win_p": 0.541,
+    "odds": -141,
+    "p": 0.545,
+    "win_p": 0.545,
     "reasons": [
      "the stronger team"
     ]
@@ -1286,7 +1167,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -7.5,
-    "odds": -110,
+    "odds": -106,
     "p": 0.5,
     "win_p": 0.734,
     "reasons": [
@@ -1331,7 +1212,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.547,
+    "p": 0.54,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1347,9 +1228,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.603,
-    "win_p": 0.603,
+    "odds": -155,
+    "p": 0.593,
+    "win_p": 0.593,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -1483,7 +1364,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Clemson",
-    "p": 0.56,
+    "p": 0.568,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1499,9 +1380,9 @@
     "opp": "Colorado St",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.612,
-    "win_p": 0.612,
+    "odds": -175,
+    "p": 0.622,
+    "win_p": 0.622,
     "reasons": [
      "the stronger team"
     ]
