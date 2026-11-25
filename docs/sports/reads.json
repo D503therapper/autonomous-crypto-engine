@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T17:52Z",
+ "updated": "2026-11-25T18:12Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -26,8 +26,8 @@
    "away": "Mercy",
    "home": "Fordham",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -122,32 +122,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401919007",
+   "id": "ncaab:401928831",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Davidson",
-    "p": 0.739,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T18:30Z",
-   "away": "Tulane",
-   "home": "Davidson",
-   "why": "coin_flip",
+   "start": "2026-11-25T17:31Z",
+   "away": "Yale",
+   "home": "Wright St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Tulane",
-    "opp": "Davidson",
-    "market": "spread",
-    "line": 9.5,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.182,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401929406",
@@ -664,7 +651,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.503,
+    "p": 0.496,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -680,9 +667,9 @@
     "opp": "Heat",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -119,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "the stronger team"
     ]
