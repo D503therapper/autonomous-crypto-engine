@@ -507,8 +507,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.674,
-    "win_p": 0.674,
+    "p": 0.675,
+    "win_p": 0.675,
     "reasons": [
      "the stronger team"
     ]
@@ -2486,7 +2486,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.524,
+    "p": 0.521,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2495,7 +2495,7 @@
    "start": "2026-11-27T01:20Z",
    "away": "Chiefs",
    "home": "Bills",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Bills",
@@ -2503,11 +2503,39 @@
     "market": "ml",
     "line": null,
     "odds": -150,
-    "p": 0.564,
-    "win_p": 0.564,
+    "p": 0.559,
+    "win_p": 0.559,
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401920539",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Alabama",
+    "p": 0.795,
+    "tie": 0.03,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T02:00Z",
+   "away": "Kansas St",
+   "home": "Alabama",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Kansas St",
+    "opp": "Alabama",
+    "market": "spread",
+    "line": 13.5,
+    "odds": -118,
+    "p": 0.507,
+    "win_p": 0.126,
+    "reasons": []
    }
   },
   {
@@ -2537,6 +2565,38 @@
     "win_p": 0.659,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401920540",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Gonzaga",
+    "p": 0.612,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T04:30Z",
+   "away": "Gonzaga",
+   "home": "Baylor",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Gonzaga",
+    "opp": "Baylor",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.679,
+    "win_p": 0.679,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win",
+     "opponent's body clock is off"
     ]
    }
   },
