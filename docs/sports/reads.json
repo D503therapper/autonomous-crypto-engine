@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T19:08Z",
+ "updated": "2026-11-25T19:23Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -212,6 +212,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401929406",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T19:00Z",
+   "away": "AR-Pine Bluff",
+   "home": "South Dakota",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401917967",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -250,6 +265,21 @@
    "start": "2026-11-25T19:00Z",
    "away": "J&W",
    "home": "Brown",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921669",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T19:00Z",
+   "away": "LSU",
+   "home": "Arizona St",
    "h1": null,
    "why": "started",
    "done": false,
@@ -413,8 +443,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "FIU",
-    "p": 0.517,
-    "tie": 0.043,
+    "p": 0.508,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -422,19 +452,19 @@
    "start": "2026-11-25T20:30Z",
    "away": "Arkansas St",
    "home": "FIU",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "FIU",
     "opp": "Arkansas St",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -125,
+    "p": 0.54,
+    "win_p": 0.54,
     "reasons": [
-     "sharp money moving this way",
-     "opponent's body clock is off"
+     "opponent's body clock is off",
+     "sharp money moving this way"
     ]
    }
   },
@@ -520,9 +550,9 @@
     "team": "Prairie View",
     "opp": "Marshall",
     "market": "spread",
-    "line": 14.5,
-    "odds": -115,
-    "p": 0.508,
+    "line": 13.5,
+    "odds": -110,
+    "p": 0.507,
     "win_p": 0.092,
     "reasons": [
      "sharp money moving this way"
@@ -1212,7 +1242,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "N Illinois",
-    "p": 0.547,
+    "p": 0.534,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1228,9 +1258,9 @@
     "opp": "SIUE",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.595,
-    "win_p": 0.595,
+    "odds": -155,
+    "p": 0.578,
+    "win_p": 0.578,
     "reasons": [
      "rolling off a blowout win",
      "out-rebounding people by +7.7 a game to their +0.1 - the books don't price the glass (5 of 5 seasons)"
@@ -2076,7 +2106,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.533,
+    "p": 0.547,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -2092,9 +2122,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.582,
-    "win_p": 0.582,
+    "odds": -162,
+    "p": 0.603,
+    "win_p": 0.603,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
