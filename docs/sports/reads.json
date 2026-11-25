@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T20:32Z",
+ "updated": "2026-11-25T20:44Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -422,6 +422,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401928359",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T20:30Z",
+   "away": "Arkansas St",
+   "home": "FIU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401921670",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -482,8 +497,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "76ers",
-    "p": 0.492,
+    "team": "Heat",
+    "p": 0.508,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -495,15 +510,15 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "76ers",
-    "opp": "Heat",
+    "team": "Heat",
+    "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -119,
-    "p": 0.515,
-    "win_p": 0.515,
+    "odds": -125,
+    "p": 0.534,
+    "win_p": 0.534,
     "reasons": [
-     "the stronger team"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1613,7 +1628,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.51,
+    "p": 0.511,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1629,7 +1644,7 @@
     "opp": "Packers",
     "market": "ml",
     "line": null,
-    "odds": -141,
+    "odds": -142,
     "p": 0.544,
     "win_p": 0.544,
     "reasons": [
@@ -1924,7 +1939,7 @@
     "opp": "Ducks",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -218,
     "p": 0.671,
     "win_p": 0.453,
     "reasons": [
@@ -2295,6 +2310,64 @@
     "reasons": [
      "revenge game"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401921673",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "USC",
+    "p": 0.545,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T21:30Z",
+   "away": "Utah State",
+   "home": "USC",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "USC",
+    "opp": "Utah State",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.588,
+    "win_p": 0.588,
+    "reasons": [
+     "opponent's body clock is off"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401917547",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UCLA",
+    "p": 0.67,
+    "tie": 0.039,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T22:00Z",
+   "away": "Saint Mary's",
+   "home": "UCLA",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Saint Mary's",
+    "opp": "UCLA",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -115,
+    "p": 0.501,
+    "win_p": 0.259,
+    "reasons": []
    }
   },
   {
