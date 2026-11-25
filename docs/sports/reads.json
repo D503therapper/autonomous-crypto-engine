@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T17:00Z",
+ "updated": "2026-11-25T17:17Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -11,8 +11,8 @@
    "away": "St Bonaventure",
    "home": "Belmont",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -55,6 +55,51 @@
    "start": "2026-11-25T16:00Z",
    "away": "Rice",
    "home": "Ohio",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920196",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T17:00Z",
+   "away": "PSU Abington",
+   "home": "Saint Joseph's",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401919762",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T17:00Z",
+   "away": "VTSU Randolph",
+   "home": "FDU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920428",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T17:00Z",
+   "away": "Virginia",
+   "home": "Marquette",
    "h1": null,
    "why": "started",
    "done": false,
@@ -981,9 +1026,9 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": 26.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.52,
-    "win_p": 0.02,
+    "win_p": 0.019,
     "reasons": []
    }
   },
@@ -1021,8 +1066,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "N Kentucky",
-    "p": 0.671,
-    "tie": 0.039,
+    "p": 0.684,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1030,19 +1075,18 @@
    "start": "2026-11-26T00:00Z",
    "away": "Bellarmine",
    "home": "N Kentucky",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "N Kentucky",
-    "opp": "Bellarmine",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.746,
-    "win_p": 0.746,
+    "team": "Bellarmine",
+    "opp": "N Kentucky",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.243,
     "reasons": [
-     "opponent on a back-to-back",
-     "out-rebounding people by +2.4 a game to their -7.8 - the books don't price the glass (5 of 5 seasons)"
+     "rolling off a blowout win"
     ]
    }
   },
@@ -1199,7 +1243,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.37,
+    "p": 0.365,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1216,9 +1260,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -245,
-    "p": 0.675,
-    "win_p": 0.458,
-    "reasons": []
+    "p": 0.685,
+    "win_p": 0.469,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1583,7 +1629,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.544,
+    "p": 0.551,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1599,9 +1645,9 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -162,
+    "p": 0.603,
+    "win_p": 0.603,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -2515,7 +2561,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.521,
+    "p": 0.52,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2532,8 +2578,8 @@
     "market": "ml",
     "line": null,
     "odds": -151,
-    "p": 0.559,
-    "win_p": 0.559,
+    "p": 0.558,
+    "win_p": 0.558,
     "reasons": [
      "the stronger team"
     ]
