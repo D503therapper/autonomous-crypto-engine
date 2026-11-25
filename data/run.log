@@ -29064,3 +29064,53 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-25 19:06 UTC] stocks/trend     equity $438.48 (-12.3%) 0 open  market DOWN
 [2026-11-25 19:06 UTC] stocks/hold_spy  equity $470.10 (-6.0%) 1 open  market DOWN
    social heat top: BTC 35 (35/0/0), MON 29 (29/0/0), SOL 28 (21/0/7), PENGU 27 (27/0/0), XRP 19 (19/0/0)
+   dex screen: REJECT SPCX@solana liq $2,378,621 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 42%
+   dex screen: REJECT SOGNI@base liq $467,001 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 106%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: XTO@solana:91GG7PWs data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT XMR@solana liq $38,316 - liquidity $38,316 < $100,000; 24h volume $4,669 < $100,000
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT SUPER@ethereum liq $2,276,016 - is_mintable; top-10 holders 54%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: REJECT POLYMARKET@solana liq $170,311 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 75%; lp holders unknown
+   dex re-screen: XTO@solana:91GG7PWs data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT EURC@ethereum liq $247,594 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 47%; lp locked 0% < 95%
+   dex screen: REJECT ZRO@ethereum liq $149,663 - lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,976 / base 627 / ethereum 397), refresh cycle 129s (hot 125s), 2909 calls (108 feed, 429s 0, failed 0), 84,029 refreshed (11795 no pair), +57 added / -57 dropped (dead 16, stale 0, cap 41), movers 2 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT ZEC@solana liq $1,650,344,951 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $1,382,791,999 - top-10 holders 100%
+   dex screen: UNREACHABLE ZEC@solana liq $973,234,171 - goplus unreachable
+   dex screen: UNREACHABLE ZEC@solana liq $3,084,045 - goplus unreachable
+[2026-11-25 20:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/social_heat equity $319.66 (-36.1%) 2 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-25 20:05 UTC] crypto/hold_btc  equity $370.57 (-25.9%) 1 open  market DOWN
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-25 20:06 UTC] stocks/rsi2      equity $449.26 (-10.1%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): AVGO 19, AMD 21, COST 22 BUY, MSTR 24
+[2026-11-25 20:06 UTC] stocks/breakout52 equity $449.89 (-10.0%) 2 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-25 20:06 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 46.18 vs its 200-day average 65.37: BELOW (cash)
+[2026-11-25 20:06 UTC] stocks/dual_momentum equity $437.13 (-12.6%) 2 open  market DOWN
+[2026-11-25 20:06 UTC] stocks/trend_ensemble equity $490.72 (-1.9%) 0 open  market DOWN
+[2026-11-25 20:06 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-25 20:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-25 20:06 UTC] stocks/trend     equity $438.48 (-12.3%) 0 open  market DOWN
+[2026-11-25 20:06 UTC] stocks/hold_spy  equity $469.24 (-6.2%) 1 open  market DOWN
+   social heat top: PENGU 35 (35/0/0), MON 29 (29/0/0), VVV 24 (21/0/3), BTC 24 (24/0/0), PONS 20 (11/0/10)
