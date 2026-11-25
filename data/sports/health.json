@@ -1,5 +1,5 @@
 {
- "at": "2026-11-25T23:27Z",
+ "at": "2026-11-25T23:28Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
@@ -17,7 +17,7 @@
   "workflow failed: sports 2026-11-25T22:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717728319"
  ],
  "ok": [
-  "live watcher fresh (79s)",
+  "live watcher fresh (239s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -31,11 +31,30 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T23:28Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Sierra: no points for 2776s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "workflow failed: sports 2026-11-25T23:17 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45720217336",
+    "workflow failed: sports 2026-11-25T23:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719837385",
+    "workflow failed: sports 2026-11-25T23:09 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719136521",
+    "workflow failed: sports 2026-11-25T23:04 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45718437710",
+    "workflow failed: sports 2026-11-25T22:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717728319"
+   ]
+  },
   {
    "at": "2026-11-25T23:27Z",
    "fixes": [
@@ -702,18 +721,6 @@
    "at": "2026-11-24T16:33Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs De Reales: no points for 280s",
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 280s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T16:30Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
    ],
    "problems": [
     "live tennis scores: tennis Cinalli vs De Reales: no points for 280s",
