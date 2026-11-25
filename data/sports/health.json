@@ -1,19 +1,19 @@
 {
- "at": "2026-11-25T20:07Z",
+ "at": "2026-11-25T20:14Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Geerlings vs Linana: no points for 2653s",
-  "live tennis scores: tennis Riera vs Oz: no points for 1708s",
+  "live tennis scores: tennis Geerlings vs Linana: no points for 384s",
+  "live tennis scores: tennis Riera vs Oz: no points for 384s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route",
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
  ],
  "ok": [
-  "live watcher fresh (157s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,16 +23,31 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 3 min ago",
+  "engine ran 10 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T20:14Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Geerlings vs Linana: no points for 384s",
+    "live tennis scores: tennis Riera vs Oz: no points for 384s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
   {
    "at": "2026-11-25T20:07Z",
    "fixes": [
@@ -669,15 +684,6 @@
    "problems": [
     "live tennis scores: tennis Samson vs Bosio: no points for 2351s",
     "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 2351s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-24T14:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Samson vs Bosio: no points for 1756s",
-    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 1756s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
