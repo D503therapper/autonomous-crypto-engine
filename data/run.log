@@ -28605,3 +28605,33 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-11-25 07:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-25 07:06 UTC] crypto/hold_btc  equity $366.52 (-26.7%) 1 open  market DOWN
    social heat top: MON 40 (40/0/0), HYPE 37 (37/0/0), BIGTIME 35 (35/0/0), BTC 32 (32/0/0), SOL 29 (29/0/0)
+   dex screen: REJECT NATIX@solana liq $172,782 - top-10 holders 59%; lp holders unknown
+   dex screen: PASS BOOBS@solana liq $103,246
+   dex screen: REJECT BP@solana liq $1,249,791,624 - top-10 holders 100%
+   dex screen: REJECT BP@solana liq $1,029,734,227 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT OPENAI@solana liq $75,499 - liquidity $75,499 < $100,000; 24h volume $32,899 < $100,000
+   dex screen: REJECT ACT@solana liq $1,110,484 - top-10 holders 81%
+   dex screen: REJECT KNTQ@base liq $67 - liquidity $67 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT STONK@solana liq $782,278 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex re-screen: XTO@solana:91GG7PWs data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT RAY@solana liq $3,318,139 - 24h volume $81,374 < $100,000
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SPCXC@base liq $1,030,442 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT AAVE@ethereum liq $304,627 - goplus partial data: cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT SPCXC@base liq $1,035,905 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 74%; lp locked 0% < 95%
+   dex screen: REJECT SNDKC@base liq $1,408,664 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex scanner: 2,737 pools (solana 1,814 / base 557 / ethereum 366), refresh cycle 116s (hot 111s), 2927 calls (109 feed, 429s 0, failed 0), 84,536 refreshed (9211 no pair), +73 added / -98 dropped (dead 94, stale 4, cap 0), movers 2 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-25 08:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/social_heat equity $309.81 (-38.0%) 2 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-25 08:06 UTC] crypto/hold_btc  equity $364.70 (-27.1%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), MON 35 (35/0/0), HYPE 32 (32/0/0), BIGTIME 29 (29/0/0), PENGU 27 (27/0/0)
