@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T20:44Z",
+ "updated": "2026-11-25T21:02Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -101,8 +101,8 @@
    "away": "Virginia",
    "home": "Marquette",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -251,8 +251,8 @@
    "away": "Grace Chrstn",
    "home": "W Michigan",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -266,8 +266,8 @@
    "away": "J&W",
    "home": "Brown",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -362,21 +362,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401920809",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T19:30Z",
-   "away": "Texas A&M",
-   "home": "Xavier",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
    "id": "ncaab:401928836",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -437,34 +422,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401921670",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "USC",
-    "p": 0.765,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T21:30Z",
-   "away": "South Carolina",
-   "home": "USC",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "South Carolina",
-    "opp": "USC",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -112,
-    "p": 0.504,
-    "win_p": 0.155,
-    "reasons": []
-   }
-  },
-  {
    "id": "ncaab:401925688",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -485,9 +442,9 @@
     "team": "Alcorn St",
     "opp": "Texas St",
     "market": "spread",
-    "line": 26.5,
+    "line": 27.5,
     "odds": -112,
-    "p": 0.52,
+    "p": 0.521,
     "win_p": 0.018,
     "reasons": []
    }
@@ -518,7 +475,8 @@
     "p": 0.534,
     "win_p": 0.534,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent drama: illness"
     ]
    }
   },
@@ -770,8 +728,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Syracuse",
-    "p": 0.942,
-    "tie": 0.012,
+    "p": 0.934,
+    "tie": 0.013,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -785,11 +743,13 @@
     "team": "UAlbany",
     "opp": "Syracuse",
     "market": "spread",
-    "line": 25.5,
-    "odds": -110,
-    "p": 0.519,
-    "win_p": 0.02,
-    "reasons": []
+    "line": 24.5,
+    "odds": -108,
+    "p": 0.518,
+    "win_p": 0.023,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -826,8 +786,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "N Kentucky",
-    "p": 0.677,
-    "tie": 0.038,
+    "p": 0.671,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -835,18 +795,19 @@
    "start": "2026-11-26T00:00Z",
    "away": "Bellarmine",
    "home": "N Kentucky",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Bellarmine",
-    "opp": "N Kentucky",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.251,
+    "team": "N Kentucky",
+    "opp": "Bellarmine",
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.746,
+    "win_p": 0.746,
     "reasons": [
-     "rolling off a blowout win"
+     "opponent on a back-to-back",
+     "out-rebounding people by +2.4 a game to their -7.8 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
   },
@@ -1420,7 +1381,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.498,
+    "p": 0.494,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1436,9 +1397,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.525,
-    "win_p": 0.525,
+    "odds": -125,
+    "p": 0.518,
+    "win_p": 0.518,
     "reasons": []
    }
   },
@@ -2407,7 +2368,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "LSU",
-    "p": 0.666,
+    "p": 0.669,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2416,16 +2377,16 @@
    "start": "2026-11-27T00:00Z",
    "away": "SMU",
    "home": "LSU",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "LSU",
-    "opp": "SMU",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.74,
-    "win_p": 0.74,
+    "team": "SMU",
+    "opp": "LSU",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -108,
+    "p": 0.5,
+    "win_p": 0.261,
     "reasons": []
    }
   },
