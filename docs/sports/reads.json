@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T18:39Z",
+ "updated": "2026-11-25T19:00Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -71,8 +71,8 @@
    "away": "PSU Abington",
    "home": "Saint Joseph's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -86,8 +86,8 @@
    "away": "VTSU Randolph",
    "home": "FDU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -197,66 +197,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401921715",
+   "id": "ncaab:401919007",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Arizona",
-    "p": 0.629,
-    "tie": 0.041,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T19:30Z",
-   "away": "Ole Miss",
-   "home": "Arizona",
-   "why": "tight",
+   "start": "2026-11-25T18:30Z",
+   "away": "Tulane",
+   "home": "Davidson",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Arizona",
-    "opp": "Ole Miss",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.695,
-    "win_p": 0.695,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win",
-     "opponent's body clock is off"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920809",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Texas A&M",
-    "p": 0.581,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T19:30Z",
-   "away": "Texas A&M",
-   "home": "Xavier",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Texas A&M",
-    "opp": "Xavier",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.639,
-    "win_p": 0.639,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401928836",
@@ -609,7 +562,7 @@
     "opp": "Dartmouth",
     "market": "spread",
     "line": 11.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.505,
     "win_p": 0.121,
     "reasons": []
@@ -980,7 +933,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.394,
+    "p": 0.388,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -997,8 +950,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -198,
-    "p": 0.628,
-    "win_p": 0.408,
+    "p": 0.639,
+    "win_p": 0.419,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1068,7 +1021,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.365,
+    "p": 0.36,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1085,8 +1038,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -245,
-    "p": 0.685,
-    "win_p": 0.469,
+    "p": 0.695,
+    "win_p": 0.48,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1782,7 +1735,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.659,
+    "p": 0.651,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1800,7 +1753,7 @@
     "line": -9.5,
     "odds": -104,
     "p": 0.501,
-    "win_p": 0.753,
+    "win_p": 0.743,
     "reasons": [
      "the stronger team"
     ]
@@ -2312,7 +2265,7 @@
     "line": 8.5,
     "odds": -108,
     "p": 0.505,
-    "win_p": 0.232,
+    "win_p": 0.231,
     "reasons": [
      "revenge game"
     ]
@@ -2416,8 +2369,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Alabama",
-    "p": 0.777,
-    "tie": 0.031,
+    "p": 0.803,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2431,10 +2384,10 @@
     "team": "Kansas St",
     "opp": "Alabama",
     "market": "spread",
-    "line": 13.5,
-    "odds": -118,
-    "p": 0.507,
-    "win_p": 0.138,
+    "line": 14.5,
+    "odds": -110,
+    "p": 0.508,
+    "win_p": 0.114,
     "reasons": []
    }
   },
@@ -2444,7 +2397,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St John's",
-    "p": 0.59,
+    "p": 0.579,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -2460,9 +2413,9 @@
     "opp": "Louisville",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.647,
-    "win_p": 0.647,
+    "odds": -180,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -2508,8 +2461,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas Tech",
-    "p": 0.72,
-    "tie": 0.036,
+    "p": 0.729,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2523,10 +2476,10 @@
     "team": "Oregon",
     "opp": "Texas Tech",
     "market": "spread",
-    "line": 8.5,
-    "odds": -105,
-    "p": 0.502,
-    "win_p": 0.198,
+    "line": 9.5,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.189,
     "reasons": [
      "opponent's body clock is off"
     ]
