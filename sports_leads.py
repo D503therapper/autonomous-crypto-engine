@@ -565,6 +565,7 @@ def tags(c, sports):
     t += daily_1122_tags(c, sports)                          # 11/22 daily studies: the NBA paint weight's two forward records
     t += daily_1123_tags(c, sports)                          # 11/23 daily studies: the hockey dog that gives the puck away / got shelled
     t += daily_1124_tags(c, sports)                          # 11/24 daily studies: the deep hoops team on its second day, the pros' home / road split
+    t += daily_1125_tags(c, sports)                          # 11/25 daily studies: the college hoops second-half road team (LEADS)
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1165,6 +1166,36 @@ def daily_1124_tags(c, sports):
                 t.append(NHL_SPLIT_ROAD_TAG)
             if lg == "nba" and c.get("home_heavy_road") and 100 <= o <= 350:
                 t.append(NBA_HOME_HEAVY_DOG_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+NCAAB_2H_HOME_PTS_TAG = "college hoops home spread side getting points across a second-half road team (lead)"   # 11/25 daily S9:
+NCAAB_2H_HOME_DOG_TAG = "college hoops home dog across a second-half road favorite (lead)"                        # LEADS, judge at 60 each
+NCAAB_2H_ROAD_FAV_TAG = "college hoops second-half road team laying points (fade) (lead)"                         # ... the mirror
+
+
+def daily_1125_tags(c, sports):
+    """11/25 daily studies S9: the college hoops second-half team (second-half margin minus first-half margin a game,
+    the league's top fifth) as a road favorite - sports.mark_halves' stamps; three LEADS (the home side getting points
+    across it, the home dog +100..+350 across it, the road team laying points), never read by the board."""
+    try:
+        if c.get("league") != "ncaab" or sports.pt_day(c) < sports.HALVES_FROM:
+            return []
+        t = []
+        mk, o = c.get("market"), c.get("odds") or 0
+        try:
+            line = float(c.get("line"))
+        except (TypeError, ValueError):
+            line = None
+        if mk == "spread" and line is not None:
+            if c.get("vs_second_half_road") and line > 0:
+                t.append(NCAAB_2H_HOME_PTS_TAG)
+            if c.get("second_half_road") and line < 0:
+                t.append(NCAAB_2H_ROAD_FAV_TAG)
+        if mk == "ml" and c.get("vs_second_half_road") and 100 <= o <= 350:
+            t.append(NCAAB_2H_HOME_DOG_TAG)
         return t
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
@@ -1886,6 +1917,7 @@ def spread_tags(c, sports):
     t += daily_1113_spread_tags(c, sports)                   # 11/13 DAILY: one built weight's record + three spread LEADS
     t += daily_1120_tags(c, sports)                          # 11/20 DAILY: the non-D1 tune-up weight's record + the late-quarter closer (a LEAD)
     t += daily_1124_tags(c, sports)                          # 11/24 DAILY: the deep team on its second day - the built stack weight's two cover records
+    t += daily_1125_tags(c, sports)                          # 11/25 DAILY: the second-half road team laying points / the home side getting them (LEADS)
     return t
 
 

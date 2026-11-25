@@ -129,11 +129,30 @@ RESTRICT_NOTE = ("minutes restriction", "minute restriction", "minutes limit", "
                  "restricted minutes", "on a minutes", "limited")
 
 
+_PLAY_NOTE_RX = re.compile(r"(?<![a-z])(?:" + "|".join(re.escape(w) for w in PLAY_NOTE) + r")(?![a-z])")
+_NOT_PLAYING = re.compile(r"\b(?:not|never|no longer|if|whether|unless|until|once|when|should|unclear|uncertain|unsure|unknown|"
+                          r"unlikely|doubt|doubtful|could|may|might|would|hopes?|hoping|aims?|aiming|chance|possible|possibly|"
+                          r"remains to be seen|to be determined|decision)\b|n't\b|\b(?:was|were|been) available")
+
+
+def says_playing(note):
+    """11/25 (the Magic +114 ½u NBA floor play posted with the Pistons' Cade Cunningham - their top scorer - day-to-day;
+    he was ruled out an hour later): does the report's note SAY the man plays? The old test was a bare substring -
+    "available" sat inside "unavailable", "will play" inside "it's unclear if he will play", "probable" inside
+    "improbable" - and such a note read a coin-flip man as 95% to play, so a key man's hold never fired. Now: the
+    phrase as whole words, in a clause (comma / semicolon / sentence) that carries no hedge and no 'not' / 'if'."""
+    for clause in re.split(r"[.;,!?]| but | though | although | however ", str(note or "").lower()):
+        m = _PLAY_NOTE_RX.search(clause)
+        if m and not _NOT_PLAYING.search(clause):
+            return True
+    return False
+
+
 def play_chance(status, note=""):
     """How much of a player the report leaves us: probable 0.95, questionable 0.5, doubtful 0.25, out 0.
     A questionable note saying he's expected to play = 0.95 (the owner, 10/20)."""
-    s, n = str(status or "").lower(), str(note or "").lower()
-    if any(w in n for w in PLAY_NOTE) and "doubtful" not in s and "out" not in s.split():
+    s = str(status or "").lower()
+    if says_playing(note) and "doubtful" not in s and "out" not in s.split():
         return PLAY["probable"]
     for k, v in PLAY.items():
         if k in s:
