@@ -1,23 +1,20 @@
 {
- "at": "2026-11-25T18:14Z",
+ "at": "2026-11-25T18:21Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Erjavec vs Trevisan: no points for 491s",
-  "live tennis scores: tennis Carle vs Guidi: no points for 242s",
+  "live tennis scores: tennis Erjavec vs Trevisan: no points for 840s",
+  "live tennis scores: tennis Carle vs Guidi: no points for 591s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route",
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "studies last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (53s)",
+  "live watcher fresh (106s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -30,11 +27,28 @@
   "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
+  "simulator ran 0h ago",
   "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T18:21Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Trevisan: no points for 840s",
+    "live tennis scores: tennis Carle vs Guidi: no points for 591s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-25T18:14Z",
    "fixes": [
@@ -629,11 +643,6 @@
   },
   {
    "at": "2026-11-24T12:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T12:40Z",
    "fixes": [],
    "problems": []
   }
