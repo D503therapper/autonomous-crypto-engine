@@ -1,11 +1,11 @@
 {
- "at": "2026-11-25T23:18Z",
+ "at": "2026-11-25T23:19Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Monnet vs Sierra: no points for 2079s",
+  "live tennis scores: tennis Monnet vs Sierra: no points for 2410s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
@@ -17,7 +17,7 @@
   "workflow failed: sports 2026-11-25T22:54 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717121391"
  ],
  "ok": [
-  "live watcher fresh (267s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -26,16 +26,35 @@
   "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 5.2, unit cards under the floor: 0)",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 2 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T23:19Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Sierra: no points for 2410s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "workflow failed: sports 2026-11-25T23:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719837385",
+    "workflow failed: sports 2026-11-25T23:09 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719136521",
+    "workflow failed: sports 2026-11-25T23:04 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45718437710",
+    "workflow failed: sports 2026-11-25T22:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717728319",
+    "workflow failed: sports 2026-11-25T22:54 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717121391"
+   ]
+  },
   {
    "at": "2026-11-25T23:18Z",
    "fixes": [
@@ -694,15 +713,6 @@
     "live tennis scores: tennis Linana vs Bronzetti: no points for 280s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route",
     "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T14:53Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Samson vs Bosio: no points for 2351s",
-    "live tennis scores: tennis Erjavec vs Kulambayeva: no points for 2351s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
  ]
