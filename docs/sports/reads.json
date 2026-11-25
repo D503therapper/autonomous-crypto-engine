@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T21:02Z",
+ "updated": "2026-11-25T21:00Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -326,8 +326,8 @@
    "away": "Saint Peter's",
    "home": "Columbia",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -341,8 +341,8 @@
    "away": "Warner",
    "home": "North Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -455,7 +455,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.508,
+    "p": 0.507,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -472,11 +472,10 @@
     "market": "ml",
     "line": null,
     "odds": -125,
-    "p": 0.534,
-    "win_p": 0.534,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": [
-     "sharp money moving this way",
-     "opponent drama: illness"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1852,8 +1851,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.624,
-    "tie": 0.034,
+    "p": 0.662,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1861,20 +1860,19 @@
    "start": "2026-11-26T03:00Z",
    "away": "Kings",
    "home": "Warriors",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Warriors",
     "opp": "Kings",
-    "market": "ml",
-    "line": null,
-    "odds": -264,
-    "p": 0.707,
-    "win_p": 0.707,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -105,
+    "p": 0.5,
+    "win_p": 0.757,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+     "sharp money moving this way"
     ]
    }
   },
@@ -2028,6 +2026,36 @@
     "win_p": 0.065,
     "reasons": [
      "off a tune-up against a school that isn't Division I while Hawai'i just played a real game - teams in that spot beat the spread in 8 of 9 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401921672",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Saint Louis",
+    "p": 0.581,
+    "tie": 0.042,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T04:59Z",
+   "away": "Stanford",
+   "home": "Saint Louis",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Saint Louis",
+    "opp": "Stanford",
+    "market": "ml",
+    "line": null,
+    "odds": -180,
+    "p": 0.635,
+    "win_p": 0.635,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
