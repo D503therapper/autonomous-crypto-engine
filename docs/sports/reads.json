@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T00:37Z",
+ "updated": "2026-11-25T00:51Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -338,8 +338,8 @@
    "away": "Kent State",
    "home": "Wyoming",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -924,6 +924,81 @@
    "lean": null
   },
   {
+   "id": "ncaab:401925687",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "Alcorn St",
+   "home": "Louisiana Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401929351",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "Arlington Bapt",
+   "home": "East Texas A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917983",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "Hou Christian",
+   "home": "UL Monroe",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926154",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "Purdue FW",
+   "home": "SE Missouri",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917904",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T00:30Z",
+   "away": "West Georgia",
+   "home": "Tennessee Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401911535",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1460,7 +1535,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Stony Brook",
-    "p": 0.748,
+    "p": 0.74,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1478,7 +1553,7 @@
     "line": 10.5,
     "odds": -115,
     "p": 0.504,
-    "win_p": 0.173,
+    "win_p": 0.181,
     "reasons": []
    }
   },
@@ -1629,6 +1704,34 @@
    }
   },
   {
+   "id": "ncaab:401928359",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "FIU",
+    "p": 0.495,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T20:30Z",
+   "away": "Arkansas St",
+   "home": "FIU",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "FIU",
+    "opp": "Arkansas St",
+    "market": "ml",
+    "line": null,
+    "odds": -118,
+    "p": 0.522,
+    "win_p": 0.522,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401924737",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1664,8 +1767,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "USC",
-    "p": 0.756,
-    "tie": 0.033,
+    "p": 0.765,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1679,10 +1782,10 @@
     "team": "South Carolina",
     "opp": "USC",
     "market": "spread",
-    "line": 10.5,
-    "odds": -108,
-    "p": 0.504,
-    "win_p": 0.165,
+    "line": 11.5,
+    "odds": -115,
+    "p": 0.505,
+    "win_p": 0.155,
     "reasons": []
    }
   },
@@ -2072,7 +2175,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Utah State",
-    "p": 0.624,
+    "p": 0.615,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -2088,9 +2191,9 @@
     "opp": "SMU",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.689,
-    "win_p": 0.689,
+    "odds": -218,
+    "p": 0.678,
+    "win_p": 0.678,
     "reasons": [
      "the stronger team",
      "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
@@ -2126,12 +2229,42 @@
    }
   },
   {
+   "id": "ncaab:401920847",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UNC Wilmington",
+    "p": 0.69,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T00:00Z",
+   "away": "St Thomas",
+   "home": "UNC Wilmington",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "St Thomas",
+    "opp": "UNC Wilmington",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -102,
+    "p": 0.5,
+    "win_p": 0.236,
+    "reasons": [
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401909568",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UConn",
-    "p": 0.539,
+    "p": 0.524,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2147,13 +2280,13 @@
     "opp": "Duke",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -142,
+    "p": 0.565,
+    "win_p": 0.565,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "the turnover matchup is ours by 5.8 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+     "the turnover matchup is ours by 5.8 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
   },
@@ -2277,12 +2410,40 @@
    }
   },
   {
+   "id": "ncaab:401920138",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pepperdine",
+    "p": 0.762,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T01:00Z",
+   "away": "Bakersfield",
+   "home": "Pepperdine",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Bakersfield",
+    "opp": "Pepperdine",
+    "market": "spread",
+    "line": 11.5,
+    "odds": -118,
+    "p": 0.505,
+    "win_p": 0.159,
+    "reasons": []
+   }
+  },
+  {
    "id": "nhl:401892791",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.391,
+    "p": 0.386,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2299,8 +2460,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.638,
-    "win_p": 0.422,
+    "p": 0.649,
+    "win_p": 0.433,
     "reasons": []
    }
   },
