@@ -883,6 +883,35 @@ def nba_plays_through(name):
         return False
 
 
+def nba_through(g, injuries):
+    """11/25 (the Magic +114 ½u: Cade Cunningham, the Pistons' top scorer, was day-to-day at the post and nothing in the
+    run log said why the pick did not wait on him): {man: why} for every KEY questionable / day-to-day NBA man the hold
+    let through - "the report's note says he plays: '<the note>'" or "plays through it (N of M)". Stamped on the leg
+    ("through") and said in the post's 'injuries seen' line, so the next audit reads the reason instead of guessing."""
+    out = {}
+    if g.get("league") != "nba" or not NBA_KEY_WAIT:
+        return out
+    inj = (injuries or {}).get("nba")
+    if not inj:
+        return out
+    try:
+        import sports_questionable as sq
+    except Exception:                                        # noqa: BLE001
+        return out
+    for side in ("away", "home"):
+        for u in sd.team_unsure(inj, g[side], g.get(side + "_name") or "", "nba", maybe=True):
+            name = u[0]
+            if not nba_key_man(g, side, name) or not nba_plays_through(name):
+                continue
+            if sq.probable_note(name):
+                note = (((getattr(sd, "INJ_NOTES", {}) or {}).get("nba") or {}).get(sd._plain(name)) or {}).get("note") or ""
+                out[name] = "the report's note says he plays: '" + " ".join(str(note).split())[:140] + "'"
+            else:
+                n, p = sq.history(name)
+                out[name] = f"plays through it ({p} of {n} times questionable)"
+    return out
+
+
 def nba_key_man(g, side, name):
     """🏀 10/28 (the owner, on the Warriors +142 Dog held all day by "Yaxel Lendeborg (F) questionable" - a Timberwolves
     rookie: "Lendeborg is ass. He's not a factor"): is this NBA player a KEY man for this side - one of the team's top 3
@@ -1317,6 +1346,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_tuneup(games, out)                     # 🏀 11/20 daily: off a non-D1 tune-up vs a team off a D1 game (spread rank)
     mark_ncaab_deep(games, out)                       # 🏀 11/24 daily S9: the deep team on its second day (spread stack -/+0.02)
     mark_split(games, out)                            # 🏠 11/24 daily S1 / S2: the pros' home / road split (two tracker leads)
+    mark_halves(games, out)                           # ⏱️ 11/25 daily S9: the college hoops second-half road team (a tracker lead)
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
     mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
     mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
@@ -6077,6 +6107,36 @@ def mark_split(games, cands):
             continue
 
 
+HALVES_FROM = "2026-11-26"         # ⏱️ 11/25 DAILY STUDIES - S9 (sports_second_half.py): the college hoops SECOND-HALF team (second-
+#   half margin minus first-half margin a game, the league's top fifth) as a ROAD favorite - a TRACKER LEAD, no weight:
+#   the home side getting points across it ATS +6.8% on 1,122 (placebo 0 of 2,000), the home dog +4.7% on 915 against
+#   -5.9% - but only the top fifth shows it and a last-10-games read is flat. Stamps only (second_half_road /
+#   vs_second_half_road) - nothing on the board reads them. "9999" = off.
+
+
+def mark_halves(games, cands):
+    """⏱️ 11/25: the second-half road team's two stamps the tracker reads (sports_leads.daily_1125_tags) - never a
+    weight: second_half_road on the ROAD side whose team is a second-half team (true road floor), vs_second_half_road
+    on the home side across it; unknown = nothing; games before HALVES_FROM untouched."""
+    try:
+        import sports_second_half
+    except Exception:                                        # noqa: BLE001
+        return
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") not in ("ml", "spread") or c.get("side") not in ("home", "away") \
+                or pt_day(c) < HALVES_FROM:
+            continue
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or str(g.get("neutral") or "0") == "1" or not g.get("home") or not g.get("away"):
+            continue
+        try:
+            if sports_second_half.second_half_team(games, g["away"], start) is True:
+                c["second_half_road" if c["side"] == "away" else "vs_second_half_road"] = True
+        except Exception:                                    # noqa: BLE001 - a lead never breaks the board
+            continue
+
+
 def mark_ncaab_star_back(games, cands):
     """star_back (the top scorer's 2nd game back - sports_ncaab_roster.star_back) on that side, opp_star_back across
     with the fact as a reason; star_back_who = (name, points a game, games he missed)."""
@@ -9983,8 +10043,16 @@ def post_board(games, model, picks, now, day, force=False):
                 leg["men_side"] = men_sides(leg, g, injuries)
             except Exception:                                   # noqa: BLE001
                 pass
+            thru = {}
+            try:                                                # (11/25: WHY a day-to-day key man did not hold the pick)
+                thru = nba_through(g, injuries)
+                if thru:
+                    leg["through"] = thru
+            except Exception:                                   # noqa: BLE001 - a log line, never a block
+                pass
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
-                  f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
+                  f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}"
+                  + (f" · did not wait on: {thru}" if thru else ""))
 
     # the owner: a day where NOTHING on the slate clears the value bar gets LEANS ONLY (own record, never ours) with a
     # note up top - we don't force picks just to have picks. Decided on the opening board, before anything's posted.

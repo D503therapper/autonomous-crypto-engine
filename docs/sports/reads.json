@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T18:12Z",
+ "updated": "2026-11-25T18:39Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -41,8 +41,8 @@
    "away": "Northern Iowa",
    "home": "Charlotte",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -56,8 +56,8 @@
    "away": "Rice",
    "home": "Ohio",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -137,152 +137,64 @@
    "lean": null
   },
   {
-   "id": "ncaab:401929406",
+   "id": "ncaab:401920067",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "South Dakota",
-    "p": 0.91,
-    "tie": 0.016,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T19:00Z",
-   "away": "AR-Pine Bluff",
-   "home": "South Dakota",
-   "why": "coin_flip",
+   "start": "2026-11-25T18:00Z",
+   "away": "American Int'l",
+   "home": "Rhode Island",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "AR-Pine Bluff",
-    "opp": "South Dakota",
-    "market": "spread",
-    "line": 21.5,
-    "odds": -112,
-    "p": 0.515,
-    "win_p": 0.036,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401917967",
+   "id": "ncaab:401911029",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "S Dakota St",
-    "p": 0.674,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T19:00Z",
-   "away": "Abilene Chrstn",
-   "home": "S Dakota St",
-   "why": "coin_flip",
+   "start": "2026-11-25T18:00Z",
+   "away": "E Kentucky",
+   "home": "Miami OH",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Abilene Chrstn",
-    "opp": "S Dakota St",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.255,
-    "reasons": [
-     "sharp money moving this way",
-     "off a tune-up against a school that isn't Division I while S Dakota St just played a real game - teams in that spot beat the spread in 8 of 9 seasons"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401921669",
+   "id": "ncaab:401926835",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "LSU",
-    "p": 0.583,
-    "tie": 0.042,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T19:00Z",
-   "away": "LSU",
-   "home": "Arizona St",
-   "why": "tight",
+   "start": "2026-11-25T18:00Z",
+   "away": "Lindenwood",
+   "home": "Stony Brook",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "LSU",
-    "opp": "Arizona St",
-    "market": "ml",
-    "line": null,
-    "odds": -198,
-    "p": 0.641,
-    "win_p": 0.641,
-    "reasons": [
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401920868",
+   "id": "ncaab:401924268",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "NJIT",
-    "p": 0.509,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T19:00Z",
-   "away": "Manhattan",
-   "home": "NJIT",
-   "why": "coin_flip",
+   "start": "2026-11-25T18:00Z",
+   "away": "Southern Utah",
+   "home": "Long Beach St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "NJIT",
-    "opp": "Manhattan",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.541,
-    "win_p": 0.541,
-    "reasons": [
-     "opponent's body clock is off"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401924705",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Columbia",
-    "p": 0.841,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T19:00Z",
-   "away": "Saint Peter's",
-   "home": "Columbia",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Saint Peter's",
-    "opp": "Columbia",
-    "market": "spread",
-    "line": 13.5,
-    "odds": -110,
-    "p": 0.507,
-    "win_p": 0.084,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401921715",
@@ -352,7 +264,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Akron",
-    "p": 0.612,
+    "p": 0.621,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -361,16 +273,16 @@
    "start": "2026-11-25T20:00Z",
    "away": "Akron",
    "home": "App State",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Akron",
     "opp": "App State",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.678,
-    "win_p": 0.678,
+    "odds": -230,
+    "p": 0.69,
+    "win_p": 0.69,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -632,8 +544,8 @@
    "start": "2026-11-25T22:00Z",
    "away": "Alcorn St",
    "home": "Texas St",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Alcorn St",
     "opp": "Texas St",
@@ -941,7 +853,7 @@
     "line": 26.5,
     "odds": -105,
     "p": 0.52,
-    "win_p": 0.019,
+    "win_p": 0.02,
     "reasons": []
    }
   },
@@ -1202,7 +1114,7 @@
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -175,
+    "odds": -180,
     "p": 0.618,
     "win_p": 0.401,
     "reasons": []
@@ -1288,9 +1200,9 @@
     "team": "Norfolk St",
     "opp": "NC State",
     "market": "spread",
-    "line": 28.5,
-    "odds": -112,
-    "p": 0.522,
+    "line": 27.5,
+    "odds": -105,
+    "p": 0.521,
     "win_p": 0.017,
     "reasons": []
    }
@@ -1480,7 +1392,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UConn",
-    "p": 0.495,
+    "p": 0.492,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1496,9 +1408,9 @@
     "opp": "Duke",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.524,
-    "win_p": 0.524,
+    "odds": -120,
+    "p": 0.519,
+    "win_p": 0.519,
     "reasons": [
      "the stronger team",
      "the turnover matchup is ours by 5.8 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
@@ -1542,8 +1454,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.544,
-    "tie": 0.036,
+    "p": 0.506,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1551,16 +1463,16 @@
    "start": "2026-11-26T00:30Z",
    "away": "Cavaliers",
    "home": "Knicks",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Knicks",
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -121,
+    "p": 0.536,
+    "win_p": 0.536,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -1573,7 +1485,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.494,
+    "p": 0.498,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1589,9 +1501,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": -130,
+    "p": 0.525,
+    "win_p": 0.525,
     "reasons": []
    }
   },
@@ -1631,7 +1543,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pepperdine",
-    "p": 0.738,
+    "p": 0.742,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1647,9 +1559,9 @@
     "opp": "Pepperdine",
     "market": "spread",
     "line": 9.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.503,
-    "win_p": 0.183,
+    "win_p": 0.179,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1781,7 +1693,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.512,
+    "p": 0.51,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1797,9 +1709,9 @@
     "opp": "Packers",
     "market": "ml",
     "line": null,
-    "odds": -143,
-    "p": 0.546,
-    "win_p": 0.546,
+    "odds": -141,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "the stronger team"
     ]
@@ -2076,7 +1988,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.381,
+    "p": 0.375,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2093,8 +2005,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.658,
-    "win_p": 0.441,
+    "p": 0.671,
+    "win_p": 0.453,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -2137,8 +2049,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "VCU",
-    "p": 0.606,
-    "tie": 0.041,
+    "p": 0.588,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2153,9 +2065,9 @@
     "opp": "Washington",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.667,
-    "win_p": 0.667,
+    "odds": -185,
+    "p": 0.644,
+    "win_p": 0.644,
     "reasons": [
      "the stronger team"
     ]
@@ -2229,7 +2141,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Clemson",
-    "p": 0.54,
+    "p": 0.56,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2238,16 +2150,16 @@
    "start": "2026-11-26T05:30Z",
    "away": "Clemson",
    "home": "Colorado St",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Clemson",
     "opp": "Colorado St",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.586,
-    "win_p": 0.586,
+    "odds": -166,
+    "p": 0.612,
+    "win_p": 0.612,
     "reasons": [
      "the stronger team"
     ]
@@ -2289,8 +2201,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Maryland",
-    "p": 0.51,
-    "tie": 0.043,
+    "p": 0.613,
+    "tie": 0.041,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2298,20 +2210,19 @@
    "start": "2026-11-26T18:00Z",
    "away": "San Diego St",
    "home": "Maryland",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Maryland",
     "opp": "San Diego St",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.542,
-    "win_p": 0.542,
+    "odds": -225,
+    "p": 0.675,
+    "win_p": 0.675,
     "reasons": [
      "sharp money moving this way",
-     "out-rebounding people by +10.8 a game to their +3.7 - the books don't price the glass (5 of 5 seasons)",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "out-rebounding people by +10.8 a game to their +3.7 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
   },
@@ -2351,7 +2262,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Iowa State",
-    "p": 0.513,
+    "p": 0.537,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2360,16 +2271,16 @@
    "start": "2026-11-26T20:30Z",
    "away": "Tennessee",
    "home": "Iowa State",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Iowa State",
     "opp": "Tennessee",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.546,
-    "win_p": 0.546,
+    "odds": -148,
+    "p": 0.578,
+    "win_p": 0.578,
     "reasons": [
      "sharp money moving this way",
      "opponent's body clock is off",
@@ -2523,7 +2434,7 @@
     "line": 13.5,
     "odds": -118,
     "p": 0.507,
-    "win_p": 0.139,
+    "win_p": 0.138,
     "reasons": []
    }
   },
@@ -2533,7 +2444,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St John's",
-    "p": 0.601,
+    "p": 0.59,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -2549,9 +2460,9 @@
     "opp": "Louisville",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.661,
-    "win_p": 0.661,
+    "odds": -192,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",

@@ -32205,6 +32205,105 @@ def test_the_pick_is_the_team_when_the_game_file_flips_home_and_away():
     assert pk["legs"][0]["result"] == "won" and pk["legs"][0]["side"] == "away", pk["legs"][0]
 
 
+def test_daily_1125_a_note_says_he_plays_only_in_whole_words_and_the_post_says_why_a_key_man_did_not_hold():
+    """11/25 daily studies, yesterday's picks: the Magic +114 ½u NBA floor play posted at 9:50 AM PT with the Pistons'
+    top scorer Cade Cunningham DAY-TO-DAY (the run log: "injuries seen ... 'Cade Cunningham (Pistons G)': 'Day-To-Day'")
+    and he was ruled out an hour later. A day-to-day key man holds an NBA pick unless he plays through it or the
+    report's note says he plays - and that note test was a bare substring: "available" sits inside "unavailable",
+    "will play" inside "unclear if he will play". Now the phrase must stand as whole words in a clause with no hedge;
+    and the post's log line + the leg say WHY a day-to-day key man did not hold (nothing in the log said it)."""
+    import sports_nba_roster as nr
+    import sports_questionable as sq
+    for note in ("Cunningham (ankle) is questionable for Tuesday. If he is unavailable, Jenkins would start.",
+                 "It is unclear whether he will play Tuesday.", "He is not expected to play.", "improbable",
+                 "He was available Sunday and is questionable for Tuesday.", "He will play if cleared by the doctors",
+                 "He could be available Tuesday", ""):
+        assert nr.says_playing(note) is False, note
+        assert nr.play_chance("Day-To-Day", note) == 0.5, note
+    for note in ("questionable but expected to play", "He is probable for Tuesday.", "listed as probable (knee)",
+                 "He will be available off the bench.", "was upgraded to probable", "Cunningham will play Tuesday."):
+        assert nr.says_playing(note) is True, note
+        assert nr.play_chance("Questionable", note) == 0.95, note
+    assert nr.play_chance("Out", "he is available") == 0.0 and nr.play_chance("Doubtful", "expected to play") == 0.05
+    # the hold + the reason: a key day-to-day man with a hedged note HOLDS; with a real probable note the post says why
+    keep = (sd.team_unsure, sports.nba_key_man, dict(getattr(sd, "INJ_NOTES", {}) or {}))
+    g = {"id": "nba:t1125", "league": "nba", "home": "9001", "away": "9002", "home_name": "Homers", "away_name": "Roadies",
+         "start": "2026-11-27T00:00Z"}
+    inj = {"nba": {"9002": [("Zed Qqqtest", "G", "Day-To-Day")]}}
+    try:
+        sd.team_unsure = lambda inj_, tid, name, lg, maybe=False: [("Zed Qqqtest", "G", "Day-To-Day")] if str(tid) == "9002" else []
+        sports.nba_key_man = lambda g_, side, name: True
+        sd.INJ_NOTES["nba"] = {sd._plain("Zed Qqqtest"): {"status": "day-to-day", "note": "Qqqtest (ankle) is questionable. If he is unavailable, a rookie starts."}}
+        assert sq.probable_note("Zed Qqqtest") is False and sports.nba_plays_through("Zed Qqqtest") is False
+        assert sports.nba_through(g, inj) == {}
+        assert any("Zed Qqqtest" in w for w in sports.waiting_on(g, inj)), sports.waiting_on(g, inj)     # the pick WAITS
+        sd.INJ_NOTES["nba"] = {sd._plain("Zed Qqqtest"): {"status": "day-to-day", "note": "Qqqtest (ankle) is listed as probable for Thursday."}}
+        thru = sports.nba_through(g, inj)
+        assert list(thru) == ["Zed Qqqtest"] and "note says he plays" in thru["Zed Qqqtest"] and "listed as probable" in thru["Zed Qqqtest"], thru
+        assert not any("Zed Qqqtest" in w for w in sports.waiting_on(g, inj))
+        assert sports.nba_through({**g, "league": "nhl"}, inj) == {} and sports.nba_through(g, None) == {}
+    finally:
+        sd.team_unsure, sports.nba_key_man = keep[0], keep[1]
+        sd.INJ_NOTES.clear()
+        sd.INJ_NOTES.update(keep[2])
+    import inspect
+    assert "did not wait on" in inspect.getsource(sports.post_board) or "did not wait on" in inspect.getsource(sports)
+
+
+def test_daily_1125_the_second_half_road_team_is_a_tracker_lead_and_moves_nothing():
+    """11/25 daily studies S9: a college hoops team's second-half margin minus its first-half margin a game (each half
+    capped at 20), this season before tonight (5+ line scores), placed among 100+ teams. The top fifth as a ROAD
+    favorite is overpriced - the home side getting points across it ATS +6.8% on 1,122 (placebo 0 of 2,000), the home
+    dog +4.7% on 915 against -5.9% - but only the top fifth shows it and a last-10-games read is flat: a tracker LEAD
+    from the 11/26 games (three tags), nothing on a read, a stack, a dog score or a size."""
+    import inspect
+    import sports_second_half as sh
+    import sports_leads as sl
+    assert sports.HALVES_FROM == "2026-11-26" and sh.MIN_GAMES == 5 and sh.MIN_TEAMS == 100 and sh.CAP == 20.0 and sh.TOP == 0.8
+    games, n = {}, 0
+    for t in range(1, 61):                                     # 60 home teams + 60 visitors = 120 teams, 6 games each
+        for k in range(6):
+            n += 1
+            # team 1: down 5 at the half, wins the second half by 10 (read +15); team 2: up 8, loses the second by 6 (-14)
+            hs = "30,45" if t == 1 else "40,30" if t == 2 else "35,35"
+            as_ = "35,35" if t == 1 else "32,36" if t == 2 else "35,35"
+            games[f"ncaab:{n}"] = {"id": f"ncaab:{n}", "league": "ncaab", "status": "final", "stype": "2",
+                                   "start": f"2026-11-{5 + 3 * k:02d}T23:00Z", "home": str(t), "away": str(1000 + t),
+                                   "home_score": 75, "away_score": 70, "ls_home": hs, "ls_away": as_, "neutral": "0"}
+    tip = "2026-11-27T00:00Z"                                  # (4 PM Pacific on 11/26)
+    r = sh.reads(games, tip)
+    assert len(r) == 120 and abs(r["1"] - 15.0) < 1e-9 and abs(r["2"] + 14.0) < 1e-9 and abs(r["1001"] + 15.0) < 1e-9, (len(r), r.get("1"))
+    assert sh.second_half_team(games, "1", tip) is True and sh.second_half_team(games, "2", tip) is False
+    assert sh.second_half_team(games, "1001", tip) is False and sh.second_half_team(games, "999999", tip) is None
+    assert sh.reads(games, "2026-11-12T23:00Z") == {}                      # 3 games in: nobody has 5 line scores yet
+    games["ncaab:ot"] = {**games["ncaab:1"], "id": "ncaab:ot", "ls_home": "30,30,12", "ls_away": "30,30,5", "home": "7", "away": "1007",
+                         "start": "2026-11-24T23:00Z"}                     # overtime: only the two halves count
+    assert abs(sh.reads(games, tip)["7"]) < 1e-9
+    games["ncaab:pre"] = {"id": "ncaab:pre", "league": "ncaab", "status": "pre", "start": tip, "home": "2", "away": "1", "neutral": "0"}
+    games["ncaab:neu"] = {"id": "ncaab:neu", "league": "ncaab", "status": "pre", "start": tip, "home": "3", "away": "1", "neutral": "1"}
+    games["ncaab:old"] = {"id": "ncaab:old", "league": "ncaab", "status": "pre", "start": "2026-11-26T00:00Z", "home": "2", "away": "1", "neutral": "0"}
+    mk = lambda **kw: {"league": "ncaab", "market": "spread", "game_id": "ncaab:pre", "side": "home", "start": tip, "odds": -110, "line": 4.5, **kw}   # noqa: E731
+    home_sp, road_sp = mk(), mk(side="away", line=-4.5)
+    home_ml, home_fav = mk(market="ml", odds=150, line=None), mk(line=-2.5)
+    neu, old_ = mk(game_id="ncaab:neu"), mk(game_id="ncaab:old", start="2026-11-26T00:00Z")
+    sports.mark_halves(games, [home_sp, road_sp, home_ml, home_fav, neu, old_])
+    assert home_sp.get("vs_second_half_road") and road_sp.get("second_half_road") and home_ml.get("vs_second_half_road")
+    assert not neu.get("vs_second_half_road") and not old_.get("vs_second_half_road")     # a neutral floor / the posted day: untouched
+    assert sl.daily_1125_tags(home_sp, sports) == [sl.NCAAB_2H_HOME_PTS_TAG]
+    assert sl.daily_1125_tags(road_sp, sports) == [sl.NCAAB_2H_ROAD_FAV_TAG]
+    assert sl.daily_1125_tags(home_ml, sports) == [sl.NCAAB_2H_HOME_DOG_TAG]
+    assert sl.daily_1125_tags(home_fav, sports) == []                                     # the home side LAYING points: no tag
+    assert sl.daily_1125_tags({**home_ml, "odds": -130}, sports) == [] and sl.daily_1125_tags({**home_ml, "league": "nba"}, sports) == []
+    assert all("(lead)" in t for t in (sl.NCAAB_2H_HOME_PTS_TAG, sl.NCAAB_2H_HOME_DOG_TAG, sl.NCAAB_2H_ROAD_FAV_TAG))
+    assert sl.NCAAB_2H_HOME_DOG_TAG in sl.tags(home_ml, sports) and sl.NCAAB_2H_HOME_PTS_TAG in sl.spread_tags(home_sp, sports)
+    # a LEAD: nothing on the board reads the stamps (mark_halves writes them, nothing .get()s them)
+    src = inspect.getsource(sports)
+    for key in ("second_half_road", "vs_second_half_road"):
+        assert f'.get("{key}")' not in src, key
+    plain = {"league": "ncaab", "market": "ml", "side": "home", "odds": 150, "dog_ctx": {}}
+    assert sports.dog_spots({**plain, "vs_second_half_road": True}) == sports.dog_spots(plain)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
