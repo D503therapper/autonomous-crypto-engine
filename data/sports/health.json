@@ -1,16 +1,15 @@
 {
- "at": "2026-11-25T07:54Z",
+ "at": "2026-11-25T08:00Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (82s)",
+  "live watcher fresh (39s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "card audit: 1 live cards, 3 lines - nothing false, outdated or senseless",
   "double check: 0 injury / starter / price claims on 0 live cards - 0 confirmed by a second source, 0 single-sourced, 0 waiting on a game-day word",
   "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
-  "slate check: all 92 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
@@ -19,12 +18,16 @@
   "every upcoming game has its real teams",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 42 min ago",
+  "engine ran 48 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-25T08:00Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-25T07:54Z",
    "fixes": [],
@@ -593,13 +596,6 @@
   },
   {
    "at": "2026-11-24T02:04Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T01:54Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
