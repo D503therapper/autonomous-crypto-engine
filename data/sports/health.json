@@ -1,11 +1,11 @@
 {
- "at": "2026-11-25T00:15Z",
+ "at": "2026-11-25T00:17Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (140s)",
+  "live watcher fresh (292s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +21,18 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 27 min ago",
+  "engine ran 30 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T00:17Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-25T00:15Z",
    "fixes": [
@@ -660,15 +667,6 @@
     "card audit: NO WHY on the Washington card (2026-11-23): a unit card with no line that says WHY we're on this side - no reason the pick carries and no matchup fact (the box scores / the game files held none for this side,",
     "card audit: SHORT CARD - Indiana St (2026-11-23): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
     "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-23T14:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Akli vs Trevisan: no points for 2603s",
-    "live tennis scores: tennis Monnet vs Bonardi: no points for 2288s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
  ]
