@@ -2854,10 +2854,10 @@ tennis reads: 0 matches
 source check (1.7s): plain requests answered by 164 of 168 sources - quiet: bovada_nfl, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
 CARD CHECK (render) 2026-11-24: Illinois St 100: a moral victory (a close loss sold as a reason): 🧭 Illinois St finished within 3 of Santa Clara and within 5 of Saint Mary's this year. Those two won 11 of 13 
 CARD CHECK (render) 2026-11-24: Illinois St 100: the same line twice on the card: 📊 Illinois St scores 80 points a game against D1 teams; Tulsa scores 74.
-sync: 133665 games stored, 52 calls, 0 failed, 14s
-odds history: 0 games got odds, 55 calls, 0 failed, 6s
+sync: 133760 games stored, 58 calls, 0 failed, 12s
+odds history: 0 games got odds, 59 calls, 0 failed, 6s
 player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 83 games got weather, 0 new stadiums located, 9s
+weather: 82 games got weather, 0 new stadiums located, 12s
 4th-down rates: 32 NFL teams
 news: 0 new drama tags
 goalies: 1 games on the page, 1 matched, 1 confirmed
@@ -2866,7 +2866,7 @@ nfl starters (snap counts): 0 teams read
 nba rosters: 30 teams as of 2026-11-24, 0 failed, 0 moves
 settled 2026-11-24 play: won +100.00
 beat the close: unit plays 47 of 140 better than the close, avg +0.3 pts
-tuned in 175s: mlb trust 4% acc 58.6%, nba trust 2% acc 70.8%, ncaab trust 4% acc 73.9%, ncaaf trust 7% acc 64.9%, nfl trust 28% acc 67.2%, nhl trust 2% acc 57.4%
+tuned in 137s: mlb trust 4% acc 58.6%, nba trust 2% acc 70.8%, ncaab trust 4% acc 73.9%, ncaaf trust 7% acc 64.9%, nfl trust 28% acc 67.2%, nhl trust 2% acc 57.4%
 cover study: nba big favorites covered 50% of 3704 (adjust +0.01); ncaab big favorites covered 49% of 13053 (adjust -0.03); ncaaf big favorites covered 50% of 3818 (adjust +0.05); nfl big favorites covered 48% of 532 (adjust +0.01)
 comeback study: nfl 2364 games s=1.3 w=1.50 m=+0.0 loss 0.476->0.468; ncaaf 6701 games s=1.2 w=1.25 m=+0.0 loss 0.376->0.374; nba 10485 games s=1.7 w=1.75 m=+0.0 loss 0.507->0.472; mlb 19858 games s=0.9 w=0.75 m=+0.0 loss 0.455->0.455; nhl 10431 games s=1.2 w=1.50 m=+0.0 loss 0.510->0.507; ncaab 30807 games s=1.3 w=1.50 m=-0.1 loss 0.430->0.413
 halves study: nfl 2373 games: 1st half gets 52% of the edge (sd 10.24), 2nd 40%; 1st half leader wins 78%, tied 7%; ncaaf 6702 games: 1st half gets 60% of the edge (sd 11.8), 2nd 43%; 1st half leader wins 81%, tied 7%; nba 10485 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 30807 games: 1st half gets 62% of the edge (sd 9.14), 2nd 52%; 1st half leader wins 77%, tied 4%; mlb 20092 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10431 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
@@ -2901,12 +2901,12 @@ ACTIVE nba thursday: favorites win 14-1 (prices said 10) (10 straight) -> coin f
 ACTIVE ncaab big favorite: home team wins 525-99 (prices said 524.8) (11 straight) -> coin flip · next: West Georgia @ Tennessee Tech, Duquesne @ High Point, Alcorn St @ Louisiana Tech
 ACTIVE nfl sunday night: home team wins 10-1 (prices said 6.3) (6 straight) -> coin flip · next: Raiders @ Browns
 ACTIVE mlb monday: over 146-116 (6 straight) -> coin flip
-ACTIVE nba saturday: home team wins 22-11 (prices said 17.8) (6 straight) -> coin flip
+ACTIVE nba saturday: home team wins 22-11 (prices said 17.8) (6 straight) -> coin flip · next: Magic @ Wizards, Nets @ Hornets, Pacers @ Bulls
 ACTIVE nhl tuesday: over 46-35 (6 straight) -> coin flip · next: Golden Knights @ Oilers
 ACTIVE ncaaf away favorite: favorites win 295-140 (prices said 298.8) (9 straight) -> coin flip · next: Buffalo @ Akron, Toledo @ Ohio, Florida @ Florida St
 ACTIVE ncaaf thursday night: road team wins 15-16 (prices said 13.1) (6 straight) -> coin flip · next: TCU @ Texas Tech
 totals study: {'nfl': (0.5234, False), 'ncaaf': (0.4769, False), 'nba': (0.5125, False), 'ncaab': (0.5185, False), 'mlb': (0.4862, False), 'nhl': (0.4728, False)}
-public splits: 137 upcoming games
+public splits: 116 upcoming games
 self-check: 201 graded picks - we said 48%, they hit 55% (hitting at or above what we said)
   market:ml: 193 graded, said 48%, hit 55% - hitting at or above what we said
   drama:none: 177 graded, said 48%, hit 57% - hitting at or above what we said
@@ -2995,6 +2995,6 @@ tennis study WTA life factors vs current loss 0.6226: experience 0.6195 (+3.04 m
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
 tennis reads: 0 matches
-1H line log: 5 rows (0 with a 1st-half line) from 145 AN games
-source check (1.9s): plain requests answered by 164 of 169 sources - quiet: actionnetwork_h1, bovada_nfl, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
+1H line log: 54 rows (30 with a 1st-half line) from 145 AN games
+source check (2.4s): plain requests answered by 165 of 169 sources - quiet: bovada_nfl, espn_depth_ncaaf, rotowire_ncaab, rotowire_ncaaf
 CARD CHECK (render) 2026-11-24: Illinois St 100: a moral victory (a close loss sold as a reason): 🧭 Illinois St finished within 3 of Santa Clara and within 5 of Saint Mary's this year. Those two won 11 of 13 
