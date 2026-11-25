@@ -28524,3 +28524,42 @@ DEX: $1,007.83 (+7.83) · Scammed: 0
 [2026-11-25 04:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-25 04:06 UTC] crypto/hold_btc  equity $366.70 (-26.7%) 1 open  market DOWN
    social heat top: SOL 37 (37/0/0), BTC 35 (35/0/0), MON 29 (29/0/0), VVV 27 (27/0/0), PENGU 24 (24/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '60701.20', 'l': '58866.78', 'a': '59107.80', 'v': '7929.6768', 'vv': '474634746.40', 'c': '-0.0189', 'b': '59118.00', 'k': '59118.01', 'oi': '0', 't': 1795579618036}
+   dex scanner: 2,760 pools (solana 1,833 / base 556 / ethereum 371), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: PASS CYBERLEEK@solana liq $313,610
+   dex screen: REJECT $WIF@solana liq $89,608 - liquidity $89,608 < $100,000
+   dex re-screen: XTO@solana:91GG7PWs data flag #10 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT CTM@ethereum liq $2,031,221 - goplus partial data: cannot_sell_all unknown; is_mintable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS SPX@ethereum liq $7,824,424
+   dex screen: PASS PEPE@ethereum liq $22,751,421
+   dex screen: REJECT KMNO@solana liq $1,378,984 - top-10 holders 53%
+   dex screen: REJECT CVX@ethereum liq $3,510,563 - is_mintable; top-10 holders 71%
+   dex screen: REJECT B3@base liq $472,678 - pool age unknown
+   dex screen: REJECT DRV@ethereum liq $119,234 - 24h volume $82,877 < $100,000
+   dex screen: REJECT SNDKC@base liq $1,434,674 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 86%; lp locked 0% < 95%
+   dex screen: REJECT PYUSD@ethereum liq $100,244,430 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%
+   dex re-screen: XTO@solana:91GG7PWs data flag #11 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID 0C31:29C715:15A39C3:1CA45C1:6B06685C        
+remote: Time 2026-11-25T04:47:24Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! 
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 2,764 pools (solana 1,834 / base 561 / ethereum 369), refresh cycle 106s (hot 102s), 2887 calls (109 feed, 429s 1, failed 1), 83,318 refreshed (10917 no pair), +102 added / -98 dropped (dead 93, stale 5, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-25 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/social_heat equity $309.80 (-38.0%) 2 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-25 05:06 UTC] crypto/hold_btc  equity $366.57 (-26.7%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), SOL 35 (35/0/0), BIGTIME 32 (32/0/0), PENGU 29 (29/0/0), VVV 24 (24/0/0)
