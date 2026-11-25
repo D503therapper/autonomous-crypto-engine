@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T22:48Z",
+ "updated": "2026-11-25T23:02Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -416,8 +416,8 @@
    "away": "Arkansas St",
    "home": "FIU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -476,8 +476,8 @@
    "away": "Prairie View",
    "home": "Marshall",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -491,8 +491,8 @@
    "away": "Princeton",
    "home": "Liberty",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -671,37 +671,6 @@
      "the dog read is 5 (our efficiency ratings have them the better team on this floor, the study angles add 3 points) - dogs reading 4+ beat their price every season 2018-25"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "ncaab:401917182",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Memphis",
-    "p": 0.573,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T23:35Z",
-   "away": "Memphis",
-   "home": "Penn State",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Memphis",
-    "opp": "Penn State",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.628,
-    "win_p": 0.628,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
    }
   },
   {
@@ -1090,8 +1059,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "The Citadel",
-    "p": 0.576,
-    "tie": 0.042,
+    "p": 0.546,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1099,19 +1068,20 @@
    "start": "2026-11-26T00:00Z",
    "away": "SC Upstate",
    "home": "The Citadel",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "The Citadel",
     "opp": "SC Upstate",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.628,
-    "win_p": 0.628,
+    "odds": -148,
+    "p": 0.59,
+    "win_p": 0.59,
     "reasons": [
      "the stronger team",
-     "rolling off a blowout win"
+     "rolling off a blowout win",
+     "coughing it up 2.0 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -1511,7 +1481,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.507,
+    "p": 0.506,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1527,9 +1497,9 @@
     "opp": "Packers",
     "market": "ml",
     "line": null,
-    "odds": -138,
-    "p": 0.539,
-    "win_p": 0.539,
+    "odds": -137,
+    "p": 0.538,
+    "win_p": 0.538,
     "reasons": [
      "the stronger team"
     ]
@@ -1774,7 +1744,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.642,
+    "p": 0.644,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1790,9 +1760,9 @@
     "opp": "Kings",
     "market": "spread",
     "line": -7.5,
-    "odds": -113,
+    "odds": -110,
     "p": 0.5,
-    "win_p": 0.731,
+    "win_p": 0.734,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
