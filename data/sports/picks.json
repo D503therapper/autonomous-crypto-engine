@@ -28328,6 +28328,7 @@
      "us:west1000"
     ],
     "dec": 2.0,
+    "decider": {},
     "def_first": false,
     "dog_bad": [],
     "dog_ctx": {
@@ -28360,6 +28361,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "37,42",
+     "h": "35,32"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -28439,7 +28444,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -28448,7 +28453,9 @@
     ],
     "roster_new": 0.205,
     "roster_tin": 0.392,
+    "score": "Illinois St 79 @ Tulsa 67",
     "season_games": null,
+    "settled": "2026-11-24T23:55Z",
     "side": "away",
     "side_moved": "home->away",
     "sold": [
@@ -28493,12 +28500,14 @@
    "two_at": 5
   },
   "p_hit": 0.4841,
-  "pnl": 0.0,
+  "pnl": 100.0,
   "posted": "2026-11-24T16:00Z",
   "round": 1,
+  "settled": "2026-11-24T23:55Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 102,

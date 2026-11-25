@@ -8358,5 +8358,50 @@
   "score": "125-120",
   "margin": 5.0,
   "pnl_units": 0.8
+ },
+ {
+  "date": "2026-11-24",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaab",
+  "game_id": "ncaab:401921666",
+  "team": "Illinois St",
+  "opp": "Tulsa",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 100,
+  "posted": "2026-11-24T16:00Z",
+  "price_says": 0.5,
+  "win_p": 0.48408490694486334,
+  "own_read": 0.518,
+  "weighed": null,
+  "dog_p": 0.5183,
+  "edge_own": -0.03221810538688852,
+  "near_lock": false,
+  "units": 2.0,
+  "reasons": [
+   "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
+  ],
+  "angles": [
+   "sell_sched_c:1",
+   "f_last:2",
+   "f_pts:0",
+   "fill_star:2",
+   "fill_o:0",
+   "deep_big:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": null,
+  "public": null,
+  "close": -108,
+  "beat_close_pts": 1.9,
+  "result": "won",
+  "score": "79-67",
+  "margin": 12.0,
+  "pnl_units": 2.0
  }
 ]
