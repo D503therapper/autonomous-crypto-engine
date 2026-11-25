@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T21:54Z",
+ "updated": "2026-11-25T21:57Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -356,8 +356,8 @@
    "away": "Ole Miss",
    "home": "Arizona",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -544,31 +544,29 @@
    "id": "ncaab:401921716",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "BYU",
-    "p": 0.526,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-25T22:30Z",
    "away": "BYU",
    "home": "Providence",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "BYU",
-    "opp": "Providence",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.567,
-    "win_p": 0.567,
+    "team": "Providence",
+    "opp": "BYU",
+    "market": "spread",
+    "line": 2.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.5,
     "reasons": [
-     "the stronger team",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
+     "sharp money moving this way",
+     "their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)",
+     "they've lost 1 rotation man in the last three weeks - Robert Wright III (30 minutes a game)"
+    ],
+    "result": null
    }
   },
   {
