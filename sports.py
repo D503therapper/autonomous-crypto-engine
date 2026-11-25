@@ -9464,8 +9464,10 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
         import re as _re
         hit = [str(x) for x in leg.get("breakdown") or [] if _re.search(r"\bat home\b|own building|home cooking|in their building", str(x), _re.I)
                and (leg.get("team") or "@@") in str(x)]
-        if hit:
-            add("neutral_site", False, f"a home-record line at a neutral site: {hit[0][:80]}")
+        if hit:   # (11/25: Texas St -108 sat HELD all morning over "already beat McNeese, 95-69 at home" - the owner's
+            #          rule: a bad card line is rewritten or dropped, NEVER a pick held. The line comes off; the pick stands.)
+            leg["breakdown"] = [x for x in leg.get("breakdown") or [] if str(x) not in hit]
+            add("neutral_site", "warn", f"dropped a home line at a neutral site: {hit[0][:80]}")
     try:
         import sports_owner_lingo as _ol
         bad = [w for w in _ol.NEVER if w in txt.lower()]

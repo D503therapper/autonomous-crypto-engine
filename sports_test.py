@@ -19919,7 +19919,7 @@ def test_audit_1104_a_college_key_man_who_already_missed_is_no_fresh_hole_one_ma
         now = datetime(2026, 11, 4, 16, 30, tzinfo=timezone.utc)
         chk = {n: (r, w) for n, r, w in sports.pick_checks(copy.deepcopy(pk), games, inj, now, {})}
         assert chk["reasons"][0] == "fail" and "counted twice" in chk["reasons"][1] and "already missed" in chk["reasons"][1], chk
-        assert chk["neutral_site"][0] == "fail", chk
+        assert chk["neutral_site"][0] == "warn", chk                            # (11/25: the line drops, never a hold)
         new = [pk]
         sports.rule_check([pk], new, "2026-11-04", games, None, now, injuries=inj)
         assert new == []
@@ -32286,3 +32286,27 @@ if __name__ == "__main__":
         print("FAILED:", _fails)
         sys.exit(1)
 
+
+
+def test_daily_1125_a_home_line_at_a_neutral_site_is_dropped_never_holds_the_pick():
+    """11/25: the ½u college hoops spread stack play Texas St -108 vs Alcorn St (a neutral floor) sat HELD all morning -
+    pick check 'neutral_site' failed on the card line "Texas St already beat McNeese this year, 95-69 at home." The
+    owner's rule (CLAUDE.md, THE CARD CHECK): a bad card line is rewritten or dropped, never a pick held. Now the line
+    comes off the card with a warn and the pick passes."""
+    import copy
+    g = {"id": "ncaab:401925688", "league": "ncaab", "stype": "2", "status": "pre", "start": "2026-11-25T22:00Z",
+         "home": "326", "away": "2016", "home_name": "Texas St", "away_name": "Alcorn St", "neutral": "1",
+         "spread_home": "-27.5", "spread_home_odds": "-108", "spread_away_odds": "-112", "odds_time": "2026-11-25T17:48Z"}
+    games = {g["id"]: g}
+    pk = {"date": "2026-11-25", "kind": "play", "status": "open", "lean": False, "stack_play": True, "dec": sports._dec(-108),
+          "legs": [{"league": "ncaab", "game_id": g["id"], "side": "home", "team": "Texas St", "opp": "Alcorn St",
+                    "market": "spread", "odds": -108, "dec": sports._dec(-108), "waiting": [], "reasons": [],
+                    "breakdown": ["🏆 Texas St already beat McNeese this year, 95-69 at home.",
+                                  "✅ Bottom line: Texas St -27.5 (-108)."]}]}
+    now = datetime(2026, 11, 25, 17, 50, tzinfo=timezone.utc)
+    p2 = copy.deepcopy(pk)
+    chk = {n: (r, w) for n, r, w in sports.pick_checks(p2, games, {}, now, {})}
+    assert chk["neutral_site"][0] == "warn", chk
+    assert not any("at home" in str(x) for x in p2["legs"][0]["breakdown"]), p2["legs"][0]["breakdown"]
+    assert any("Bottom line" in str(x) for x in p2["legs"][0]["breakdown"])
+    assert chk["neutral_site"][0] != "fail"
