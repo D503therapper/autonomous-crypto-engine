@@ -1,9 +1,9 @@
 {
- "at": "2026-11-25T05:56Z",
+ "at": "2026-11-25T05:57Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (45s)",
+  "live watcher fresh (91s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,12 +19,17 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 56 min ago",
+  "engine ran 57 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T05:57Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-25T05:56Z",
    "fixes": [],
@@ -607,16 +612,6 @@
    "at": "2026-11-23T22:40Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "sources down (the backups took over): betrivers:ncaab:1029953546 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-23T22:39Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
    ],
    "problems": [
     "card audit: SHORT CARD - San Jos\u00e9 St (2026-11-23): a short card: 2 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
