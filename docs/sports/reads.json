@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T02:53Z",
+ "updated": "2026-11-25T03:02Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -1053,8 +1053,8 @@
    "away": "C Michigan",
    "home": "Notre Dame",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1329,62 +1329,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401915943",
+   "id": "ncaab:401911253",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "St John's",
-    "p": 0.764,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T03:30Z",
-   "away": "Oregon",
-   "home": "St John's",
-   "why": "coin_flip",
+   "start": "2026-11-25T04:00Z",
+   "away": "Saint Louis",
+   "home": "Grand Canyon",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Oregon",
-    "opp": "St John's",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -105,
-    "p": 0.504,
-    "win_p": 0.157,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401921712",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "VCU",
-    "p": 0.634,
-    "tie": 0.04,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T03:30Z",
-   "away": "VCU",
-   "home": "Colorado St",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "VCU",
-    "opp": "Colorado St",
-    "market": "ml",
-    "line": null,
-    "odds": -245,
-    "p": 0.707,
-    "win_p": 0.707,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401909763",
@@ -1392,8 +1349,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Stanford",
-    "p": 0.534,
-    "tie": 0.043,
+    "p": 0.58,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1408,13 +1365,12 @@
     "opp": "Colorado",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.574,
-    "win_p": 0.574,
+    "odds": -180,
+    "p": 0.633,
+    "win_p": 0.633,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "sharp money moving this way"
     ]
    }
   },
