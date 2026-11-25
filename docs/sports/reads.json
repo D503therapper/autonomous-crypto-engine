@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T20:00Z",
+ "updated": "2026-11-25T20:09Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -146,8 +146,8 @@
    "away": "American Int'l",
    "home": "Rhode Island",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -161,8 +161,8 @@
    "away": "E Kentucky",
    "home": "Miami OH",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -176,8 +176,8 @@
    "away": "Lindenwood",
    "home": "Stony Brook",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -191,8 +191,8 @@
    "away": "Southern Utah",
    "home": "Long Beach St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -370,6 +370,36 @@
    "start": "2026-11-25T19:30Z",
    "away": "Texas A&M",
    "home": "Xavier",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928836",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T20:00Z",
+   "away": "Akron",
+   "home": "App State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920809",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-25T20:00Z",
+   "away": "Jackson St",
+   "home": "Oklahoma St",
    "h1": null,
    "why": "started",
    "done": false,
@@ -589,7 +619,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Dartmouth",
-    "p": 0.799,
+    "p": 0.805,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -604,10 +634,10 @@
     "team": "Holy Cross",
     "opp": "Dartmouth",
     "market": "spread",
-    "line": 11.5,
-    "odds": -108,
-    "p": 0.505,
-    "win_p": 0.121,
+    "line": 12.5,
+    "odds": -115,
+    "p": 0.506,
+    "win_p": 0.117,
     "reasons": []
    }
   },
@@ -847,7 +877,7 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": 25.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.519,
     "win_p": 0.02,
     "reasons": []
@@ -933,7 +963,7 @@
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
+    "odds": -238,
     "p": 0.68,
     "win_p": 0.462,
     "reasons": []
