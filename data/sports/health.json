@@ -1,15 +1,15 @@
 {
- "at": "2026-11-25T16:28Z",
+ "at": "2026-11-25T16:39Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "tennis slate due (8am PT) and not up - started sports.yml"
  ],
  "problems": [
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
  ],
  "ok": [
-  "live watcher fresh (44s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,13 +22,24 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 1 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-25T16:39Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
   {
    "at": "2026-11-25T16:28Z",
    "fixes": [
@@ -592,13 +603,6 @@
   {
    "at": "2026-11-24T10:40Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T09:07Z",
-   "fixes": [
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
