@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T19:44Z",
+ "updated": "2026-11-25T20:00Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -116,8 +116,8 @@
    "away": "N Colorado",
    "home": "Detroit Mercy",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -377,37 +377,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401928359",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "FIU",
-    "p": 0.508,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T20:30Z",
-   "away": "Arkansas St",
-   "home": "FIU",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "FIU",
-    "opp": "Arkansas St",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.54,
-    "win_p": 0.54,
-    "reasons": [
-     "opponent's body clock is off",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401921703",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -490,7 +459,7 @@
     "opp": "Marshall",
     "market": "spread",
     "line": 13.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.507,
     "win_p": 0.092,
     "reasons": [
@@ -2254,6 +2223,34 @@
    }
   },
   {
+   "id": "ncaab:401906869",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas",
+    "p": 0.701,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T19:30Z",
+   "away": "Georgetown",
+   "home": "Texas",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Georgetown",
+    "opp": "Texas",
+    "market": "spread",
+    "line": 8.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.223,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401920537",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2312,6 +2309,37 @@
      "sharp money moving this way",
      "opponent's body clock is off",
      "out-rebounding people by +10.2 a game to their +4.2 - the books don't price the glass (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401925757",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Michigan St",
+    "p": 0.616,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T21:30Z",
+   "away": "Arkansas",
+   "home": "Michigan St",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Michigan St",
+    "opp": "Arkansas",
+    "market": "ml",
+    "line": null,
+    "odds": -218,
+    "p": 0.678,
+    "win_p": 0.678,
+    "reasons": [
+     "the stronger team",
+     "opponent's body clock is off"
     ]
    }
   },
@@ -2471,8 +2499,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St John's",
-    "p": 0.579,
-    "tie": 0.042,
+    "p": 0.569,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2487,9 +2515,9 @@
     "opp": "Louisville",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.632,
-    "win_p": 0.632,
+    "odds": -170,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
