@@ -28837,3 +28837,11 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-25 15:05 UTC] stocks/trend     equity $440.53 (-11.9%) 1 open  market DOWN
 [2026-11-25 15:05 UTC] stocks/hold_spy  equity $462.13 (-7.6%) 1 open  market DOWN
    social heat top: BTC 32 (32/0/0), SOL 27 (27/0/0), HYPE 25 (24/0/1), PENGU 21 (21/0/0), VVV 19 (11/0/8)
+   dex screen: REJECT CBBTC@base liq $4,673,393 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 91%; lp locked 0% < 95%
+   dex screen: REJECT AERO@base liq $3,195,108 - is_mintable; top-10 holders 91%
+   dex screen: REJECT CIRBTC@ethereum liq $4,773,095 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 80%
+   dex screen: REJECT TTWO@solana liq $340,029 - freeze authority; mint authority; balance_mutable_authority; transfer hook; lp holders unknown
+   dex screen: REJECT HYPE@solana liq $488,042 - mint authority; lp holders unknown
+   dex re-screen: XTO@solana:91GG7PWs data flag #6 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT PIPPIN@solana liq $3,302,093 - top-10 holders 70%
+   dex screen: REJECT AMZNC@base liq $14,453 - liquidity $14,453 < $100,000; 24h volume $2,142 < $100,000
