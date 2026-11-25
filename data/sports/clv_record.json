@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 139,
-  "beat": 46,
+  "n": 142,
+  "beat": 49,
   "same": 60,
   "worse": 33,
-  "avg_pts": 0.28
+  "avg_pts": 0.38
  },
  "unit_plays": {
-  "n": 139,
-  "beat": 46,
+  "n": 142,
+  "beat": 49,
   "same": 60,
   "worse": 33,
-  "avg_pts": 0.28
+  "avg_pts": 0.38
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 88,
-   "beat": 30,
+   "n": 91,
+   "beat": 33,
    "same": 38,
    "worse": 20,
-   "avg_pts": 0.32
+   "avg_pts": 0.47
   }
  },
  "by_sport": {
@@ -45,18 +45,18 @@
    "avg_pts": 0.55
   },
   "nba": {
-   "n": 19,
-   "beat": 11,
+   "n": 20,
+   "beat": 12,
    "same": 6,
    "worse": 2,
-   "avg_pts": 0.89
+   "avg_pts": 1.44
   },
   "ncaab": {
-   "n": 11,
-   "beat": 4,
+   "n": 13,
+   "beat": 6,
    "same": 3,
    "worse": 4,
-   "avg_pts": 0.27
+   "avg_pts": 0.45
   },
   "ncaaf": {
    "n": 43,
@@ -2056,6 +2056,48 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Illinois St",
+   "market": "ml",
+   "line": null,
+   "odds": 100,
+   "close": -108,
+   "pts": 1.9,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Campbell",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": -102,
+   "pts": 1.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Magic",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": -141,
+   "pts": 11.8,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }
