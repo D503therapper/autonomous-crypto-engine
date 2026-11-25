@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T04:14Z",
+ "updated": "2026-11-25T05:10Z",
  "games": [
   {
    "id": "ncaab:401927398",
@@ -1248,8 +1248,8 @@
    "away": "Evansville",
    "home": "Missouri",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1278,8 +1278,8 @@
    "away": "Sam Houston",
    "home": "Washington St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1293,8 +1293,8 @@
    "away": "UNC Asheville",
    "home": "Florida St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1308,8 +1308,8 @@
    "away": "UNC Greensboro",
    "home": "Santa Barbara",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1389,63 +1389,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401909763",
+   "id": "ncaab:401915943",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Stanford",
-    "p": 0.58,
-    "tie": 0.042,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-25T04:59Z",
-   "away": "Colorado",
-   "home": "Stanford",
-   "why": "tight",
+   "start": "2026-11-25T04:18Z",
+   "away": "Oregon",
+   "home": "St John's",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Stanford",
-    "opp": "Colorado",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.633,
-    "win_p": 0.633,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401909800",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Gonzaga",
-    "p": 0.842,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-25T05:30Z",
-   "away": "Gonzaga",
-   "home": "Kansas St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Kansas St",
-    "opp": "Gonzaga",
-    "market": "spread",
-    "line": 15.5,
-    "odds": -115,
-    "p": 0.509,
-    "win_p": 0.08,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401927399",
