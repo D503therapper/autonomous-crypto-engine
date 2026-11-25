@@ -28408,3 +28408,27 @@ DEX: $1,007.83 (+7.83) · Scammed: 0
 [2026-11-24 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-24 23:06 UTC] crypto/hold_btc  equity $370.55 (-25.9%) 1 open  market DOWN
    social heat top: MON 37 (37/0/0), SOL 37 (32/0/5), HYPE 35 (35/0/0), PENGU 29 (29/0/0), AAVE 27 (27/0/0)
+   dex screen: UNREACHABLE VAR@ethereum liq $314,560 - honeypot.is unreachable
+   dex screen: REJECT HSOL@solana liq $100,946 - mint authority; top-10 holders 73%; lp holders unknown
+   dex screen: REJECT XDP@base liq $703,838 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: UNREACHABLE VAR@ethereum liq $314,885 - honeypot.is unreachable
+   dex screen: PASS CBUCKS@solana liq $241,997
+   dex re-screen: XTO@solana:91GG7PWs data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT GATO@solana liq $123,119 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dex screen: REJECT CARDS@solana liq $3,320,393 - top-10 holders 73%
+   dex screen: UNREACHABLE VAR@ethereum liq $310,002 - honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex scanner: 2,464 pools (solana 1,707 / base 432 / ethereum 325), refresh cycle 110s (hot 106s), 2832 calls (111 feed, 429s 0, failed 2), 81,570 refreshed (12893 no pair), +146 added / -97 dropped (dead 92, stale 5, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-25 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/social_heat equity $310.79 (-37.8%) 2 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-25 00:06 UTC] crypto/hold_btc  equity $369.52 (-26.1%) 1 open  market DOWN
+   social heat top: MON 37 (37/0/0), SKY 35 (35/0/0), PENGU 29 (29/0/0), ENA 27 (27/0/0), SUI 24 (24/0/0)
