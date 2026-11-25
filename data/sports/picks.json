@@ -28557,6 +28557,7 @@
      "us:road3in6"
     ],
     "dec": 2.02,
+    "decider": {},
     "def_first": false,
     "dog_bad": [
      "out_rebounded"
@@ -28604,6 +28605,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "32,38",
+     "h": "21,45"
+    },
     "form_state": [
      10.0,
      1,
@@ -28685,7 +28690,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_cm": 3.7,
     "road_games": 5,
@@ -28696,7 +28701,9 @@
     ],
     "roster_new": 0.502,
     "roster_tin": 0.319,
+    "score": "Campbell 70 @ Coastal 66",
     "season_games": null,
+    "settled": "2026-11-25T02:46Z",
     "side": "away",
     "sold": [
      "\ud83e\udde4|14,1,10",
@@ -28748,12 +28755,14 @@
    "two_at": 5
   },
   "p_hit": 0.4683,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-11-24T17:09Z",
   "round": 1,
+  "settled": "2026-11-25T02:46Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 114,
@@ -28821,6 +28830,7 @@
      "us:week3000"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "depth_gap": -1,
     "dog_ctx": {
      "cw5": 1,
@@ -28885,6 +28895,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 0.35,
+    "flow": {
+     "a": "16,32,25,31",
+     "h": "22,14,25,25"
+    },
     "form_state": [
      -20.0,
      -1,
@@ -29020,10 +29034,12 @@
      "Taurean Prince": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Pistons 104 @ Magic 86",
     "season_games": 16,
+    "settled": "2026-11-25T02:45Z",
     "side": "home",
     "sold": [
      "\ud83c\udfa8|36"
@@ -29052,11 +29068,13 @@
   ],
   "midday": true,
   "p_hit": 0.4416,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-24T17:50Z",
   "round": 1,
+  "settled": "2026-11-25T02:45Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
