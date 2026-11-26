@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T04:35Z",
+ "updated": "2026-11-26T04:54Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -1163,8 +1163,8 @@
    "away": "Packers",
    "home": "Rams",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1519,7 +1519,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.505,
+    "p": 0.506,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1536,8 +1536,8 @@
     "market": "ml",
     "line": null,
     "odds": -120,
-    "p": 0.53,
-    "win_p": 0.53,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": [
      "revenge game"
     ]
@@ -1549,7 +1549,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Maryland",
-    "p": 0.608,
+    "p": 0.613,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1565,9 +1565,9 @@
     "opp": "San Diego St",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.668,
-    "win_p": 0.668,
+    "odds": -225,
+    "p": 0.675,
+    "win_p": 0.675,
     "reasons": [
      "sharp money moving this way",
      "out-rebounding people by +10.8 a game to their +3.7 - the books don't price the glass (5 of 5 seasons)"
@@ -1580,7 +1580,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UCF",
-    "p": 0.533,
+    "p": 0.523,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1589,16 +1589,16 @@
    "start": "2026-11-26T18:30Z",
    "away": "Boston College",
    "home": "UCF",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "UCF",
     "opp": "Boston College",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.573,
-    "win_p": 0.573,
+    "odds": -135,
+    "p": 0.56,
+    "win_p": 0.56,
     "reasons": [
      "the stronger team",
      "their top scorer Money Williams (21.7 a game) missed their last game - the books under-price that (4 of 4 seasons)",
@@ -1785,7 +1785,7 @@
     "line": 8.5,
     "odds": -108,
     "p": 0.505,
-    "win_p": 0.236,
+    "win_p": 0.235,
     "reasons": [
      "revenge game"
     ]
@@ -1887,7 +1887,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pitt",
-    "p": 0.489,
+    "p": 0.482,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1903,9 +1903,9 @@
     "opp": "DePaul",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.515,
-    "win_p": 0.515,
+    "odds": -108,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -2030,8 +2030,8 @@
     "market": "ml",
     "line": null,
     "odds": -148,
-    "p": 0.555,
-    "win_p": 0.555,
+    "p": 0.556,
+    "win_p": 0.556,
     "reasons": [
      "the stronger team"
     ]
@@ -2058,9 +2058,9 @@
     "team": "Kansas St",
     "opp": "Alabama",
     "market": "spread",
-    "line": 14.5,
-    "odds": -110,
-    "p": 0.508,
+    "line": 15.5,
+    "odds": -112,
+    "p": 0.509,
     "win_p": 0.114,
     "reasons": []
    }
@@ -2071,7 +2071,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St John's",
-    "p": 0.533,
+    "p": 0.548,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2087,12 +2087,12 @@
     "opp": "Louisville",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -155,
+    "p": 0.593,
+    "win_p": 0.593,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way",
+     "the stronger team",
      "the turnover matchup is ours by 12.4 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
    }
@@ -2131,7 +2131,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Gonzaga",
-    "p": 0.595,
+    "p": 0.583,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -2147,9 +2147,9 @@
     "opp": "Baylor",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.653,
-    "win_p": 0.653,
+    "odds": -185,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -2178,9 +2178,9 @@
     "team": "Oregon",
     "opp": "Texas Tech",
     "market": "spread",
-    "line": 9.5,
-    "odds": -110,
-    "p": 0.503,
+    "line": 10.5,
+    "odds": -112,
+    "p": 0.504,
     "win_p": 0.189,
     "reasons": [
      "opponent's body clock is off"
