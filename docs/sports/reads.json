@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T03:45Z",
+ "updated": "2026-11-26T04:02Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -1118,8 +1118,8 @@
    "away": "Mammoth",
    "home": "Wild",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1208,8 +1208,8 @@
    "away": "E Michigan",
    "home": "UTEP",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1223,8 +1223,8 @@
    "away": "E Washington",
    "home": "LMU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1238,8 +1238,8 @@
    "away": "Miss Valley St",
    "home": "New Mexico",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1414,7 +1414,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Saint Louis",
-    "p": 0.581,
+    "p": 0.575,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -1430,9 +1430,9 @@
     "opp": "Stanford",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.635,
-    "win_p": 0.635,
+    "odds": -175,
+    "p": 0.627,
+    "win_p": 0.627,
     "reasons": [
      "the stronger team"
     ]
@@ -2143,6 +2143,34 @@
      "sharp money moving this way",
      "the turnover matchup is ours by 12.4 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401917546",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pacific",
+    "p": 0.711,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T03:30Z",
+   "away": "Pacific",
+   "home": "Omaha",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Omaha",
+    "opp": "Pacific",
+    "market": "spread",
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.502,
+    "win_p": 0.208,
+    "reasons": []
    }
   },
   {
