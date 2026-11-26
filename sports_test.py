@@ -32306,6 +32306,123 @@ def test_daily_1125_the_second_half_road_team_is_a_tracker_lead_and_moves_nothin
     assert sports.dog_spots({**plain, "vs_second_half_road": True}) == sports.dog_spots(plain)
 
 
+
+
+def test_daily_1125_a_home_line_at_a_neutral_site_is_dropped_never_holds_the_pick():
+    """11/25: the ½u college hoops spread stack play Texas St -108 vs Alcorn St (a neutral floor) sat HELD all morning -
+    pick check 'neutral_site' failed on the card line "Texas St already beat McNeese this year, 95-69 at home." The
+    owner's rule (CLAUDE.md, THE CARD CHECK): a bad card line is rewritten or dropped, never a pick held. Now the line
+    comes off the card with a warn and the pick passes."""
+    import copy
+    g = {"id": "ncaab:401925688", "league": "ncaab", "stype": "2", "status": "pre", "start": "2026-11-25T22:00Z",
+         "home": "326", "away": "2016", "home_name": "Texas St", "away_name": "Alcorn St", "neutral": "1",
+         "spread_home": "-27.5", "spread_home_odds": "-108", "spread_away_odds": "-112", "odds_time": "2026-11-25T17:48Z"}
+    games = {g["id"]: g}
+    pk = {"date": "2026-11-25", "kind": "play", "status": "open", "lean": False, "stack_play": True, "dec": sports._dec(-108),
+          "legs": [{"league": "ncaab", "game_id": g["id"], "side": "home", "team": "Texas St", "opp": "Alcorn St",
+                    "market": "spread", "odds": -108, "dec": sports._dec(-108), "waiting": [], "reasons": [],
+                    "breakdown": ["🏆 Texas St already beat McNeese this year, 95-69 at home.",
+                                  "✅ Bottom line: Texas St -27.5 (-108)."]}]}
+    now = datetime(2026, 11, 25, 17, 50, tzinfo=timezone.utc)
+    p2 = copy.deepcopy(pk)
+    chk = {n: (r, w) for n, r, w in sports.pick_checks(p2, games, {}, now, {})}
+    assert chk["neutral_site"][0] == "warn", chk
+    assert not any("at home" in str(x) for x in p2["legs"][0]["breakdown"]), p2["legs"][0]["breakdown"]
+    assert any("Bottom line" in str(x) for x in p2["legs"][0]["breakdown"])
+    assert chk["neutral_site"][0] != "fail"
+
+
+
+def test_daily_1126_a_spread_pick_gets_its_close_line_and_a_moved_number_is_on_the_record():
+    """11/26 daily look-back: both 11/25 spread stack plays had no close on the audit (its close lines were moneylines
+    only) and Texas St -26.5, which closed -27.5 and won by 27, was on no record at all (the close record keeps a
+    spread only when the number never moved). Now: the audit says the closing NUMBER first, the juice only on the
+    same number; the close record lists a spread whose number moved in its own list, in points of spread - the
+    win-% summaries are untouched. Report only: never a pick, a price or a size."""
+    import sports_audit as sa
+    import sports_clv
+    G = {"tx": {"league": "ncaab", "start": "2026-11-25T22:00Z", "status": "final", "home_score": "97", "away_score": "70",
+                "spread_home": "-27.5", "spread_home_odds": "-112", "spread_away_odds": "-108", "odds_time": "2026-11-25T21:53Z",
+                "ml_home": "-20000", "ml_away": "3500"},
+         "pv": {"league": "ncaab", "start": "2026-11-25T22:30Z", "status": "final", "home_score": "82", "away_score": "85",
+                "spread_home": "2.5", "spread_home_odds": "-112", "spread_away_odds": "-108", "odds_time": "2026-11-25T21:53Z",
+                "ml_home": "120", "ml_away": "-142"},
+         "late": {"league": "ncaab", "start": "2026-11-25T22:00Z", "status": "final", "home_score": "70", "away_score": "60",
+                  "spread_home": "-9.5", "spread_home_odds": "-110", "spread_away_odds": "-110", "odds_time": "2026-11-25T23:10Z"}}
+    leg = lambda gid, team, line, odds, side="home": {**_cand(gid, odds, 0.5, league="ncaab"), "game_id": gid, "side": side,   # noqa: E731
+                                                       "team": team, "market": "spread", "line": line}
+    tx, pv, aw = leg("tx", "Texas St", -26.5, -108), leg("pv", "Providence", 2.5, -115), leg("tx", "Alcorn St", 28.5, -110, "away")
+    assert sa.spread_clv_line(tx, G["tx"]) == "Texas St -26.5 (-108) posted, closed -27.5 (-112) - beat the close by 1 point"
+    assert sa.spread_clv_line(pv, G["pv"]) == "Providence +2.5 (-115) posted, closed +2.5 (-112) - same number, the close had the better juice"
+    assert sa.spread_clv_line(aw, G["tx"]).endswith("closed +27.5 (-108) - beat the close by 1 point")
+    assert sa.spread_clv_line(leg("tx", "Texas St", -29.5, -110), G["tx"]).endswith("- the close was 2 points better")
+    assert sa.spread_clv_line(leg("x", "Nobody", -3.5, -110), {}) is None                     # no closing spread: no line
+    picks = [{"date": "2026-11-25", "kind": "play", "status": "won", "units": 0.5, "legs": [tx]},
+             {"date": "2026-11-25", "kind": "play", "status": "lost", "units": 0.5, "legs": [pv]},
+             {"date": "2026-11-25", "kind": "play", "status": "won", "units": 0.5, "legs": [leg("late", "Late", -7.5, -110)]}]
+    day = sa.audit_day(picks, G, "2026-11-25")
+    assert any(x.startswith("Texas St -26.5") and "beat the close by 1 point" in x for x in day["clv"]), day["clv"]
+    assert any(x.startswith("Providence +2.5") for x in day["clv"]) and day["flags"] == []
+    st, _ = sports_clv.build(picks, G, {})
+    mv = st["spreads_moved"]
+    assert mv["n"] == 1 and mv["beat"] == 1 and mv["worse"] == 0 and mv["avg_line_pts"] == 1.0, mv
+    assert mv["picks"][0]["team"] == "Texas St" and mv["picks"][0]["close_line"] == -27.5 and mv["picks"][0]["line_pts"] == 1.0
+    assert [r["team"] for r in st["picks"]] == ["Providence"] and st["picks"][0]["close"] == -112     # the same number: the old row
+    assert st["all"]["n"] == 1                                # a number saved after the start is no close ("late"): left out
+    hist = {"tx": [("2026-11-25T20:00Z", None, None, "-27", ["-110", "-110"]), ("2026-11-25T21:58Z", None, None, "-28.5", ["-105", "-115"])]}
+    assert sports_clv.spread_close(tx, G["tx"], hist) == (-28.5, -105)                        # the line history's last look first
+    assert sports_clv.spread_close(aw, G["tx"], hist) == (28.5, -115)
+
+
+def test_daily_1126_the_hockey_dog_with_top_fifth_special_teams_is_a_tracker_lead_and_moves_nothing():
+    """11/26 daily studies S5: the NHL team box's powerPlayGoals / powerPlayOpportunities, read for the first time (the
+    10/1 study was set aside - no power-play data then). Power-play rate + penalty-kill rate, season to date (10+ box
+    games, 20+ chances each way), ranked in the league that night: the top fifth as a dog -13.7% on 687 against -7.0%
+    (same-price placebo 63 of 2,000) - a step at the top fifth only and half the gap at the open, so a tracker LEAD
+    from the 11/27 games: a stamp and a tag, nothing on a dog score, a read or a size."""
+    import inspect
+    import sports_puck as pk
+    import sports_leads as sl
+    assert sports.NHL_SPECIAL_FROM == "2026-11-27" and pk.ST_MIN_CHANCES == 20 and pk.ST_TOP == 0.8
+
+    def box(ppg, ppo):
+        return {"giveaways": "5", "takeaways": "5", "shotsTotal": "30", "powerPlayGoals": str(ppg), "powerPlayOpportunities": str(ppo)}
+    rows, games = [], {}
+    for rnd in range(10):                                    # 20 teams, 10 games each: team i scores on i of its 30
+        for i in range(10):                                  # power plays over the season's first ten games (3 a game)
+            a, b = (i, 10 + (i + rnd) % 10) if rnd % 2 == 0 else (10 + (i + rnd) % 10, i)
+            gid = f"nhl:{rnd}_{i}"
+            rows.append({"gid": gid, "start": f"2026-11-{1 + rnd:02d}T00:00Z",
+                         "teams": {str(a): box(1 if rnd < a else 0, 3), str(b): box(1 if rnd < b - 10 else 0, 3)}})
+            games[gid] = {"stype": "2", "home": str(b), "away": str(a)}
+    st = pk.states("2026-11-27T20:00Z", games, rows=rows)
+    assert len(st) == 20 and all("st" in v and v.get("st_pct") is not None for v in st.values()), st["0"]
+    top = sorted(st, key=lambda t: -st[t]["st"])[:4]
+    assert [t for t in st if pk.special(st, t)] and set(t for t in st if pk.special(st, t)) <= set(sorted(st, key=lambda t: -st[t]["st"])[:6])
+    assert pk.special(st, top[0]) is True and pk.special(st, sorted(st, key=lambda t: st[t]["st"])[0]) is False
+    assert pk.special(st, "nobody") is None
+    assert pk.states("2026-11-05T12:00Z", games, rows=list(rows))[top[0]].get("st_pct") is None    # no look-ahead: 4 games = unread
+    bare = [{**r, "teams": {t: {k: v for k, v in b.items() if not k.startswith("powerPlay")} for t, b in r["teams"].items()}} for r in rows]
+    assert all("st" not in v for v in pk.states("2026-11-27T20:00Z", games, rows=bare).values())    # no power-play columns = unread
+    # the stamp: games from the 11/27 Pacific day only; the tag: a dog +100..+350 only; nothing else reads it
+    c = {"league": "nhl", "market": "ml", "odds": 150, "start": "2026-11-28T00:30Z", "side": "away", "game_id": "nhl:x",
+         "dog_ctx": {}, "dog_more": {}, "special_top": True}
+    assert sl.daily_1126_tags(c, sports) == [sl.NHL_SPECIAL_DOG_TAG] and sl.NHL_SPECIAL_DOG_TAG in sl.tags(c, sports)
+    assert "(lead)" in sl.NHL_SPECIAL_DOG_TAG
+    assert sl.daily_1126_tags({**c, "odds": -130}, sports) == [] and sl.daily_1126_tags({**c, "odds": 400}, sports) == []
+    assert sl.daily_1126_tags({**c, "special_top": False}, sports) == [] and sl.daily_1126_tags({**c, "league": "nba"}, sports) == []
+    assert sl.daily_1126_tags({**c, "start": "2026-11-27T00:30Z"}, sports) == []                    # the 11/26 Pacific games: before it
+    assert sl.daily_1126_tags({**c, "market": "spread"}, sports) == []
+    src = inspect.getsource(sports)
+    assert src.count('"special_top"') == 1, src.count('"special_top"')       # the one stamp in mark_nhl_puck - no read, score or size uses it
+    assert "special_top" not in inspect.getsource(sports.dog_spots) and "special_top" not in inspect.getsource(sports.dog_score)
+    off = sports.NHL_SPECIAL_FROM
+    try:
+        sports.NHL_SPECIAL_FROM = "9999"
+        assert sl.daily_1126_tags(c, sports) == []
+    finally:
+        sports.NHL_SPECIAL_FROM = off
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
@@ -32387,28 +32504,3 @@ if __name__ == "__main__":
     if _fails:
         print("FAILED:", _fails)
         sys.exit(1)
-
-
-
-def test_daily_1125_a_home_line_at_a_neutral_site_is_dropped_never_holds_the_pick():
-    """11/25: the ½u college hoops spread stack play Texas St -108 vs Alcorn St (a neutral floor) sat HELD all morning -
-    pick check 'neutral_site' failed on the card line "Texas St already beat McNeese this year, 95-69 at home." The
-    owner's rule (CLAUDE.md, THE CARD CHECK): a bad card line is rewritten or dropped, never a pick held. Now the line
-    comes off the card with a warn and the pick passes."""
-    import copy
-    g = {"id": "ncaab:401925688", "league": "ncaab", "stype": "2", "status": "pre", "start": "2026-11-25T22:00Z",
-         "home": "326", "away": "2016", "home_name": "Texas St", "away_name": "Alcorn St", "neutral": "1",
-         "spread_home": "-27.5", "spread_home_odds": "-108", "spread_away_odds": "-112", "odds_time": "2026-11-25T17:48Z"}
-    games = {g["id"]: g}
-    pk = {"date": "2026-11-25", "kind": "play", "status": "open", "lean": False, "stack_play": True, "dec": sports._dec(-108),
-          "legs": [{"league": "ncaab", "game_id": g["id"], "side": "home", "team": "Texas St", "opp": "Alcorn St",
-                    "market": "spread", "odds": -108, "dec": sports._dec(-108), "waiting": [], "reasons": [],
-                    "breakdown": ["🏆 Texas St already beat McNeese this year, 95-69 at home.",
-                                  "✅ Bottom line: Texas St -27.5 (-108)."]}]}
-    now = datetime(2026, 11, 25, 17, 50, tzinfo=timezone.utc)
-    p2 = copy.deepcopy(pk)
-    chk = {n: (r, w) for n, r, w in sports.pick_checks(p2, games, {}, now, {})}
-    assert chk["neutral_site"][0] == "warn", chk
-    assert not any("at home" in str(x) for x in p2["legs"][0]["breakdown"]), p2["legs"][0]["breakdown"]
-    assert any("Bottom line" in str(x) for x in p2["legs"][0]["breakdown"])
-    assert chk["neutral_site"][0] != "fail"

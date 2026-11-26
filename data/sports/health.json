@@ -1,36 +1,396 @@
 {
- "at": "2026-11-26T01:03Z",
+ "at": "2026-11-26T18:46Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running",
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "simulator overdue (10h) - started sports_sims.yml"
  ],
  "problems": [
-  "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "workflow failed: sports 2026-11-26T00:57 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45732375315",
-  "workflow failed: sports 2026-11-26T00:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731774153",
-  "workflow failed: sports 2026-11-26T00:46 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731169388",
-  "workflow failed: sports 2026-11-26T00:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45730540671",
-  "workflow failed: sports 2026-11-26T00:36 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45729993751",
-  "sources down (the backups took over): betrivers:ncaab:1028662139 HTTP 404"
+  "live tennis scores: tennis Brancaccio vs De Reales: no points for 1889s",
+  "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1889s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (23s)",
+  "live watcher fresh (69s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "card audit: 1 live cards, 8 lines - nothing false, outdated or senseless",
+  "double check: 4 injury / starter / price claims on 1 live cards - 1 confirmed by a second source, 3 single-sourced, 0 waiting on a game-day word \u00b7 single: Chiefs card (2026-11-26): Kenneth Walker III out - only ESPN says so; Chiefs card (2026-11-26): Omarr Norman-Lott out - only ESPN says so; Chiefs card (2026-11-26): Jaylon Moore out - only ESPN says so",
+  "card quality: 100/100 on 1 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 0)",
+  "slate check: all 26 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 1 min ago",
+  "studies ran 2h ago",
+  "engine ran 57 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-26T18:46Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Brancaccio vs De Reales: no points for 1889s",
+    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1889s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-26T17:14Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-26T17:13Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-26T16:28Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T14:57Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T14:55Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T14:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T14:46Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T13:14Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T11:56Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T11:45Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T11:43Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T10:59Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T09:27Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T09:26Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T07:54Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T07:53Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T07:48Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T07:37Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T07:27Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T07:17Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T07:16Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T05:42Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T05:36Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T05:34Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T05:28Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T05:18Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T05:07Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T04:57Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T03:23Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T03:13Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T03:12Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T03:10Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T03:08Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T03:03Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T02:53Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T02:42Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
+  {
+   "at": "2026-11-26T02:34Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
   {
    "at": "2026-11-26T01:03Z",
    "fixes": [
@@ -399,336 +759,6 @@
    "at": "2026-11-25T08:00Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-25T07:54Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T06:20Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T06:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T06:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T06:08Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T05:57Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T05:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T04:25Z",
-   "fixes": [
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T04:23Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T04:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T04:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T02:45Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1028935687 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-25T02:44Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1028935687 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-25T02:43Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1028935687 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-25T01:07Z",
-   "fixes": [
-    "live watch 45518633734 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T00:31Z",
-   "fixes": [
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T00:17Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T00:15Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T00:13Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T22:42Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T22:41Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T22:38Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T21:07Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T21:05Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Podoroska: no points for 1752s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T20:57Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs Hercog: no points for 2355s",
-    "live tennis scores: tennis Gormaz vs Podoroska: no points for 1290s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T20:47Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs Hercog: no points for 1747s",
-    "live tennis scores: tennis Gormaz vs Podoroska: no points for 683s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T20:37Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs Hercog: no points for 1144s",
-    "live tennis scores: tennis Gormaz vs Podoroska: no points for 80s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 3 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T20:29Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Costoulas vs Hercog: no points for 648s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-24T18:56Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Ayala: no points for 527s",
-    "live tennis scores: tennis Kasintseva vs Sierra: no points for 527s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T18:46Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Ayala: no points for 1906s",
-    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2042s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-24T18:45Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Ayala: no points for 1952s",
-    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2088s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-24T18:44Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Ayala: no points for 1859s",
-    "live tennis scores: tennis Kasintseva vs Sierra: no points for 1995s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-24T18:42Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml",
-    "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Ayala: no points for 1906s",
-    "live tennis scores: tennis Kasintseva vs Sierra: no points for 2042s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-24T17:09Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 2603s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T17:08Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 2603s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T17:03Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs De Reales: no points for 2354s",
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 2354s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T16:53Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs De Reales: no points for 1752s",
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 1752s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T16:43Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs De Reales: no points for 1164s",
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 1164s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
   }
  ]
 }

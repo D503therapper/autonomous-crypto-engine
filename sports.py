@@ -6576,6 +6576,17 @@ NHL_SLOPPY_PTS = 1                # s4c_board_replay.py; ESPN's NHL team box 202
 #   "NHL dog that gave up 40+ shots last game, within 2 days (fade)", judge at 40 - no weight.
 
 
+NHL_SPECIAL_FROM = "2026-11-27"  # 🏒 11/26 DAILY STUDIES S5 (results/studies/daily_1126/s_today.py s5 -> s_follow.py s5; ESPN's NHL
+#   team box 2021-26 - powerPlayGoals / powerPlayOpportunities, read for the first time): THE HOCKEY DOG WITH TOP-FIFTH
+#   SPECIAL TEAMS (power-play rate + penalty-kill rate, season to date, 10+ box games, 20+ chances each way, ranked in
+#   the league that night - sports_puck.special). That dog +100..+350: -13.7% on 687 against -7.0% for every dog (train
+#   -16.2%, 0 of 3 up / held -11.6%: -18.1 / -9.5 / +0.1; same-price placebo 63 of 2,000) - but a step at the top fifth
+#   only, half the gap at ESPN's open (-6.5% on 370 against -2.8%), the favorite across +1.9% on 974, 735 cells read
+#   that day. A STAMP ONLY (special_top) from the games of this Pacific day ("9999" / None = off): NOTHING on the board
+#   reads it - no dog score, read, gate or size. Tracker tag "NHL dog with top-fifth special teams (fade) (lead)",
+#   judge at 60 graded: -5% or worse = bring a -1 on the hockey dog score to the daily review; over +5% = dead.
+
+
 def mark_nhl_puck(games, cands, now):
     """🏒 11/23 daily S4 / S6: stamp every hockey moneyline side with puck_sloppy (its team is in the league's bottom
     fifth of takeaways minus giveaways on the road) and shelled (40+ shots against last game, within 2 days) -
@@ -6597,6 +6608,10 @@ def mark_nhl_puck(games, cands, now):
         sh = sports_puck.shelled(st, g.get(c["side"]), g.get("start") or c.get("start"))
         if sh is not None:
             c["shelled"] = sh
+        if NHL_SPECIAL_FROM and pt_day(c) >= NHL_SPECIAL_FROM:
+            sp_ = sports_puck.special(st, g.get(c["side"]))  # 🏒 11/26 daily S5: top-fifth special teams (a LEAD's stamp)
+            if sp_ is not None:
+                c["special_top"] = sp_
 
 
 def nhl_sloppy_pts(c):

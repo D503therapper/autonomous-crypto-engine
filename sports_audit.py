@@ -159,7 +159,38 @@ def audit_day(picks, games, day):
                         f" - {'beat the close' if a > b else 'same as the close' if a == b else 'the close was better'}")
                 if line not in clv:
                     clv.append(line)
+            if leg.get("market") == "spread" and leg.get("line") is not None and leg.get("odds"):
+                line = spread_clv_line(leg, g)               # 📏 11/26: a spread pick gets its close line too
+                if line and line not in clv:
+                    clv.append(line)
     return {"flags": flags, "clv": clv, "checked": n}
+
+
+def spread_clv_line(leg, g):
+    """📏 11/26 daily look-back (Providence +2.5 / Texas St -26.5, the ½u spread stack plays - the audit's close lines
+    were moneylines only, so the board's most common play never had one): 'Texas St -26.5 (-108) posted, closed -27.5
+    (-112) - beat the close by 1 point'. The number first, the juice only when the number is the same. None when the
+    game holds no closing spread."""
+    import sports
+    side = leg.get("side")
+    try:
+        mine = float(leg["line"])
+        close = float(g.get("spread_home")) if side == "home" else -float(g.get("spread_home"))
+    except (TypeError, ValueError, KeyError):
+        return None
+    co = sm._int(g.get(f"spread_{side}_odds"))
+    f = lambda x: "pick'em" if x == 0 else f"{x:+g}"         # noqa: E731
+    head = (f"{leg.get('team')} {f(mine)} ({sports.fmt_american(leg['odds'])}) posted, closed {f(close)}"
+            + (f" ({sports.fmt_american(co)})" if co is not None else ""))
+    d = round(mine - close, 1)                               # + = our number was the better one
+    if d:
+        pts = f"{abs(d):g} point{'s' if abs(d) != 1 else ''}"
+        return head + (f" - beat the close by {pts}" if d > 0 else f" - the close was {pts} better")
+    if co is None:
+        return head + " - same number as the close"
+    a, b = sd.decimal(leg["odds"]), sd.decimal(co)
+    return head + (" - same number, better juice than the close" if a > b else " - same number and juice as the close"
+                   if a == b else " - same number, the close had the better juice")
 
 
 def run(picks, games, days):

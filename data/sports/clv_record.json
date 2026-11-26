@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 142,
-  "beat": 49,
+  "n": 144,
+  "beat": 50,
   "same": 60,
-  "worse": 33,
-  "avg_pts": 0.38
+  "worse": 34,
+  "avg_pts": 0.37
  },
  "unit_plays": {
-  "n": 142,
-  "beat": 49,
+  "n": 144,
+  "beat": 50,
   "same": 60,
-  "worse": 33,
-  "avg_pts": 0.38
+  "worse": 34,
+  "avg_pts": 0.37
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 91,
-   "beat": 33,
+   "n": 93,
+   "beat": 34,
    "same": 38,
-   "worse": 20,
-   "avg_pts": 0.47
+   "worse": 21,
+   "avg_pts": 0.46
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 1.44
   },
   "ncaab": {
-   "n": 13,
-   "beat": 6,
+   "n": 15,
+   "beat": 7,
    "same": 3,
-   "worse": 4,
-   "avg_pts": 0.45
+   "worse": 5,
+   "avg_pts": 0.39
   },
   "ncaaf": {
    "n": 43,
@@ -2096,6 +2096,34 @@
    "odds": 114,
    "close": -141,
    "pts": 11.8,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-25",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Kennesaw St",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 102,
+   "pts": 0.7,
+   "units": 2.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-25",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Providence",
+   "market": "spread",
+   "line": 2.5,
+   "odds": -115,
+   "close": -112,
+   "pts": -0.7,
    "units": 0.5,
    "result": "lost"
   }
