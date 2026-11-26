@@ -29536,3 +29536,33 @@ error: failed to push some refs to 'https://githu
 [2026-11-26 11:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-26 11:05 UTC] crypto/hold_btc  equity $373.60 (-25.3%) 1 open  market DOWN
    social heat top: VVV 42 (32/0/10), PENGU 37 (37/0/0), BTC 35 (35/0/0), LINK 29 (29/0/0), SOL 28 (24/0/4)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT ICNT@base liq $125,485 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   dex screen: UNREACHABLE VAR@ethereum liq $189,856 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT STONK@solana liq $805,741 - lp holders unknown; rugcheck lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT KNTQ@base liq $67 - liquidity $67 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex re-screen: XTO@solana:91GG7PWs data flag #17 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT EUSD@ethereum liq $1,000,004 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; top-10 holders 160%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MSFTC@base liq $414,074 - pool age unknown
+   dex screen: UNREACHABLE VAR@ethereum liq $141,123 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT FIONA@solana liq $155,195 - lp holders unknown; rugcheck lp locked 49% < 95%
+   dex screen: PASS CBUCKS@solana liq $282,126
+   dex screen: REJECT MINELIUS@base liq $171,031 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   dex re-screen: XTO@solana:91GG7PWs data flag #18 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT USDS@ethereum liq $55,007,672 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%
+   dex scanner: 2,984 pools (solana 2,121 / base 533 / ethereum 330), refresh cycle 123s (hot 119s), 3025 calls (109 feed, 429s 0, failed 0), 87,477 refreshed (10596 no pair), +46 added / -62 dropped (dead 57, stale 0, cap 5), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-26 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/social_heat equity $318.17 (-36.4%) 2 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 12:06 UTC] crypto/hold_btc  equity $375.38 (-24.9%) 1 open  market DOWN
+   social heat top: PENGU 32 (32/0/0), VVV 31 (27/0/4), BTC 29 (29/0/0), SOL 26 (19/0/8), LINK 24 (24/0/0)
