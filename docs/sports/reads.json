@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T00:40Z",
+ "updated": "2026-11-26T00:50Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -626,7 +626,7 @@
    "home": "Providence",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Providence",
@@ -641,7 +641,7 @@
      "their top scorer Robert Wright III (23.8 a game) missed their last game - the books under-price that (4 of 4 seasons)",
      "they've lost 1 rotation man in the last three weeks - Robert Wright III (30 minutes a game)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1019,6 +1019,51 @@
    "lean": null
   },
   {
+   "id": "nhl:401892789",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-26T00:30Z",
+   "away": "Canucks",
+   "home": "Red Wings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909319",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-26T00:30Z",
+   "away": "Cavaliers",
+   "home": "Knicks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909320",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-26T00:30Z",
+   "away": "Timberwolves",
+   "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401920550",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1274,8 +1319,8 @@
     "team": "Warriors",
     "opp": "Kings",
     "market": "spread",
-    "line": -7.5,
-    "odds": -106,
+    "line": -8.5,
+    "odds": -105,
     "p": 0.5,
     "win_p": 0.723,
     "reasons": [

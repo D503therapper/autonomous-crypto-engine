@@ -29409,6 +29409,7 @@
      "us:west1000"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "def_first": true,
     "dog_ctx": {
      "cw5": 1,
@@ -29434,6 +29435,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "43,42",
+     "h": "43,39"
+    },
     "form_state": [
      -18.0,
      -1,
@@ -29513,7 +29518,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -29522,7 +29527,9 @@
     ],
     "roster_new": 0.167,
     "roster_tin": 0.738,
+    "score": "BYU 85 @ Providence 82",
     "season_games": null,
+    "settled": "2026-11-26T00:49Z",
     "side": "home",
     "sold": [
      "\ud83e\ude91|23.8"
@@ -29556,17 +29563,19 @@
    }
   ],
   "p_hit": 0.5,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-25T16:00Z",
   "round": 1,
+  "settled": "2026-11-26T00:49Z",
   "stack_play": {
    "line": 2.5,
    "n": 2,
    "stack": 0.05
   },
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -108,
