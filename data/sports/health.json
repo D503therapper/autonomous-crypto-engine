@@ -1,7 +1,7 @@
 {
- "at": "2026-11-26T07:16Z",
+ "at": "2026-11-26T07:17Z",
  "fixes": [
-  "slate check problem - re-pull before the board - started sports.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
@@ -9,7 +9,7 @@
   "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
  ],
  "ok": [
-  "live watcher fresh (20s)",
+  "live watcher fresh (42s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,12 +23,23 @@
   "every upcoming game has its real teams",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-26T07:17Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
   {
    "at": "2026-11-26T07:16Z",
    "fixes": [
@@ -722,13 +733,6 @@
   },
   {
    "at": "2026-11-24T22:42Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-24T22:41Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
