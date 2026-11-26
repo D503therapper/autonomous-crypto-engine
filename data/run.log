@@ -29366,3 +29366,26 @@ error: failed to push some refs to 'https://githu
 [2026-11-26 05:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-26 05:05 UTC] crypto/hold_btc  equity $376.05 (-24.8%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), MON 35 (35/0/0), VVV 33 (29/0/4), BTC 32 (32/0/0), PONS 30 (21/0/8)
+   dex screen: REJECT AAPLC@base liq $514,222 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex re-screen: XTO@solana:91GG7PWs data flag #6 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT XTEN@ethereum liq $127,976 - lp holders unknown
+   dex screen: REJECT VVV@base liq $7,289,957 - is_mintable; owner_percent 30%; top-10 holders 61%
+   dex screen: REJECT PAXG@ethereum liq $2,139,617 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: UNREACHABLE MIHAO@ethereum liq $217,888 - honeypot.is unreachable
+   dex screen: REJECT SKY@ethereum liq $1,102,957 - 24h volume $36,649 < $100,000
+   dex re-screen: XTO@solana:91GG7PWs data flag #7 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 2,031 / base 595 / ethereum 374), refresh cycle 122s (hot 118s), 3062 calls (110 feed, 429s 0, failed 0), 88,558 refreshed (10152 no pair), +64 added / -62 dropped (dead 4, stale 0, cap 58), movers 2 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-26 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/social_heat equity $319.23 (-36.2%) 2 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 06:05 UTC] crypto/hold_btc  equity $374.31 (-25.1%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), PENGU 37 (37/0/0), VVV 36 (35/0/2), MON 32 (32/0/0), ZRO 29 (29/0/0)
