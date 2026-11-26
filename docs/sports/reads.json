@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T01:01Z",
+ "updated": "2026-11-26T01:05Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -654,8 +654,8 @@
    "away": "Bethune",
    "home": "Richmond",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -713,8 +713,8 @@
    "away": "UAlbany",
    "home": "Syracuse",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -728,8 +728,8 @@
    "away": "West Florida",
    "home": "N'Western St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1079,6 +1079,36 @@
    "lean": null
   },
   {
+   "id": "ncaab:401920138",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T01:00Z",
+   "away": "Bakersfield",
+   "home": "Pepperdine",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401911522",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T01:00Z",
+   "away": "Omaha",
+   "home": "UC Davis",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401917545",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1319,7 +1349,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.54,
+    "p": 0.547,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1335,9 +1365,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -162,
+    "p": 0.603,
+    "win_p": 0.603,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
