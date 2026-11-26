@@ -19183,7 +19183,9 @@ def test_sd_1104_a_non_d1_blowout_moves_nothing_and_the_stronger_team_needs_the_
     except Exception:                                                        # noqa: BLE001
         games = {}
     if "ncaab:401929404" in games and games["ncaab:401929404"].get("status") == "final":
-        e, _ = sm.replay(sm.finals(games, "ncaab"), 22.0, 100)
+        _fin = sm.finals(games, "ncaab")                                    # (11/25: South Dakota beat AR-Pine Bluff 86-50 - a REAL
+        e, _ = sm.replay([x for x in _fin if str(x.get("start") or "") < "2026-11-03"], 22.0, 100)   # D1 blowout; the check
+        #                                                                      reads the slate as of the Mount Marty game it was written for)
         assert e.d1 is not None and "573" not in e.d1 and "233" in e.d1 and "94" in e.d1   # Mount Marty / SD / NKU
         assert e.r.get("573", 1500.0) == 1500.0 and not e.last_big.get("233")
         f_sd = e.features(games["ncaab:401928811"]) if "ncaab:401928811" in games else None
