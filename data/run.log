@@ -29992,3 +29992,27 @@ $NKLA: No data found, symbol may be delisted
    [alert] Today -0.23 | Total -63.65: Stocks: $449.33  today -0.24  total -50.67
 DEX: $987.01  today +0.01  total -12.99
 DEX: $987.01 (-12.99) · Scammed: 0
+   dex screen: REJECT CON@ethereum liq $687,346 - creator_percent 50%; top-10 holders 100%; lp holders unknown
+   dex screen: REJECT EURC@ethereum liq $248,368 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 47%; lp locked 0% < 95%
+   dex screen: REJECT DRV@solana liq $382,405,483 - top-10 holders 100%
+   dex screen: REJECT DRV@ethereum liq $1,049,482 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%
+   dex screen: REJECT DRV@base liq $3,113,468 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 54%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NPC@ethereum liq $2,928,648 - top-10 holders 41%
+   dex screen: REJECT LMTS@base liq $106,573 - pool age unknown
+   dex screen: REJECT AI@solana liq $33,901,050 - top-10 holders 100%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex scanner: 2,830 pools (solana 2,083 / base 418 / ethereum 329), refresh cycle 118s (hot 114s), 3026 calls (110 feed, 429s 0, failed 0), 87,479 refreshed (14991 no pair), +47 added / -82 dropped (dead 79, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-26 23:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/mover     equity $106.04 (-78.8%) 1 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/social_heat equity $317.64 (-36.5%) 2 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 23:05 UTC] crypto/hold_btc  equity $373.62 (-25.3%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), XTZ 37 (37/0/0), SOL 32 (32/0/0), BTC 27 (27/0/0), VVV 24 (24/0/0)
