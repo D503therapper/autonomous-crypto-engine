@@ -1,15 +1,9 @@
 {
- "at": "2026-11-26T07:54Z",
- "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
- ],
- "problems": [
-  "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
- ],
+ "at": "2026-11-26T09:26Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (139s)",
+  "live watcher fresh (82s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,17 +12,21 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 28 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-26T09:26Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-26T07:54Z",
    "fixes": [
@@ -747,15 +745,6 @@
    "problems": [
     "sources down (the backups took over): betrivers:ncaab:1028935687 HTTP 404"
    ]
-  },
-  {
-   "at": "2026-11-25T01:07Z",
-   "fixes": [
-    "live watch 45518633734 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
   }
  ]
 }
