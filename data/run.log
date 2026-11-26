@@ -29441,3 +29441,20 @@ error: failed to push some refs to 'https://githu
 [2026-11-26 08:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-26 08:05 UTC] crypto/hold_btc  equity $374.01 (-25.2%) 1 open  market DOWN
    social heat top: VVV 42 (40/0/2), BTC 37 (37/0/0), PENGU 35 (35/0/0), MON 32 (32/0/0), HYPE 27 (27/0/0)
+   dex screen: REJECT ATX@solana liq $3,089,274 - lp holders unknown; rugcheck score 54
+   dex screen: REJECT SUSDE@ethereum liq $1,263,589 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 77%
+   dex re-screen: XTO@solana:91GG7PWs data flag #11 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: UNREACHABLE MIHAO@ethereum liq $300,689 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT ELSA@base liq $588,021 - top-10 holders 88%; lp locked 0% < 95%
+   dex re-screen: XTO@solana:91GG7PWs data flag #12 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,001 pools (solana 2,087 / base 563 / ethereum 351), refresh cycle 124s (hot 120s), 3017 calls (110 feed, 429s 0, failed 1), 87,179 refreshed (10612 no pair), +45 added / -44 dropped (dead 10, stale 0, cap 34), movers 1 + warming 0 -> queued 1, screened 1 (passed 0), bought 0
+[2026-11-26 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/social_heat equity $318.29 (-36.3%) 2 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 09:05 UTC] crypto/hold_btc  equity $375.71 (-24.9%) 1 open  market DOWN
+   social heat top: VVV 42 (40/0/2), BTC 37 (37/0/0), PENGU 35 (35/0/0), HYPE 32 (32/0/0), NEAR 29 (29/0/0)
