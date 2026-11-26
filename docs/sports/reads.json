@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T21:16Z",
+ "updated": "2026-11-26T21:59Z",
  "games": [
   {
    "id": "ncaab:401929281",
@@ -56,8 +56,8 @@
    "away": "Bears",
    "home": "Lions",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -86,8 +86,8 @@
    "away": "Boston College",
    "home": "UCF",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -101,8 +101,8 @@
    "away": "Arizona St",
    "home": "South Carolina",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -167,32 +167,49 @@
    "lean": null
   },
   {
-   "id": "ncaab:401917547",
+   "id": "ncaab:401925757",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UCLA",
-    "p": 0.685,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-26T22:00Z",
-   "away": "Saint Mary's",
-   "home": "UCLA",
-   "why": "coin_flip",
+   "start": "2026-11-26T21:30Z",
+   "away": "Arkansas",
+   "home": "Michigan St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Saint Mary's",
-    "opp": "UCLA",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -108,
-    "p": 0.501,
-    "win_p": 0.24,
-    "reasons": []
-   }
+   "lean": null
+  },
+  {
+   "id": "nfl:401873080",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-26T21:30Z",
+   "away": "Eagles",
+   "home": "Cowboys",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921673",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T21:30Z",
+   "away": "USC",
+   "home": "Utah State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401920538",
@@ -292,7 +309,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Jax State",
-    "p": 0.546,
+    "p": 0.538,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -308,9 +325,9 @@
     "opp": "UC Davis",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.594,
-    "win_p": 0.594,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -370,9 +387,9 @@
     "opp": "Chiefs",
     "market": "ml",
     "line": null,
-    "odds": -154,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -153,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
      "the stronger team"
     ]
@@ -1249,7 +1266,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cincinnati",
-    "p": 0.713,
+    "p": 0.718,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1267,9 +1284,8 @@
     "line": 9.5,
     "odds": -120,
     "p": 0.503,
-    "win_p": 0.205,
+    "win_p": 0.2,
     "reasons": [
-     "rolling off a blowout win",
      "Cincinnati spread their minutes across the whole bench and they played yesterday - teams like that on a second day missed their number 5 seasons running"
     ]
    }
@@ -1459,8 +1475,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia",
-    "p": 0.626,
-    "tie": 0.041,
+    "p": 0.629,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1476,8 +1492,8 @@
     "market": "ml",
     "line": null,
     "odds": -235,
-    "p": 0.692,
-    "win_p": 0.692,
+    "p": 0.695,
+    "win_p": 0.695,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +6.7 a game to their -6.0 - the books don't price the glass (5 of 5 seasons)"
