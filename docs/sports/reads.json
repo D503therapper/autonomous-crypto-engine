@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T00:54Z",
+ "updated": "2026-11-26T01:01Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -669,8 +669,8 @@
    "away": "CSU Northridge",
    "home": "Weber St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1077,67 +1077,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401920550",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UTEP",
-    "p": 0.487,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-26T01:30Z",
-   "away": "E Michigan",
-   "home": "UTEP",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UTEP",
-    "opp": "E Michigan",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.512,
-    "win_p": 0.512,
-    "reasons": [
-     "the stronger team",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909323",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.651,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-26T01:30Z",
-   "away": "Suns",
-   "home": "Rockets",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Suns",
-    "market": "spread",
-    "line": -9.5,
-    "odds": -104,
-    "p": 0.501,
-    "win_p": 0.743,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
   },
   {
    "id": "ncaab:401917545",
