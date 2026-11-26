@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T03:24Z",
+ "updated": "2026-11-26T03:32Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -1103,8 +1103,8 @@
    "away": "Clippers",
    "home": "Grizzlies",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1364,6 +1364,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401921671",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T03:30Z",
+   "away": "Grand Canyon",
+   "home": "Colorado",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401929005",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1489,8 +1504,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTSA",
-    "p": 0.843,
-    "tie": 0.025,
+    "p": 0.828,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1504,11 +1519,13 @@
     "team": "Army",
     "opp": "UTSA",
     "market": "spread",
-    "line": 13.5,
-    "odds": -102,
-    "p": 0.507,
-    "win_p": 0.083,
-    "reasons": []
+    "line": 14.5,
+    "odds": -105,
+    "p": 0.508,
+    "win_p": 0.096,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -2133,7 +2150,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Gonzaga",
-    "p": 0.601,
+    "p": 0.595,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -2149,9 +2166,9 @@
     "opp": "Baylor",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.661,
-    "win_p": 0.661,
+    "odds": -198,
+    "p": 0.653,
+    "win_p": 0.653,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
