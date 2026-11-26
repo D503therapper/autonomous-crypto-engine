@@ -29134,6 +29134,7 @@
      "game:nonconf"
     ],
     "dec": 2.05,
+    "decider": {},
     "def_first": true,
     "dog_bad": [],
     "dog_ctx": {
@@ -29187,6 +29188,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "36,41",
+     "h": "46,45"
+    },
     "form_state": [
      -4.0,
      -1,
@@ -29280,7 +29285,7 @@
      "E. Ellis": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -29289,7 +29294,9 @@
     ],
     "roster_new": 0.399,
     "roster_tin": 0.353,
+    "score": "Kennesaw St 77 @ Charleston 91",
     "season_games": null,
+    "settled": "2026-11-26T01:23Z",
     "side": "away",
     "sold": [
      "\ud83c\udfa8|1,32,40",
@@ -29346,12 +29353,14 @@
    "two_at": 5
   },
   "p_hit": 0.4655,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-25T16:00Z",
   "round": 1,
+  "settled": "2026-11-26T01:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": -115,
