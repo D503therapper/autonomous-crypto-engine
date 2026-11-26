@@ -29755,3 +29755,47 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-26 16:05 UTC] stocks/trend     equity $438.48 (-12.3%) 0 open  market DOWN
 [2026-11-26 16:05 UTC] stocks/hold_spy  equity $469.43 (-6.1%) 1 open  market DOWN
    social heat top: PENGU 27 (27/0/0), SOL 24 (19/0/5), VVV 23 (13/0/10), BTC 16 (16/0/0), CASHCAT 12 (0/0/12)
+   dex screen: REJECT ANTFUN@solana liq $11,362,860 - top-10 holders 41%
+   dex screen: UNREACHABLE PEJAK@ethereum liq $303,901 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SDLR@ethereum liq $500,291 - transfer_pausable; is_blacklisted; lp locked 0% < 95%
+   dex screen: REJECT BRUH@solana liq $219,352 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: UNREACHABLE PEJAK@ethereum liq $309,522 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS UHI@solana liq $100,914
+   dex re-screen: XTO@solana:91GG7PWs data flag #27 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT NPS@ethereum liq $382,335 - goplus: no data
+   dex screen: UNREACHABLE PEJAK@ethereum liq $300,509 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: XTO@solana:91GG7PWs data flag #28 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex scanner: 2,713 pools (solana 1,996 / base 416 / ethereum 301), refresh cycle 115s (hot 111s), 2948 calls (109 feed, 429s 0, failed 0), 85,170 refreshed (11205 no pair), +58 added / -89 dropped (dead 84, stale 5, cap 0), movers 1 + warming 0 -> queued 1, screened 1 (passed 0), bought 0
+[2026-11-26 17:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/mover     equity $106.55 (-78.7%) 1 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/social_heat equity $316.36 (-36.7%) 2 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] crypto/hold_btc  equity $374.16 (-25.2%) 1 open  market DOWN
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-26 17:05 UTC] stocks/rsi2      equity $448.28 (-10.3%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): AVGO 19, AMD 21, COST 22 BUY, MSTR 24
+[2026-11-26 17:05 UTC] stocks/breakout52 equity $450.39 (-9.9%) 2 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-26 17:05 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 46.18 vs its 200-day average 65.37: BELOW (cash)
+[2026-11-26 17:05 UTC] stocks/dual_momentum equity $437.50 (-12.5%) 2 open  market DOWN
+[2026-11-26 17:05 UTC] stocks/trend_ensemble equity $490.72 (-1.9%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] stocks/trend     equity $438.48 (-12.3%) 0 open  market DOWN
+[2026-11-26 17:05 UTC] stocks/hold_spy  equity $469.43 (-6.1%) 1 open  market DOWN
+   social heat top: PENGU 32 (32/0/0), VVV 27 (24/0/3), BTC 21 (21/0/0), HYPE 16 (16/0/0), AAVE 13 (13/0/0)
