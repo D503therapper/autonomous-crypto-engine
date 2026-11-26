@@ -29625,6 +29625,12 @@
      "game:nonconf"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "h": "50-45",
+     "s": "97-70",
+     "type": "blowout",
+     "win": "home"
+    },
     "def_first": false,
     "dog_ctx": {
      "cw5": 0,
@@ -29662,6 +29668,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "45,25",
+     "h": "50,47"
+    },
     "form_state": [
      26.0,
      7,
@@ -29744,7 +29754,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -29753,7 +29763,9 @@
     ],
     "roster_new": 0.089,
     "roster_tin": 0.385,
+    "score": "Alcorn St 70 @ Texas St 97",
     "season_games": null,
+    "settled": "2026-11-25T23:59Z",
     "side": "home",
     "sold": [
      "\ud83e\ude91|16.0"
@@ -29798,16 +29810,18 @@
   ],
   "midday": true,
   "p_hit": 0.4805,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-11-25T18:32Z",
   "round": 1,
+  "settled": "2026-11-25T23:59Z",
   "stack_play": {
    "line": -26.5,
    "n": 4,
    "stack": 0.05
   },
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]
