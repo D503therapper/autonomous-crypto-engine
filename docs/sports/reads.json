@@ -1,67 +1,20 @@
 {
- "updated": "2026-11-26T16:02Z",
+ "updated": "2026-11-26T16:30Z",
  "games": [
   {
-   "id": "ncaab:401912231",
+   "id": "ncaab:401929281",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UTSA",
-    "p": 0.806,
-    "tie": 0.029,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-26T17:00Z",
-   "away": "Army",
-   "home": "UTSA",
-   "why": "coin_flip",
+   "start": "2026-11-26T16:00Z",
+   "away": "Georgia",
+   "home": "Cincinnati",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Army",
-    "opp": "UTSA",
-    "market": "spread",
-    "line": 11.5,
-    "odds": -110,
-    "p": 0.505,
-    "win_p": 0.115,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401906807",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Purdue",
-    "p": 0.616,
-    "tie": 0.041,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-26T17:00Z",
-   "away": "Oklahoma",
-   "home": "Purdue",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Purdue",
-    "opp": "Oklahoma",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.68,
-    "win_p": 0.68,
-    "reasons": [
-     "the stronger team",
-     "opponent's body clock is off",
-     "out-rebounding people by +11.4 a game to their +1.0 - the books don't price the glass (5 of 5 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873081",
@@ -69,7 +22,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.505,
+    "p": 0.498,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -85,9 +38,9 @@
     "opp": "Lions",
     "market": "ml",
     "line": null,
-    "odds": -119,
-    "p": 0.529,
-    "win_p": 0.529,
+    "odds": -114,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
      "revenge game"
     ]
@@ -332,10 +285,10 @@
     "team": "Eagles",
     "opp": "Cowboys",
     "market": "spread",
-    "line": 8.5,
-    "odds": -108,
-    "p": 0.505,
-    "win_p": 0.226,
+    "line": 9.5,
+    "odds": -113,
+    "p": 0.507,
+    "win_p": 0.227,
     "reasons": [
      "revenge game"
     ]
@@ -347,7 +300,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "USC",
-    "p": 0.529,
+    "p": 0.519,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -356,16 +309,16 @@
    "start": "2026-11-26T21:30Z",
    "away": "Utah State",
    "home": "USC",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "USC",
     "opp": "Utah State",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.567,
-    "win_p": 0.567,
+    "odds": -135,
+    "p": 0.554,
+    "win_p": 0.554,
     "reasons": [
      "opponent's body clock is off",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
@@ -395,7 +348,7 @@
     "opp": "UCLA",
     "market": "spread",
     "line": 7.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.248,
     "reasons": []
@@ -471,7 +424,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "LSU",
-    "p": 0.673,
+    "p": 0.683,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -489,7 +442,7 @@
     "line": 7.5,
     "odds": -115,
     "p": 0.501,
-    "win_p": 0.255,
+    "win_p": 0.244,
     "reasons": []
    }
   },
@@ -561,7 +514,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.524,
+    "p": 0.523,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -577,9 +530,9 @@
     "opp": "Chiefs",
     "market": "ml",
     "line": null,
-    "odds": -154,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -153,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
      "the stronger team"
     ]
@@ -591,8 +544,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Alabama",
-    "p": 0.824,
-    "tie": 0.027,
+    "p": 0.81,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -606,10 +559,10 @@
     "team": "Kansas St",
     "opp": "Alabama",
     "market": "spread",
-    "line": 14.5,
-    "odds": -112,
-    "p": 0.508,
-    "win_p": 0.094,
+    "line": 13.5,
+    "odds": -108,
+    "p": 0.507,
+    "win_p": 0.107,
     "reasons": []
    }
   },
@@ -651,8 +604,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacific",
-    "p": 0.712,
-    "tie": 0.036,
+    "p": 0.7,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -666,11 +619,13 @@
     "team": "Omaha",
     "opp": "Pacific",
     "market": "spread",
-    "line": 8.5,
-    "odds": -112,
-    "p": 0.502,
-    "win_p": 0.206,
-    "reasons": []
+    "line": 7.5,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.221,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -726,9 +681,9 @@
     "team": "Oregon",
     "opp": "Texas Tech",
     "market": "spread",
-    "line": 9.5,
-    "odds": -105,
-    "p": 0.503,
+    "line": 10.5,
+    "odds": -112,
+    "p": 0.504,
     "win_p": 0.173,
     "reasons": [
      "opponent's body clock is off"
