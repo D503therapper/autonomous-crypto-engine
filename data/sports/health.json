@@ -1,12 +1,12 @@
 {
- "at": "2026-11-26T21:57Z",
+ "at": "2026-11-26T22:38Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Podoroska vs Carle: no points for 64s",
+  "live tennis scores: tennis Podoroska vs Carle: no points for 2226s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (139s)",
+  "live watcher fresh (221s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,13 +21,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 58 min ago",
+  "simulator ran 1h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-26T22:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Carle: no points for 2226s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-26T21:57Z",
    "fixes": [],
@@ -775,14 +783,6 @@
   {
    "at": "2026-11-25T12:05Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T10:32Z",
-   "fixes": [
-    "live watch 45588933594 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
