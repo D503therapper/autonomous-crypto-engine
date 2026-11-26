@@ -29479,3 +29479,29 @@ error: failed to push some refs to 'https://githu
 [2026-11-26 09:20 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-26 09:20 UTC] crypto/hold_btc  equity $375.48 (-24.9%) 1 open  market DOWN
    social heat top: HYPE 47 (35/0/12), VVV 42 (40/0/2), PENGU 37 (37/0/0), NEAR 32 (32/0/0), BTC 29 (29/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '61549.99', 'l': '57217.89', 'a': '60789.91', 'v': '7164.3176', 'vv': '426379424.56', 'c': '0.0306', 'b': '60795.40', 'k': '60795.41', 'oi': '0', 't': 1795684860896}
+   dex screen: UNREACHABLE MIHAO@ethereum liq $376,584 - honeypot.is unreachable
+   dex re-screen: XTO@solana:91GG7PWs data flag #13 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS SPX@ethereum liq $8,037,851
+   dex screen: PASS PEPE@ethereum liq $23,281,247
+   dex screen: REJECT GOOGLC@base liq $1,684,412 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 86%; lp locked 0% < 95%
+   dex screen: UNREACHABLE VAR@ethereum liq $182,581 - honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE MIHAO@ethereum liq $375,785 - honeypot.is unreachable
+   dex screen: UNREACHABLE MIHAO@ethereum liq $348,501 - honeypot.is unreachable
+   dex re-screen: XTO@solana:91GG7PWs data flag #14 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 2,976 pools (solana 2,090 / base 554 / ethereum 332), refresh cycle 112s (hot 110s), 2157 calls (81 feed, 429s 1, failed 1), 62,130 refreshed (7340 no pair), +75 added / -98 dropped (dead 30, stale 0, cap 68), movers 2 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-26 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/social_heat equity $318.01 (-36.4%) 2 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 10:05 UTC] crypto/hold_btc  equity $375.45 (-24.9%) 1 open  market DOWN
+   social heat top: VVV 43 (40/0/3), BTC 37 (37/0/0), PENGU 35 (35/0/0), HYPE 29 (29/0/0), SOL 27 (27/0/1)
