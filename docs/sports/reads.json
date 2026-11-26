@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T02:12Z",
+ "updated": "2026-11-26T02:27Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -818,8 +818,8 @@
    "away": "Duke",
    "home": "UConn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -923,8 +923,8 @@
    "away": "N Illinois",
    "home": "SIUE",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1229,6 +1229,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401924897",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T02:00Z",
+   "away": "Miss Valley St",
+   "home": "New Mexico",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401925880",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1242,128 +1257,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nba:401909324",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Warriors",
-    "p": 0.644,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-26T03:00Z",
-   "away": "Kings",
-   "home": "Warriors",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Warriors",
-    "opp": "Kings",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.734,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892793",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Ducks",
-    "p": 0.375,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-26T03:00Z",
-   "away": "Sharks",
-   "home": "Ducks",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Sharks",
-    "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.671,
-    "win_p": 0.453,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909325",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Spurs",
-    "p": 0.54,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-26T03:00Z",
-   "away": "Spurs",
-   "home": "Trail Blazers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Spurs",
-    "opp": "Trail Blazers",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "the stronger team",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921713",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "VCU",
-    "p": 0.588,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-26T03:00Z",
-   "away": "Washington",
-   "home": "VCU",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "VCU",
-    "opp": "Washington",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.644,
-    "win_p": 0.644,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
   },
   {
    "id": "ncaab:401917544",
