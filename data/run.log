@@ -29458,3 +29458,8 @@ error: failed to push some refs to 'https://githu
 [2026-11-26 09:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-26 09:05 UTC] crypto/hold_btc  equity $375.71 (-24.9%) 1 open  market DOWN
    social heat top: VVV 42 (40/0/2), BTC 37 (37/0/0), PENGU 35 (35/0/0), HYPE 32 (32/0/0), NEAR 29 (29/0/0)
+   dex screen: PASS CATE@solana liq $1,286,897
+   dex screen: PASS THREE@solana liq $125,609
+   dex screen: REJECT GDLR@ethereum liq $426,702 - transfer_pausable; is_blacklisted; lp locked 0% < 95%
+   dex screen: REJECT WSTETH@ethereum liq $2,550,480 - is_mintable; honeypot_with_same_creator; top-10 holders 68%
+   dex screen: REJECT SKHY@solana liq $1,911,456 - 24h volume $55,074 < $100,000
