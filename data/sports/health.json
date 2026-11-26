@@ -1,13 +1,12 @@
 {
- "at": "2026-11-26T20:25Z",
+ "at": "2026-11-26T21:57Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Lepchenko vs Costoulas: no points for 2595s",
-  "live tennis scores: tennis Samson vs Burillo: no points for 669s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Podoroska vs Carle: no points for 64s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (142s)",
+  "live watcher fresh (139s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,17 +17,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 32 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 58 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-26T21:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Carle: no points for 64s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-26T20:25Z",
    "fixes": [],
@@ -776,11 +783,6 @@
     "live watch 45588933594 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T09:49Z",
-   "fixes": [],
    "problems": []
   }
  ]
