@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T00:13Z",
+ "updated": "2026-11-26T00:21Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -610,8 +610,8 @@
    "away": "South Carolina",
    "home": "USC",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -749,6 +749,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892785",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-26T00:00Z",
+   "away": "Blues",
+   "home": "Islanders",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909318",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -794,6 +809,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401909568",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T00:00Z",
+   "away": "Duke",
+   "home": "UConn",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892786",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -802,6 +832,21 @@
    "start": "2026-11-26T00:00Z",
    "away": "Flames",
    "home": "Penguins",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892787",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-26T00:00Z",
+   "away": "Flyers",
+   "home": "Capitals",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1391,7 +1436,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.644,
+    "p": 0.636,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1409,7 +1454,7 @@
     "line": -7.5,
     "odds": -106,
     "p": 0.5,
-    "win_p": 0.734,
+    "win_p": 0.723,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1845,7 +1890,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "USC",
-    "p": 0.545,
+    "p": 0.544,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1862,8 +1907,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.588,
-    "win_p": 0.588,
+    "p": 0.587,
+    "win_p": 0.587,
     "reasons": []
    }
   },
