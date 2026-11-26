@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T19:01Z",
+ "updated": "2026-11-26T19:41Z",
  "games": [
   {
    "id": "ncaab:401929281",
@@ -26,8 +26,8 @@
    "away": "Army",
    "home": "UTSA",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -41,8 +41,8 @@
    "away": "Oklahoma",
    "home": "Purdue",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -85,6 +85,36 @@
    "start": "2026-11-26T18:30Z",
    "away": "Boston College",
    "home": "UCF",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921674",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T19:00Z",
+   "away": "Arizona St",
+   "home": "South Carolina",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401906869",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T19:30Z",
+   "away": "Georgetown",
+   "home": "Texas",
    "h1": null,
    "why": "started",
    "done": false,
@@ -192,7 +222,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.66,
+    "p": 0.661,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -270,7 +300,7 @@
     "opp": "UCLA",
     "market": "spread",
     "line": 7.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.501,
     "win_p": 0.248,
     "reasons": []
@@ -314,7 +344,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pitt",
-    "p": 0.484,
+    "p": 0.482,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -330,9 +360,9 @@
     "opp": "DePaul",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.507,
-    "win_p": 0.507,
+    "odds": -108,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -361,9 +391,9 @@
     "team": "SMU",
     "opp": "LSU",
     "market": "spread",
-    "line": 6.5,
-    "odds": -108,
-    "p": 0.5,
+    "line": 7.5,
+    "odds": -115,
+    "p": 0.501,
     "win_p": 0.251,
     "reasons": []
    }
