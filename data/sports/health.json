@@ -1,36 +1,47 @@
 {
- "at": "2026-11-26T01:03Z",
+ "at": "2026-11-26T02:34Z",
  "fixes": [
+  "live board 6 min stale with games on - sports-live.yml already running",
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "workflow failed: sports 2026-11-26T00:57 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45732375315",
-  "workflow failed: sports 2026-11-26T00:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731774153",
-  "workflow failed: sports 2026-11-26T00:46 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731169388",
-  "workflow failed: sports 2026-11-26T00:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45730540671",
-  "workflow failed: sports 2026-11-26T00:36 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45729993751",
-  "sources down (the backups took over): betrivers:ncaab:1028662139 HTTP 404"
+  "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
  ],
  "ok": [
-  "live watcher fresh (23s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "card audit: 0 live cards, 0 lines - nothing false, outdated or senseless",
+  "double check: 0 injury / starter / price claims on 0 live cards - 0 confirmed by a second source, 0 single-sourced, 0 waiting on a game-day word",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
   "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-26T02:34Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
+   ]
+  },
   {
    "at": "2026-11-26T01:03Z",
    "fixes": [
@@ -714,18 +725,6 @@
    "problems": [
     "live tennis scores: tennis Cinalli vs De Reales: no points for 1752s",
     "live tennis scores: tennis Linana vs Bronzetti: no points for 1752s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T16:43Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs De Reales: no points for 1164s",
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 1164s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route",
     "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
    ]
