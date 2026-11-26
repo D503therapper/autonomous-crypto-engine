@@ -29220,3 +29220,30 @@ DEX: $987.00 (-13.00) · Scammed: 0
 [2026-11-26 00:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-26 00:05 UTC] crypto/hold_btc  equity $373.11 (-25.4%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), VVV 39 (37/0/2), XRP 32 (32/0/0), BTC 27 (27/0/0), ZRO 24 (24/0/0)
+   dex screen: REJECT AMDC@base liq $21,749 - liquidity $21,749 < $100,000; 24h volume $27,397 < $100,000
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]              eb17d185857cf6b08d94f7b56e531f9aa1b61964 -> main (fetch first)
+error: failed to push some refs to 'https://githu
+   dex re-screen: XTO@solana:91GG7PWs data flag #4 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT XDP@base liq $696,267 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT SPCX@solana liq $2,935,903,348 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SPCX@solana liq $1,247,432,362 - top-10 holders 100%
+   dex screen: UNREACHABLE SPCX@solana liq $452,655,912 - goplus unreachable
+   dex screen: REJECT GRND@solana liq $127,221 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 64%; lp holders unknown
+   dex screen: REJECT NPS@ethereum liq $237,349 - goplus: no data
+   dex screen: REJECT DCTY@solana liq $17,126,258 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex re-screen: XTO@solana:91GG7PWs data flag #5 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT MSTRC@base liq $100,534 - 24h volume $51,108 < $100,000
+   dex screen: REJECT AERO@base liq $1,819 - liquidity $1,819 < $100,000; 24h volume $318 < $100,000
+   dex screen: PASS JOB@solana liq $137,377
+   dex scanner: 3,000 pools (solana 2,071 / base 578 / ethereum 351), refresh cycle 126s (hot 122s), 2977 calls (128 feed, 429s 1, failed 1), 85,469 refreshed (11423 no pair), +67 added / -67 dropped (dead 16, stale 0, cap 51), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-26 01:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/mover     equity $106.96 (-78.6%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/social_heat equity $324.22 (-35.2%) 2 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-26 01:05 UTC] crypto/hold_btc  equity $373.83 (-25.2%) 1 open  market DOWN
+   social heat top: VVV 42 (37/0/4), PENGU 40 (40/0/0), HYPE 35 (35/0/0), BTC 29 (29/0/0), SOL 27 (27/0/0)
