@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T04:19Z",
+ "updated": "2026-11-26T04:35Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -1379,64 +1379,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401929005",
+   "id": "ncaab:401917544",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Hawai'i",
-    "p": 0.866,
-    "tie": 0.022,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-26T04:59Z",
-   "away": "Incarnate Word",
-   "home": "Hawai'i",
-   "why": "coin_flip",
+   "start": "2026-11-26T03:55Z",
+   "away": "Pacific",
+   "home": "Jax State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Incarnate Word",
-    "opp": "Hawai'i",
-    "market": "spread",
-    "line": 16.5,
-    "odds": -105,
-    "p": 0.51,
-    "win_p": 0.065,
-    "reasons": [
-     "off a tune-up against a school that isn't Division I while Hawai'i just played a real game - teams in that spot beat the spread in 8 of 9 seasons"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921672",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Saint Louis",
-    "p": 0.568,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-26T04:59Z",
-   "away": "Stanford",
-   "home": "Saint Louis",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Saint Louis",
-    "opp": "Stanford",
-    "market": "ml",
-    "line": null,
-    "odds": -166,
-    "p": 0.618,
-    "win_p": 0.618,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401921714",
@@ -1504,7 +1459,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTSA",
-    "p": 0.828,
+    "p": 0.835,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -1522,10 +1477,8 @@
     "line": 13.5,
     "odds": -118,
     "p": 0.507,
-    "win_p": 0.096,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "win_p": 0.09,
+    "reasons": []
    }
   },
   {
@@ -1814,7 +1767,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.667,
+    "p": 0.662,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1832,7 +1785,7 @@
     "line": 8.5,
     "odds": -108,
     "p": 0.505,
-    "win_p": 0.23,
+    "win_p": 0.236,
     "reasons": [
      "revenge game"
     ]
@@ -1901,8 +1854,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "TCU",
-    "p": 0.482,
+    "team": "Creighton",
+    "p": 0.483,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1914,16 +1867,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "TCU",
-    "opp": "Creighton",
+    "team": "Creighton",
+    "opp": "TCU",
     "market": "ml",
     "line": null,
-    "odds": -115,
+    "odds": -110,
     "p": 0.506,
     "win_p": 0.506,
     "reasons": [
-     "the stronger team",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "rolling off a blowout win",
+     "sharp money moving this way",
+     "out-rebounding people by +2.0 a game to their -4.0 - the books don't price the glass (5 of 5 seasons)"
     ]
    }
   },
@@ -2164,9 +2118,9 @@
     "team": "Omaha",
     "opp": "Pacific",
     "market": "spread",
-    "line": 8.5,
-    "odds": -115,
-    "p": 0.502,
+    "line": 7.5,
+    "odds": -105,
+    "p": 0.501,
     "win_p": 0.208,
     "reasons": []
    }
