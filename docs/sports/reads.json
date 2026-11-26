@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T01:42Z",
+ "updated": "2026-11-26T01:56Z",
  "games": [
   {
    "id": "ncaab:401927399",
@@ -788,8 +788,8 @@
    "away": "Case Western",
    "home": "Cleveland St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -953,8 +953,8 @@
    "away": "Northeastern",
    "home": "Wisconsin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1184,64 +1184,19 @@
    "lean": null
   },
   {
-   "id": "nhl:401892792",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.36,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-26T02:30Z",
-   "away": "Canadiens",
-   "home": "Avalanche",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Canadiens",
-    "opp": "Avalanche",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -225,
-    "p": 0.699,
-    "win_p": 0.482,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921671",
-   "league": "ncaab",
+   "id": "nba:401909323",
+   "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Grand Canyon",
-    "p": 0.736,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "sport": "NBA",
    "season": "regular season",
-   "start": "2026-11-26T02:30Z",
-   "away": "Grand Canyon",
-   "home": "Colorado",
-   "why": "coin_flip",
+   "start": "2026-11-26T01:30Z",
+   "away": "Suns",
+   "home": "Rockets",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Colorado",
-    "opp": "Grand Canyon",
-    "market": "spread",
-    "line": 9.5,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.181,
-    "reasons": [
-     "Grand Canyon spread their minutes across the whole bench and they played yesterday - teams like that on a second day missed their number 5 seasons running"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892794",
@@ -1293,7 +1248,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -8.5,
-    "odds": -107,
+    "odds": -115,
     "p": 0.5,
     "win_p": 0.734,
     "reasons": [
@@ -1447,7 +1402,7 @@
     "opp": "Hawai'i",
     "market": "spread",
     "line": 16.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.51,
     "win_p": 0.065,
     "reasons": [
@@ -1934,9 +1889,9 @@
     "team": "Saint Mary's",
     "opp": "UCLA",
     "market": "spread",
-    "line": 7.5,
-    "odds": -108,
-    "p": 0.501,
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.502,
     "win_p": 0.248,
     "reasons": []
    }
@@ -2159,7 +2114,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St John's",
-    "p": 0.54,
+    "p": 0.533,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2175,9 +2130,9 @@
     "opp": "Louisville",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -142,
+    "p": 0.573,
+    "win_p": 0.573,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
