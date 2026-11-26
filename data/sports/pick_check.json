@@ -1,13 +1,13 @@
 {
- "day": "2026-11-25",
+ "day": "2026-11-26",
  "picks": {
-  "play|ncaab:401920549|away|ml": {
-   "key": "play|ncaab:401920549|away|ml",
-   "kind": "ncaabplay",
-   "team": "Kennesaw St",
-   "odds": 105,
-   "league": "ncaab",
-   "units": 2.0,
+  "play|nfl:401873082|away|ml": {
+   "key": "play|nfl:401873082|away|ml",
+   "kind": "floor",
+   "team": "Chiefs",
+   "odds": 130,
+   "league": "nfl",
+   "units": 0.5,
    "lean": false,
    "held": false,
    "why": "",
@@ -16,59 +16,11 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
     "price_2nd": "pass",
     "card": "fixed: 1 line(s) rewritten or dropped"
    }
-  },
-  "play|ncaab:401925688|home|spread": {
-   "key": "play|ncaab:401925688|home|spread",
-   "kind": "stackplay",
-   "team": "Texas St",
-   "odds": -108,
-   "league": "ncaab",
-   "units": 0.5,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
-    "stack": "pass",
-    "reasons": "pass: 'the stronger team' with the read at 48%, rated +507.8 raw (taken off)",
-    "neutral_site": "warn: dropped a home line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "price_2nd": "pass",
-    "card": "pass"
-   }
-  },
-  "play|ncaab:401921716|home|spread": {
-   "key": "play|ncaab:401921716|home|spread",
-   "kind": "stackplay",
-   "team": "Providence",
-   "odds": -115,
-   "league": "ncaab",
-   "units": 0.5,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
-    "stack": "pass",
-    "price_2nd": "warn: no second source lists this game",
-    "card": "pass"
-   }
   }
  },
- "updated": "2026-11-25T18:32Z",
+ "updated": "2026-11-26T16:00Z",
  "held": []
 }
