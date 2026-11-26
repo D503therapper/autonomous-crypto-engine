@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T17:59Z",
+ "updated": "2026-11-26T19:01Z",
  "games": [
   {
    "id": "ncaab:401929281",
@@ -11,8 +11,8 @@
    "away": "Georgia",
    "home": "Cincinnati",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -47,64 +47,49 @@
    "lean": null
   },
   {
-   "id": "ncaab:401921674",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Arizona St",
-    "p": 0.593,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "nfl:401873081",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
    "season": "regular season",
-   "start": "2026-11-26T19:00Z",
-   "away": "South Carolina",
-   "home": "Arizona St",
-   "why": "tight",
+   "start": "2026-11-26T18:00Z",
+   "away": "Bears",
+   "home": "Lions",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Arizona St",
-    "opp": "South Carolina",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.65,
-    "win_p": 0.65,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent's body clock is off"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401906869",
+   "id": "ncaab:401920528",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Texas",
-    "p": 0.703,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-26T19:30Z",
-   "away": "Georgetown",
-   "home": "Texas",
-   "why": "coin_flip",
+   "start": "2026-11-26T18:00Z",
+   "away": "Maryland",
+   "home": "San Diego St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Georgetown",
-    "opp": "Texas",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -112,
-    "p": 0.502,
-    "win_p": 0.22,
-    "reasons": []
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaab:401929282",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-26T18:30Z",
+   "away": "Boston College",
+   "home": "UCF",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401920537",
@@ -112,7 +97,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Miami",
-    "p": 0.491,
+    "p": 0.479,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -128,9 +113,9 @@
     "opp": "Michigan",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": -115,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": [
      "the turnover matchup is ours by 6.2 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
@@ -329,7 +314,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pitt",
-    "p": 0.482,
+    "p": 0.484,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -345,9 +330,9 @@
     "opp": "DePaul",
     "market": "ml",
     "line": null,
-    "odds": -108,
-    "p": 0.505,
-    "win_p": 0.505,
+    "odds": -112,
+    "p": 0.507,
+    "win_p": 0.507,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -451,7 +436,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.525,
+    "p": 0.524,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -467,9 +452,9 @@
     "opp": "Chiefs",
     "market": "ml",
     "line": null,
-    "odds": -156,
-    "p": 0.566,
-    "win_p": 0.566,
+    "odds": -153,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team"
     ]
@@ -695,7 +680,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Iowa",
-    "p": 0.586,
+    "p": 0.581,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -711,9 +696,9 @@
     "opp": "Nebraska",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.625,
-    "win_p": 0.625,
+    "odds": -198,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
      "the stronger team"
     ]
@@ -1005,13 +990,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Capitals",
+    "team": "Capitals",
+    "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.728,
-    "win_p": 0.516,
+    "odds": -290,
+    "p": 0.7,
+    "win_p": 0.486,
     "reasons": []
    }
   },
@@ -1124,7 +1109,7 @@
     "opp": "San Jos\u00e9 St",
     "market": "spread",
     "line": -7.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.527,
     "win_p": 0.72,
     "reasons": [
@@ -1380,7 +1365,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.709,
+    "p": 0.71,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1395,8 +1380,8 @@
     "team": "Pistons",
     "opp": "Bucks",
     "market": "spread",
-    "line": -10.5,
-    "odds": -115,
+    "line": -11.5,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.815,
     "reasons": [
@@ -1466,6 +1451,36 @@
    }
   },
   {
+   "id": "nba:401909329",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Raptors",
+    "p": 0.633,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T00:30Z",
+   "away": "Nets",
+   "home": "Raptors",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Raptors",
+    "opp": "Nets",
+    "market": "spread",
+    "line": -7.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.718,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401856756",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1503,8 +1518,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.642,
-    "tie": 0.034,
+    "p": 0.653,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1518,10 +1533,10 @@
     "team": "Celtics",
     "opp": "Hawks",
     "market": "spread",
-    "line": -10.5,
-    "odds": -115,
+    "line": -9.5,
+    "odds": -110,
     "p": 0.501,
-    "win_p": 0.73,
+    "win_p": 0.745,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -1585,6 +1600,66 @@
     "p": 0.648,
     "win_p": 0.432,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401909331",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Timberwolves",
+    "p": 0.524,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T01:30Z",
+   "away": "Grizzlies",
+   "home": "Timberwolves",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Timberwolves",
+    "opp": "Grizzlies",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909332",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Suns",
+    "p": 0.512,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T02:00Z",
+   "away": "Mavericks",
+   "home": "Suns",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Suns",
+    "opp": "Mavericks",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.545,
+    "win_p": 0.545,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1656,8 +1731,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.655,
-    "tie": 0.033,
+    "p": 0.678,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1674,7 +1749,38 @@
     "line": -9.5,
     "odds": -110,
     "p": 0.501,
-    "win_p": 0.745,
+    "win_p": 0.774,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909335",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Clippers",
+    "p": 0.515,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T02:30Z",
+   "away": "Pelicans",
+   "home": "Clippers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Clippers",
+    "opp": "Pelicans",
+    "market": "ml",
+    "line": null,
+    "odds": -147,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team"
     ]
@@ -1701,7 +1807,7 @@
     "team": "Trail Blazers",
     "opp": "Warriors",
     "market": "spread",
-    "line": -9.0,
+    "line": -9.5,
     "odds": -110,
     "p": 0.501,
     "win_p": 0.714,
