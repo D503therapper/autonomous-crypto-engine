@@ -566,6 +566,7 @@ def tags(c, sports):
     t += daily_1123_tags(c, sports)                          # 11/23 daily studies: the hockey dog that gives the puck away / got shelled
     t += daily_1124_tags(c, sports)                          # 11/24 daily studies: the deep hoops team on its second day, the pros' home / road split
     t += daily_1125_tags(c, sports)                          # 11/25 daily studies: the college hoops second-half road team (LEADS)
+    t += daily_1126_tags(c, sports)                          # 11/26 daily studies: the hockey dog with top-fifth special teams (a LEAD)
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1174,6 +1175,23 @@ def daily_1124_tags(c, sports):
 NCAAB_2H_HOME_PTS_TAG = "college hoops home spread side getting points across a second-half road team (lead)"   # 11/25 daily S9:
 NCAAB_2H_HOME_DOG_TAG = "college hoops home dog across a second-half road favorite (lead)"                        # LEADS, judge at 60 each
 NCAAB_2H_ROAD_FAV_TAG = "college hoops second-half road team laying points (fade) (lead)"                         # ... the mirror
+
+
+NHL_SPECIAL_DOG_TAG = "NHL dog with top-fifth special teams (fade) (lead)"   # 11/26 daily S5: a LEAD (judge at 60), no weight
+
+
+def daily_1126_tags(c, sports):
+    """11/26 daily studies S5: the hockey dog +100..+350 whose team is in the league's top fifth of power-play rate
+    plus penalty-kill rate (sports.mark_nhl_puck's special_top stamp, games from sports.NHL_SPECIAL_FROM) - a LEAD,
+    tracked only: nothing on the board reads it."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "nhl" or not 100 <= (c.get("odds") or 0) <= 350:
+            return []
+        if not sports.NHL_SPECIAL_FROM or sports.pt_day(c) < sports.NHL_SPECIAL_FROM:
+            return []
+        return [NHL_SPECIAL_DOG_TAG] if c.get("special_top") is True else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 def daily_1125_tags(c, sports):

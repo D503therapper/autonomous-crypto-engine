@@ -65,6 +65,28 @@ def close_for(leg, g, hist):
     return None
 
 
+def spread_close(leg, g, hist):
+    """📏 11/26 daily look-back: (the closing NUMBER for this spread pick's side, its juice) - the last pre-game look of
+    the line history, else the game's stored spread when it was saved before the start; None when we can't trust
+    one. close_for() answers only when the number never moved - and a spread play whose number DID move is the one
+    that beat (or lost to) the close by the most: Texas St -26.5 (11/25) closed -27.5 and won by 27, and was on no
+    record."""
+    side = leg.get("side")
+    for t, h, a, sp, spo in reversed(hist.get(leg.get("game_id")) or []):
+        try:
+            line = float(sp) if side == "home" else -float(sp)
+        except (TypeError, ValueError):
+            continue
+        return line, sm._int((spo or ["", ""])[0 if side == "home" else 1])
+    if g and (g.get("odds_time") or "9") <= (g.get("start") or ""):
+        try:
+            line = float(g.get("spread_home")) if side == "home" else -float(g.get("spread_home"))
+        except (TypeError, ValueError):
+            return None
+        return line, sm._int(g.get(f"spread_{side}_odds"))
+    return None
+
+
 def journal_row(pk, games, clv):
     """📓 THE PICK JOURNAL (the owner, 10/2: "a record of what the engine found and the actual results and absolutely
     everything that could help us ... every week we go back and look at the past week and improve the engine"). One
@@ -107,7 +129,7 @@ def size_bucket(u):
 def build(picks, games, hist=None):
     import sports
     hist = _hist() if hist is None else hist
-    rows = []
+    rows, moved = [], []
     for pk in picks:
         if pk.get("kind") not in KINDS or pk.get("status") not in ("won", "lost", "push") or len(pk.get("legs") or []) != 1:
             continue
@@ -117,7 +139,15 @@ def build(picks, games, hist=None):
             continue
         c = close_for(leg, g, hist)
         if c is None:
-            continue
+            sc = spread_close(leg, g, hist) if leg.get("market") == "spread" and leg.get("line") is not None else None
+            if sc and abs(sc[0] - float(leg["line"])) > 1e-9:    # 📏 the number moved: its own list, in points of spread
+                moved.append({"date": pk["date"], "kind": pk["kind"], "league": leg.get("league"), "team": leg.get("team"),
+                              "line": leg["line"], "odds": leg["odds"], "close_line": sc[0], "close": sc[1],
+                              "line_pts": round(float(leg["line"]) - sc[0], 1),   # + = our number was the better one
+                              "units": sports.units_for(pk), "result": pk["status"]})
+            if not (sc and sc[1] is not None and abs(sc[0] - float(leg["line"])) <= 1e-9):
+                continue
+            c = sc[1]                                        # the same number off the game file, saved before the start
         a, b = sd.decimal(leg["odds"]), sd.decimal(c)
         pts = round((1 / b - 1 / a) * 100, 1)                # + = we got a better number than the close (in win %)
         u = sports.units_for(pk)
@@ -139,6 +169,10 @@ def build(picks, games, hist=None):
             "by_sport": by(lambda r: r["league"]),
             "lock_by_size": {k: summ([r for r in rows if r["kind"] == "lock" and not r["lean"] and size_bucket(r["units"]) == k])
              for k in ("½u", "1-2u", "2-4u", "4u+")},
+            "spreads_moved": {"n": len(moved), "beat": sum(r["line_pts"] > 0 for r in moved),
+                              "worse": sum(r["line_pts"] < 0 for r in moved),
+                              "avg_line_pts": round(sum(r["line_pts"] for r in moved) / len(moved), 2) if moved else None,
+                              "picks": moved},               # 📏 11/26: spread picks whose NUMBER moved by the close
             "picks": rows}, journal
 
 

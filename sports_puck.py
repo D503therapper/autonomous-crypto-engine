@@ -14,6 +14,15 @@ s4c_board_replay.py; ESPN's NHL team box 2021-26 - giveaways / takeaways, column
   SHELLED: 40+ shots against in the team's last game, playing again within 2 days - that dog -23.6% on 426 (train
       -23.7% / held -23.4%; same-price placebo 4 of 2,000; one night off -21.1% on 308; the open -28.7% on 180) - a
       tracker LEAD only (7 of the replay board's posted dogs carried it).
+  SPECIAL TEAMS (11/26 daily studies S5; results/studies/daily_1126/s_today.py s5 -> s_follow.py s5 - the team box's
+      powerPlayGoals / powerPlayOpportunities, never read before: the 10/1 study was set aside with "no power-play
+      data in the box scores"): a team's power-play rate PLUS its penalty-kill rate, season to date (10+ box games,
+      20+ chances each way), ranked among the league that night. The TOP fifth as a DOG +100..+350: -13.7% on 687 at
+      the close (train 2021-23 -16.2%, 0 of 3 seasons up / held 2024-26 -11.6%: -18.1 / -9.5 / +0.1 on 44; a
+      same-price random set as bad 63 of 2,000) against -7.0% for every dog - a team the books rate on its special
+      teams. NOT a weight: the dose is a step at the top fifth only (-8.7 / -4.0 / -4.3 / -5.1 / -13.7), ESPN's open
+      halves the gap (-6.5% on 370 against -2.8%), the favorite across is only +1.9% on 974, and 735 cells were read
+      that day. A tracker LEAD (sports.NHL_SPECIAL_FROM, sports_leads.NHL_SPECIAL_DOG_TAG) - judge at 60 graded.
 Unknown (no box file, under the game counts, under 20 teams read, a game we can't place home / road) = no read."""
 from datetime import datetime
 
@@ -23,6 +32,8 @@ MIN_TEAMS = 20               # teams read before anybody is ranked
 FIFTH = 0.2
 SHELLED_SHOTS = 40           # shots against in the last game
 SHELLED_DAYS = 2.2           # ...and tonight is within this many days of it (a back-to-back or one night off)
+ST_MIN_CHANCES = 20          # power plays for / against before the special-teams read counts
+ST_TOP = 0.8                 # the league's top fifth of PP% + PK%
 _ST = {}
 
 
@@ -62,7 +73,13 @@ def states(now_iso, games, rows=None):
         (ta, sa), (tb, sb) = tm.items()
         for me, mine, theirs in ((str(ta), sa, sb), (str(tb), sb, sa)):
             gv, tk, shots = _n(mine.get("giveaways")), _n(mine.get("takeaways")), _n(theirs.get("shotsTotal"))
-            a = acc.setdefault(me, {"n": 0, "rn": 0, "rnet": 0.0, "last": None})
+            a = acc.setdefault(me, {"n": 0, "rn": 0, "rnet": 0.0, "last": None, "ppg": 0.0, "ppo": 0.0, "oppg": 0.0, "oppo": 0.0})
+            ppo, oppo = _n(mine.get("powerPlayOpportunities")), _n(theirs.get("powerPlayOpportunities"))
+            if ppo is not None and oppo is not None:         # 11/26 daily S5: the special teams, season to date
+                a["ppg"] += _n(mine.get("powerPlayGoals")) or 0.0
+                a["ppo"] += ppo
+                a["oppg"] += _n(theirs.get("powerPlayGoals")) or 0.0
+                a["oppo"] += oppo
             if gv is not None and tk is not None:
                 a["n"] += 1
                 if str(g.get("away")) == me:
@@ -74,7 +91,14 @@ def states(now_iso, games, rows=None):
         v = {"n": a["n"], "rn": a["rn"], "last": a["last"]}
         if a["n"] >= MIN_G and a["rn"] >= MIN_ROAD:
             v["rnet"] = a["rnet"] / a["rn"]
+        if a["n"] >= MIN_G and a["ppo"] >= ST_MIN_CHANCES and a["oppo"] >= ST_MIN_CHANCES:
+            v["st"] = a["ppg"] / a["ppo"] + 1 - a["oppg"] / a["oppo"]
         teams[t] = v
+    sread = [v["st"] for v in teams.values() if "st" in v]
+    if len(sread) >= MIN_TEAMS:
+        for v in teams.values():
+            if "st" in v:
+                v["st_pct"] = sum(1 for x in sread if x < v["st"]) / (len(sread) - 1)
     read = [v["rnet"] for v in teams.values() if "rnet" in v]
     if len(read) >= MIN_TEAMS:
         for v in teams.values():
@@ -91,6 +115,14 @@ def sloppy(st, team):
     if not v or v.get("pct") is None:
         return None
     return v["pct"] <= FIFTH
+
+
+def special(st, team):
+    """True = the league's top fifth in power-play rate + penalty-kill rate, False = not, None = unread."""
+    v = (st or {}).get(str(team))
+    if not v or v.get("st_pct") is None:
+        return None
+    return v["st_pct"] >= ST_TOP
 
 
 def shelled(st, team, start_iso):
