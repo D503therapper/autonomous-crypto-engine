@@ -1,41 +1,54 @@
 {
- "at": "2026-11-25T23:28Z",
+ "at": "2026-11-26T01:03Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Monnet vs Sierra: no points for 2776s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
   "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-  "workflow failed: sports 2026-11-25T23:17 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45720217336",
-  "workflow failed: sports 2026-11-25T23:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719837385",
-  "workflow failed: sports 2026-11-25T23:09 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719136521",
-  "workflow failed: sports 2026-11-25T23:04 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45718437710",
-  "workflow failed: sports 2026-11-25T22:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717728319"
+  "workflow failed: sports 2026-11-26T00:57 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45732375315",
+  "workflow failed: sports 2026-11-26T00:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731774153",
+  "workflow failed: sports 2026-11-26T00:46 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731169388",
+  "workflow failed: sports 2026-11-26T00:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45730540671",
+  "workflow failed: sports 2026-11-26T00:36 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45729993751",
+  "sources down (the backups took over): betrivers:ncaab:1028662139 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (239s)",
+  "live watcher fresh (23s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 4 live cards, 30 lines - nothing false, outdated or senseless",
-  "double check: 4 injury / starter / price claims on 3 live cards - 2 confirmed by a second source, 2 single-sourced, 0 waiting on a game-day word \u00b7 single: Kennesaw St card (2026-11-25): E. Ellis out - only Covers says so; Providence card (2026-11-25): the price -115 - no second source lists this game",
-  "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 5.2, unit cards under the floor: 0)",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 3 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-26T01:03Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
+    "workflow failed: sports 2026-11-26T00:57 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45732375315",
+    "workflow failed: sports 2026-11-26T00:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731774153",
+    "workflow failed: sports 2026-11-26T00:46 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731169388",
+    "workflow failed: sports 2026-11-26T00:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45730540671",
+    "workflow failed: sports 2026-11-26T00:36 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45729993751",
+    "sources down (the backups took over): betrivers:ncaab:1028662139 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-25T23:28Z",
    "fixes": [
@@ -713,18 +726,6 @@
    "problems": [
     "live tennis scores: tennis Cinalli vs De Reales: no points for 1164s",
     "live tennis scores: tennis Linana vs Bronzetti: no points for 1164s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
-   ]
-  },
-  {
-   "at": "2026-11-24T16:33Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs De Reales: no points for 280s",
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 280s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route",
     "card audit: SHORT CARD - Illinois St (2026-11-24): a short card: 4 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
    ]
