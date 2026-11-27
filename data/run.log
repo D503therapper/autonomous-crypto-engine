@@ -30409,3 +30409,32 @@ DEX: $987.01 (-12.99) · Scammed: 0
 [2026-11-27 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-27 12:06 UTC] crypto/hold_btc  equity $379.56 (-24.1%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), BTC 35 (35/0/0), PONS 30 (27/0/3), MON 24 (24/0/0), SUI 21 (21/0/0)
+   footprint: HBAR: footprint 3/4 (drift+hikes+rising_lows) 48h +12.5%, 3 volume hikes, 38% quiet hours @ 0.055613
+   footprint: ARB: footprint 3/4 (drift+quiet+hikes) 48h +9.4%, 3 volume hikes, 73% quiet hours @ 0.117907
+   footprint: SUI: footprint 3/4 (drift+quiet+hikes) 48h +9.4%, 3 volume hikes, 73% quiet hours @ 0.68814
+   dex screen: REJECT MOODENG@solana liq $1,917,538 - top-10 holders 58%
+   dex screen: REJECT SURPLUS@base liq $1,230,681 - transfer_pausable; is_mintable
+   dex screen: REJECT ZCHF@ethereum liq $3,143,529 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 86%
+   dex screen: REJECT PAXG@solana liq $45,249,927 - top-10 holders 100%
+   dex screen: REJECT LINK@solana liq $918,237,691 - top-10 holders 100%
+   dex screen: UNREACHABLE BANK@solana liq $50,936,030 - goplus unreachable
+   dex screen: UNREACHABLE UATF@solana liq $11,700,992 - goplus unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT GOOGLC@base liq $1,605,872 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   dex screen: REJECT TBTC@ethereum liq $6,079,919 - is_mintable; honeypot_with_same_creator; top-10 holders 76%
+   dex screen: REJECT USDG@ethereum liq $1,503,465 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 86%; lp locked 0% < 95%
+   dex scanner: 2,476 pools (solana 1,748 / base 387 / ethereum 341), refresh cycle 105s (hot 102s), 2949 calls (109 feed, 429s 0, failed 0), 85,155 refreshed (13403 no pair), +63 added / -66 dropped (dead 66, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-27 13:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   >> crypto/mover: SELL $48.21 of NEAR @ 3.10689, P/L $-0.12 (time limit)
+[2026-11-27 13:05 UTC] crypto/mover     equity $107.87 (-78.4%) 1 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/social_heat equity $322.66 (-35.5%) 2 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-27 13:05 UTC] crypto/hold_btc  equity $379.29 (-24.1%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), BTC 29 (29/0/0), ICP 21 (21/0/0), PONS 21 (19/0/2), SUI 16 (16/0/0)
