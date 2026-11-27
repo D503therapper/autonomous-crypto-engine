@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T15:32Z",
+ "updated": "2026-11-27T16:02Z",
  "games": [
   {
    "id": "ncaaf:401866472",
@@ -37,7 +37,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.499,
+    "p": 0.498,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -46,8 +46,8 @@
    "start": "2026-11-27T17:00Z",
    "away": "Liberty",
    "home": "St Thomas",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "St Thomas",
     "opp": "Liberty",
@@ -86,7 +86,7 @@
     "line": -17.5,
     "odds": -108,
     "p": 0.521,
-    "win_p": 0.823,
+    "win_p": 0.822,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -219,7 +219,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UMass Lowell",
-    "p": 0.524,
+    "p": 0.517,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -235,9 +235,9 @@
     "opp": "Hampton",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.561,
-    "win_p": 0.561,
+    "odds": -130,
+    "p": 0.552,
+    "win_p": 0.552,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +4.3 a game to their -7.2 - the books don't price the glass (5 of 5 seasons)",
@@ -339,7 +339,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Vermont",
-    "p": 0.531,
+    "p": 0.524,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -355,9 +355,9 @@
     "opp": "Merrimack",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.573,
-    "win_p": 0.573,
+    "odds": -142,
+    "p": 0.564,
+    "win_p": 0.564,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +8.6 a game to their -12.4 - the books don't price the glass (5 of 5 seasons)",
@@ -482,8 +482,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.573,
-    "win_p": 0.573,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win",
@@ -598,8 +598,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.549,
-    "win_p": 0.549,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -629,7 +629,7 @@
     "opp": "Butler",
     "market": "spread",
     "line": 18.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.512,
     "win_p": 0.052,
     "reasons": [
@@ -643,7 +643,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.641,
+    "p": 0.638,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -659,9 +659,9 @@
     "opp": "Steelers",
     "market": "ml",
     "line": null,
-    "odds": -242,
-    "p": 0.715,
-    "win_p": 0.715,
+    "odds": -237,
+    "p": 0.711,
+    "win_p": 0.711,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -799,8 +799,8 @@
    "start": "2026-11-27T20:00Z",
    "away": "Senators",
    "home": "Lightning",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Senators",
     "opp": "Lightning",
@@ -879,7 +879,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hofstra",
-    "p": 0.557,
+    "p": 0.545,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -888,18 +888,19 @@
    "start": "2026-11-27T20:30Z",
    "away": "Colgate",
    "home": "Hofstra",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Hofstra",
     "opp": "Colgate",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.605,
-    "win_p": 0.605,
+    "odds": -148,
+    "p": 0.588,
+    "win_p": 0.588,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "coughing it up 2.0 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -1016,8 +1017,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.592,
-    "win_p": 0.592,
+    "p": 0.591,
+    "win_p": 0.591,
     "reasons": [
      "the turnover matchup is ours by 6.1 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
@@ -1206,7 +1207,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico",
-    "p": 0.61,
+    "p": 0.609,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1223,8 +1224,8 @@
     "market": "ml",
     "line": null,
     "odds": -265,
-    "p": 0.653,
-    "win_p": 0.653,
+    "p": 0.652,
+    "win_p": 0.652,
     "reasons": [
      "the stronger team"
     ]
@@ -1357,7 +1358,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas",
-    "p": 0.687,
+    "p": 0.688,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1375,7 +1376,7 @@
     "line": 7.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.235,
+    "win_p": 0.234,
     "reasons": [
      "rolling off a blowout win",
      "opponent's body clock is off"
@@ -1388,7 +1389,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kansas",
-    "p": 0.791,
+    "p": 0.792,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1418,7 +1419,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Boise St",
-    "p": 0.636,
+    "p": 0.637,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -1468,7 +1469,7 @@
     "line": 9.5,
     "odds": -112,
     "p": 0.503,
-    "win_p": 0.189,
+    "win_p": 0.188,
     "reasons": [
      "opponent's body clock is off"
     ]
@@ -1590,7 +1591,7 @@
     "line": 26.5,
     "odds": -105,
     "p": 0.521,
-    "win_p": 0.022,
+    "win_p": 0.021,
     "reasons": []
    }
   },
@@ -1600,8 +1601,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "ETSU",
-    "p": 0.783,
-    "tie": 0.031,
+    "p": 0.77,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1616,10 +1617,12 @@
     "opp": "ETSU",
     "market": "spread",
     "line": 10.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.504,
-    "win_p": 0.136,
-    "reasons": []
+    "win_p": 0.149,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1728,7 +1731,7 @@
    "start": "2026-11-28T00:00Z",
    "away": "West Virginia",
    "home": "North Carolina",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "West Virginia",
@@ -1736,8 +1739,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.581,
-    "win_p": 0.581,
+    "p": 0.58,
+    "win_p": 0.58,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1810,7 +1813,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.375,
+    "p": 0.365,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1826,9 +1829,9 @@
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
-    "p": 0.67,
-    "win_p": 0.453,
+    "odds": -238,
+    "p": 0.689,
+    "win_p": 0.472,
     "reasons": []
    }
   },
@@ -1870,7 +1873,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.647,
+    "p": 0.648,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2147,7 +2150,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.818,
+    "p": 0.819,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -2268,7 +2271,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Miami",
-    "p": 0.513,
+    "p": 0.514,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2285,8 +2288,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.559,
-    "win_p": 0.559,
+    "p": 0.56,
+    "win_p": 0.56,
     "reasons": [
      "opponent on a back-to-back",
      "rolling off a blowout win",
@@ -2330,7 +2333,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Louisville",
-    "p": 0.533,
+    "p": 0.534,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2347,8 +2350,8 @@
     "market": "ml",
     "line": null,
     "odds": -148,
-    "p": 0.573,
-    "win_p": 0.573,
+    "p": 0.574,
+    "win_p": 0.574,
     "reasons": [
      "sharp money moving this way",
      "out-rebounding people by +14.0 a game to their +5.1 - the books don't price the glass (5 of 5 seasons)",
@@ -2362,7 +2365,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.833,
+    "p": 0.832,
     "tie": 0.02,
     "name": "1st half"
    },
@@ -2379,8 +2382,8 @@
     "market": "spread",
     "line": -25.5,
     "odds": -112,
-    "p": 0.562,
-    "win_p": 0.891,
+    "p": 0.559,
+    "win_p": 0.89,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -2394,7 +2397,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kentucky",
-    "p": 0.595,
+    "p": 0.596,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -2471,8 +2474,8 @@
     "team": "Nuggets",
     "opp": "Jazz",
     "market": "spread",
-    "line": -9.5,
-    "odds": -117,
+    "line": -10.5,
+    "odds": -103,
     "p": 0.501,
     "win_p": 0.792,
     "reasons": [
@@ -3868,7 +3871,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "USC",
-    "p": 0.587,
+    "p": 0.579,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3884,9 +3887,9 @@
     "opp": "UCLA",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.599,
-    "win_p": 0.599,
+    "odds": -230,
+    "p": 0.59,
+    "win_p": 0.59,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -4403,8 +4406,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.403,
-    "tie": 0.297,
+    "p": 0.439,
+    "tie": 0.292,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4415,14 +4418,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Senators",
-    "opp": "Hurricanes",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -182,
-    "p": 0.614,
-    "win_p": 0.398,
-    "reasons": []
+    "team": "Hurricanes",
+    "opp": "Senators",
+    "market": "ml",
+    "line": null,
+    "odds": -238,
+    "p": 0.679,
+    "win_p": 0.679,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {

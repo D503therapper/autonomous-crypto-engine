@@ -1,13 +1,13 @@
 {
- "day": "2026-11-26",
+ "day": "2026-11-27",
  "picks": {
-  "play|nfl:401873082|away|ml": {
-   "key": "play|nfl:401873082|away|ml",
-   "kind": "floor",
-   "team": "Chiefs",
-   "odds": 130,
-   "league": "nfl",
-   "units": 0.5,
+  "dog|nhl:401892799|away|ml": {
+   "key": "dog|nhl:401892799|away|ml",
+   "kind": "dog",
+   "team": "Senators",
+   "odds": 120,
+   "league": "nhl",
+   "units": 2.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -17,10 +17,53 @@
     "price_fresh": "pass",
     "injuries": "pass",
     "price_2nd": "pass",
+    "card": "pass"
+   }
+  },
+  "play|ncaab:401920848|away|ml": {
+   "key": "play|ncaab:401920848|away|ml",
+   "kind": "ncaabplay",
+   "team": "Liberty",
+   "odds": 100,
+   "league": "ncaab",
+   "units": 1.0,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass",
+    "price_2nd": "pass",
+    "card": "fixed: 1 line(s) rewritten or dropped"
+   }
+  },
+  "play|ncaab:401920774|away|spread": {
+   "key": "play|ncaab:401920774|away|spread",
+   "kind": "stackplay",
+   "team": "Colgate",
+   "odds": -108,
+   "league": "ncaab",
+   "units": 0.5,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass",
+    "stack": "pass",
+    "price_2nd": "pass",
     "card": "fixed: 1 line(s) rewritten or dropped"
    }
   }
  },
- "updated": "2026-11-26T16:00Z",
+ "updated": "2026-11-27T16:00Z",
  "held": []
 }
