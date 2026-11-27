@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T05:14Z",
+ "updated": "2026-11-27T05:23Z",
  "games": [
   {
    "id": "ncaab:401929281",
@@ -368,6 +368,36 @@
    "start": "2026-11-27T03:30Z",
    "away": "Pacific",
    "home": "Omaha",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920540",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T04:53Z",
+   "away": "Baylor",
+   "home": "Gonzaga",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920531",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T04:57Z",
+   "away": "Texas Tech",
+   "home": "Oregon",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1119,7 +1149,7 @@
     "opp": "UNC Wilmington",
     "market": "spread",
     "line": 7.5,
-    "odds": -102,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.223,
     "reasons": []
@@ -1187,8 +1217,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas St",
-    "p": 0.594,
-    "tie": 0.042,
+    "p": 0.605,
+    "tie": 0.041,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1203,9 +1233,9 @@
     "opp": "Louisiana Tech",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.666,
-    "win_p": 0.666,
+    "odds": -218,
+    "p": 0.679,
+    "win_p": 0.679,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -1474,7 +1504,7 @@
     "line": 20.5,
     "odds": -104,
     "p": 0.514,
-    "win_p": 0.034,
+    "win_p": 0.033,
     "reasons": []
    }
   },
@@ -1529,9 +1559,9 @@
     "team": "Boston College",
     "opp": "Cincinnati",
     "market": "spread",
-    "line": 9.5,
-    "odds": -115,
-    "p": 0.503,
+    "line": 8.5,
+    "odds": -102,
+    "p": 0.502,
     "win_p": 0.2,
     "reasons": [
      "Cincinnati spread their minutes across the whole bench and they played yesterday - teams like that on a second day missed their number 5 seasons running"
@@ -1575,7 +1605,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas A&M",
-    "p": 0.536,
+    "p": 0.526,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1584,16 +1614,16 @@
    "start": "2026-11-27T22:00Z",
    "away": "Marquette",
    "home": "Texas A&M",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Texas A&M",
     "opp": "Marquette",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.577,
-    "win_p": 0.577,
+    "odds": -135,
+    "p": 0.564,
+    "win_p": 0.564,
     "reasons": [
      "the stronger team",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
@@ -1905,7 +1935,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia",
-    "p": 0.618,
+    "p": 0.623,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1921,9 +1951,9 @@
     "opp": "UCF",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.682,
-    "win_p": 0.682,
+    "odds": -225,
+    "p": 0.688,
+    "win_p": 0.688,
     "reasons": [
      "the stronger team",
      "out-rebounding people by +6.9 a game to their -7.3 - the books don't price the glass (5 of 5 seasons)"
@@ -2240,8 +2270,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Washington St",
-    "p": 0.819,
-    "tie": 0.027,
+    "p": 0.795,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2256,9 +2286,9 @@
     "opp": "Washington St",
     "market": "spread",
     "line": 11.5,
-    "odds": -108,
+    "odds": -118,
     "p": 0.505,
-    "win_p": 0.102,
+    "win_p": 0.124,
     "reasons": [
      "sharp money moving this way",
      "off a tune-up against a school that isn't Division I while Washington St just played a real game - teams in that spot beat the spread in 8 of 9 seasons",
@@ -2412,10 +2442,9 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.672,
-    "win_p": 0.672,
+    "p": 0.671,
+    "win_p": 0.671,
     "reasons": [
-     "opponent on a back-to-back",
      "the stronger team",
      "out-rebounding people by +15.7 a game to their +3.0 - the books don't price the glass (5 of 5 seasons)"
     ]
@@ -2609,8 +2638,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.692,
-    "tie": 0.032,
+    "p": 0.698,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2624,10 +2653,10 @@
     "team": "Nuggets",
     "opp": "Jazz",
     "market": "spread",
-    "line": -9.5,
-    "odds": -113,
+    "line": -10.5,
+    "odds": -103,
     "p": 0.501,
-    "win_p": 0.792,
+    "win_p": 0.8,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2701,7 +2730,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Jax State",
-    "p": 0.654,
+    "p": 0.659,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2718,8 +2747,8 @@
     "market": "ml",
     "line": null,
     "odds": -270,
-    "p": 0.73,
-    "win_p": 0.73,
+    "p": 0.736,
+    "win_p": 0.736,
     "reasons": [
      "the stronger team"
     ]
