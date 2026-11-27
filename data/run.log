@@ -30467,3 +30467,47 @@ DEX: $987.01 (-12.99) · Scammed: 0
 [2026-11-27 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-27 14:06 UTC] crypto/hold_btc  equity $378.69 (-24.3%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), BTC 32 (32/0/0), HYPE 27 (27/0/0), VVV 23 (11/0/13), PONS 22 (19/0/3)
+   footprint: QNT: footprint 3/4 (drift+hikes+rising_lows) 48h +8.4%, 5 volume hikes, 50% quiet hours @ 149.5
+   footprint: HBAR: footprint 3/4 (drift+hikes+rising_lows) 48h +12.4%, 2 volume hikes, 42% quiet hours @ 0.055501
+   footprint: ARB: footprint 3/4 (drift+quiet+hikes) 48h +10.2%, 2 volume hikes, 77% quiet hours @ 0.118274
+   dex screen: REJECT VELVET@base liq $1,251,129 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 69%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CRVUSD@ethereum liq $8,733,524 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 80%
+   dex scanner: 2,473 pools (solana 1,737 / base 393 / ethereum 343), refresh cycle 108s (hot 104s), 2885 calls (108 feed, 429s 0, failed 0), 83,308 refreshed (12204 no pair), +103 added / -124 dropped (dead 123, stale 1, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-27 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/mover     equity $103.42 (-79.3%) 2 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/social_heat equity $318.09 (-36.4%) 2 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] crypto/hold_btc  equity $365.96 (-26.8%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+   >> stocks/rsi2: SELL $153.05 of XLE @ 61.934, P/L $+3.54 (mean reversion: bounced or time limit)
+[2026-11-27 15:06 UTC] stocks/rsi2      equity $452.22 (-9.6%) 1 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): COST 12 BUY, AMZN 17, AMD 18, AVGO 19
+[2026-11-27 15:06 UTC] stocks/breakout52 equity $448.81 (-10.2%) 2 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-27 15:06 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 45.24 vs its 200-day average 65.58: BELOW (cash)
+[2026-11-27 15:06 UTC] stocks/dual_momentum equity $439.85 (-12.0%) 2 open  market DOWN
+[2026-11-27 15:06 UTC] stocks/trend_ensemble equity $490.72 (-1.9%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] stocks/rotation10 equity $446.17 (-10.8%) 0 open  market DOWN
+[2026-11-27 15:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: BUY $131.54 of AAPL @ 356.948 (entry)
+   >> stocks/trend: BUY $87.12 of TSLA @ 391.866 (entry)
+[2026-11-27 15:06 UTC] stocks/trend     equity $438.37 (-12.3%) 2 open  market DOWN
+[2026-11-27 15:06 UTC] stocks/hold_spy  equity $471.68 (-5.7%) 1 open  market DOWN
+   social heat top: HYPE 43 (29/0/14), PENGU 40 (40/0/0), BTC 35 (35/0/0), SOL 24 (24/0/0), PONS 23 (16/0/7)
