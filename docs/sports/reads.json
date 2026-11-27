@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T09:07Z",
+ "updated": "2026-11-27T09:39Z",
  "games": [
   {
    "id": "ncaab:401920429",
@@ -688,8 +688,8 @@
     "market": "ml",
     "line": null,
     "odds": -248,
-    "p": 0.718,
-    "win_p": 0.718,
+    "p": 0.717,
+    "win_p": 0.717,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -1028,7 +1028,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.37,
+    "p": 0.365,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1045,8 +1045,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.679,
-    "win_p": 0.462,
+    "p": 0.689,
+    "win_p": 0.472,
     "reasons": []
    }
   },
@@ -1956,8 +1956,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.661,
-    "tie": 0.033,
+    "p": 0.647,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1971,13 +1971,12 @@
     "team": "Celtics",
     "opp": "Hawks",
     "market": "spread",
-    "line": -9.5,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.755,
+    "line": -8.5,
+    "odds": -113,
+    "p": 0.5,
+    "win_p": 0.738,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
      "rolling off a blowout win"
     ]
    }
@@ -2265,7 +2264,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.507,
+    "p": 0.502,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2281,9 +2280,9 @@
     "opp": "Mavericks",
     "market": "ml",
     "line": null,
-    "odds": -136,
-    "p": 0.538,
-    "win_p": 0.538,
+    "odds": -130,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": [
      "the stronger team"
     ]
@@ -2481,8 +2480,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.654,
-    "tie": 0.033,
+    "p": 0.648,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2496,10 +2495,10 @@
     "team": "Trail Blazers",
     "opp": "Warriors",
     "market": "spread",
-    "line": -9.5,
-    "odds": -106,
-    "p": 0.501,
-    "win_p": 0.746,
+    "line": -8.5,
+    "odds": -118,
+    "p": 0.5,
+    "win_p": 0.739,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2769,7 +2768,7 @@
     "market": "spread",
     "line": -16.5,
     "odds": -112,
-    "p": 0.521,
+    "p": 0.523,
     "win_p": 0.809,
     "reasons": [
      "the stronger team",
@@ -3256,7 +3255,7 @@
     "market": "spread",
     "line": -18.5,
     "odds": -105,
-    "p": 0.515,
+    "p": 0.517,
     "win_p": 0.821,
     "reasons": [
      "the stronger team",
@@ -3365,7 +3364,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colorado",
-    "p": 0.495,
+    "p": 0.496,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3377,15 +3376,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "UCF",
-    "opp": "Colorado",
-    "market": "spread",
-    "line": 2.5,
-    "odds": -112,
-    "p": 0.523,
-    "win_p": 0.477,
+    "team": "Colorado",
+    "opp": "UCF",
+    "market": "ml",
+    "line": null,
+    "odds": -125,
+    "p": 0.515,
+    "win_p": 0.515,
     "reasons": [
-     "rolling off a blowout win"
+     "altitude edge",
+     "opponent's body clock is off",
+     "sharp money moving this way"
     ]
    }
   },
