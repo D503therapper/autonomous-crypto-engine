@@ -1,15 +1,11 @@
 {
- "at": "2026-11-27T18:04Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-11-27T18:09Z",
+ "fixes": [],
  "problems": [
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "studies last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (93s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,15 +16,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "engine ran 2 min ago",
+  "simulator ran 0h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-27T18:09Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-27T18:04Z",
    "fixes": [
@@ -472,17 +476,6 @@
    "at": "2026-11-26T07:17Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
-   ]
-  },
-  {
-   "at": "2026-11-26T07:16Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
