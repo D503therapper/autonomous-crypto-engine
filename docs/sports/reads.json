@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T00:38Z",
+ "updated": "2026-11-27T01:27Z",
  "games": [
   {
    "id": "ncaab:401929281",
@@ -221,8 +221,8 @@
    "away": "UCLA",
    "home": "Saint Mary's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -257,93 +257,76 @@
    "lean": null
   },
   {
+   "id": "ncaab:401918972",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T00:00Z",
+   "away": "LSU",
+   "home": "SMU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856879",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-27T01:00Z",
+   "away": "TCU",
+   "home": "Texas Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401911523",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-27T01:00Z",
+   "away": "UC Davis",
+   "home": "Jax State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873082",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bills",
-    "p": 0.523,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-11-27T01:20Z",
    "away": "Chiefs",
    "home": "Bills",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Bills",
-    "opp": "Chiefs",
+    "team": "Chiefs",
+    "opp": "Bills",
     "market": "ml",
     "line": null,
-    "odds": -157,
-    "p": 0.562,
-    "win_p": 0.562,
+    "odds": 130,
+    "p": 0.424,
+    "win_p": 0.424,
     "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920539",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Alabama",
-    "p": 0.81,
-    "tie": 0.028,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-27T02:00Z",
-   "away": "Alabama",
-   "home": "Kansas St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Kansas St",
-    "opp": "Alabama",
-    "market": "spread",
-    "line": 13.5,
-    "odds": -108,
-    "p": 0.507,
-    "win_p": 0.107,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401920530",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "St John's",
-    "p": 0.498,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-27T02:00Z",
-   "away": "Louisville",
-   "home": "St John's",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "St John's",
-    "opp": "Louisville",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.527,
-    "win_p": 0.527,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "the turnover matchup is ours by 12.4 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
-    ]
+     "better QB play lately",
+     "revenge game"
+    ],
+    "result": null
    }
   },
   {
