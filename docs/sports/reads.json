@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T23:30Z",
+ "updated": "2026-11-27T23:48Z",
  "games": [
   {
    "id": "ncaab:401920429",
@@ -666,8 +666,8 @@
    "away": "Golden Knights",
    "home": "Sharks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -696,8 +696,8 @@
    "away": "Radford",
    "home": "American",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -741,8 +741,8 @@
    "away": "Cincinnati",
    "home": "Boston College",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1022,7 +1022,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.696,
+    "p": 0.695,
     "win_p": 0.478,
     "reasons": []
    }
@@ -1203,7 +1203,7 @@
     "opp": "Hawks",
     "market": "spread",
     "line": -9.5,
-    "odds": -108,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.738,
     "reasons": [
@@ -1560,7 +1560,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.824,
+    "p": 0.826,
     "tie": 0.021,
     "name": "1st half"
    },
@@ -1578,7 +1578,7 @@
     "line": -25.5,
     "odds": -108,
     "p": 0.56,
-    "win_p": 0.883,
+    "win_p": 0.885,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1745,7 +1745,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Jax State",
-    "p": 0.612,
+    "p": 0.617,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1761,9 +1761,9 @@
     "opp": "Omaha",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.678,
-    "win_p": 0.678,
+    "odds": -225,
+    "p": 0.684,
+    "win_p": 0.684,
     "reasons": [
      "the stronger team"
     ]
@@ -3124,8 +3124,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Golden Knights",
-    "p": 0.362,
+    "team": "Canadiens",
+    "p": 0.357,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -3142,10 +3142,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.695,
-    "win_p": 0.478,
+    "p": 0.728,
+    "win_p": 0.516,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -3659,7 +3660,7 @@
     "market": "spread",
     "line": -13.5,
     "odds": -110,
-    "p": 0.517,
+    "p": 0.516,
     "win_p": 0.736,
     "reasons": [
      "the stronger team",
@@ -3780,7 +3781,7 @@
     "market": "spread",
     "line": -13.5,
     "odds": -112,
-    "p": 0.513,
+    "p": 0.514,
     "win_p": 0.771,
     "reasons": [
      "the stronger team",
