@@ -1,13 +1,11 @@
 {
- "at": "2026-11-27T19:50Z",
+ "at": "2026-11-27T20:07Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Samson vs Lepchenko: no points for 1984s",
-  "live tennis scores: tennis Carle vs De Reales: no points for 698s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (46s)",
+  "live watcher fresh (3s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,17 +16,42 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 40 min ago",
+  "engine ran 57 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-27T20:07Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-27T20:06Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Lepchenko: no points for 2832s",
+    "live tennis scores: tennis Carle vs De Reales: no points for 1545s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-27T19:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Lepchenko: no points for 2364s",
+    "live tennis scores: tennis Carle vs De Reales: no points for 1077s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-27T19:50Z",
    "fixes": [],
@@ -444,39 +467,6 @@
    "at": "2026-11-26T09:26Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-26T07:54Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
-   ]
-  },
-  {
-   "at": "2026-11-26T07:53Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
-   ]
-  },
-  {
-   "at": "2026-11-26T07:48Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
-   ]
   }
  ]
 }
