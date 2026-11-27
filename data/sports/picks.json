@@ -30157,6 +30157,11 @@
      "game:div"
     ],
     "dec": 2.2,
+    "decider": {
+     "s": "6-2",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30184,6 +30189,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,2,2",
+     "h": "0,0,2"
+    },
     "form_state": [
      -2.0,
      -1,
@@ -30273,10 +30282,12 @@
      "Pontus Holmberg": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Senators 6 @ Lightning 2",
     "season_games": null,
+    "settled": "2026-11-27T23:01Z",
     "shelled": false,
     "side": "away",
     "sold": [],
@@ -30304,12 +30315,14 @@
    }
   ],
   "p_hit": 0.441,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-11-27T16:00Z",
   "round": 1,
+  "settled": "2026-11-27T23:01Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 100,
@@ -30966,7 +30979,9 @@
     "neutral": false,
     "neutral_back": null,
     "odds": 130,
-    "off_wait": {},
+    "off_wait": {
+     "Giannis Antetokounmpo (Heat F)": 1
+    },
     "on_report": [
      "Andre Drummond",
      "Jordan Clarkson",
@@ -31003,7 +31018,9 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "rep_off_wait": {},
+    "rep_off_wait": {
+     "Giannis Antetokounmpo": 1
+    },
     "rep_status": {
      "Andre Drummond": "out",
      "Giannis Antetokounmpo": "q",
