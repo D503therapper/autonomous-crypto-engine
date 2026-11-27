@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 146,
-  "beat": 50,
+  "n": 147,
+  "beat": 51,
   "same": 61,
   "worse": 35,
-  "avg_pts": 0.36
+  "avg_pts": 0.39
  },
  "unit_plays": {
-  "n": 146,
-  "beat": 50,
+  "n": 147,
+  "beat": 51,
   "same": 61,
   "worse": 35,
-  "avg_pts": 0.36
+  "avg_pts": 0.39
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 94,
-   "beat": 34,
+   "n": 95,
+   "beat": 35,
    "same": 38,
    "worse": 22,
-   "avg_pts": 0.45
+   "avg_pts": 0.49
   },
   "solo": {
    "n": 1,
@@ -59,11 +59,11 @@
    "avg_pts": 1.44
   },
   "ncaab": {
-   "n": 15,
-   "beat": 7,
+   "n": 16,
+   "beat": 8,
    "same": 3,
    "worse": 5,
-   "avg_pts": 0.39
+   "avg_pts": 0.65
   },
   "ncaaf": {
    "n": 43,
@@ -2208,6 +2208,20 @@
    "pts": -0.4,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-27",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Liberty",
+   "market": "ml",
+   "line": null,
+   "odds": 100,
+   "close": -120,
+   "pts": 4.5,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }
