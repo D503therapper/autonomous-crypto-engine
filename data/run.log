@@ -30205,3 +30205,27 @@ DEX: $987.01 (-12.99) · Scammed: 0
 [2026-11-27 05:39 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-27 05:39 UTC] crypto/hold_btc  equity $380.20 (-24.0%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), XTZ 37 (37/0/0), BTC 35 (35/0/0), VVV 26 (24/0/2), HYPE 21 (21/0/0)
+   footprint: SUI: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.8%, 4 volume hikes, 69% quiet hours @ 0.68607
+   footprint: SOL: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.4%, 3 volume hikes, 65% quiet hours @ 73.03
+   footprint: HBAR: footprint 3/4 (drift+hikes+rising_lows) 48h +10.1%, 4 volume hikes, 38% quiet hours @ 0.055169
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '61914.21', 'l': '59847.17', 'a': '61671.86', 'v': '3997.1018', 'vv': '242931915.95', 'c': '0.0127', 'b': '61667.34', 'k': '61667.35', 'oi': '0', 't': 1795757995390}
+   dex screen: REJECT ICNT@base liq $132,353 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   dex screen: REJECT VVV@base liq $7,399,116 - is_mintable; owner_percent 30%; top-10 holders 61%
+   dex screen: REJECT PAXG@ethereum liq $2,222,259 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT SKY@ethereum liq $965,413 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 89%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex scanner: 2,238 pools (solana 1,650 / base 296 / ethereum 292), refresh cycle 84s (hot 81s), 1119 calls (43 feed, 429s 1, failed 1), 32,075 refreshed (5750 no pair), +56 added / -46 dropped (dead 43, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT ENA@ethereum liq $1,534,776 - is_mintable; top-10 holders 59%
+[2026-11-27 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/mover     equity $108.53 (-78.3%) 2 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/social_heat equity $322.02 (-35.6%) 2 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-27 06:05 UTC] crypto/hold_btc  equity $380.40 (-23.9%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), XTZ 37 (37/0/0), BTC 35 (35/0/0), VVV 24 (16/0/8), HYPE 21 (21/0/0)
