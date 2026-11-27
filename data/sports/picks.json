@@ -30350,6 +30350,7 @@
      "them:trip1000"
     ],
     "dec": 2.0,
+    "decider": {},
     "def_first": false,
     "dog_bad": [],
     "dog_ctx": {
@@ -30389,6 +30390,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "26,41",
+     "h": "41,35"
+    },
     "form_state": [
      -7.0,
      -2,
@@ -30484,7 +30489,7 @@
      "D. Claussen": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -30493,7 +30498,9 @@
     ],
     "roster_new": 0.499,
     "roster_tin": 0.216,
+    "score": "St Thomas 67 @ Liberty 76",
     "season_games": null,
+    "settled": "2026-11-27T19:16Z",
     "side": "home",
     "side_moved": "away->home",
     "sold": [],
@@ -30542,12 +30549,14 @@
    "two_at": 5
   },
   "p_hit": 0.4744,
-  "pnl": 0.0,
+  "pnl": 100.0,
   "posted": "2026-11-27T16:00Z",
   "round": 1,
+  "settled": "2026-11-27T19:16Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -108,
