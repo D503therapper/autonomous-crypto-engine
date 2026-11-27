@@ -1,9 +1,9 @@
 {
- "at": "2026-11-27T08:17Z",
+ "at": "2026-11-27T08:27Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (148s)",
+  "live watcher fresh (108s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +16,17 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 0h ago",
-  "simulator ran 6h ago",
-  "engine ran 57 min ago",
+  "simulator ran 7h ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-27T08:27Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-27T08:17Z",
    "fixes": [],
@@ -651,23 +656,6 @@
     "workflow failed: sports 2026-11-25T23:04 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45718437710",
     "workflow failed: sports 2026-11-25T22:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717728319",
     "workflow failed: sports 2026-11-25T22:54 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717121391"
-   ]
-  },
-  {
-   "at": "2026-11-25T21:47Z",
-   "fixes": [
-    "live watch 45699869353 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Riera vs Oz: no points for 2615s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "workflow failed: sports 2026-11-25T21:42 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45706782235"
    ]
   }
  ]
