@@ -1,9 +1,9 @@
 {
- "at": "2026-11-27T10:19Z",
+ "at": "2026-11-27T10:20Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (93s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 49 min ago",
+  "engine ran 51 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-27T10:20Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-27T10:19Z",
    "fixes": [],
@@ -585,24 +590,6 @@
     "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
     "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
     "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
-   ]
-  },
-  {
-   "at": "2026-11-26T01:03Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "workflow failed: sports 2026-11-26T00:57 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45732375315",
-    "workflow failed: sports 2026-11-26T00:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731774153",
-    "workflow failed: sports 2026-11-26T00:46 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45731169388",
-    "workflow failed: sports 2026-11-26T00:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45730540671",
-    "workflow failed: sports 2026-11-26T00:36 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45729993751",
-    "sources down (the backups took over): betrivers:ncaab:1028662139 HTTP 404"
    ]
   }
  ]
