@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T20:24Z",
+ "updated": "2026-11-27T20:26Z",
  "games": [
   {
    "id": "ncaab:401920429",
@@ -41,8 +41,8 @@
    "away": "Mississippi St",
    "home": "Ole Miss",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -549,151 +549,6 @@
      "out-rebounding people by +7.7 a game to their +1.4 - the books don't price the glass (5 of 5 seasons)"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nhl:401892803",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.357,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-27T21:00Z",
-   "away": "Avalanche",
-   "home": "Wild",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Wild",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -238,
-    "p": 0.704,
-    "win_p": 0.487,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401892805",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.433,
-    "tie": 0.293,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-27T21:00Z",
-   "away": "Golden Knights",
-   "home": "Sharks",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Sharks",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.677,
-    "win_p": 0.677,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892804",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kings",
-    "p": 0.367,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-27T21:00Z",
-   "away": "Kings",
-   "home": "Ducks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Ducks",
-    "opp": "Kings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.68,
-    "win_p": 0.464,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401912213",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "American",
-    "p": 0.672,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-27T21:00Z",
-   "away": "Radford",
-   "home": "American",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Radford",
-    "opp": "American",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -106,
-    "p": 0.5,
-    "win_p": 0.256,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401911212",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "G Washington",
-    "p": 0.903,
-    "tie": 0.017,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-27T21:00Z",
-   "away": "UMBC",
-   "home": "G Washington",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UMBC",
-    "opp": "G Washington",
-    "market": "spread",
-    "line": 21.5,
-    "odds": -106,
-    "p": 0.515,
-    "win_p": 0.039,
-    "reasons": [
-     "sharp money moving this way"
-    ]
    }
   },
   {
