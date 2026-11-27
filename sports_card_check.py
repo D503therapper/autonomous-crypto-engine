@@ -2014,6 +2014,19 @@ Q_STAR2 = "a second scorer line on the card"
 Q_PRICE = "says our price against the book's"
 Q_LEAD = "a weak line under the pick (a scorer's points / the price / a close result / a record up by one)"
 PRICE_MATH = re.compile(r"^\W*💵|\btimes? in (?:10|3|4)\b|for (?:the|this) bet to pay|\bis all (?:we need|it takes)\b", re.I)
+GAME_COUNT = re.compile(r"\btimes? in \d+ games\b", re.I)   # (11/27: "gave it away 7 times in 10 games" is a COUNT, not the price)
+
+
+def price_math(line):
+    """💵 Price math dressed as a fact ("winning about 4 times in 10 is all we need") - NEVER a count over a team's games.
+    11/27 (the 11/26 Chiefs +130 card): "🧤 Chiefs gave it away 7 times in 10 games this year. Bills: 16 in 10." - the
+    card's best matchup fact, a true line - matched "times in 10", so the page cut it as the line under the pick AND as
+    a body line (every football turnover / sack line of a team 3, 4 or 10 games in went the same way: the whole NFL in
+    week 12). A line that counts something over games is a fact; the 💵 line and the price wordings still go."""
+    t = str(line or "")
+    if not PRICE_MATH.search(t):
+        return False
+    return t.lstrip().startswith("💵") or not GAME_COUNT.search(t)
 UP_BY_ONE = re.compile(r"\b(?:3-2|2-3)\b|\b(?:won|dropped|lost) 3 of (?:their|the) last 5\b|\b3 of the last 5\b|"
                        r"\b3 wins in (?:their|the) last 5\b", re.I)
 STORY_CHECK = True
@@ -2024,7 +2037,7 @@ def filler(line, leg=None):
     t = str(line or "")
     if not STORY_CHECK or not t or BOTTOM.match(t) or t.startswith(("⚠️", "🔄", "✅ Update", "🌟", "🔒", "💎")):
         return ""
-    if PRICE_MATH.search(t):
+    if price_math(t):
         return Q_FILLER
     if HEALTHY.search(t):
         return Q_FILLER
@@ -2065,7 +2078,7 @@ def weak_lead(line, leg, where="render"):
     t = str(line or "")
     if not STORY_CHECK or not t:
         return ""
-    if PRICE_MATH.search(t) or close_result(t, leg) or (t.startswith("🗓") and UP_BY_ONE.search(t)):
+    if price_math(t) or close_result(t, leg) or (t.startswith("🗓") and UP_BY_ONE.search(t)):
         return Q_LEAD
     if t.startswith("💯") and where != "fallback" and any(strong_line(x, leg) for x in (leg or {}).get("breakdown") or []):
         return Q_LEAD

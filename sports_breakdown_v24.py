@@ -1965,6 +1965,24 @@ def _per_game(gs, tid):
     return f / len(gs), a / len(gs)
 
 
+SEASON_NOW_GAMES = 3       # 🧊 11/27 (the 11/26 Chiefs +130 card: "Bills are leaking 21 points a game this season" - the Bills
+SEASON_NOW_MIN = 6         #   had given up 6, 12 and 9 in their last three and the game ended 13-10): a season scoreboard
+SEASON_NOW_GAP = {"nhl": 1.0, "mlb": 1.0}   # comparison argues for us only while it is still who THEY are - when their
+SEASON_NOW_PTS = 6.0       #   last SEASON_NOW_GAMES games (of SEASON_NOW_MIN+) run this much BETTER than their own season
+#                              number (points; goals / runs in hockey / baseball) the line is not written. Ours is untouched.
+
+
+def season_still(gs, tid, idx, lg):
+    """Is the other team's season number (idx 0 = scored, 1 = allowed) still what it has been doing? False = its last
+    SEASON_NOW_GAMES games are better than the season by the league's gap (it allows that much less / scores that
+    much more) - the season line would sell a team that isn't there any more. Under SEASON_NOW_MIN games = True."""
+    if not gs or len(gs) < SEASON_NOW_MIN:
+        return True
+    yr, now = _per_game(gs, tid), _per_game(gs[-SEASON_NOW_GAMES:], tid)
+    gap = SEASON_NOW_GAP.get(lg, SEASON_NOW_PTS)
+    return (yr[1] - now[1] < gap) if idx == 1 else (now[0] - yr[0] < gap)
+
+
 def nba_who_matters(names, team_id, before):
     """🏀 11/18: an NBA out list cut to the men who MATTER - a top-3 scorer over the last 10 box scores or a verified
     starter (sports.nba_key_man's test). A bench man, or one out so long the box scores no longer carry him, is never a
@@ -3613,11 +3631,13 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     if len(r_ours) >= need and len(r_theirs) >= need:
         pg_u, pg_t = _per_game(r_ours, tid), _per_game(r_theirs, oid)
         fmt = (lambda x: f"{x:.1f}") if nhl or lg == "mlb" else (lambda x: f"{round(x)}")
-        if pg_u[1] < pg_t[1] - (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[1]) not in body:
+        if pg_u[1] < pg_t[1] - (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[1]) not in body \
+                and season_still(r_theirs, oid, 1, lg):      # (🧊 11/27: never "leaking 21" off a defense that stopped leaking)
             add.append(v.say("f_wall", [f"🛡️ {us} {vb(us, 'give', 'gives')} up {fmt(pg_u[1])} {unit} a game this year; {them} {vb(them, 'give', 'gives')} up {fmt(pg_t[1])}. Our D is the better one.",
                                         f"🛡️ On the year {us} {vb(us, 'allow', 'allows')} {fmt(pg_u[1])} a game, {them} {fmt(pg_t[1])}. Our D shows up.",
                                         f"🛡️ {them} {vb(them, 'are', 'is')} leaking {fmt(pg_t[1])} {unit} a game this season. {us} {vb(us, 'hold', 'holds')} teams to {fmt(pg_u[1])}."]))
-        if pg_u[0] > pg_t[0] + (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[0]) not in body:   # (11/18: both when
+        if pg_u[0] > pg_t[0] + (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[0]) not in body \
+                and season_still(r_theirs, oid, 0, lg):      # (11/18: both when
             #   both are true - the offense AND the defense better on the year are two facts for our side)
             add.append(v.say("f_gpg", [f"📊 {us} {vb(us, 'score', 'scores')} {fmt(pg_u[0])} {unit} a game this year; {them} {vb(them, 'manage', 'manages')} {fmt(pg_t[0])}.",
                                        f"📊 Offense: {us} {vb(us, 'are', 'is')} putting up {fmt(pg_u[0])} a game on the season, {them} {fmt(pg_t[0])}.",

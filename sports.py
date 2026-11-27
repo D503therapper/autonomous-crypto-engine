@@ -1347,6 +1347,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_deep(games, out)                       # 🏀 11/24 daily S9: the deep team on its second day (spread stack -/+0.02)
     mark_split(games, out)                            # 🏠 11/24 daily S1 / S2: the pros' home / road split (two tracker leads)
     mark_halves(games, out)                           # ⏱️ 11/25 daily S9: the college hoops second-half road team (a tracker lead)
+    mark_glass_night(games, out)                      # 🏀 11/27 daily S2: beat up on the glass last game, neutral floor (a tracker lead)
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
     mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
     mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
@@ -6103,6 +6104,45 @@ def mark_split(games, cands):
                     c["split_lags" if c["side"] == "home" else "vs_split_lags"] = True
             elif c["side"] == "away" and sports_split.home_heavy_winner(games, g["away"], start) is True:
                 c["home_heavy_road"] = True
+        except Exception:                                    # noqa: BLE001 - a lead never breaks the board
+            continue
+
+
+GLASS_NIGHT_FROM = "2026-11-28"    # 🏀 11/27 DAILY STUDIES - S2 (sports_glass_night.py; results/studies/daily_1127/): a college hoops
+#   team out-rebounded by 12+ in its LAST game (a D1 game inside 8 days) on a NEUTRAL floor tonight - ATS -17.7% on 318
+#   (train -11.8% / held -23.3%, 6 of 6 seasons down; a random set of neutral sides as bad 6 of 2,000), the side across
+#   +11.7% on 281. A TRACKER LEAD, no weight: nothing on a home / road floor, no slope in the dose (-18 or worse is
+#   +10.5% on 64), ~750 cells read that day. Stamps only (glass_beat_up / vs_glass_beat_up) from the games of this
+#   Pacific day - nothing on the board reads them. "9999" = off.
+
+
+def mark_glass_night(games, cands):
+    """🏀 11/27: the two stamps the tracker reads (sports_leads.daily_1127_tags) - never a weight: glass_beat_up on a
+    college hoops SPREAD side on a neutral floor whose team was out-rebounded by 12+ in its last game, vs_glass_beat_up
+    on the side across it (itself not one); unknown = nothing; games before GLASS_NIGHT_FROM untouched."""
+    try:
+        import sports_glass_night
+    except Exception:                                        # noqa: BLE001
+        return
+    seen = {}
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") != "spread" or c.get("side") not in ("home", "away") \
+                or not GLASS_NIGHT_FROM or pt_day(c) < GLASS_NIGHT_FROM:
+            continue
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or str(g.get("neutral") or "0") != "1" or not g.get("home") or not g.get("away"):
+            continue
+        try:
+            for side in ("home", "away"):
+                if (c["game_id"], side) not in seen:
+                    seen[(c["game_id"], side)] = sports_glass_night.beat_up(games, g[side], start)
+            me = seen[(c["game_id"], c["side"])]
+            op = seen[(c["game_id"], "away" if c["side"] == "home" else "home")]
+            if me is True:
+                c["glass_beat_up"] = True
+            elif me is False and op is True:
+                c["vs_glass_beat_up"] = True
         except Exception:                                    # noqa: BLE001 - a lead never breaks the board
             continue
 
