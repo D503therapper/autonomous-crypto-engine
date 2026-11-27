@@ -30155,3 +30155,31 @@ DEX: $987.01 (-12.99) · Scammed: 0
 [2026-11-27 04:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-27 04:06 UTC] crypto/hold_btc  equity $378.54 (-24.3%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), BTC 32 (32/0/0), VVV 32 (29/0/2), MON 27 (27/0/0), HYPE 24 (24/0/0)
+   footprint: SUI: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +5.8%, 4 volume hikes, 69% quiet hours @ 0.67894
+   footprint: ARB: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.1%, 3 volume hikes, 69% quiet hours @ 0.116329
+   footprint: SOL: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +5.5%, 3 volume hikes, 65% quiet hours @ 72.49
+   dex outcome: scammed_rug XTO@solana:91GG7PWs tier A P/L $-25.00 (liquidity pulled 100% ($0; $0 expected after the price move, $268,341 at entry))
+   >> dex/dex_hunter: SELL $0.00 of XTO@solana:91GG7PWs @ 0, P/L $-25.00 (liquidity pulled 100% ($0; $0 expected after the price move, $268,341 at entry))
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT MIHAO@solana liq $313,447 - lp holders unknown; rugcheck lp locked 64% < 95%
+   dex screen: REJECT ATX@solana liq $3,740,233 - lp holders unknown; rugcheck score 54
+   dex screen: UNREACHABLE RBLX@solana liq $104,017 - goplus unreachable
+   dex screen: REJECT NVDAC@base liq $1,911,126 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT SNDKC@base liq $1,385,901 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 83%; lp locked 0% < 95%
+   dex scanner: 2,221 pools (solana 1,668 / base 278 / ethereum 275), refresh cycle 95s (hot 92s), 2930 calls (107 feed, 429s 0, failed 0), 84,678 refreshed (15653 no pair), +84 added / -129 dropped (dead 117, stale 12, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       ae7ce0aa95738e8ef5390afcd7be4e15562eec66 -> main (cannot lock ref 'refs/heads/main': is at 503d09755283de9e1900e
+[2026-11-27 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/mover     equity $107.58 (-78.5%) 2 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/social_heat equity $321.76 (-35.6%) 2 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-27 05:06 UTC] crypto/hold_btc  equity $378.88 (-24.2%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), BTC 37 (37/0/0), HYPE 35 (35/0/0), VVV 31 (24/0/7), XTZ 29 (29/0/0)
