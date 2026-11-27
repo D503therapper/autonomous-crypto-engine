@@ -1,30 +1,45 @@
 {
- "at": "2026-11-27T16:33Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-11-27T18:04Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (9h) - started sports_sims.yml"
+ ],
+ "problems": [
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 9h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (93s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 3 live cards, 24 lines - nothing false, outdated or senseless",
-  "double check: 5 injury / starter / price claims on 3 live cards - 3 confirmed by a second source, 2 single-sourced, 0 waiting on a game-day word \u00b7 single: Senators card (2026-11-27): Pontus Holmberg out - only ESPN says so; Liberty card (2026-11-27): D. Claussen out - only Covers says so",
-  "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.0, unit cards under the floor: 0)",
+  "card audit: 4 live cards, 36 lines - nothing false, outdated or senseless",
+  "double check: 15 injury / starter / price claims on 5 live cards - 5 confirmed by a second source, 9 single-sourced, 1 waiting on a game-day word \u00b7 single: Senators card (2026-11-27): Pontus Holmberg out - only ESPN says so; Liberty card (2026-11-27): D. Claussen out - only Covers says so; Heat card (2026-11-27): Andre Drummond out - only ESPN says so; Heat card (2026-11-27): Jordan Clarkson out - only ESPN says so \u00b7 waiting: Heat card (2026-11-27): Giannis Antetokounmpo questionable - no game-day word on him yet - the card says game-time, never out",
+  "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 6.8, unit cards under the floor: 0)",
   "slate check: all 95 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 4 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-27T18:04Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-27T16:33Z",
    "fixes": [],
@@ -468,18 +483,6 @@
    "at": "2026-11-26T07:16Z",
    "fixes": [
     "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
-   ]
-  },
-  {
-   "at": "2026-11-26T05:42Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": [
     "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
