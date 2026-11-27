@@ -1,33 +1,41 @@
 {
- "at": "2026-11-27T21:59Z",
+ "at": "2026-11-27T23:00Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Carle vs De Reales: no points for 490s",
+  "live tennis scores: tennis Riera vs Linana: no points for 167s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (72s)",
+  "live watcher fresh (108s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 2 live cards, 20 lines - nothing false, outdated or senseless",
-  "double check: 13 injury / starter / price claims on 4 live cards - 4 confirmed by a second source, 8 single-sourced, 1 waiting on a game-day word \u00b7 single: Senators card (2026-11-27): Pontus Holmberg out - only ESPN says so; Heat card (2026-11-27): Andre Drummond out - only ESPN says so; Heat card (2026-11-27): Jordan Clarkson out - only ESPN says so; Heat card (2026-11-27): OG Anunoby out - only ESPN says so \u00b7 waiting: Heat card (2026-11-27): Giannis Antetokounmpo questionable - no game-day word on him yet - the card says game-time, never out",
-  "card quality: 100/100 on 2 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 7.5, unit cards under the floor: 0)",
+  "card audit: 3 live cards, 21 lines - nothing false, outdated or senseless",
+  "double check: 12 injury / starter / price claims on 3 live cards - 3 confirmed by a second source, 8 single-sourced, 1 waiting on a game-day word \u00b7 single: Senators card (2026-11-27): Pontus Holmberg out - only ESPN says so; Heat card (2026-11-27): Andre Drummond out - only ESPN says so; Heat card (2026-11-27): Jordan Clarkson out - only ESPN says so; Heat card (2026-11-27): OG Anunoby out - only ESPN says so \u00b7 waiting: Heat card (2026-11-27): Giannis Antetokounmpo questionable - no game-day word on him yet - the card says game-time, never out",
+  "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 5.0, unit cards under the floor: 0)",
   "slate check: all 95 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 10 backup sources answering",
+  "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 36 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-27T23:00Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Riera vs Linana: no points for 167s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-27T21:59Z",
    "fixes": [],
@@ -473,11 +481,6 @@
   },
   {
    "at": "2026-11-26T11:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-26T11:45Z",
    "fixes": [],
    "problems": []
   }
