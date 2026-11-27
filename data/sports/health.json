@@ -1,11 +1,9 @@
 {
- "at": "2026-11-27T10:18Z",
- "fixes": [
-  "live watch 45970372422 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-27T10:19Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (93s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 48 min ago",
+  "engine ran 49 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-27T10:19Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-27T10:18Z",
    "fixes": [
@@ -600,25 +603,6 @@
     "workflow failed: sports 2026-11-26T00:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45730540671",
     "workflow failed: sports 2026-11-26T00:36 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45729993751",
     "sources down (the backups took over): betrivers:ncaab:1028662139 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-25T23:28Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Sierra: no points for 2776s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "workflow failed: sports 2026-11-25T23:17 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45720217336",
-    "workflow failed: sports 2026-11-25T23:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719837385",
-    "workflow failed: sports 2026-11-25T23:09 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45719136521",
-    "workflow failed: sports 2026-11-25T23:04 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45718437710",
-    "workflow failed: sports 2026-11-25T22:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/45717728319"
    ]
   }
  ]
