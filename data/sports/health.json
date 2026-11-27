@@ -1,9 +1,9 @@
 {
- "at": "2026-11-27T06:08Z",
+ "at": "2026-11-27T06:09Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (77s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,17 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 60 min ago",
+  "engine ran 61 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-27T06:09Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-27T06:08Z",
    "fixes": [],
@@ -743,17 +748,6 @@
     "slate check: pick check held stackplay Texas St -108: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
     "studies last ran 10h ago - restarted",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-25T16:42Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: pick check held stackplay Texas St -115: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home.",
-    "slate check: pick check held stackplay Texas St -110: pick check: neutral_site - a home-record line at a neutral site: \ud83c\udfc6 Texas St already beat McNeese this year, 95-69 at home."
    ]
   }
  ]
