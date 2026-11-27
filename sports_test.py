@@ -31384,9 +31384,35 @@ def _acc1123_soon(minutes):
 
 def _acc1123_roster(active, inactive, pad=44):
     """An NFL game-day roster list the way ESPN's per-game roster answers: every man active or not."""
-    ent = [{"displayName": n, "active": True} for n in active] + [{"displayName": n, "active": False} for n in inactive]
-    ent += [{"displayName": f"Player {i} Number{i}", "active": True} for i in range(pad)]
+    ent = [{"displayName": n, "active": False, "didNotPlay": False} for n in active] + \
+          [{"displayName": n, "active": False, "didNotPlay": True} for n in inactive]       # (11/26: ESPN's real shape)
+    ent += [{"displayName": f"Player {i} Number{i}", "active": False, "didNotPlay": False} for i in range(pad)]
     return {"entries": ent}
+
+
+def test_inactives_1126_the_real_espn_roster_shape_reads_didnotplay_and_full_names_by_player_id():
+    """11/26 (Thanksgiving, the reader's first live day): ESPN's per-game NFL roster for the Chiefs @ Bills answered with
+    58 entries, EVERY one "active": false before kickoff (starters too) and 9 "didNotPlay": true - the inactives (the
+    Chiefs' matched the report: Moore, Walker III, Norman-Lott). The reader took "active" as the flag, saw 58 men off,
+    and its own guard returned nothing (n=0 all day - safe, but no inactives line ever). Now: didNotPlay is the flag,
+    and the short names ("Walker III") become full names by playerId off our box-score rosters."""
+    import sports_gameday as gd
+    ent = [{"playerId": 4567048, "displayName": "Walker III", "active": False, "starter": False, "didNotPlay": True},
+           {"playerId": 99, "displayName": "Moore", "active": False, "starter": False, "didNotPlay": True},
+           {"playerId": 15847, "displayName": "Kelce", "active": False, "starter": True, "didNotPlay": False}]
+    ent += [{"playerId": 1000 + i, "displayName": f"P{i}", "active": False, "starter": False, "didNotPlay": i < 7}
+            for i in range(55)]
+    got = gd.parse_roster({"entries": ent}, {"4567048": "Kenneth Walker III", "15847": "Travis Kelce"})
+    assert got["Kenneth Walker III"] == "inactive" and got["Travis Kelce"] == "active", got
+    assert got["Moore"] == "inactive"                                    # no full name on file: kept short
+    assert gd.word({"away": got, "src": {}}, "away", "Kenneth Walker III")[0] == "inactive"
+    assert gd.word({"away": got, "src": {}}, "away", "Jaylon Moore")[0] is None   # a bare last name never pins a man
+    # before the list is filed every man is didNotPlay false: no word at all
+    assert gd.parse_roster({"entries": [{**e, "didNotPlay": False} for e in ent]}) == {}
+    # the live box-score roster file maps the ids (Kelce / Walker III are in it this season)
+    nm = gd.full_names("nfl", "2026-11-27T01:20Z")
+    if nm:
+        assert nm.get("15847") == "Travis Kelce" and nm.get("4567048") == "Kenneth Walker III"
 
 
 def test_accuracy_1123_waller_questionable_at_post_active_at_kickoff_gets_an_update_line():

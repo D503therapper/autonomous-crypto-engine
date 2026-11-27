@@ -96,21 +96,54 @@ def parse_box(league, payload, live=True):
     return out
 
 
-def parse_roster(payload):
-    """{shown name: 'active' / 'inactive'} from a per-game roster list - {} unless it looks like a real inactives list
-    (see ROSTER_MIN / INACT_MIN): a shape we don't know never becomes a claim."""
+def parse_roster(payload, names=None):
+    """{name: 'active' / 'inactive'} from ESPN's per-game NFL roster - {} unless it looks like a real inactives list
+    (see ROSTER_MIN / INACT_MIN): a shape we don't know never becomes a claim. THE REAL SHAPE (11/26, read live on the
+    Chiefs @ Bills list through fetch_pages): before kickoff EVERY entry has "active": false - starters too (Kelce) -
+    so "active" is no inactives flag; the inactives are "didNotPlay": true (9 a team, the Chiefs' matching the report:
+    Moore, Walker III, Norman-Lott ...), and "displayName" is the short name ("Walker III", "T. Smith"). The full name
+    comes off our box-score rosters by playerId (names) - a short name with no full one is kept as it is, and the
+    card's matcher (same) never pins a full name on a bare last name."""
     try:
-        ent = [e for e in (payload.get("entries") or []) if isinstance(e, dict) and isinstance(e.get("active"), bool)
-               and (e.get("displayName") or (e.get("athlete") or {}).get("displayName"))]
+        ent = [e for e in (payload.get("entries") or []) if isinstance(e, dict) and e.get("displayName")
+               and isinstance(e.get("didNotPlay", False), bool)]
     except Exception:                                        # noqa: BLE001
         return {}
     if not ROSTER_MIN <= len(ent) <= ROSTER_MAX:
         return {}
-    off = [e for e in ent if not e["active"]]
-    if not INACT_MIN <= len(off) <= INACT_MAX:
+    off = [e for e in ent if e.get("didNotPlay") is True]
+    if not INACT_MIN <= len(off) <= INACT_MAX:              # (none flagged yet = the list isn't filed - no word)
         return {}
-    return {(e.get("displayName") or (e.get("athlete") or {}).get("displayName")): ("active" if e["active"] else "inactive")
+    names = names or {}
+    return {(names.get(str(e.get("playerId"))) or e["displayName"]): ("inactive" if e.get("didNotPlay") is True else "active")
             for e in ent}
+
+
+_NAMES = {}
+
+
+def full_names(lg, start):
+    """{playerId: full name} off our box-score rosters (data/sports/roster/<lg>_<season>.csv.gz) - the season of the
+    game and the one before. {} when the files aren't there."""
+    import csv
+    import gzip
+    import os
+    yr = str(start or "")[:4]
+    key = (lg, yr)
+    if key in _NAMES:
+        return _NAMES[key]
+    out = {}
+    for y in ((str(int(yr) - 1), yr) if yr.isdigit() else ()):
+        f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sports", "roster", f"{lg}_{y}.csv.gz")
+        try:
+            with gzip.open(f, "rt", newline="") as fh:
+                for r in csv.DictReader(fh):
+                    if r.get("pid") and r.get("player"):
+                        out[str(r["pid"])] = r["player"]
+        except (OSError, ValueError, EOFError):
+            continue
+    _NAMES[key] = out
+    return out
 
 
 def due(g, now=None):
@@ -152,7 +185,8 @@ def read(g, now=None):
         sport, lg_ = sd.LEAGUES[lg][0].split("/")
         for side in ("home", "away"):
             try:
-                men = parse_roster(_get(ROSTER.format(sport=sport, lg=lg_, eid=eid, tid=g[side])))
+                men = parse_roster(_get(ROSTER.format(sport=sport, lg=lg_, eid=eid, tid=g[side])),
+                                   full_names(lg, g.get("start")))
             except Exception as e:                           # noqa: BLE001 - quiet, and it says so
                 sh.note("espn_gameday_roster", False, err=sh.err_text(e),
                         how="plain request - the NFL game-day roster (inactives); quiet = a questionable man stays on "
