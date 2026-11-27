@@ -1,16 +1,9 @@
 {
- "at": "2026-11-26T18:46Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
- "problems": [
-  "live tennis scores: tennis Brancaccio vs De Reales: no points for 1889s",
-  "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1889s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
- ],
+ "at": "2026-11-27T00:20Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (69s)",
+  "live watcher fresh (215s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,16 +14,114 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "engine ran 57 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 44 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-27T00:20Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-27T00:19Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-27T00:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-26T22:43Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Carle: no points for 2579s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T22:41Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Carle: no points for 2579s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T22:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Carle: no points for 2226s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T21:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Carle: no points for 64s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T20:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 2595s",
+    "live tennis scores: tennis Samson vs Burillo: no points for 669s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T20:23Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 2595s",
+    "live tennis scores: tennis Samson vs Burillo: no points for 669s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T20:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 2540s",
+    "live tennis scores: tennis Samson vs Burillo: no points for 614s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-26T18:50Z",
+   "fixes": [
+    "live watch 45873874503 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Brancaccio vs De Reales: no points for 1824s",
+    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1824s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-26T18:48Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Brancaccio vs De Reales: no points for 1889s",
+    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1889s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-26T18:46Z",
    "fixes": [
@@ -695,69 +786,6 @@
     "live watch 45617898005 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T13:58Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T13:53Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T12:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T12:07Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T12:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T10:32Z",
-   "fixes": [
-    "live watch 45588933594 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T09:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T09:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T08:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T08:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T08:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-25T08:00Z",
-   "fixes": [],
    "problems": []
   }
  ]

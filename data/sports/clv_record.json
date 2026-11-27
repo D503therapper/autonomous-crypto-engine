@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 144,
+  "n": 145,
   "beat": 50,
-  "same": 60,
+  "same": 61,
   "worse": 34,
   "avg_pts": 0.37
  },
  "unit_plays": {
-  "n": 144,
+  "n": 145,
   "beat": 50,
-  "same": 60,
+  "same": 61,
   "worse": 34,
   "avg_pts": 0.37
  },
@@ -34,6 +34,13 @@
    "same": 38,
    "worse": 21,
    "avg_pts": 0.46
+  },
+  "solo": {
+   "n": 1,
+   "beat": 0,
+   "same": 1,
+   "worse": 0,
+   "avg_pts": 0.0
   }
  },
  "by_sport": {
@@ -66,11 +73,11 @@
    "avg_pts": 0.01
   },
   "nfl": {
-   "n": 12,
+   "n": 13,
    "beat": 6,
-   "same": 4,
+   "same": 5,
    "worse": 2,
-   "avg_pts": 0.73
+   "avg_pts": 0.68
   },
   "nhl": {
    "n": 52,
@@ -110,6 +117,53 @@
    "avg_pts": -0.7
   }
  },
+ "spreads_moved": {
+  "n": 3,
+  "beat": 3,
+  "worse": 0,
+  "avg_line_pts": 1.0,
+  "picks": [
+   {
+    "date": "2026-11-20",
+    "kind": "play",
+    "league": "ncaab",
+    "team": "Niagara",
+    "line": 2.5,
+    "odds": -115,
+    "close_line": 1.5,
+    "close": -108,
+    "line_pts": 1.0,
+    "units": 0.5,
+    "result": "won"
+   },
+   {
+    "date": "2026-11-23",
+    "kind": "play",
+    "league": "ncaab",
+    "team": "Washington",
+    "line": 11.5,
+    "odds": -112,
+    "close_line": 10.5,
+    "close": -112,
+    "line_pts": 1.0,
+    "units": 0.5,
+    "result": "won"
+   },
+   {
+    "date": "2026-11-25",
+    "kind": "play",
+    "league": "ncaab",
+    "team": "Texas St",
+    "line": -26.5,
+    "odds": -108,
+    "close_line": -27.5,
+    "close": -108,
+    "line_pts": 1.0,
+    "units": 0.5,
+    "result": "won"
+   }
+  ]
+ },
  "picks": [
   {
    "date": "2026-09-27",
@@ -123,6 +177,20 @@
    "close": -112,
    "pts": -0.7,
    "units": 5.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-09-28",
+   "kind": "solo",
+   "lean": false,
+   "league": "nfl",
+   "team": "Bears",
+   "market": "spread",
+   "line": 3.5,
+   "odds": -108,
+   "close": -108,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "won"
   },
   {
