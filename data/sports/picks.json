@@ -29898,6 +29898,15 @@
      "game:conf"
     ],
     "dec": 2.3,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Tyler Bass",
+     "s": "13-10",
+     "type": "late",
+     "win": "home",
+     "y": 57
+    },
     "depth_gap": 1,
     "depth_pts": 1.0,
     "dog_ctx": {
@@ -29950,6 +29959,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.74,
+    "flow": {
+     "a": "0,3,7,0",
+     "h": "0,7,0,6"
+    },
     "form_state": [
      27.0,
      3,
@@ -30044,10 +30057,12 @@
      "Omarr Norman-Lott": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Chiefs 10 @ Bills 13",
     "season_games": null,
+    "settled": "2026-11-27T04:51Z",
     "side": "away",
     "sold": [],
     "spare": [
@@ -30077,11 +30092,13 @@
    }
   ],
   "p_hit": 0.4236,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-26T16:00Z",
   "round": 1,
+  "settled": "2026-11-27T04:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
