@@ -1,41 +1,10 @@
 {
   "cash": 975.0,
-  "positions": {
-    "XTO@solana:91GG7PWs": {
-      "qty": 1745.1160995757307,
-      "entry": 0.014282717353911135,
-      "cost": 25.0,
-      "peak": 0.02077,
-      "stop": 0.0,
-      "took_profit": false,
-      "opened": 1795440536000,
-      "chain": "solana",
-      "addr": "91GG7PWsUTmXwHcDtkoaEm77v1xc6NyQWoETFjrDpump",
-      "sym": "XTO",
-      "pair": "34R2uSZYM4EKGCLkYvHSQHDh2B4D4t5eqH4UQpyH5VCp",
-      "liq0": 268340.95,
-      "px0": 0.01414,
-      "liq": 185082.37,
-      "vol24": 252.73,
-      "age_h0": 53.17563138888889,
-      "px": 0.006884,
-      "tp1": false,
-      "tp2": false,
-      "realized": 0.0,
-      "cost0": 25.0,
-      "rescreened": 1795737176271,
-      "impact": 9.316505736452077e-05,
-      "tier": "A",
-      "clean": 26,
-      "resized": true,
-      "seen_px": 1795737642463,
-      "suspect": false,
-      "last_good": 0.006884,
-      "flagged": 1
-    }
-  },
+  "positions": {},
   "peak_equity": 1000.0,
-  "cooldown": {},
+  "cooldown": {
+    "XTO@solana:91GG7PWs": 1795838830912
+  },
   "halted": false,
   "halt_until": 0,
   "last_rebalance_week": null

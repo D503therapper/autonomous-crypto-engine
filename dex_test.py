@@ -1160,6 +1160,46 @@ def test_rescreen_flags_held_token():
         run(h, t, 4)
     assert K in h.pf.positions and h.pf.positions[K]["flagged"] >= 2 and not h.pf.positions[K].get("exit")
     shutil.rmtree(d)
+    # EXPERIMENT 20: RugCheck "LP locked 0%" twice in a row sells a Solana coin under 1.5x; 1.5x+ keeps riding
+    def sol_held(rule, lp=0, **rc_kw):
+        table, p2 = table_sol(), {"v": 0.01}
+        table["tokens/v1/solana/"] = lambda u: (200, [ds_pair("solana", SOL, sym="SOLT", price=p2["v"])])
+        h2, f2, d2 = make(table)
+        h2.p = {**h2.p, "data_flag_exit": False, "lp0_flag_exit": rule}
+        screen(h2, cand("solana", SOL, sym="SOLT"))
+        k2 = next(iter(h2.pf.positions))
+        h2.src["rugcheck"].fetch = fake_fetch({"rugcheck.xyz": (200, dict(RC_OK, lpLockedPct=lp, **rc_kw))})
+        return h2, d2, p2, k2
+    R20 = {"flags": 2, "below_x": 1.5}
+    h2, d2, p2, k2 = sol_held(R20)
+    run(h2, T0 + 1801_000, 4)
+    assert k2 in h2.pf.positions and h2.pf.positions[k2]["flagged"] == 1 and not h2.pf.positions[k2].get("exit")
+    run(h2, T0 + 3602_000, 4)
+    run(h2, T0 + 3700_000, 4)
+    oc = rows(f"{d2}/outcomes.csv")[-1]
+    assert k2 not in h2.pf.positions and oc["outcome"] == "emergency_exit" and "LP unlocked x2" in oc["reason"], oc
+    shutil.rmtree(d2)
+    h2, d2, p2, k2 = sol_held(R20)                                          # a runner (1.6x) keeps riding ...
+    p2["v"] = 0.0165
+    for t in (T0 + 1801_000, T0 + 3602_000, T0 + 5403_000):
+        run(h2, t, 4)
+    assert k2 in h2.pf.positions and h2.pf.positions[k2]["flagged"] >= 2 and not h2.pf.positions[k2].get("exit")
+    p2["v"] = 0.0145                                                        # ... until a flag finds it back under 1.5x
+    run(h2, T0 + 7204_000, 4)
+    run(h2, T0 + 7300_000, 4)
+    assert k2 not in h2.pf.positions and "LP unlocked" in rows(f"{d2}/outcomes.csv")[-1]["reason"]
+    shutil.rmtree(d2)
+    h2, d2, p2, k2 = sol_held(None)                                         # switch off: experiment 10 alone, held
+    for t in (T0 + 1801_000, T0 + 3602_000, T0 + 5403_000):
+        run(h2, t, 4)
+    assert k2 in h2.pf.positions and h2.pf.positions[k2]["flagged"] >= 2 and not h2.pf.positions[k2].get("exit")
+    shutil.rmtree(d2)
+    h2, d2, p2, k2 = sol_held(R20, lp=60)                                   # "LP locked 60%" is not this rule: held
+    for t in (T0 + 1801_000, T0 + 3602_000, T0 + 5403_000):
+        run(h2, t, 4)
+    assert k2 in h2.pf.positions and h2.pf.positions[k2]["flagged"] >= 2 and not h2.pf.positions[k2].get("exit")
+    shutil.rmtree(d2)
+    assert config.DEX["lp0_flag_exit"] == R20 and config.DEX["data_flag_exit"] is False
     h, fetch, d, px = held()                                                # a checker's empty answer is not a finding
     h.p = {**h.p, "data_flag_exit": True}
     h.src["honeypot"].fetch = fake_fetch({"IsHoneypot": (200, {})})

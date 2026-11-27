@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 145,
+  "n": 146,
   "beat": 50,
   "same": 61,
-  "worse": 34,
-  "avg_pts": 0.37
+  "worse": 35,
+  "avg_pts": 0.36
  },
  "unit_plays": {
-  "n": 145,
+  "n": 146,
   "beat": 50,
   "same": 61,
-  "worse": 34,
-  "avg_pts": 0.37
+  "worse": 35,
+  "avg_pts": 0.36
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.11
   },
   "play": {
-   "n": 93,
+   "n": 94,
    "beat": 34,
    "same": 38,
-   "worse": 21,
-   "avg_pts": 0.46
+   "worse": 22,
+   "avg_pts": 0.45
   },
   "solo": {
    "n": 1,
@@ -73,11 +73,11 @@
    "avg_pts": 0.01
   },
   "nfl": {
-   "n": 13,
+   "n": 14,
    "beat": 6,
    "same": 5,
-   "worse": 2,
-   "avg_pts": 0.68
+   "worse": 3,
+   "avg_pts": 0.6
   },
   "nhl": {
    "n": 52,
@@ -2192,6 +2192,20 @@
    "odds": -115,
    "close": -112,
    "pts": -0.7,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-26",
+   "kind": "play",
+   "lean": false,
+   "league": "nfl",
+   "team": "Chiefs",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 132,
+   "pts": -0.4,
    "units": 0.5,
    "result": "lost"
   }

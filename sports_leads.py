@@ -567,6 +567,7 @@ def tags(c, sports):
     t += daily_1124_tags(c, sports)                          # 11/24 daily studies: the deep hoops team on its second day, the pros' home / road split
     t += daily_1125_tags(c, sports)                          # 11/25 daily studies: the college hoops second-half road team (LEADS)
     t += daily_1126_tags(c, sports)                          # 11/26 daily studies: the hockey dog with top-fifth special teams (a LEAD)
+    t += daily_1127_tags(c, sports)                          # 11/27 daily studies: beat up on the glass last game, neutral floor (two LEADS)
     t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
     #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
@@ -1175,6 +1176,26 @@ def daily_1124_tags(c, sports):
 NCAAB_2H_HOME_PTS_TAG = "college hoops home spread side getting points across a second-half road team (lead)"   # 11/25 daily S9:
 NCAAB_2H_HOME_DOG_TAG = "college hoops home dog across a second-half road favorite (lead)"                        # LEADS, judge at 60 each
 NCAAB_2H_ROAD_FAV_TAG = "college hoops second-half road team laying points (fade) (lead)"                         # ... the mirror
+
+
+NCAAB_GLASS_NIGHT_TAG = "college hoops neutral-floor spread side beat up on the glass last game (fade) (lead)"   # 11/27 daily S2:
+NCAAB_VS_GLASS_NIGHT_TAG = "college hoops neutral-floor spread side across a team beat up on the glass last game (lead)"   # LEADS, judge at 40 each
+
+
+def daily_1127_tags(c, sports):
+    """11/27 daily studies S2: a college hoops SPREAD side on a neutral floor whose team was out-rebounded by 12+ in
+    its last game (sports.mark_glass_night's stamps, games from sports.GLASS_NIGHT_FROM), and the side across it -
+    two LEADS, never read by the board."""
+    try:
+        if c.get("league") != "ncaab" or c.get("market") != "spread":
+            return []
+        if not sports.GLASS_NIGHT_FROM or sports.pt_day(c) < sports.GLASS_NIGHT_FROM:
+            return []
+        if c.get("glass_beat_up") is True:
+            return [NCAAB_GLASS_NIGHT_TAG]
+        return [NCAAB_VS_GLASS_NIGHT_TAG] if c.get("vs_glass_beat_up") is True else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 NHL_SPECIAL_DOG_TAG = "NHL dog with top-fifth special teams (fade) (lead)"   # 11/26 daily S5: a LEAD (judge at 60), no weight
@@ -1936,6 +1957,7 @@ def spread_tags(c, sports):
     t += daily_1120_tags(c, sports)                          # 11/20 DAILY: the non-D1 tune-up weight's record + the late-quarter closer (a LEAD)
     t += daily_1124_tags(c, sports)                          # 11/24 DAILY: the deep team on its second day - the built stack weight's two cover records
     t += daily_1125_tags(c, sports)                          # 11/25 DAILY: the second-half road team laying points / the home side getting them (LEADS)
+    t += daily_1127_tags(c, sports)                          # 11/27 DAILY: beat up on the glass last game on a neutral floor / the side across (LEADS)
     return t
 
 

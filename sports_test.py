@@ -32449,6 +32449,142 @@ def test_daily_1126_the_hockey_dog_with_top_fifth_special_teams_is_a_tracker_lea
     finally:
         sports.NHL_SPECIAL_FROM = off
 
+
+def test_daily_1127_a_count_over_games_is_never_price_math():
+    """11/27 (the 11/26 Chiefs +130 card): the card's best matchup fact - "🧤 Chiefs gave it away 7 times in 10 games this
+    year. Bills: 16 in 10." - matched the price-math rule's "times in 10" ("winning about 4 times in 10 is all we
+    need"), so the page cut a TRUE line as the line under the pick AND as a body line; every football turnover / sack
+    line of a team 3, 4 or 10 games in went the same way (the whole NFL in week 12). A count over a team's GAMES is a
+    fact; the price wordings and the 💵 line still go."""
+    import sports_card_check as cc
+    leg = {"team": "Chiefs", "opp": "Bills", "league": "nfl", "odds": 130, "market": "ml", "breakdown": []}
+    facts = ["🧤 Chiefs gave it away 7 times in 10 games this year. Bills: 16 in 10. Riding Chiefs.",
+             "🧤 Bills turned it over 16 times in 10 games this year. Chiefs: 7 in 10.",
+             "💥 Bills' quarterback got sacked 31 times in 10 games this year. Chiefs got home 28 times in 10.",
+             "🧤 Ducks turned it over 9 times in 4 games this year. Beavers: 3 in 4.",
+             "🧤 Owls gave it away 2 times in 3 games this year. Rams: 8 in 3."]
+    for t in facts:
+        assert not cc.price_math(t), t
+        assert cc.filler(t, leg) == "", (t, cc.filler(t, leg))
+        assert cc.weak_lead(t, leg) == "", (t, cc.weak_lead(t, leg))
+    price = ["💵 Plus money: at +150, Flyers winning about 4 times in 10 is all we need.",
+             "Chiefs only gotta win this 4 times in 10.", "At +250 it hits 1 time in 3 and we're fine.",
+             "3 times in 10 is all it takes at this price.", "💵 We cash this 4 times in 10 games like it."]
+    for t in price:
+        assert cc.price_math(t), t
+        assert cc.filler(t, leg) == cc.Q_FILLER, t
+        assert cc.weak_lead(t, leg) == cc.Q_LEAD, t
+
+
+def test_daily_1127_a_season_line_is_not_said_of_a_team_that_is_not_that_team_any_more():
+    """11/27 (the 11/26 Chiefs +130 card: "🛡️ Bills are leaking 21 points a game this season. Chiefs hold teams to 16." -
+    the Bills had given up 6, 12 and 9 in their last three, and the game ended 13-10): the season scoreboard comparison
+    is written only while the other team's last 3 games are not 6+ points (a goal in hockey) BETTER than its own season
+    number. Under 6 games on file the season line stands."""
+    import sports_breakdown_v24 as v24
+
+    def gms(allowed, scored=None, tid="2"):
+        scored = scored or [24] * len(allowed)
+        return [{"home": tid, "away": "x", "home_score": str(f), "away_score": str(a)} for f, a in zip(scored, allowed)]
+    bills = gms([31, 31, 16, 29, 34, 30, 10, 6, 12, 9])                 # the real 2026 Bills going into 11/26: 20.8 a game
+    assert round(v24._per_game(bills, "2")[1]) == 21 and v24._per_game(bills[-3:], "2")[1] == 9.0
+    assert v24.season_still(bills, "2", 1, "nfl") is False              # 21 on the year, 9 lately: not "leaking" any more
+    assert v24.season_still(gms([31, 31, 16, 29, 34, 30, 10, 24, 22, 20]), "2", 1, "nfl") is True    # 22 lately: still them
+    assert v24.season_still(gms([31, 31, 16, 29, 34, 30, 10, 18, 18, 18]), "2", 1, "nfl") is True    # 5.5 better: under the gap
+    assert v24.season_still(bills[:5], "2", 1, "nfl") is True           # under 6 games: the season is all there is
+    assert v24.season_still([], "2", 1, "nfl") is True
+    # the offense: "can only find 17" is not said of a team that scored 30 a game its last three
+    off = gms([20] * 9, scored=[14, 13, 17, 10, 14, 17, 31, 28, 31])
+    assert v24.season_still(off, "2", 0, "nfl") is False and v24.season_still(off[:6] + off[:3], "2", 0, "nfl") is True
+    # hockey reads goals: a goal a game better lately is the gap
+    nhl = gms([4, 4, 5, 3, 4, 4, 2, 2, 2], scored=[3] * 9)
+    assert v24.season_still(nhl, "2", 1, "nhl") is False and v24.season_still(nhl, "2", 1, "nba") is True
+    assert v24.SEASON_NOW_GAMES == 3 and v24.SEASON_NOW_MIN == 6 and v24.SEASON_NOW_PTS == 6.0
+    import inspect
+    src = inspect.getsource(v24)
+    assert src.count("season_still(r_theirs, oid, 1, lg)") == 1 and src.count("season_still(r_theirs, oid, 0, lg)") == 1
+
+
+def test_daily_1127_beat_up_on_the_glass_on_a_neutral_floor_is_a_tracker_lead_and_moves_nothing():
+    """11/27 daily studies S2: a college hoops team out-rebounded by 12+ in its LAST game (a D1 game inside 8 days) on a
+    NEUTRAL floor tonight covered -17.7% on 318 against -4.4% for every neutral side (placebo 6 of 2,000), the side
+    across +11.7% on 281 - but nothing on a home / road floor and no slope in the dose, so two tracker LEADS from the
+    11/28 games: stamps and tags, nothing on a read, a stack, a rank or a size."""
+    import inspect
+    import sports_glass_night as gn
+    import sports_leads as sl
+    import sports_ncaab_roster as nr
+    assert sports.GLASS_NIGHT_FROM == "2026-11-28" and gn.GAP == -12 and gn.DAYS == 8.0
+
+    def game(gid, day, home, away, neutral="0", status="final"):
+        return {"id": gid, "league": "ncaab", "start": f"2026-11-{day:02d}T23:00Z", "status": status, "stype": "2",
+                "home": home, "away": away, "neutral": neutral, "home_score": "70", "away_score": "60"}
+    games = {g["id"]: g for g in (
+        game("ncaab:1", 24, "A", "B"),                       # A got out-rebounded 30-45 by B (-15)
+        game("ncaab:2", 24, "C", "D"),                       # C 40, D 36 (+4 / -4)
+        game("ncaab:3", 12, "E", "F"),                       # E -20, but 16 days back
+        game("ncaab:4", 24, "G", "ND"),                      # G -14 against a non-D1 school
+        game("ncaab:5", 24, "H", "I"),                       # no box on file
+        game("ncaab:t1", 28, "A", "C", neutral="1", status="pre"),
+        game("ncaab:t2", 28, "B", "D", neutral="0", status="pre"))}
+    rows = [{"gid": "ncaab:1", "teams": {"A": {"totalRebounds": "30"}, "B": {"totalRebounds": "45"}}},
+            {"gid": "ncaab:2", "teams": {"C": {"totalRebounds": "40"}, "D": {"totalRebounds": "36"}}},
+            {"gid": "ncaab:3", "teams": {"E": {"totalRebounds": "20"}, "F": {"totalRebounds": "40"}}},
+            {"gid": "ncaab:4", "teams": {"G": {"totalRebounds": "26"}, "ND": {"totalRebounds": "40"}}}]
+    keep, keep_rows = nr.d1_set, dict(gn._ROWS)
+    try:
+        nr.d1_set = lambda g: {"A", "B", "C", "D", "E", "F", "G", "H", "I"}
+        now = "2026-11-28T23:00Z"
+        assert gn.margin(games, "A", now, rows) == -15 and gn.beat_up(games, "A", now, rows) is True
+        assert gn.beat_up(games, "B", now, rows) is False and gn.beat_up(games, "C", now, rows) is False
+        assert gn.beat_up(games, "E", now, rows) is None      # 16 days back: old news
+        assert gn.beat_up(games, "G", now, rows) is None      # a tune-up against a non-D1 school is no read
+        assert gn.beat_up(games, "H", now, rows) is None      # no box = unread
+        assert gn.beat_up(games, "nobody", now, rows) is None
+        assert gn.beat_up(games, "A", "2026-11-24T20:00Z", rows) is None    # no look-ahead: before that game there is none
+        nr.d1_set = lambda g: None
+        assert gn.beat_up(games, "A", now, rows) is None      # can't tell who is D1 = unread
+        nr.d1_set = lambda g: {"A", "B", "C", "D", "E", "F", "G", "H", "I"}
+        # the stamps: a SPREAD side on a NEUTRAL floor, games from the 11/28 Pacific day
+        gn._ROWS.clear()
+        gn._ROWS["by"] = {r["gid"]: r["teams"] for r in rows}
+
+        def cand(gid, side, market="spread", start="2026-11-28T23:00Z"):
+            return {"league": "ncaab", "market": market, "side": side, "game_id": gid, "start": start, "line": -3.5, "odds": -110}
+        cs = [cand("ncaab:t1", "home"), cand("ncaab:t1", "away"), cand("ncaab:t1", "home", market="ml"),
+              cand("ncaab:t2", "home"), cand("ncaab:t2", "away")]
+        sports.mark_glass_night(games, cs)
+        assert cs[0].get("glass_beat_up") is True and "vs_glass_beat_up" not in cs[0]
+        assert cs[1].get("vs_glass_beat_up") is True and "glass_beat_up" not in cs[1]
+        assert not any(k in cs[2] for k in ("glass_beat_up", "vs_glass_beat_up"))            # a moneyline side: no stamp
+        assert not any(k in c for c in cs[3:] for k in ("glass_beat_up", "vs_glass_beat_up"))   # a home floor: no stamp
+        assert sl.daily_1127_tags(cs[0], sports) == [sl.NCAAB_GLASS_NIGHT_TAG] and sl.NCAAB_GLASS_NIGHT_TAG in sl.tags(cs[0], sports)
+        assert sl.daily_1127_tags(cs[1], sports) == [sl.NCAAB_VS_GLASS_NIGHT_TAG] and sl.NCAAB_VS_GLASS_NIGHT_TAG in sl.tags(cs[1], sports)
+        assert "(lead)" in sl.NCAAB_GLASS_NIGHT_TAG and "(lead)" in sl.NCAAB_VS_GLASS_NIGHT_TAG
+        assert sl.daily_1127_tags({**cs[0], "market": "ml"}, sports) == [] and sl.daily_1127_tags({**cs[0], "league": "nba"}, sports) == []
+        assert sl.daily_1127_tags({**cs[0], "start": "2026-11-27T23:00Z"}, sports) == []       # the 11/27 Pacific games: before it
+        early = cand("ncaab:t1", "home", start="2026-11-27T23:00Z")
+        games["ncaab:t1"]["start"] = "2026-11-27T23:00Z"
+        sports.mark_glass_night(games, [early])
+        assert "glass_beat_up" not in early
+        games["ncaab:t1"]["start"] = "2026-11-28T23:00Z"
+        off = sports.GLASS_NIGHT_FROM
+        try:
+            sports.GLASS_NIGHT_FROM = "9999"
+            c2 = cand("ncaab:t1", "home")
+            sports.mark_glass_night(games, [c2])
+            assert "glass_beat_up" not in c2 and sl.daily_1127_tags(cs[0], sports) == []
+        finally:
+            sports.GLASS_NIGHT_FROM = off
+    finally:
+        nr.d1_set = keep
+        gn._ROWS.clear()
+        gn._ROWS.update(keep_rows)
+    src = inspect.getsource(sports)
+    assert src.count('"glass_beat_up"') == 1 and src.count('"vs_glass_beat_up"') == 1    # the one stamp each - no read, stack, rank or size uses them
+    for fn in (sports.ncaab_spread_stack, sports.rank_p, sports.dog_score):
+        assert "glass_beat_up" not in inspect.getsource(fn)
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

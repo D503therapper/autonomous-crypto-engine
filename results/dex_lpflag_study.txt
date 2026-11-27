@@ -1,0 +1,89 @@
+DEX LP-flag study (dex_lpflag_study.py) - sell a held coin on repeated 'rugcheck lp locked 0%' flags?
+positions ever closed: 84;  with the LP-0% flag while held and a usable price path: 48
+
+x1/x2/x3 = price at LP-0% flag #1/#2/#3 as a multiple of the buy price; hold = P/L of never selling on the flag
+(HELD: what really happened; SOLD: later path walked with today's sell rules); sell2 = P/L of selling at flag #2.
+coin       bought      grp  pump surv   cost flags    x1    x2    x3    hold   sell2  note
+HOLDOWEEN  09-26 09:09 SOLD y    n       100     0  0.48  0.48    -    -53.3   -52.6  day 7 (0.48x)
+SDOG       09-26 18:46 SOLD y    n       100     0  0.88  0.88    -    -92.5   -12.8  day 7 (0.07x)
+ANTFUN     09-26 21:18 SOLD n    n       158     0  0.98  0.98    -     17.9    -3.9  day 7 (1.13x)
+HOLDOWEEN  09-27 02:38 SOLD y    n       134     2  0.92  1.11    -   -134.0    14.1  path ends ~0 (0.00x)
+DREGG      09-27 07:55 SOLD y    n       176     0  0.90  0.90    -    -51.3   -18.7  day 7 (0.72x)
+TEXTIT     09-27 08:55 SOLD y    n       178     0  0.97  0.97    -   -177.8    -6.2  path ends ~0 (0.02x)
+BABYCATE   09-27 16:58 SOLD y    n       138     0  0.71  0.71    -    -85.0   -40.4  path ends 09-30 (0.39x)
+SAAR       09-27 18:56 SOLD y    n       138     0  0.86  0.86    -    -93.4   -19.7  day 7 (0.33x)
+BABYCALI   09-28 06:23 HELD y    n       128     3  2.13    -     -   -101.1  -101.1  trailing stop (peak 0.02097)
+XPAD       09-28 10:14 HELD y    n       138     1  0.31    -     -   -129.7  -129.7  trailing stop (peak 0.001596)
+AROS       09-30 01:09 SOLD y    n       100     0  1.09  1.09    -    -99.7     8.3  path ends ~0 (0.00x)
+SS         09-30 04:36 HELD y    n       101     1  1.33    -     -    -93.4   -93.4  trailing stop (peak 0.002664)
+AIRPAD     09-30 12:11 HELD y    n        94     2  1.22    -     -    -93.4   -93.4  trailing stop (peak 0.002147)
+SHARTCOIN  10-01 00:58 HELD n    n        74     5  0.93    -     -    -23.8   -23.8  re-screen flagged twice: top-10 holder
+MORI       10-01 02:12 SOLD n    n        74     5  1.41  1.41    -     31.1    29.7  day 7 (1.44x)
+PINK       10-01 05:56 HELD y    n        77     3  0.47    -     -    -52.5   -52.5  re-screen flagged twice: top-10 holder
+BANDIT     10-01 22:28 SOLD y    n        70     1  0.72  0.08    -    -69.7   -64.1  path ends ~0 (0.00x)
+HOOKEDINU  10-03 01:06 HELD y    n        47     1  0.21    -     -    -46.7   -46.7  re-screen flagged: holders unknown; lp
+OMNI       10-03 09:06 SOLD y    n        43     4  0.59  0.59    -      1.4   -17.9  day 7 (1.05x)
+PURRSWORD  10-03 20:29 SOLD y    n        36     4  0.73  0.00    -    -35.7   -35.5  path ends ~0 (0.00x)
+SIGF       10-04 00:56 HELD y    n        17     3  0.99    -     -      2.4     2.4  re-screen flagged twice: holders unkno
+SA         10-04 03:51 HELD y    n        17     4  0.74    -     -    -16.7   -16.7  re-screen flagged: holders unknown; lp
+AGENTCAT   10-04 06:13 SOLD y    n        18     1  1.90  1.85    -     92.5    15.5  3x then -40% (10.49x)
+PAYR       10-04 13:09 SOLD y    n        18     1  0.00  0.00    -    -17.6   -17.5  path ends ~0 (0.01x)
+MEMEAGENCY 10-05 00:30 SOLD y    n        16     2  1.69  0.96    -     53.2    -0.8  3x then -40% (2.37x)
+BATONROGUE 10-05 03:37 SOLD y    n        15     1  0.67  0.66    -    -15.3    -5.3  path ends ~0 (0.00x)
+MINTRO     10-06 01:32 HELD y    n        50    11  0.00  0.00    -    -50.3   -50.3  re-screen flagged: holders unknown; lp
+HIGGS      10-06 10:28 HELD y    n        48     3  0.92  0.92  1.35   -48.0    -4.2  re-screen flagged: holders unknown; lp
+A1         10-07 01:28 HELD y    n        48     9  0.82  0.64  0.64   -47.9   -17.8  re-screen flagged: holders unknown; lp
+RARINU     10-07 03:36 HELD y    n        47    10  0.92  0.34    -    -47.0   -31.4  re-screen flagged: holders unknown; lp
+CATCRAFT   10-07 04:43 HELD y    n        48     4  1.48    -     -    -47.6   -47.6  re-screen flagged: holders unknown; lp
+QT         10-11 00:23 HELD y    n        44     7  1.48  2.36    -    -44.4    59.3  re-screen flagged: holders unknown; lp
+SI276      10-12 17:39 HELD y    y        35     8  0.99  0.99  0.99   -35.0    -0.8  re-screen flagged: holders unknown; lp
+MINTER     10-18 07:13 HELD y    n        24     1  0.01  0.01  0.01   -23.9   -23.7  time limit 7d
+GLITCH     10-18 11:00 HELD y    n        24    71  1.09  1.25  1.06     7.2     5.6  time limit 7d
+CATSZN     10-18 12:34 HELD y    n        24     2  0.40    -     -    -23.8   -23.8  re-screen flagged: lp holders unknown;
+FTR        10-18 17:58 HELD y    n        23    15  0.96  0.96    -    -23.2    -1.2  re-screen flagged: lp holders unknown;
+HELL       10-18 22:52 HELD y    n        23    52    -     -     -      4.9     4.9  time limit 7d
+STARTUPSI  10-19 12:07 HELD y    n        22     4  1.69  1.53    -    -20.6    11.2  trailing stop (peak 0.03595)
+DOOMSDAY   10-19 14:30 HELD y    n        22     2  0.75    -     -    -21.6   -21.6  re-screen flagged: holders unknown; lp
+YOKAI      10-20 05:40 HELD n    n        21    14  0.85  0.39    -    -18.2   -13.1  time limit 7d
+NPC        10-20 16:13 HELD n    n        20    54  0.99  0.99  0.86   -20.2    -0.5  liquidity pulled 100% ($0; $0 expected
+DARK       10-20 19:13 HELD n    n        20    18  0.92  0.61  0.61    -8.8    -8.0  time limit 7d
+DESSA      10-30 14:41 HELD y    y        17     2  0.94    -     -     16.7    16.7  trailing stop (peak 0.03229)
+DOAS       10-31 00:50 HELD y    y        18     1  0.99    -     -    -17.7   -17.7  re-screen flagged: lp holders unknown;
+COGE       11-07 21:52 HELD y    y        17     7  0.09  0.01    -    -17.2   -17.1  re-screen flagged: lp holders unknown;
+RAMBO      11-08 17:42 HELD y    y        17    91  0.99  0.75  0.75     6.2    -4.4  time limit 7d
+XTO        11-23 13:28 HELD y    y        25   142  1.06  1.12  1.16   -25.0     2.7  liquidity pulled 100% ($0; $0 expected
+
+halves by buy time: older n 24 (to 10-05 00:30), newer n 24.  P/L in $; 'vs' = rule minus current.
+rule                                      total      vs  older vs  newer vs  sold  cost on winners  saved on losers $1 older $1 newer  wins both
+CURRENT (never sell on the flag)        -1789.5
+sell at flag #1                          -247.6 +1541.8   +1142.1    +399.8    47           -196.2          +1738.0    +0.30    +0.44  YES
+sell at flag #2                          -965.5  +824.0    +545.3    +278.8    33           -185.5          +1009.6    +0.01    +0.27  YES
+sell at flag #3                         -1130.1  +659.4    +545.3    +114.1    26           -190.0           +849.4    +0.01    +0.05  YES
+flag #2, only if below entry            -1304.8  +484.7    +367.5    +117.1    25           -105.6           +590.3    +0.10    +0.07  YES
+flag #2, only if below 1.5x             -1023.9  +765.6    +622.3    +143.3    30           -108.5           +874.1    +0.19    +0.11  YES
+flag #2, only if at/above entry         -1450.1  +339.4    +177.8    +161.6     8            -79.9           +419.3    -0.08    +0.20  no
+flag #3, only if below entry            -1394.0  +395.5    +367.5     +28.0    19           -105.6           +501.1    +0.10    -0.04  no
+flag #2, only pump.fun                   -967.9  +821.6    +568.5    +253.1    28           -162.3           +983.9    +0.02    +0.22  YES
+flag #2, only Solana                     -965.5  +824.0    +545.3    +278.8    33           -185.5          +1009.6    +0.01    +0.27  YES
+flag #2, pump.fun and below entry       -1308.6  +480.9    +389.4     +91.5    21            -83.8           +564.6    +0.10    +0.02  YES
+from flag #2: sell when under 1.0x      -1314.6  +474.9    +367.6    +107.3    30           -127.3           +602.2    +0.10    +0.05  YES
+from flag #2: sell when under 1.5x      -1034.4  +755.1    +622.3    +132.9    31           -119.0           +874.1    +0.19    +0.09  YES
+
+HELD: n 31, hold -1060.2, sell at flag #2 -737.5, flag #2 only below entry -899.1
+SOLD: n 17, hold -729.3, sell at flag #2 -227.9, flag #2 only below entry -405.7
+'from flag #2: sell when under 1.5x' by coin (rule minus current), biggest costs: MEMEAGENCY -54, ANTFUN -22, OMNI -19, RAMBO -11, HELL -10;  biggest saves: TEXTIT +172, HOLDOWEEN +148, AROS +108, SDOG +80, SAAR +74, BABYCATE +45
+biggest costs of 'sell at flag #2' (runners it sells): AGENTCAT -77 (flag at 1.85x), MEMEAGENCY -54 (flag at 0.96x), ANTFUN -22 (flag at 0.98x), OMNI -19 (flag at 0.59x), RAMBO -11 (flag at 0.75x)
+
+for scale - positions with NO LP-0% flag while held: n 35, cost $1635, P/L -619.9;  flagged ones above: cost $2840, P/L (current rule) -1789.5
+biggest live winners, and did they carry the flag?  DACITY +74 (no LP-0% flag); MORI +30 (LP-0% flags 5); JPMD +25 (no LP-0% flag); DESSA +17 (LP-0% flags 2); 7 +16 (no LP-0% flag); ZERO +16 (no LP-0% flag); AGENTCAT +16 (LP-0% flags 1); HOLDOWEEN +14 (LP-0% flags 2)
+
+Survivor-rule buys, pump.fun (Solana address ending 'pump') vs the rest - live, all seasons:
+  pump.fun               n  6  cost $   129  P/L   -72.0  (-56%)  SI276 -35, DESSA +17, DOAS -18, COGE -17, RAMBO +6, XTO -25
+  Solana, not pump.fun   n  0  cost $     0  P/L    +0.0  (+0%)  
+  Base / Ethereum        n  1  cost $    20  P/L   -18.9  (-96%)  DACITY -19
+
+Survivor rule on the scanner log (data/dex/scan, no scam screen), live exit, per $1 bet - n 98:
+  pump.fun               older -0.31 (n 18, lost 80%+ 7, 2x+ 1)           newer +0.20 (n 12, lost 80%+ 0, 2x+ 1)
+  Solana, not pump.fun   older -0.28 (n 7, lost 80%+ 2, 2x+ 0)            newer +1.74 (n 3, lost 80%+ 0, 2x+ 2)
+  Base / Ethereum        older -0.11 (n 24, lost 80%+ 7, 2x+ 0)           newer -0.54 (n 34, lost 80%+ 13, 2x+ 0)
+  all                    older -0.21 (n 49, lost 80%+ 16, 2x+ 1)          newer -0.22 (n 49, lost 80%+ 13, 2x+ 3)

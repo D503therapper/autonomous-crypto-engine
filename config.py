@@ -349,6 +349,11 @@ DEX = {
     # EXPERIMENT 10 (10-06): data-only re-screen flags (holders / LP data unknown, "LP locked 0%") no longer sell a held
     # coin - season 2 sold AGENTCAT at 1.84x (went 19.9x) and AGENCY at 0.59x (went 16.2x) on them.
     "data_flag_exit": False,
+    # EXPERIMENT 20 (11-27, after XTO -100%): the one exception to experiment 10 - RugCheck "LP locked 0%" on 2
+    # re-screens in a row sells a held Solana coin that is under 1.5x its buy price (1.5x+ keeps riding until a later
+    # flag finds it back under 1.5x). dex_lpflag_study (48 flagged coins, all seasons): +$755 vs never selling, better
+    # in both halves ($ and per $1); keeps AGENTCAT (flagged at 1.85x). None = off (experiment 10 alone).
+    "lp0_flag_exit": {"flags": 2, "below_x": 1.5},
     # (10-07 repair - the outage's fake sales - was applied once via "void"; see archive/voided_2026-10-07-feed-outage.csv)
     # Owner 2026-10-05: "no pause - this is play money, we are learning not to get scammed": the scam circuit breaker
     # is OFF (max None). Scams are still counted and every scam check before a buy and on held coins still runs.

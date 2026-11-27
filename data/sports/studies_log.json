@@ -1,5 +1,533 @@
 [
  {
+  "at": "2026-11-27T18:05Z",
+  "games": 133869,
+  "studies": {
+   "underdogs + favorites": {
+    "ok": true,
+    "secs": 2.5,
+    "proven": {
+     "nfl": [],
+     "nfl price check": false,
+     "ncaaf": [],
+     "ncaaf price check": false,
+     "nba": [],
+     "nba price check": false,
+     "ncaab": [],
+     "ncaab price check": true,
+     "mlb": [],
+     "mlb price check": false,
+     "nhl": [],
+     "nhl price check": true
+    }
+   },
+   "over/unders": {
+    "ok": true,
+    "secs": 10.2,
+    "proven": {
+     "nfl": false,
+     "ncaaf": false,
+     "nba": false,
+     "ncaab": false,
+     "mlb": false,
+     "nhl": false
+    }
+   },
+   "hockey": {
+    "ok": true,
+    "secs": 15.1,
+    "proven": null
+   },
+   "spread vs moneyline": {
+    "ok": true,
+    "secs": 9.2,
+    "proven": {
+     "nfl": false,
+     "ncaaf": false,
+     "nba": false,
+     "ncaab": false
+    }
+   },
+   "puck lines / run lines": {
+    "ok": true,
+    "secs": 5.5,
+    "proven": null
+   },
+   "halves / first period": {
+    "ok": true,
+    "secs": 1.6,
+    "proven": null
+   },
+   "comebacks": {
+    "ok": true,
+    "secs": 166.7,
+    "proven": null
+   },
+   "trends": {
+    "ok": true,
+    "secs": 8.9,
+    "proven": {
+     "proven": [
+      "ncaab|rate|fav_cover",
+      "ncaaf|rate|total"
+     ]
+    }
+   },
+   "rigged / fade the public": {
+    "ok": true,
+    "secs": 0.5,
+    "proven": {
+     "proven": []
+    }
+   },
+   "self-check on our picks": {
+    "ok": true,
+    "secs": 0.0,
+    "proven": null
+   },
+   "situational spots": {
+    "ok": true,
+    "secs": 14.1,
+    "proven": {
+     "nfl": [],
+     "ncaaf": [],
+     "nba": [],
+     "ncaab": [],
+     "mlb": [],
+     "nhl": []
+    }
+   },
+   "line movement + CLV": {
+    "ok": true,
+    "secs": 2.3,
+    "proven": {
+     "proven": []
+    }
+   },
+   "our engine vs the move (can it beat the pros?)": {
+    "ok": true,
+    "secs": 4.2,
+    "proven": {
+     "proven": []
+    }
+   },
+   "the engine's strengths, sport by sport": {
+    "ok": true,
+    "secs": 4.3,
+    "proven": {
+     "proven": [
+      "nba"
+     ]
+    }
+   },
+   "context: rivalries, travel, domes, stakes, refs": {
+    "ok": true,
+    "secs": 27.2,
+    "proven": {
+     "nfl": [],
+     "ncaaf": [],
+     "nba": [],
+     "ncaab": [],
+     "mlb": [],
+     "nhl": []
+    }
+   },
+   "early value plays: the early-price exam": {
+    "ok": true,
+    "secs": 43.5,
+    "proven": {
+     "proven": [
+      "ncaaf +4..8"
+     ]
+    }
+   },
+   "the explorer: NEW angles": {
+    "ok": true,
+    "secs": 27.1,
+    "proven": {
+     "proven": []
+    }
+   },
+   "tennis edge": {
+    "ok": true,
+    "secs": 31.3,
+    "proven": {
+     "proven": [
+      "wta|avg|age:vet&agegap:+8&p:65-80",
+      "wta|pin|age:vet&agegap:+8&p:65-80"
+     ]
+    }
+   },
+   "tennis first set": {
+    "ok": true,
+    "secs": 3.8,
+    "proven": {
+     "proven": []
+    }
+   },
+   "tennis heavy favorites": {
+    "ok": true,
+    "secs": 11.8,
+    "proven": {
+     "proven": []
+    }
+   }
+  },
+  "secs": 390
+ },
+ {
+  "at": "2026-11-27T07:58Z",
+  "games": 133869,
+  "studies": {
+   "underdogs + favorites": {
+    "ok": true,
+    "secs": 3.2,
+    "proven": {
+     "nfl": [],
+     "nfl price check": false,
+     "ncaaf": [],
+     "ncaaf price check": false,
+     "nba": [],
+     "nba price check": false,
+     "ncaab": [],
+     "ncaab price check": true,
+     "mlb": [],
+     "mlb price check": false,
+     "nhl": [],
+     "nhl price check": true
+    }
+   },
+   "over/unders": {
+    "ok": true,
+    "secs": 14.6,
+    "proven": {
+     "nfl": false,
+     "ncaaf": false,
+     "nba": false,
+     "ncaab": false,
+     "mlb": false,
+     "nhl": false
+    }
+   },
+   "hockey": {
+    "ok": true,
+    "secs": 23.6,
+    "proven": null
+   },
+   "spread vs moneyline": {
+    "ok": true,
+    "secs": 13.3,
+    "proven": {
+     "nfl": false,
+     "ncaaf": false,
+     "nba": false,
+     "ncaab": false
+    }
+   },
+   "puck lines / run lines": {
+    "ok": true,
+    "secs": 6.6,
+    "proven": null
+   },
+   "halves / first period": {
+    "ok": true,
+    "secs": 1.9,
+    "proven": null
+   },
+   "comebacks": {
+    "ok": true,
+    "secs": 219.4,
+    "proven": null
+   },
+   "trends": {
+    "ok": true,
+    "secs": 12.5,
+    "proven": {
+     "proven": [
+      "ncaab|rate|fav_cover",
+      "ncaaf|rate|total"
+     ]
+    }
+   },
+   "rigged / fade the public": {
+    "ok": true,
+    "secs": 0.7,
+    "proven": {
+     "proven": []
+    }
+   },
+   "self-check on our picks": {
+    "ok": true,
+    "secs": 0.0,
+    "proven": null
+   },
+   "situational spots": {
+    "ok": true,
+    "secs": 20.3,
+    "proven": {
+     "nfl": [],
+     "ncaaf": [],
+     "nba": [],
+     "ncaab": [],
+     "mlb": [],
+     "nhl": []
+    }
+   },
+   "line movement + CLV": {
+    "ok": true,
+    "secs": 3.2,
+    "proven": {
+     "proven": []
+    }
+   },
+   "our engine vs the move (can it beat the pros?)": {
+    "ok": true,
+    "secs": 6.6,
+    "proven": {
+     "proven": []
+    }
+   },
+   "the engine's strengths, sport by sport": {
+    "ok": true,
+    "secs": 7.0,
+    "proven": {
+     "proven": [
+      "nba"
+     ]
+    }
+   },
+   "context: rivalries, travel, domes, stakes, refs": {
+    "ok": true,
+    "secs": 40.6,
+    "proven": {
+     "nfl": [],
+     "ncaaf": [],
+     "nba": [],
+     "ncaab": [],
+     "mlb": [],
+     "nhl": []
+    }
+   },
+   "early value plays: the early-price exam": {
+    "ok": true,
+    "secs": 68.4,
+    "proven": {
+     "proven": [
+      "ncaaf +4..8"
+     ]
+    }
+   },
+   "the explorer: NEW angles": {
+    "ok": true,
+    "secs": 38.2,
+    "proven": {
+     "proven": []
+    }
+   },
+   "tennis edge": {
+    "ok": true,
+    "secs": 42.7,
+    "proven": {
+     "proven": [
+      "wta|avg|age:vet&agegap:+8&p:65-80",
+      "wta|pin|age:vet&agegap:+8&p:65-80"
+     ]
+    }
+   },
+   "tennis first set": {
+    "ok": true,
+    "secs": 5.5,
+    "proven": {
+     "proven": []
+    }
+   },
+   "tennis heavy favorites": {
+    "ok": true,
+    "secs": 16.4,
+    "proven": {
+     "proven": []
+    }
+   }
+  },
+  "secs": 545
+ },
+ {
+  "at": "2026-11-27T01:40Z",
+  "games": 133869,
+  "studies": {
+   "underdogs + favorites": {
+    "ok": true,
+    "secs": 2.0,
+    "proven": {
+     "nfl": [],
+     "nfl price check": false,
+     "ncaaf": [],
+     "ncaaf price check": false,
+     "nba": [],
+     "nba price check": false,
+     "ncaab": [],
+     "ncaab price check": true,
+     "mlb": [],
+     "mlb price check": false,
+     "nhl": [],
+     "nhl price check": true
+    }
+   },
+   "over/unders": {
+    "ok": true,
+    "secs": 7.6,
+    "proven": {
+     "nfl": false,
+     "ncaaf": false,
+     "nba": false,
+     "ncaab": false,
+     "mlb": false,
+     "nhl": false
+    }
+   },
+   "hockey": {
+    "ok": true,
+    "secs": 9.9,
+    "proven": null
+   },
+   "spread vs moneyline": {
+    "ok": true,
+    "secs": 6.3,
+    "proven": {
+     "nfl": false,
+     "ncaaf": false,
+     "nba": false,
+     "ncaab": false
+    }
+   },
+   "puck lines / run lines": {
+    "ok": true,
+    "secs": 3.5,
+    "proven": null
+   },
+   "halves / first period": {
+    "ok": true,
+    "secs": 1.4,
+    "proven": null
+   },
+   "comebacks": {
+    "ok": true,
+    "secs": 122.6,
+    "proven": null
+   },
+   "trends": {
+    "ok": true,
+    "secs": 6.2,
+    "proven": {
+     "proven": [
+      "ncaab|rate|fav_cover",
+      "ncaaf|rate|total"
+     ]
+    }
+   },
+   "rigged / fade the public": {
+    "ok": true,
+    "secs": 0.4,
+    "proven": {
+     "proven": []
+    }
+   },
+   "self-check on our picks": {
+    "ok": true,
+    "secs": 0.0,
+    "proven": null
+   },
+   "situational spots": {
+    "ok": true,
+    "secs": 10.4,
+    "proven": {
+     "nfl": [],
+     "ncaaf": [],
+     "nba": [],
+     "ncaab": [],
+     "mlb": [],
+     "nhl": []
+    }
+   },
+   "line movement + CLV": {
+    "ok": true,
+    "secs": 2.0,
+    "proven": {
+     "proven": []
+    }
+   },
+   "our engine vs the move (can it beat the pros?)": {
+    "ok": true,
+    "secs": 3.1,
+    "proven": {
+     "proven": []
+    }
+   },
+   "the engine's strengths, sport by sport": {
+    "ok": true,
+    "secs": 3.4,
+    "proven": {
+     "proven": [
+      "nba"
+     ]
+    }
+   },
+   "context: rivalries, travel, domes, stakes, refs": {
+    "ok": true,
+    "secs": 21.6,
+    "proven": {
+     "nfl": [],
+     "ncaaf": [],
+     "nba": [],
+     "ncaab": [],
+     "mlb": [],
+     "nhl": []
+    }
+   },
+   "early value plays: the early-price exam": {
+    "ok": true,
+    "secs": 34.2,
+    "proven": {
+     "proven": [
+      "ncaaf +4..8"
+     ]
+    }
+   },
+   "the explorer: NEW angles": {
+    "ok": true,
+    "secs": 25.7,
+    "proven": {
+     "proven": []
+    }
+   },
+   "tennis edge": {
+    "ok": true,
+    "secs": 24.5,
+    "proven": {
+     "proven": [
+      "wta|avg|age:vet&agegap:+8&p:65-80",
+      "wta|pin|age:vet&agegap:+8&p:65-80"
+     ]
+    }
+   },
+   "tennis first set": {
+    "ok": true,
+    "secs": 3.6,
+    "proven": {
+     "proven": []
+    }
+   },
+   "tennis heavy favorites": {
+    "ok": true,
+    "secs": 9.3,
+    "proven": {
+     "proven": []
+    }
+   }
+  },
+  "secs": 298
+ },
+ {
   "at": "2026-11-26T21:25Z",
   "games": 133827,
   "studies": {
@@ -10022,533 +10550,5 @@
    }
   },
   "secs": 316
- },
- {
-  "at": "2026-11-12T17:19Z",
-  "games": 132628,
-  "studies": {
-   "underdogs + favorites": {
-    "ok": true,
-    "secs": 2.4,
-    "proven": {
-     "nfl": [],
-     "nfl price check": false,
-     "ncaaf": [],
-     "ncaaf price check": false,
-     "nba": [],
-     "nba price check": false,
-     "ncaab": [],
-     "ncaab price check": true,
-     "mlb": [],
-     "mlb price check": false,
-     "nhl": [],
-     "nhl price check": true
-    }
-   },
-   "over/unders": {
-    "ok": true,
-    "secs": 8.5,
-    "proven": {
-     "nfl": false,
-     "ncaaf": false,
-     "nba": false,
-     "ncaab": true,
-     "mlb": false,
-     "nhl": false
-    }
-   },
-   "hockey": {
-    "ok": true,
-    "secs": 14.4,
-    "proven": null
-   },
-   "spread vs moneyline": {
-    "ok": true,
-    "secs": 8.8,
-    "proven": {
-     "nfl": true,
-     "ncaaf": false,
-     "nba": false,
-     "ncaab": false
-    }
-   },
-   "puck lines / run lines": {
-    "ok": true,
-    "secs": 5.2,
-    "proven": null
-   },
-   "halves / first period": {
-    "ok": true,
-    "secs": 1.5,
-    "proven": null
-   },
-   "comebacks": {
-    "ok": true,
-    "secs": 154.6,
-    "proven": null
-   },
-   "trends": {
-    "ok": true,
-    "secs": 8.5,
-    "proven": {
-     "proven": [
-      "ncaab|rate|fav_cover",
-      "ncaaf|rate|total"
-     ]
-    }
-   },
-   "rigged / fade the public": {
-    "ok": true,
-    "secs": 0.5,
-    "proven": {
-     "proven": []
-    }
-   },
-   "self-check on our picks": {
-    "ok": true,
-    "secs": 0.0,
-    "proven": null
-   },
-   "situational spots": {
-    "ok": true,
-    "secs": 14.3,
-    "proven": {
-     "nfl": [],
-     "ncaaf": [],
-     "nba": [],
-     "ncaab": [],
-     "mlb": [],
-     "nhl": []
-    }
-   },
-   "line movement + CLV": {
-    "ok": true,
-    "secs": 2.4,
-    "proven": {
-     "proven": []
-    }
-   },
-   "our engine vs the move (can it beat the pros?)": {
-    "ok": true,
-    "secs": 3.6,
-    "proven": {
-     "proven": []
-    }
-   },
-   "the engine's strengths, sport by sport": {
-    "ok": true,
-    "secs": 4.1,
-    "proven": {
-     "proven": [
-      "nba"
-     ]
-    }
-   },
-   "context: rivalries, travel, domes, stakes, refs": {
-    "ok": true,
-    "secs": 27.1,
-    "proven": {
-     "nfl": [],
-     "ncaaf": [],
-     "nba": [],
-     "ncaab": [],
-     "mlb": [],
-     "nhl": []
-    }
-   },
-   "early value plays: the early-price exam": {
-    "ok": true,
-    "secs": 40.9,
-    "proven": {
-     "proven": [
-      "ncaaf +4..8"
-     ]
-    }
-   },
-   "the explorer: NEW angles": {
-    "ok": true,
-    "secs": 28.5,
-    "proven": {
-     "proven": []
-    }
-   },
-   "tennis edge": {
-    "ok": true,
-    "secs": 33.5,
-    "proven": {
-     "proven": [
-      "wta|avg|age:vet&agegap:+8&p:65-80",
-      "wta|pin|age:vet&agegap:+8&p:65-80"
-     ]
-    }
-   },
-   "tennis first set": {
-    "ok": true,
-    "secs": 3.8,
-    "proven": {
-     "proven": []
-    }
-   },
-   "tennis heavy favorites": {
-    "ok": true,
-    "secs": 11.9,
-    "proven": {
-     "proven": []
-    }
-   }
-  },
-  "secs": 374
- },
- {
-  "at": "2026-11-12T17:12Z",
-  "games": 132628,
-  "studies": {
-   "underdogs + favorites": {
-    "ok": true,
-    "secs": 2.4,
-    "proven": {
-     "nfl": [],
-     "nfl price check": false,
-     "ncaaf": [],
-     "ncaaf price check": false,
-     "nba": [],
-     "nba price check": false,
-     "ncaab": [],
-     "ncaab price check": true,
-     "mlb": [],
-     "mlb price check": false,
-     "nhl": [],
-     "nhl price check": true
-    }
-   },
-   "over/unders": {
-    "ok": true,
-    "secs": 8.4,
-    "proven": {
-     "nfl": false,
-     "ncaaf": false,
-     "nba": false,
-     "ncaab": true,
-     "mlb": false,
-     "nhl": false
-    }
-   },
-   "hockey": {
-    "ok": true,
-    "secs": 14.6,
-    "proven": null
-   },
-   "spread vs moneyline": {
-    "ok": true,
-    "secs": 8.5,
-    "proven": {
-     "nfl": true,
-     "ncaaf": false,
-     "nba": false,
-     "ncaab": false
-    }
-   },
-   "puck lines / run lines": {
-    "ok": true,
-    "secs": 5.3,
-    "proven": null
-   },
-   "halves / first period": {
-    "ok": true,
-    "secs": 1.5,
-    "proven": null
-   },
-   "comebacks": {
-    "ok": true,
-    "secs": 156.3,
-    "proven": null
-   },
-   "trends": {
-    "ok": true,
-    "secs": 9.3,
-    "proven": {
-     "proven": [
-      "ncaab|rate|fav_cover",
-      "ncaaf|rate|total"
-     ]
-    }
-   },
-   "rigged / fade the public": {
-    "ok": true,
-    "secs": 0.5,
-    "proven": {
-     "proven": []
-    }
-   },
-   "self-check on our picks": {
-    "ok": true,
-    "secs": 0.0,
-    "proven": null
-   },
-   "situational spots": {
-    "ok": true,
-    "secs": 15.3,
-    "proven": {
-     "nfl": [],
-     "ncaaf": [],
-     "nba": [],
-     "ncaab": [],
-     "mlb": [],
-     "nhl": []
-    }
-   },
-   "line movement + CLV": {
-    "ok": true,
-    "secs": 2.4,
-    "proven": {
-     "proven": []
-    }
-   },
-   "our engine vs the move (can it beat the pros?)": {
-    "ok": true,
-    "secs": 3.6,
-    "proven": {
-     "proven": []
-    }
-   },
-   "the engine's strengths, sport by sport": {
-    "ok": true,
-    "secs": 4.1,
-    "proven": {
-     "proven": [
-      "nba"
-     ]
-    }
-   },
-   "context: rivalries, travel, domes, stakes, refs": {
-    "ok": true,
-    "secs": 28.1,
-    "proven": {
-     "nfl": [],
-     "ncaaf": [],
-     "nba": [],
-     "ncaab": [],
-     "mlb": [],
-     "nhl": []
-    }
-   },
-   "early value plays: the early-price exam": {
-    "ok": true,
-    "secs": 42.1,
-    "proven": {
-     "proven": [
-      "ncaaf +4..8"
-     ]
-    }
-   },
-   "the explorer: NEW angles": {
-    "ok": true,
-    "secs": 28.7,
-    "proven": {
-     "proven": []
-    }
-   },
-   "tennis edge": {
-    "ok": true,
-    "secs": 32.7,
-    "proven": {
-     "proven": [
-      "wta|avg|age:vet&agegap:+8&p:65-80",
-      "wta|pin|age:vet&agegap:+8&p:65-80"
-     ]
-    }
-   },
-   "tennis first set": {
-    "ok": true,
-    "secs": 3.8,
-    "proven": {
-     "proven": []
-    }
-   },
-   "tennis heavy favorites": {
-    "ok": true,
-    "secs": 11.8,
-    "proven": {
-     "proven": []
-    }
-   }
-  },
-  "secs": 379
- },
- {
-  "at": "2026-11-12T06:55Z",
-  "games": 132628,
-  "studies": {
-   "underdogs + favorites": {
-    "ok": true,
-    "secs": 3.0,
-    "proven": {
-     "nfl": [],
-     "nfl price check": false,
-     "ncaaf": [],
-     "ncaaf price check": false,
-     "nba": [],
-     "nba price check": false,
-     "ncaab": [],
-     "ncaab price check": true,
-     "mlb": [],
-     "mlb price check": false,
-     "nhl": [],
-     "nhl price check": true
-    }
-   },
-   "over/unders": {
-    "ok": true,
-    "secs": 11.6,
-    "proven": {
-     "nfl": false,
-     "ncaaf": false,
-     "nba": false,
-     "ncaab": true,
-     "mlb": false,
-     "nhl": false
-    }
-   },
-   "hockey": {
-    "ok": true,
-    "secs": 18.7,
-    "proven": null
-   },
-   "spread vs moneyline": {
-    "ok": true,
-    "secs": 11.6,
-    "proven": {
-     "nfl": true,
-     "ncaaf": false,
-     "nba": false,
-     "ncaab": false
-    }
-   },
-   "puck lines / run lines": {
-    "ok": true,
-    "secs": 6.5,
-    "proven": null
-   },
-   "halves / first period": {
-    "ok": true,
-    "secs": 1.8,
-    "proven": null
-   },
-   "comebacks": {
-    "ok": true,
-    "secs": 199.7,
-    "proven": null
-   },
-   "trends": {
-    "ok": true,
-    "secs": 11.0,
-    "proven": {
-     "proven": [
-      "ncaab|rate|fav_cover",
-      "ncaaf|rate|total"
-     ]
-    }
-   },
-   "rigged / fade the public": {
-    "ok": true,
-    "secs": 0.6,
-    "proven": {
-     "proven": []
-    }
-   },
-   "self-check on our picks": {
-    "ok": true,
-    "secs": 0.0,
-    "proven": null
-   },
-   "situational spots": {
-    "ok": true,
-    "secs": 17.6,
-    "proven": {
-     "nfl": [],
-     "ncaaf": [],
-     "nba": [],
-     "ncaab": [],
-     "mlb": [],
-     "nhl": []
-    }
-   },
-   "line movement + CLV": {
-    "ok": true,
-    "secs": 2.8,
-    "proven": {
-     "proven": []
-    }
-   },
-   "our engine vs the move (can it beat the pros?)": {
-    "ok": true,
-    "secs": 5.5,
-    "proven": {
-     "proven": []
-    }
-   },
-   "the engine's strengths, sport by sport": {
-    "ok": true,
-    "secs": 6.1,
-    "proven": {
-     "proven": [
-      "nba"
-     ]
-    }
-   },
-   "context: rivalries, travel, domes, stakes, refs": {
-    "ok": true,
-    "secs": 37.9,
-    "proven": {
-     "nfl": [],
-     "ncaaf": [],
-     "nba": [],
-     "ncaab": [],
-     "mlb": [],
-     "nhl": []
-    }
-   },
-   "early value plays: the early-price exam": {
-    "ok": true,
-    "secs": 60.4,
-    "proven": {
-     "proven": [
-      "ncaaf +4..8"
-     ]
-    }
-   },
-   "the explorer: NEW angles": {
-    "ok": true,
-    "secs": 39.2,
-    "proven": {
-     "proven": []
-    }
-   },
-   "tennis edge": {
-    "ok": true,
-    "secs": 40.2,
-    "proven": {
-     "proven": [
-      "wta|avg|age:vet&agegap:+8&p:65-80",
-      "wta|pin|age:vet&agegap:+8&p:65-80"
-     ]
-    }
-   },
-   "tennis first set": {
-    "ok": true,
-    "secs": 4.5,
-    "proven": {
-     "proven": []
-    }
-   },
-   "tennis heavy favorites": {
-    "ok": true,
-    "secs": 14.5,
-    "proven": {
-     "proven": []
-    }
-   }
-  },
-  "secs": 493
  }
 ]

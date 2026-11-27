@@ -2,37 +2,37 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-26T23:50Z",
+   "at": "2026-11-27T18:12Z",
+   "how": "plain request",
+   "n": 52,
+   "ok": true
+  },
+  "actionnetwork_odds": {
+   "at": "2026-11-27T18:09Z",
+   "how": "plain request (v2 scoreboard)",
+   "n": 1186,
+   "ok": true
+  },
+  "actionnetwork_pregame": {
+   "at": "2026-11-27T17:44Z",
+   "how": "plain request (v2 scoreboard, the consensus line) - the second look at a posted price",
+   "n": 49,
+   "ok": true
+  },
+  "actionnetwork_splits": {
+   "at": "2026-11-27T18:10Z",
    "how": "plain request",
    "n": 0,
    "ok": true
   },
-  "actionnetwork_odds": {
-   "at": "2026-11-26T23:43Z",
-   "how": "plain request (v2 scoreboard)",
-   "n": 1227,
-   "ok": true
-  },
-  "actionnetwork_pregame": {
-   "at": "2026-11-26T16:01Z",
-   "how": "plain request (v2 scoreboard, the consensus line) - the second look at a posted price",
-   "n": 16,
-   "ok": true
-  },
-  "actionnetwork_splits": {
-   "at": "2026-11-26T23:49Z",
-   "how": "plain request",
-   "n": 15,
-   "ok": true
-  },
   "betrivers": {
-   "at": "2026-11-26T23:50Z",
+   "at": "2026-11-27T18:12Z",
    "how": "plain request",
    "n": 11,
    "ok": true
   },
   "betrivers:pre:ncaaf": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 0,
    "ok": true
@@ -44,7 +44,7 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397755": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -56,7 +56,7 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397760": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -92,13 +92,13 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397771": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397773": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -110,43 +110,43 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397776": {
-   "at": "2026-11-22T19:05Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397777": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397779": {
-   "at": "2026-11-22T19:05Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397814": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397815": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T16:36Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397816": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397817": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -158,31 +158,31 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397819": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397820": {
-   "at": "2026-11-22T19:05Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397821": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T16:36Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397822": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397823": {
-   "at": "2026-11-22T19:05Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -194,19 +194,25 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397826": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027397827": {
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397828": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397832": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T16:36Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -218,13 +224,13 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397835": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397839": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -242,7 +248,7 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397845": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -284,19 +290,19 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397892": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T16:36Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397893": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T16:36Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397894": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -308,13 +314,13 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397896": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397897": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T00:36Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -890,7 +896,7 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1028202627": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -903,6 +909,12 @@
   },
   "betrivers:pre:ncaaf:1028202630": {
    "at": "2026-11-21T19:43Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1028202631": {
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -938,96 +950,96 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1029993838": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-26T23:50Z",
+   "at": "2026-11-27T18:12Z",
    "how": "plain request",
-   "n": 24,
+   "n": 26,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-26T23:50Z",
+   "at": "2026-11-27T18:12Z",
    "how": "plain request",
    "n": 11,
    "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-26T23:50Z",
+   "at": "2026-11-27T18:12Z",
    "how": "plain request",
-   "n": 14,
+   "n": 12,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-26T23:43Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request",
-   "n": 0,
+   "n": 15,
    "ok": true
   },
   "drbob": {
-   "at": "2026-11-26T22:11Z",
+   "at": "2026-11-27T15:16Z",
    "how": "plain request",
    "n": 16,
    "ok": true
   },
   "espn_depth_ncaaf": {
-   "at": "2026-11-26T23:43Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request - the team depth charts (who starts at QB); no chart came back (11 empty) - the QB falls back to the box-score rule, never a guess",
    "n": 0,
    "ok": false
   },
   "espn_depth_nfl": {
-   "at": "2026-11-26T23:21Z",
+   "at": "2026-11-27T15:48Z",
    "how": "plain request - the team depth charts (who starts at QB)",
-   "n": 27,
+   "n": 26,
    "ok": true
   },
   "espn_gameday_box": {
-   "at": "2026-11-26T01:19Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request - the live box score (who is playing)",
-   "n": 23,
+   "n": 18,
    "ok": true
   },
   "espn_gameday_roster": {
-   "at": "2026-11-26T23:49Z",
-   "how": "plain request - no inactives list in the answer yet (not filed, or a shape we don't read); a questionable man stays on the card's game-time line until the box score shows him",
-   "n": 0,
-   "ok": false
+   "at": "2026-11-27T00:36Z",
+   "how": "plain request - the NFL game-day roster (inactives)",
+   "n": 2,
+   "ok": true
   },
   "nflverse_snaps": {
-   "at": "2026-11-26T15:46Z",
+   "at": "2026-11-27T16:36Z",
    "how": "plain download - the season's snap counts (who starts on the lines / in the secondary)",
    "n": 32,
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-26T23:49Z",
+   "at": "2026-11-27T18:10Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-26T23:50Z"
+ "updated": "2026-11-27T18:12Z"
 }

@@ -498,6 +498,9 @@ _LP_REASON = re.compile(r"^(lp locked|lp holders unknown|rugcheck lp locked|rugc
 _DATA_FLAG = re.compile(r"holders|^lp |rugcheck lp|rugcheck: lp|rugcheck score|lp unlocked|: no data$", re.I)
 
 
+_LP0 = re.compile(r"^rugcheck lp locked 0% <", re.I)     # EXPERIMENT 20: RugCheck says none of the pool cash is locked
+
+
 def _mature(c, S):
     M = S.get("mature") or {}
     return (c.get("age_h") or 0) >= M.get("age_h", float("inf")) and (c.get("liq") or 0) >= M.get("liq", float("inf"))
@@ -1508,7 +1511,17 @@ class DexHunter:
                 # A real rug still exits at once through the liquidity-pull check on every price update.
                 pos["flagged"] = pos.get("flagged", 0) + 1
                 self.dirty = True
-                if not self.p.get("data_flag_exit", True):
+                L0, px = self.p.get("lp0_flag_exit"), pos.get("px") or pos["entry"]
+                if (L0 and pos["flagged"] >= L0["flags"] and any(_LP0.search(t) for t, _ in rs)
+                        and px < pos["entry"] * L0["below_x"]):
+                    # EXPERIMENT 20 (2026-11-27, XTO: 142 "LP locked 0%" flags, then the pool was pulled, -100%):
+                    # RugCheck "LP locked 0%" twice in a row sells a Solana coin that is under 1.5x its buy price -
+                    # the buy screen would reject it today; it only got in on a flaky pass. A coin already 1.5x+
+                    # keeps riding (AGENTCAT) and is sold when a later flag finds it back under 1.5x.
+                    # dex_lpflag_study: 48 flagged coins, +$755 vs never selling, better in both halves.
+                    self._request_exit(job["key"], 1.0, f"re-screen: LP unlocked x{pos['flagged']} at "
+                                       f"{px / pos['entry']:.2f}x: {why}", "emergency_exit", now)
+                elif not self.p.get("data_flag_exit", True):
                     # EXPERIMENT 10 (2026-10-06): data-only flags never sell a held coin. Season 2: holding every
                     # coin sold on them beat selling by +$21 per $1 bet (AGENTCAT sold 1.84x -> 19.9x, AGENCY 0.59x ->
                     # 16.2x); the rugs among them were already down 70-90% when the flag came. Contract flags,

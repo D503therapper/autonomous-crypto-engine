@@ -29840,6 +29840,15 @@
      "game:conf"
     ],
     "dec": 2.3,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Tyler Bass",
+     "s": "13-10",
+     "type": "late",
+     "win": "home",
+     "y": 57
+    },
     "depth_gap": 1,
     "depth_pts": 1.0,
     "dog_ctx": {
@@ -29892,6 +29901,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.74,
+    "flow": {
+     "a": "0,3,7,0",
+     "h": "0,7,0,6"
+    },
     "form_state": [
      27.0,
      3,
@@ -29902,6 +29915,11 @@
     "g_role_me": null,
     "g_role_opp": null,
     "game_id": "nfl:401873082",
+    "gameday": {
+     "Jaylon Moore": "inactive",
+     "Kenneth Walker III": "inactive",
+     "Omarr Norman-Lott": "inactive"
+    },
     "games_in": null,
     "home": false,
     "hot_key": false,
@@ -29981,10 +29999,12 @@
      "Omarr Norman-Lott": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Chiefs 10 @ Bills 13",
     "season_games": null,
+    "settled": "2026-11-27T04:51Z",
     "side": "away",
     "sold": [],
     "spare": [
@@ -30014,8 +30034,1212 @@
    }
   ],
   "p_hit": 0.4236,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-26T16:00Z",
+  "round": 1,
+  "settled": "2026-11-27T04:51Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
+ },
+ {
+  "american": 120,
+  "best": true,
+  "best_2u": true,
+  "date": "2026-11-27",
+  "dec": 2.2,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "b2b_me": false,
+    "bd_tags": [
+     "h2h:0",
+     "road:0",
+     "w_cold:42",
+     "sell_pp:1",
+     "m_common:0",
+     "f_last:3",
+     "f_pts:2",
+     "bottom_so:1",
+     "fill_star:2",
+     "fill_year:0",
+     "fill_l10:1",
+     "deep_late:0",
+     "deep_win:0",
+     "deep_close:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\u26a1 16 goals against on 60 kills for Lightning this year. That penalty kill is leaking.",
+     "\ud83d\udd01 They both saw the Sabres lately: Senators got a 2-1 win on 11/4, Lightning took a 6-2 loss on 11/22.",
+     "\ud83e\uddf3 Senators are 7-6 on the road this year.",
+     "\ud83d\udcca On the year Senators score 3.2 goals a game and give up 2.9.",
+     "\u23f1\ufe0f Senators outscored teams 14 to 11 in the third period over their last 10 games. They close.",
+     "\ud83d\udcc5 Lightning off a 3-1 loss to the Hurricanes last time out.",
+     "\u2705 Bottom line: Senators (+120). Lightning can't buy a win right now. Easy money."
+    ],
+    "bv": 88,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 2.2,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": 0.0138,
+     "won": false
+    },
+    "dog_more": {},
+    "dog_p": 0.501,
+    "dog_score": 6.45,
+    "drift": 0.0109,
+    "edge": -0.0298770629240932,
+    "edge_own": -0.0298770629240932,
+    "elo_edge": -44.2,
+    "elo_raw": -24.2,
+    "fact": "The Lightning have lost 2 straight.",
+    "facts": [
+     [
+      "The Lightning have lost 2 straight.",
+      "2 straight losses for the Lightning.",
+      "The Lightning are on a 2-game skid.",
+      "The Lightning haven't won in 2."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -2.0,
+     -1,
+     105,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892799",
+    "games_in": null,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {
+     "Pontus Holmberg": [
+      "espn"
+     ]
+    },
+    "intl": false,
+    "is_lean": false,
+    "key_edge": -0.10831721470019318,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "men_side": {
+     "Pontus Holmberg": "home"
+    },
+    "mkt_trend": 0.1821,
+    "n1_sat": 0,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 120,
+    "off_wait": {},
+    "on_report": [
+     "Pontus Holmberg"
+    ],
+    "opp": "Lightning",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Pontus Holmberg (RW)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4409649713981394,
+    "p_market": 0.4365079365079365,
+    "pdo": 1014.717014091068,
+    "pdo_parts": [
+     0.11552346570397112,
+     0.8991935483870968,
+     32,
+     277,
+     25,
+     248
+    ],
+    "price_2nd": {
+     "at": "2026-11-27T16:00Z",
+     "odds": 120,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": "fade",
+    "puck_sloppy": false,
+    "pyth_luck": null,
+    "raw_own": 0.4364,
+    "reasons": [
+     "the hockey dog score backs it: +6.4 (our read +0.4 points on the no-vig number - every hockey dog angle weighed)"
+    ],
+    "rep_off_wait": {},
+    "rep_status": {
+     "Pontus Holmberg": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "shelled": false,
+    "side": "away",
+    "sold": [],
+    "spare": [
+     "\ud83e\uddfe Senators won 7 of 10 against teams with a winning record this year.",
+     "\ud83c\udfac Senators won 8 of their 11 one-goal games this year. They finish.",
+     "\ud83d\uddd3\ufe0f 7 wins in the last 10 for Senators.",
+     "\ud83d\udcaf Tim Stutzle been producing for Senators: 10 points over the last 10."
+    ],
+    "special_top": false,
+    "start": "2026-11-27T20:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Senators",
+    "team_id": "14",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_key": "w_cold",
+    "why_line": "\ud83e\uddca Riding Senators: the Lightning is on a 2-game skid. Senators got a real shot at that price."
+   }
+  ],
+  "p_hit": 0.441,
+  "pnl": 0.0,
+  "posted": "2026-11-27T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 100,
+  "date": "2026-11-27",
+  "dec": 2.0,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -2,
+    "b2b_me": false,
+    "bd_tags": [
+     "rec:0",
+     "jetlag:1",
+     "w_num:2",
+     "sell_paint:2",
+     "sell_glass:0",
+     "sell_sched_w:1",
+     "sell_best_win:0",
+     "f_last:1",
+     "bottom_unit_fair:1",
+     "fill_star:0",
+     "deep_role:2",
+     "deep_start:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\uddf2 Liberty out-rebound teams by 1 a game against D1 teams and St Thomas get out-rebounded by 7.",
+     "\ud83c\udfc6 Liberty already beat Rhode Island this year, 71-68.",
+     "\ud83e\udded St Thomas' wins over D1 teams this year came against Presbyterian, Long Island, SE Missouri and Milwaukee. Those four won 4 of 24 against D1 teams between them.",
+     "\ud83d\udcc5 Last time out St Thomas took an 86-77 loss to UNC Wilmington.",
+     "\ud83d\udd50 St Thomas crossed a time zone for this one. Their body clock's off.",
+     "\ud83d\udc36 2 wins in 4 games as the underdog for Liberty this season.",
+     "\u2705 Bottom line: Liberty (+100). We on Liberty."
+    ],
+    "bv": 88,
+    "coach": [
+     null,
+     false
+    ],
+    "coach_name": "Ritchie McKay",
+    "coach_tenure": null,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 2.0,
+    "def_first": false,
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 1,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_good": [
+     "glass"
+    ],
+    "dog_more": {},
+    "dog_p": 0.5183,
+    "dog_read": 4.0,
+    "dog_read_parts": {
+     "facts": [],
+     "games_ok": true,
+     "knowledge": 0,
+     "ratings": 0,
+     "weights": 4.0
+    },
+    "dog_score": 4.0,
+    "drift": 0.0195,
+    "edge": -0.051169397232220026,
+    "edge_own": -0.051984778809887056,
+    "eff_p": 0.4604,
+    "efg_gap": 0.017,
+    "elo_edge": -56.0,
+    "elo_raw": -56.0,
+    "fact": "St Thomas crossed time zones to get here.",
+    "facts": [
+     [
+      "St Thomas crossed time zones to get here.",
+      "St Thomas are playing off their home time zone."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -7.0,
+     -2,
+     -170,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401920848",
+    "games_in": 7,
+    "home": true,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {
+     "D. Claussen": [
+      "covers"
+     ]
+    },
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "men_side": {
+     "D. Claussen": "home"
+    },
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0365,
+    "ncaab_fired": [
+     "the glass",
+     "the favorite lost its last"
+    ],
+    "ncaab_read": 0.5183,
+    "ncaab_score": 4.0,
+    "ncaab_skid": 2,
+    "ncaab_slot": "dog",
+    "neutral": true,
+    "neutral_back": 1.83,
+    "odds": 100,
+    "off_first": true,
+    "off_wait": {},
+    "on_report": [
+     "D. Claussen"
+    ],
+    "opp": "St Thomas",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": 0.028,
+    "opp_games_in": 9,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": false,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "opp_roster_new": 0.234,
+    "opp_tp_net": 0.009,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "D. Claussen (F)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.47441530138389,
+    "p_market": 0.4782608695652174,
+    "pdo": null,
+    "pdo_parts": null,
+    "price_2nd": {
+     "at": "2026-11-27T16:00Z",
+     "odds": -100,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.4442,
+    "reasons": [
+     "opponent's body clock is off",
+     "out-rebounding people by +3.0 a game to their -5.4 - the books don't price the glass (5 of 5 seasons)",
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337",
+     "the dog read is 4 (the study angles add 4 points) - dogs reading 4+ beat their price every season 2018-25"
+    ],
+    "reb_gap": 8.44,
+    "rep_off_wait": {},
+    "rep_status": {
+     "D. Claussen": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.499,
+    "roster_tin": 0.216,
+    "season_games": null,
+    "side": "home",
+    "side_moved": "away->home",
+    "sold": [],
+    "spare": [
+     "\ud83c\udfc1 The first half, last 5 games: 191 points for Liberty, 155 against.",
+     "\ud83d\udcaf Eli Sancomb is giving Liberty 21 a night over the last 5 games he's played."
+    ],
+    "spread_stack": 0.02,
+    "spread_stack_n": 1,
+    "start": "2026-11-27T17:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Liberty",
+    "team_id": "2335",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": 1.86,
+    "to_net": -0.0336,
+    "tp_gap": 0.025,
+    "tp_net": -0.016,
+    "tp_net_line": [
+     0.337,
+     0.353
+    ],
+    "tp_share": 0.4019,
+    "trap": false,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "waiting": [],
+    "why_key": "w_up",
+    "why_line": "\ud83c\udfa8 Liberty score 38 a game in the paint against D1 teams and St Thomas give up 32 in the paint. Riding Liberty."
+   }
+  ],
+  "ncaab_play": {
+   "dog_read": 4.0,
+   "edge": 0.0365,
+   "fired": [
+    "the glass",
+    "the favorite lost its last"
+   ],
+   "read": 0.5183,
+   "score": 4.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.4744,
+  "pnl": 0.0,
+  "posted": "2026-11-27T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": -108,
+  "date": "2026-11-27",
+  "dec": 1.9259,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -3,
+    "b2b_me": false,
+    "bd_tags": [
+     "f_last:1",
+     "latest:4",
+     "w_their_loss:102",
+     "sell_to:2",
+     "sell_glass:2",
+     "sell_sched_w:0",
+     "sell_paint:0",
+     "sell_fast:2",
+     "bottom_unit_fair:2",
+     "fill_star:1",
+     "fill_pts:1",
+     "fill_year_t:0",
+     "fill_o:1",
+     "deep_box_reb:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\uddf2 D1 teams grab 5 more boards a game than Hofstra. That's extra shots for Colgate.",
+     "\ud83e\udded The one D1 team Hofstra beat this year is Iona, who won 3 of 8 against D1 teams.",
+     "\ud83c\udfa8 Colgate score 31 a game in the paint against D1 teams. Hofstra gives up 24 in there.",
+     "\ud83d\udca8 D1 teams get 10 fast-break points a game on Hofstra. Hofstra gets 3.",
+     "\ud83d\udcc5 Last time out, Colgate got an 87-55 win over PSU Behrend (a no-name non-D1 school).",
+     "\ud83d\udcc5 Last outing: Colgate got an 87-55 win over PSU Behrend (a non-D1 school) \u00b7 Hofstra took an 82-66 loss to Murray St.",
+     "\u2705 Bottom line: Colgate +2.5 at -108. That's the bet."
+    ],
+    "bv": 88,
+    "coach": [
+     8,
+     false
+    ],
+    "coach_name": "Matt Langel",
+    "coach_tenure": null,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.925925925925926,
+    "def_first": false,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": -0.0892,
+    "edge": -0.03703703703703698,
+    "elo_edge": -263.8,
+    "elo_raw": -183.8,
+    "fact": "Colgate have won 2 straight.",
+    "facts": [
+     [
+      "Colgate have won 2 straight.",
+      "2 straight wins for Colgate.",
+      "Colgate are on a 2-game winning streak.",
+      "Colgate haven't lost in 2."
+     ],
+     [
+      "Hofstra just got beat 82-66 by Murray St.",
+      "Hofstra are coming off a 82-66 beating from Murray St.",
+      "Last time out Hofstra took a 82-66 L to Murray St.",
+      "Hofstra got handled 82-66 by Murray St last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     32.0,
+     2,
+     null,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401920774",
+    "games_in": 6,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {},
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": 2.5,
+    "lost_last": false,
+    "market": "spread",
+    "men_side": {},
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": -108,
+    "off_first": false,
+    "off_wait": {},
+    "on_report": [],
+    "opp": "Hofstra",
+    "opp_games_in": 5,
+    "opp_lost_last": false,
+    "opp_off_low": false,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "opp_roster_new": 0.359,
+    "opp_tp_net": 0.073,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5,
+    "p_market": 0.5192307692307692,
+    "pdo": null,
+    "pdo_parts": null,
+    "price_2nd": {
+     "at": "2026-11-27T16:00Z",
+     "line": 2.5,
+     "odds": -105,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.287,
+    "reasons": [
+     "sharp money moving this way",
+     "off a tune-up against a school that isn't Division I while Hofstra just played a real game - teams in that spot beat the spread in 8 of 9 seasons",
+     "out-rebounding people by +7.7 a game to their +1.4 - the books don't price the glass (5 of 5 seasons)"
+    ],
+    "reb_gap": 6.27,
+    "rep_off_wait": {},
+    "rep_status": {},
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_cm": -2.5,
+    "road_games": 4,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.209,
+    "roster_tin": 0.0,
+    "season_games": null,
+    "side": "away",
+    "sold": [
+     "\ud83e\uddf2|1,5",
+     "\ud83e\udde4|17,1,12"
+    ],
+    "spare": [
+     "\ud83d\udcca Against D1 teams Hofstra gives up 72 points a game and scores 62.",
+     "\ud83d\udcca Against D1 teams Colgate put up 67 a game, Hofstra 62.",
+     "\ud83d\udcaf Colgate's top scorer Andrew Alekseyenko is putting up 17 a night lately (5 games)."
+    ],
+    "spread_stack": 0.06,
+    "spread_stack_n": 3,
+    "start": "2026-11-27T20:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Colgate",
+    "team_id": "2142",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": -0.17,
+    "to_net": 0.0279,
+    "tp_net": 0.004,
+    "tp_net_line": [
+     0.333,
+     0.329
+    ],
+    "tp_share": 0.4425,
+    "tuneup": true,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "waiting": [],
+    "why_key": "w_sell",
+    "why_line": "\ud83e\udde4 We on Colgate: 17 turnovers a game for Hofstra against D1 teams, 12 for Colgate. Free possessions."
+   }
+  ],
+  "p_hit": 0.5,
+  "pnl": 0.0,
+  "posted": "2026-11-27T16:00Z",
+  "round": 1,
+  "stack_play": {
+   "line": 2.5,
+   "n": 3,
+   "stack": 0.06
+  },
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 130,
+  "date": "2026-11-27",
+  "dec": 2.3,
+  "floor": {
+   "dog_score": 1.69,
+   "nba": true
+  },
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "b2b_me": false,
+    "bd_tags": [
+     "sell_line:1",
+     "sell_paint:0",
+     "m_site:0",
+     "f_gpg:3",
+     "bottom_floor:1",
+     "fill_star:1",
+     "fill_l10:1",
+     "deep_gone:2",
+     "deep_role:2",
+     "deep_big:2",
+     "deep_start:0",
+     "deep_romp:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcc9 Knicks gotta find OG Anunoby's 16 points a night somewhere else.",
+     "\ud83c\udfa8 Heat score 49 a game in the paint this year. Knicks give up 42 in there.",
+     "\ud83e\uddf9 Heat ain't squeaking by: 3 wins by 10+ in their last 5 games.",
+     "\ud83e\uddf3 Heat won 2 of their last 3 on the road - a 114-108 win at the Kings and a 115-109 win at the Jazz.",
+     "\ud83d\udcca Heat put up 120 a game on the year; Knicks can only find 110.",
+     "\ud83d\udca3 4 of the last 5 times out, Heat put up 120 or more.",
+     "\ud83d\udc36 3 wins in 6 games as the underdog for Heat this season.",
+     "\ud83c\udfc0 Heat: their bench outscored teams by 6 a game last season - deep squad \u00b7 8 guys play real minutes \u00b7 Giannis Antetokounmpo is cooking - with him on the floor lately the team's up 9.9 points a full game (last season: up 4.4) \u00b7 Klay Thompson is cooking - with him on the floor lately the team's up 13 points a full game (last season: down 4.3).",
+     "\u2705 Bottom line: Heat (+130). Half a unit on Heat. Thin edge, tread lightly.",
+     "\ud83c\udf1f Heat: Giannis Antetokounmpo (All-NBA 2025, top-5 MVP) is in the lineup tonight."
+    ],
+    "bv": 88,
+    "coach": [
+     16,
+     false
+    ],
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "game:rival"
+    ],
+    "dec": 2.3,
+    "depth_gap": -3,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "blew_lead": false,
+     "comeback": false,
+     "games_in": 17,
+     "last_margin": -7.0,
+     "last_ot": false,
+     "last_pts": 104.0,
+     "last_upset": false,
+     "last_year_wp": 0.524,
+     "lose_streak": 1,
+     "opp_blew_lead": false,
+     "opp_comeback": false,
+     "opp_heavy_last": false,
+     "opp_last_margin": 19.0,
+     "opp_last_ot": false,
+     "opp_last_pts": 121.0,
+     "opp_last_upset": false,
+     "opp_next_days": 1,
+     "opp_next_soft": false,
+     "opp_next_wp": 0.647,
+     "opp_pace": 95.5,
+     "opp_rest": 1,
+     "pace": 102.68,
+     "record": [
+      10,
+      7
+     ],
+     "rest": 2,
+     "slate": 11,
+     "spread_gap": -0.033,
+     "total": 222.5,
+     "total_vs_league": -5.0,
+     "win_streak": 0
+    },
+    "drift": -0.0437,
+    "edge": -0.04415853051259033,
+    "edge_own": -0.04667334931882949,
+    "elo_edge": -160.1,
+    "elo_raw": -120.1,
+    "fact": "",
+    "facts": [],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "floor_score": 1.69,
+    "form_state": [
+     -7.0,
+     -1,
+     -113,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401909326",
+    "games_in": null,
+    "home": false,
+    "home_heavy_road": true,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {
+     "Andre Drummond": [
+      "espn"
+     ],
+     "Jordan Clarkson": [
+      "espn"
+     ],
+     "OG Anunoby": [
+      "espn"
+     ]
+    },
+    "injury_alerts": [
+     "Karl-Anthony Towns (Knicks C) is now day-to-day \u2014 our pick: Heat ML"
+    ],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {
+     "Giannis Antetokounmpo (Heat F)": "Day-To-Day",
+     "Karl-Anthony Towns (Knicks C)": "Day-To-Day"
+    },
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "men_side": {
+     "Andre Drummond": "home",
+     "Giannis Antetokounmpo": "away",
+     "Jordan Clarkson": "home",
+     "OG Anunoby": "home"
+    },
+    "mkt_trend": 0.1582,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 130,
+    "off_wait": {},
+    "on_report": [
+     "Andre Drummond",
+     "Jordan Clarkson",
+     "OG Anunoby"
+    ],
+    "opp": "Knicks",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Andre Drummond (C)",
+     "Jordan Clarkson (G)",
+     "OG Anunoby (F)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.41558324760322163,
+    "p_market": 0.41762578099309433,
+    "paint_shut": false,
+    "pdo": null,
+    "pdo_parts": null,
+    "price_2nd": {
+     "at": "2026-11-27T16:35Z",
+     "odds": 146,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.2808,
+    "reasons": [
+     "sharp money moving this way"
+    ],
+    "rep_off_wait": {},
+    "rep_status": {
+     "Andre Drummond": "out",
+     "Giannis Antetokounmpo": "q",
+     "Jordan Clarkson": "out",
+     "OG Anunoby": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": 17,
+    "side": "away",
+    "sold": [],
+    "spare": [
+     "\ud83d\uddd3\ufe0f 8 wins in the last 10 for Heat.",
+     "\ud83c\udfc1 Heat won the 1st quarter in 9 of their last 10 games. They come out ready.",
+     "\ud83d\udcaf Heat's top scorer Giannis Antetokounmpo is putting up 28 a night lately (9 games)."
+    ],
+    "start": "2026-11-28T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Heat",
+    "team_id": "14",
+    "their_drama": [],
+    "through": {
+     "Giannis Antetokounmpo": "the report's note says he plays: 'The fact that Antetokounmpo is probable suggests the star forward should have a decent chance to suit up Friday. He's been playing at a high'"
+    },
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "vs_paint_shut": false,
+    "waiting": [],
+    "why_key": "w_up",
+    "why_line": "\ud83c\udf81 Heat gets to the line 29 times a game this year; Knicks 20. We on Heat."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.4156,
+  "pnl": 0.0,
+  "posted": "2026-11-27T16:35Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 170,
+  "date": "2026-11-27",
+  "dec": 2.7,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "b2b_me": false,
+    "bd_tags": [
+     "hot:8",
+     "latest:1",
+     "momentum:1",
+     "w_their_loss:48",
+     "sell_glass:1",
+     "sell_threes:0",
+     "sell_line:1",
+     "sell_sched_w:2",
+     "sell_sched_fav:1",
+     "f_pts:3",
+     "bottom_unit_fair:2",
+     "fill_star:1",
+     "fill_year:0",
+     "fill_d:1",
+     "deep_late:1",
+     "deep_big:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udc4c Wichita St makes 9 threes a game at 39% against D1 teams and Kentucky let teams shoot 35% from three.",
+     "\ud83e\udded Who did Kentucky beat? Manhattan, James Madison, N Arizona and Grambling - four teams that won 8 of their 23 games against D1 teams between them.",
+     "\ud83e\udded Favored by 30.5 against N Arizona this year, Kentucky won by 1.",
+     "\ud83c\udf81 Kentucky put teams on the line 22 times a game against D1 teams. Wichita St gets to the line 23 times a night.",
+     "\ud83d\udd25 Wichita St is on a heater - 5 straight, 6-1 on the year.",
+     "\ud83d\udcca Over their last 3 Wichita St wins by 16 a game (85 for, 69 against); Kentucky by 6 (81 for, 75 against).",
+     "\ud83d\udcc5 Kentucky took a 90-76 loss to Indiana last time out.",
+     "\u2705 Bottom line: Wichita St at +170. That's the bet."
+    ],
+    "bv": 88,
+    "coach": [
+     null,
+     false
+    ],
+    "coach_name": "Paul Mills",
+    "coach_tenure": 4,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 2.7,
+    "def_first": false,
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_good": [
+     "glass"
+    ],
+    "dog_more": {},
+    "dog_p": 0.3853,
+    "dog_read": 3.0,
+    "dog_read_parts": {
+     "facts": [],
+     "games_ok": true,
+     "knowledge": 0,
+     "ratings": 0,
+     "weights": 3.0
+    },
+    "dog_score": 3.0,
+    "drift": 0.034,
+    "edge": -0.0774037905712095,
+    "edge_own": -0.07898849597765534,
+    "eff_p": 0.3089,
+    "efg_gap": 0.032,
+    "elo_edge": 16.8,
+    "elo_raw": 96.8,
+    "fact": "Wichita St just rolled to a 91-73 win over Texas A&M-CC.",
+    "facts": [
+     [
+      "Wichita St just rolled to a 91-73 win over Texas A&M-CC.",
+      "Wichita St blew out Texas A&M-CC 91-73 last time out.",
+      "91-73 over Texas A&M-CC last time out for Wichita St.",
+      "Wichita St beat the brakes off Texas A&M-CC, 91-73.",
+      "Wichita St smacked Texas A&M-CC 91-73 last time out.",
+      "Texas A&M-CC got their cheeks clapped 91-73 by Wichita St last time out."
+     ],
+     [
+      "Wichita St have won 5 straight.",
+      "5 straight wins for Wichita St.",
+      "Wichita St are on a 5-game winning streak.",
+      "Wichita St haven't lost in 5."
+     ],
+     [
+      "Kentucky just got beat 90-76 by Indiana.",
+      "Kentucky are coming off a 90-76 beating from Indiana.",
+      "Last time out Kentucky took a 90-76 L to Indiana.",
+      "Kentucky got handled 90-76 by Indiana last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     18.0,
+     5,
+     -4000,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401919033",
+    "games_in": 7,
+    "home": false,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {
+     "J. Morton": [
+      "covers"
+     ],
+     "M. Moreno": [
+      "covers"
+     ],
+     "N. Hill": [
+      "covers"
+     ],
+     "T. Noah": [
+      "covers"
+     ]
+    },
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "men_side": {
+     "J. Morton": "home",
+     "M. Moreno": "home",
+     "N. Hill": "away",
+     "T. Noah": "home"
+    },
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0402,
+    "ncaab_fired": [
+     "the glass",
+     "the favorite lost its last"
+    ],
+    "ncaab_read": 0.3853,
+    "ncaab_score": 3.0,
+    "ncaab_skid": 0,
+    "ncaab_slot": "dog",
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 170,
+    "off_first": false,
+    "off_wait": {},
+    "on_report": [
+     "J. Morton",
+     "M. Moreno",
+     "N. Hill",
+     "T. Noah"
+    ],
+    "opp": "Kentucky",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": -0.01,
+    "opp_games_in": 6,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "M. Moreno (C)",
+     "T. Noah (F)",
+     "J. Morton (G)"
+    ],
+    "opp_roster_new": 0.283,
+    "opp_tp_net": 0.014,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "N. Hill (F)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.3417022997884409,
+    "p_market": 0.35527082119976705,
+    "pdo": null,
+    "pdo_parts": null,
+    "price_2nd": {
+     "at": "2026-11-27T17:42Z",
+     "odds": 165,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.4306,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +10.6 a game to their +2.5 - the books don't price the glass (5 of 5 seasons)",
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337",
+     "the dog read is 3 (the study angles add 3 points) - road dogs reading 3 beat their price in 6 of 8 seasons 2018-25"
+    ],
+    "reb_gap": 8.07,
+    "rep_off_wait": {},
+    "rep_status": {
+     "J. Morton": "out",
+     "M. Moreno": "out",
+     "N. Hill": "out",
+     "T. Noah": "out"
+    },
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.022,
+    "roster_tin": 0.39,
+    "season_games": null,
+    "side": "away",
+    "sold": [
+     "\ud83e\uddf2|10,1"
+    ],
+    "spare": [
+     "\u23f1\ufe0f The second half, last 5 games: 230 points for Wichita St, 166 against.",
+     "\ud83d\udca3 Wichita St scored 80 or more in 3 of their last 5 games.",
+     "\ud83d\udcca Against D1 teams Wichita St scores 83 points a game and gives up 71.",
+     "\ud83d\udee1\ufe0f Against D1 teams Wichita St allows 71 a game, Kentucky 75.",
+     "\ud83d\udcaf Wichita St's top scorer William Berg is putting up 18 a night lately (4 games)."
+    ],
+    "spread_stack": 0.0,
+    "spread_stack_n": 2,
+    "start": "2026-11-28T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Wichita St",
+    "team_id": "2724",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": -2.29,
+    "to_net": -0.0323,
+    "tp_gap": 0.021,
+    "tp_net": 0.168,
+    "tp_net_line": [
+     0.431,
+     0.264
+    ],
+    "tp_share": 0.3995,
+    "trap": true,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "vs_rust_home": true,
+    "waiting": [],
+    "why_key": "w_sell",
+    "why_line": "\ud83e\uddf2 Wichita St out-rebound teams by 10 a game against D1 teams. We on Wichita St."
+   }
+  ],
+  "midday": true,
+  "ncaab_play": {
+   "dog_read": 3.0,
+   "edge": 0.0402,
+   "fired": [
+    "the glass",
+    "the favorite lost its last"
+   ],
+   "read": 0.3853,
+   "road3": true,
+   "score": 3.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.3417,
+  "pnl": 0.0,
+  "posted": "2026-11-27T17:42Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",
