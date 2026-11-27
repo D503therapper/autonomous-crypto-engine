@@ -30400,7 +30400,7 @@
     "g_role_opp": null,
     "game_id": "ncaab:401920848",
     "games_in": 7,
-    "home": false,
+    "home": true,
     "hot_deep": false,
     "hot_key": false,
     "hurt": [],
@@ -30420,7 +30420,7 @@
     "lost_last": false,
     "market": "ml",
     "men_side": {
-     "D. Claussen": "away"
+     "D. Claussen": "home"
     },
     "mkt_trend": null,
     "n1_sat": null,
@@ -30494,7 +30494,8 @@
     "roster_new": 0.499,
     "roster_tin": 0.216,
     "season_games": null,
-    "side": "away",
+    "side": "home",
+    "side_moved": "away->home",
     "sold": [],
     "spare": [
      "\ud83c\udfc1 The first half, last 5 games: 191 points for Liberty, 155 against.",
@@ -30895,12 +30896,16 @@
       "espn"
      ]
     },
+    "injury_alerts": [
+     "Karl-Anthony Towns (Knicks C) is now day-to-day \u2014 our pick: Heat ML"
+    ],
     "intl": false,
     "is_lean": false,
     "key_edge": null,
     "key_out_me": false,
     "key_seen": {
-     "Giannis Antetokounmpo (Heat F)": "Day-To-Day"
+     "Giannis Antetokounmpo (Heat F)": "Day-To-Day",
+     "Karl-Anthony Towns (Knicks C)": "Day-To-Day"
     },
     "league": "nba",
     "line": null,
@@ -30917,6 +30922,7 @@
     "neutral": false,
     "neutral_back": null,
     "odds": 130,
+    "off_wait": {},
     "on_report": [
      "Andre Drummond",
      "Jordan Clarkson",
@@ -30953,6 +30959,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
+    "rep_off_wait": {},
     "rep_status": {
      "Andre Drummond": "out",
      "Giannis Antetokounmpo": "q",
@@ -30960,6 +30967,7 @@
      "OG Anunoby": "out"
     },
     "rested_vs_b2b": false,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "season_games": 17,
@@ -30993,6 +31001,300 @@
   "p_hit": 0.4156,
   "pnl": 0.0,
   "posted": "2026-11-27T16:35Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 170,
+  "date": "2026-11-27",
+  "dec": 2.7,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "b2b_me": false,
+    "bd_tags": [
+     "hot:8",
+     "latest:1",
+     "momentum:1",
+     "w_their_loss:48",
+     "sell_glass:1",
+     "sell_threes:0",
+     "sell_line:1",
+     "sell_sched_w:2",
+     "sell_sched_fav:1",
+     "f_pts:3",
+     "bottom_unit_fair:2",
+     "fill_star:1",
+     "fill_year:0",
+     "fill_d:1",
+     "deep_late:1",
+     "deep_big:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udc4c Wichita St makes 9 threes a game at 39% against D1 teams and Kentucky let teams shoot 35% from three.",
+     "\ud83e\udded Who did Kentucky beat? Manhattan, James Madison, N Arizona and Grambling - four teams that won 8 of their 23 games against D1 teams between them.",
+     "\ud83e\udded Favored by 30.5 against N Arizona this year, Kentucky won by 1.",
+     "\ud83c\udf81 Kentucky put teams on the line 22 times a game against D1 teams. Wichita St gets to the line 23 times a night.",
+     "\ud83d\udd25 Wichita St is on a heater - 5 straight, 6-1 on the year.",
+     "\ud83d\udcca Over their last 3 Wichita St wins by 16 a game (85 for, 69 against); Kentucky by 6 (81 for, 75 against).",
+     "\ud83d\udcc5 Kentucky took a 90-76 loss to Indiana last time out.",
+     "\u2705 Bottom line: Wichita St at +170. That's the bet."
+    ],
+    "bv": 88,
+    "coach": [
+     null,
+     false
+    ],
+    "coach_name": "Paul Mills",
+    "coach_tenure": 4,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 2.7,
+    "def_first": false,
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_good": [
+     "glass"
+    ],
+    "dog_more": {},
+    "dog_p": 0.3853,
+    "dog_read": 3.0,
+    "dog_read_parts": {
+     "facts": [],
+     "games_ok": true,
+     "knowledge": 0,
+     "ratings": 0,
+     "weights": 3.0
+    },
+    "dog_score": 3.0,
+    "drift": 0.034,
+    "edge": -0.0774037905712095,
+    "edge_own": -0.07898849597765534,
+    "eff_p": 0.3089,
+    "efg_gap": 0.032,
+    "elo_edge": 16.8,
+    "elo_raw": 96.8,
+    "fact": "Wichita St just rolled to a 91-73 win over Texas A&M-CC.",
+    "facts": [
+     [
+      "Wichita St just rolled to a 91-73 win over Texas A&M-CC.",
+      "Wichita St blew out Texas A&M-CC 91-73 last time out.",
+      "91-73 over Texas A&M-CC last time out for Wichita St.",
+      "Wichita St beat the brakes off Texas A&M-CC, 91-73.",
+      "Wichita St smacked Texas A&M-CC 91-73 last time out.",
+      "Texas A&M-CC got their cheeks clapped 91-73 by Wichita St last time out."
+     ],
+     [
+      "Wichita St have won 5 straight.",
+      "5 straight wins for Wichita St.",
+      "Wichita St are on a 5-game winning streak.",
+      "Wichita St haven't lost in 5."
+     ],
+     [
+      "Kentucky just got beat 90-76 by Indiana.",
+      "Kentucky are coming off a 90-76 beating from Indiana.",
+      "Last time out Kentucky took a 90-76 L to Indiana.",
+      "Kentucky got handled 90-76 by Indiana last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     18.0,
+     5,
+     -4000,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401919033",
+    "games_in": 7,
+    "home": false,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "inj_ok": true,
+    "inj_src": {
+     "J. Morton": [
+      "covers"
+     ],
+     "M. Moreno": [
+      "covers"
+     ],
+     "N. Hill": [
+      "covers"
+     ],
+     "T. Noah": [
+      "covers"
+     ]
+    },
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "men_side": {
+     "J. Morton": "home",
+     "M. Moreno": "home",
+     "N. Hill": "away",
+     "T. Noah": "home"
+    },
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_edge": 0.0402,
+    "ncaab_fired": [
+     "the glass",
+     "the favorite lost its last"
+    ],
+    "ncaab_read": 0.3853,
+    "ncaab_score": 3.0,
+    "ncaab_skid": 0,
+    "ncaab_slot": "dog",
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 170,
+    "off_first": false,
+    "on_report": [
+     "J. Morton",
+     "M. Moreno",
+     "N. Hill",
+     "T. Noah"
+    ],
+    "opp": "Kentucky",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": -0.01,
+    "opp_games_in": 6,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "M. Moreno (C)",
+     "T. Noah (F)",
+     "J. Morton (G)"
+    ],
+    "opp_roster_new": 0.283,
+    "opp_tp_net": 0.014,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "N. Hill (F)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.3417022997884409,
+    "p_market": 0.35527082119976705,
+    "pdo": null,
+    "pdo_parts": null,
+    "price_2nd": {
+     "at": "2026-11-27T17:42Z",
+     "odds": 165,
+     "ok": true,
+     "src": "actionnetwork"
+    },
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.4306,
+    "reasons": [
+     "rolling off a blowout win",
+     "out-rebounding people by +10.6 a game to their +2.5 - the books don't price the glass (5 of 5 seasons)",
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337",
+     "the dog read is 3 (the study angles add 3 points) - road dogs reading 3 beat their price in 6 of 8 seasons 2018-25"
+    ],
+    "reb_gap": 8.07,
+    "rep_status": {
+     "J. Morton": "out",
+     "M. Moreno": "out",
+     "N. Hill": "out",
+     "T. Noah": "out"
+    },
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.022,
+    "roster_tin": 0.39,
+    "season_games": null,
+    "side": "away",
+    "sold": [
+     "\ud83e\uddf2|10,1"
+    ],
+    "spare": [
+     "\u23f1\ufe0f The second half, last 5 games: 230 points for Wichita St, 166 against.",
+     "\ud83d\udca3 Wichita St scored 80 or more in 3 of their last 5 games.",
+     "\ud83d\udcca Against D1 teams Wichita St scores 83 points a game and gives up 71.",
+     "\ud83d\udee1\ufe0f Against D1 teams Wichita St allows 71 a game, Kentucky 75.",
+     "\ud83d\udcaf Wichita St's top scorer William Berg is putting up 18 a night lately (4 games)."
+    ],
+    "spread_stack": 0.0,
+    "spread_stack_n": 2,
+    "start": "2026-11-28T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Wichita St",
+    "team_id": "2724",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": -2.29,
+    "to_net": -0.0323,
+    "tp_gap": 0.021,
+    "tp_net": 0.168,
+    "tp_net_line": [
+     0.431,
+     0.264
+    ],
+    "tp_share": 0.3995,
+    "trap": true,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "vs_rust_home": true,
+    "waiting": [],
+    "why_key": "w_sell",
+    "why_line": "\ud83e\uddf2 Wichita St out-rebound teams by 10 a game against D1 teams. We on Wichita St."
+   }
+  ],
+  "midday": true,
+  "ncaab_play": {
+   "dog_read": 3.0,
+   "edge": 0.0402,
+   "fired": [
+    "the glass",
+    "the favorite lost its last"
+   ],
+   "read": 0.3853,
+   "road3": true,
+   "score": 3.0,
+   "slot": "dog",
+   "two_at": 5
+  },
+  "p_hit": 0.3417,
+  "pnl": 0.0,
+  "posted": "2026-11-27T17:42Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",
