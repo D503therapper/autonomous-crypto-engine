@@ -1,11 +1,9 @@
 {
- "at": "2026-11-28T03:16Z",
+ "at": "2026-11-28T03:26Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:ncaab:1028909990 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (39s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,16 +14,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 24 min ago",
+  "engine ran 34 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-28T03:26Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-28T03:16Z",
    "fixes": [],
@@ -457,19 +461,6 @@
     "live tennis scores: tennis Lepchenko vs Costoulas: no points for 2540s",
     "live tennis scores: tennis Samson vs Burillo: no points for 614s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-26T18:50Z",
-   "fixes": [
-    "live watch 45873874503 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Brancaccio vs De Reales: no points for 1824s",
-    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1824s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
