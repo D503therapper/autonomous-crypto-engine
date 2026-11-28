@@ -341,6 +341,36 @@ Owner wants bigger gains: test the breakout10 rotation (and the ens_donchian fam
 Switch to 1 only if it wins on unseen months with a drawdown the owner can live with; report plainly.
 Do NOT concentrate the listing hunter (lumpy edge: top 3 of 91 listings = 94% of profit).
 
+## 2026-11-28 - DEX survivor entry: cap the entry hour's jump / require buyers >= sellers? (results/dex_survivor_cap_study.txt, dex_survivor_cap_study.py) -> NO CHANGE
+Q (after COGE 1h +84% -> -$17 and PUMPCHAN 1h +83%, buys/sells 216/395, 0.58x 23 minutes after the buy): should the
+survivor rule refuse a buy when the entry hour has jumped too much and / or sellers outnumber buyers?
+LIVE: 7 survivor buys with a known entry hour - the two +83/84% hours both fell at once, but the calm hours lost too
+(SI276 +1% -$35, DOPE -9% / -6% -$50, XTO +3% -$25 rug; RAMBO +1% +$6). Too few to act on.
+DATA: scanner log 09-26..11-28 (13,258 pools), the survivor rule as in config, first hour a pool meets it, 3+ days of
+follow-up: 100 entries. Exit and glitch fixes from the 11-17 grid (80% at 5x, 3x then -40%, 7 days, liquidity pull =
+lost, 1e6x prints dropped, a pool the scanner dropped = lost). No scam screen and no LP-flag exit in the replay (no
+RugCheck data in the log) - same for every variant. A variant buys the first hour that meets the rule AND the filter
+(a blocked coin can still be bought a later hour, as the engine would). Halves split 10-24 (50 / 50).
+RESULT per $1 (older / newer half); CURRENT -0.231 (-0.214 / -0.248), 31 of 100 lost 80%+, 4 doubled:
+- 1h cap +25% -0.235 (-0.233 / -0.237); +40% -0.248 (-0.257 / -0.239); +60% -0.255 (-0.269 / -0.240); +100% -0.255.
+  Every cap is worse in the older half. The coins it blocks mostly get bought an hour or more later at a worse price
+  (PRIME +3.18 -> 0.00), and the 1h > +60% bucket itself is not the bad one: n 6, -0.105 (+0.52 / -0.74).
+- 6h cap +50% -0.192 (-0.222 / -0.162); +100% -0.209 (-0.256 / -0.159); +200% -0.217: better in the newer half only;
+  costs PRIME (+3.18, skipped). Buckets are not ordered (6h +50..100% -0.61, 6h > +100% -0.12).
+- buys >= sells -0.224 (-0.221 / -0.227): fails the older half. buys >= 0.8x sells: worse. 24h buys >= sells: worse.
+- buys >= 1.2x sells -0.213 (-0.188 / -0.240), n 91: the only variant ahead in both halves - by 0.02 per $1, 9 coins
+  never bought and 19 bought later, every winner bought at a worse price (FLOAT +4.49 -> +4.36, DESSA +1.02 -> +0.53,
+  CLAUS, CRAWLER). Its neighbours (1.0x, 0.8x) fail and the buckets run the wrong way (buys >= 1.5x sells is the WORST
+  bucket: n 57, -0.261, -0.104 / -0.360; 1-1.5x -0.119). Chance level for 17 variants - not a clear win.
+- combos (1h cap + ratio, 1h cap + 6h cap): none beats current in both halves. "Block only 1h > +60% with sellers
+  ahead" (the PUMPCHAN shape) touches 1 entry of 100.
+DECISION: no engine change, no experiment row. Hot entry hours and seller-heavy hours are not where the survivor rule
+loses in the replay (the worst buckets are 1h <= 0: -0.45 and 6h <= 0: -0.52, n 22 / 15 - not tested as a filter here,
+a candidate for the ~12-01 judge of experiment 12 with more data). This agrees with 10-13 (lopsided buys are not a rug
+sign). The replay of the rule as a whole is -23% per $1 with no scam screen; the live screen and the experiment-20
+exit are the protection. Nothing loosened. Re-run when the log has ~150+ survivor entries or live big-spike buys reach
+n 8+.
+
 ## 2026-11-27 - DEX LP-flag study (results/dex_lpflag_study.txt, dex_lpflag_study.py) -> APPLIED: experiment 20
 Q (after XTO, -100%): should a held coin be sold when its re-screen keeps saying "rugcheck lp locked 0% < 95%"?
 (Experiment 10 has ignored that flag since 10-06.) Second Q: should the survivor entry skip pump.fun coins?
