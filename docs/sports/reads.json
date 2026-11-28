@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T05:14Z",
+ "updated": "2026-11-28T06:28Z",
  "games": [
   {
    "id": "ncaab:401920429",
@@ -1353,8 +1353,8 @@
    "away": "West Virginia",
    "home": "Utah",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1457,8 +1457,8 @@
    "away": "Omaha",
    "home": "Jax State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1499,7 +1499,7 @@
    "h1": {
     "team": "Miami",
     "p": 0.831,
-    "tie": 0.021,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1529,7 +1529,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "C Michigan",
-    "p": 0.577,
+    "p": 0.578,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1546,8 +1546,8 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.582,
-    "win_p": 0.582,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team"
     ]
@@ -1576,8 +1576,8 @@
     "market": "ml",
     "line": null,
     "odds": -159,
-    "p": 0.547,
-    "win_p": 0.547,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": []
    }
   },
@@ -1587,7 +1587,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "GA Southern",
-    "p": 0.494,
+    "p": 0.491,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1603,11 +1603,10 @@
     "opp": "Louisiana Tech",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.514,
-    "win_p": 0.514,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.51,
     "reasons": [
-     "sharp money moving this way",
      "opponent's body clock is off"
     ]
    }
@@ -1618,7 +1617,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.535,
+    "p": 0.537,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1627,7 +1626,7 @@
    "start": "2026-11-28T17:00Z",
    "away": "Louisville",
    "home": "Kentucky",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Louisville",
@@ -1635,8 +1634,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.534,
-    "win_p": 0.534,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1668,7 +1667,7 @@
     "line": -10.5,
     "odds": -105,
     "p": 0.516,
-    "win_p": 0.736,
+    "win_p": 0.735,
     "reasons": [
      "the stronger team"
     ]
@@ -1697,8 +1696,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.612,
-    "win_p": 0.612,
+    "p": 0.613,
+    "win_p": 0.613,
     "reasons": []
    }
   },
@@ -1708,7 +1707,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Navy",
-    "p": 0.779,
+    "p": 0.78,
     "tie": 0.024,
     "name": "1st half"
    },
@@ -1726,7 +1725,7 @@
     "line": -16.5,
     "odds": -112,
     "p": 0.523,
-    "win_p": 0.807,
+    "win_p": 0.808,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1739,7 +1738,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Notre Dame",
-    "p": 0.858,
+    "p": 0.86,
     "tie": 0.018,
     "name": "1st half"
    },
@@ -1757,7 +1756,7 @@
     "line": -25.5,
     "odds": -110,
     "p": 0.533,
-    "win_p": 0.881,
+    "win_p": 0.882,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1771,7 +1770,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.516,
+    "p": 0.523,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1787,9 +1786,9 @@
     "opp": "Princeton",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.55,
-    "win_p": 0.55,
+    "odds": -135,
+    "p": 0.56,
+    "win_p": 0.56,
     "reasons": [
      "they've lost 1 rotation man in the last three weeks - Dalen Davis (29 minutes a game)",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
@@ -1817,9 +1816,9 @@
     "team": "Siena",
     "opp": "Seton Hall",
     "market": "spread",
-    "line": 16.5,
-    "odds": -105,
-    "p": 0.51,
+    "line": 17.5,
+    "odds": -113,
+    "p": 0.511,
     "win_p": 0.052,
     "reasons": []
    }
@@ -1847,8 +1846,8 @@
     "market": "ml",
     "line": null,
     "odds": -275,
-    "p": 0.65,
-    "win_p": 0.65,
+    "p": 0.651,
+    "win_p": 0.651,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1861,7 +1860,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UConn",
-    "p": 0.547,
+    "p": 0.549,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1878,8 +1877,8 @@
     "market": "ml",
     "line": null,
     "odds": -170,
-    "p": 0.545,
-    "win_p": 0.545,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "sharp money moving this way",
      "the stronger team"
@@ -1892,7 +1891,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Northwestern",
-    "p": 0.512,
+    "p": 0.513,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1909,8 +1908,8 @@
     "market": "ml",
     "line": null,
     "odds": -166,
-    "p": 0.535,
-    "win_p": 0.535,
+    "p": 0.537,
+    "win_p": 0.537,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1922,7 +1921,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "LSU",
-    "p": 0.74,
+    "p": 0.742,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1940,7 +1939,7 @@
     "line": 14.5,
     "odds": -115,
     "p": 0.517,
-    "win_p": 0.201,
+    "win_p": 0.199,
     "reasons": []
    }
   },
@@ -1965,9 +1964,9 @@
     "team": "Alcorn St",
     "opp": "Georgia Tech",
     "market": "spread",
-    "line": 28.5,
-    "odds": -113,
-    "p": 0.522,
+    "line": 27.5,
+    "odds": -108,
+    "p": 0.521,
     "win_p": 0.019,
     "reasons": []
    }
@@ -1978,7 +1977,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "East Carolina",
-    "p": 0.491,
+    "p": 0.49,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2008,7 +2007,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hampton",
-    "p": 0.487,
+    "p": 0.478,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -2024,9 +2023,9 @@
     "opp": "Radford",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.512,
-    "win_p": 0.512,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.5,
     "reasons": [
      "sharp money moving this way",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
@@ -2040,7 +2039,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Dakota",
-    "p": 0.672,
+    "p": 0.673,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2071,7 +2070,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kennesaw St",
-    "p": 0.548,
+    "p": 0.551,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2088,8 +2087,8 @@
     "market": "ml",
     "line": null,
     "odds": -170,
-    "p": 0.547,
-    "win_p": 0.547,
+    "p": 0.55,
+    "win_p": 0.55,
     "reasons": [
      "sharp money moving this way",
      "the stronger team"
@@ -2102,7 +2101,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Marshall",
-    "p": 0.612,
+    "p": 0.614,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2119,8 +2118,8 @@
     "market": "ml",
     "line": null,
     "odds": -230,
-    "p": 0.623,
-    "win_p": 0.623,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2308,7 +2307,7 @@
     "opp": "Pepperdine",
     "market": "spread",
     "line": 9.5,
-    "odds": -109,
+    "odds": -114,
     "p": 0.503,
     "win_p": 0.172,
     "reasons": []
@@ -2350,7 +2349,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Ball State",
-    "p": 0.544,
+    "p": 0.536,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2366,12 +2365,11 @@
     "opp": "S Indiana",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.591,
-    "win_p": 0.591,
+    "odds": -155,
+    "p": 0.58,
+    "win_p": 0.58,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -2413,8 +2411,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bradley",
-    "p": 0.859,
-    "tie": 0.023,
+    "p": 0.864,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2428,10 +2426,10 @@
     "team": "Chicago St",
     "opp": "Bradley",
     "market": "spread",
-    "line": 14.5,
-    "odds": -108,
-    "p": 0.508,
-    "win_p": 0.07,
+    "line": 15.5,
+    "odds": -113,
+    "p": 0.509,
+    "win_p": 0.066,
     "reasons": []
    }
   },
@@ -2441,7 +2439,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "James Madison",
-    "p": 0.757,
+    "p": 0.758,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -2459,7 +2457,7 @@
     "line": -17.5,
     "odds": -108,
     "p": 0.524,
-    "win_p": 0.817,
+    "win_p": 0.818,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2472,7 +2470,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tennessee Tech",
-    "p": 0.786,
+    "p": 0.787,
     "tie": 0.024,
     "name": "1st half"
    },
@@ -2490,7 +2488,7 @@
     "line": 23.5,
     "odds": -110,
     "p": 0.573,
-    "win_p": 0.122,
+    "win_p": 0.121,
     "reasons": []
    }
   },
@@ -2591,7 +2589,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "GA Southern",
-    "p": 0.483,
+    "p": 0.5,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -2607,13 +2605,13 @@
     "opp": "UNC Asheville",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.507,
-    "win_p": 0.507,
+    "odds": -130,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": [
      "the stronger team",
-     "the turnover matchup is ours by 7.2 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "sharp money moving this way",
+     "the turnover matchup is ours by 7.2 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -2716,7 +2714,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Liberty",
-    "p": 0.789,
+    "p": 0.791,
     "tie": 0.024,
     "name": "1st half"
    },
@@ -2733,8 +2731,8 @@
     "market": "spread",
     "line": -18.5,
     "odds": -105,
-    "p": 0.517,
-    "win_p": 0.817,
+    "p": 0.516,
+    "win_p": 0.819,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -2748,7 +2746,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisiana",
-    "p": 0.583,
+    "p": 0.585,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2765,8 +2763,8 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.589,
-    "win_p": 0.589,
+    "p": 0.591,
+    "win_p": 0.591,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2811,7 +2809,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "George Mason",
-    "p": 0.892,
+    "p": 0.893,
     "tie": 0.019,
     "name": "1st half"
    },
@@ -2932,7 +2930,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "FIU",
-    "p": 0.689,
+    "p": 0.69,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2949,7 +2947,7 @@
     "market": "spread",
     "line": -11.5,
     "odds": -110,
-    "p": 0.521,
+    "p": 0.52,
     "win_p": 0.744,
     "reasons": [
      "the stronger team",
@@ -3214,7 +3212,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Carolina",
-    "p": 0.58,
+    "p": 0.585,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3231,8 +3229,8 @@
     "market": "ml",
     "line": null,
     "odds": -250,
-    "p": 0.584,
-    "win_p": 0.584,
+    "p": 0.591,
+    "win_p": 0.591,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3276,7 +3274,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arkansas St",
-    "p": 0.552,
+    "p": 0.553,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3308,7 +3306,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.509,
+    "p": 0.51,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3325,8 +3323,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.532,
-    "win_p": 0.532,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3431,7 +3429,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "BYU",
-    "p": 0.743,
+    "p": 0.744,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -3463,7 +3461,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Wake Forest",
-    "p": 0.721,
+    "p": 0.722,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -3481,7 +3479,7 @@
     "line": -14.5,
     "odds": -108,
     "p": 0.53,
-    "win_p": 0.778,
+    "win_p": 0.78,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3526,7 +3524,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Delaware",
-    "p": 0.508,
+    "p": 0.509,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3575,8 +3573,8 @@
     "market": "ml",
     "line": null,
     "odds": -125,
-    "p": 0.537,
-    "win_p": 0.537,
+    "p": 0.538,
+    "win_p": 0.538,
     "reasons": [
      "out-rebounding people by +0.3 a game to their -12.3 - the books don't price the glass (5 of 5 seasons)",
      "coughing it up 1.7 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
@@ -3621,7 +3619,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Penn State",
-    "p": 0.652,
+    "p": 0.654,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -3638,8 +3636,8 @@
     "market": "ml",
     "line": null,
     "odds": -290,
-    "p": 0.67,
-    "win_p": 0.67,
+    "p": 0.671,
+    "win_p": 0.671,
     "reasons": [
      "the stronger team"
     ]
@@ -3651,7 +3649,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "SMU",
-    "p": 0.64,
+    "p": 0.641,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -3668,8 +3666,8 @@
     "market": "ml",
     "line": null,
     "odds": -285,
-    "p": 0.656,
-    "win_p": 0.656,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
      "the stronger team"
     ]
@@ -3712,7 +3710,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bowling Green",
-    "p": 0.523,
+    "p": 0.524,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3729,8 +3727,8 @@
     "market": "ml",
     "line": null,
     "odds": -162,
-    "p": 0.548,
-    "win_p": 0.548,
+    "p": 0.55,
+    "win_p": 0.55,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3743,7 +3741,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "USC",
-    "p": 0.559,
+    "p": 0.564,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3760,8 +3758,8 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.56,
-    "win_p": 0.56,
+    "p": 0.565,
+    "win_p": 0.565,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3790,8 +3788,8 @@
     "market": "ml",
     "line": null,
     "odds": -192,
-    "p": 0.583,
-    "win_p": 0.583,
+    "p": 0.584,
+    "win_p": 0.584,
     "reasons": [
      "opponent's body clock is off"
     ]
@@ -3818,9 +3816,9 @@
     "team": "Austin Peay",
     "opp": "Furman",
     "market": "spread",
-    "line": 7.5,
-    "odds": -116,
-    "p": 0.501,
+    "line": 6.5,
+    "odds": -104,
+    "p": 0.5,
     "win_p": 0.253,
     "reasons": []
    }
@@ -4002,14 +4000,14 @@
     "team": "Louisiana",
     "opp": "McNeese",
     "market": "spread",
-    "line": 8.5,
+    "line": 7.5,
     "odds": -110,
-    "p": 0.502,
+    "p": 0.501,
     "win_p": 0.237,
     "reasons": [
      "sharp money moving this way",
      "off a tune-up against a school that isn't Division I while McNeese just played a real game - teams in that spot beat the spread in 8 of 9 seasons",
-     "McNeese are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+     "McNeese are laying 7.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -4079,8 +4077,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tennessee Tech",
-    "p": 0.563,
-    "tie": 0.043,
+    "p": 0.581,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4095,13 +4093,13 @@
     "opp": "E Kentucky",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.626,
-    "win_p": 0.626,
+    "odds": -192,
+    "p": 0.648,
+    "win_p": 0.648,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+     "sharp money moving this way"
     ]
    }
   },
@@ -4172,7 +4170,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Michigan St",
-    "p": 0.513,
+    "p": 0.515,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -4189,8 +4187,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.52,
-    "win_p": 0.52,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
      "sharp money moving this way",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
@@ -4296,7 +4294,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bakersfield",
-    "p": 0.646,
+    "p": 0.642,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -4312,9 +4310,9 @@
     "opp": "N Arizona",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.716,
-    "win_p": 0.716,
+    "odds": -250,
+    "p": 0.711,
+    "win_p": 0.711,
     "reasons": [
      "the stronger team",
      "opponent's body clock is off",
@@ -4328,7 +4326,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Seattle U",
-    "p": 0.617,
+    "p": 0.607,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -4344,9 +4342,9 @@
     "opp": "UC Irvine",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.68,
-    "win_p": 0.68,
+    "odds": -205,
+    "p": 0.667,
+    "win_p": 0.667,
     "reasons": [
      "the stronger team",
      "the turnover matchup is ours by 9.3 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
@@ -4389,7 +4387,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Boise St",
-    "p": 0.841,
+    "p": 0.842,
     "tie": 0.02,
     "name": "1st half"
    },
@@ -4407,7 +4405,7 @@
     "line": -21.0,
     "odds": -118,
     "p": 0.529,
-    "win_p": 0.866,
+    "win_p": 0.867,
     "reasons": [
      "the stronger team"
     ]
@@ -4447,7 +4445,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Drake",
-    "p": 0.622,
+    "p": 0.612,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -4463,9 +4461,9 @@
     "opp": "N Dakota St",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.69,
-    "win_p": 0.69,
+    "odds": -225,
+    "p": 0.679,
+    "win_p": 0.679,
     "reasons": [
      "the stronger team"
     ]
@@ -4630,7 +4628,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Washington St",
-    "p": 0.499,
+    "p": 0.5,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -4646,9 +4644,9 @@
     "opp": "Washington St",
     "market": "spread",
     "line": 3.0,
-    "odds": -115,
+    "odds": -112,
     "p": 0.527,
-    "win_p": 0.465,
+    "win_p": 0.462,
     "reasons": []
    }
   },
@@ -4674,7 +4672,7 @@
     "opp": "San Francisco",
     "market": "spread",
     "line": 9.5,
-    "odds": -106,
+    "odds": -109,
     "p": 0.503,
     "win_p": 0.203,
     "reasons": []
@@ -4716,7 +4714,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.4,
+    "p": 0.396,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -4732,9 +4730,9 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -162,
-    "p": 0.62,
-    "win_p": 0.403,
+    "odds": -170,
+    "p": 0.628,
+    "win_p": 0.411,
     "reasons": [
      "opponent on a back-to-back"
     ]
@@ -4886,7 +4884,7 @@
     "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
+    "odds": -285,
     "p": 0.745,
     "win_p": 0.54,
     "reasons": [
@@ -5026,7 +5024,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tennessee",
-    "p": 0.715,
+    "p": 0.72,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -5044,7 +5042,7 @@
     "line": -13.5,
     "odds": -110,
     "p": 0.516,
-    "win_p": 0.74,
+    "win_p": 0.744,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -5145,7 +5143,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Pitt",
-    "p": 0.669,
+    "p": 0.672,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -5163,7 +5161,7 @@
     "line": 9.5,
     "odds": -110,
     "p": 0.505,
-    "win_p": 0.278,
+    "win_p": 0.276,
     "reasons": [
      "opponent's body clock is off"
     ]
@@ -5190,9 +5188,9 @@
     "team": "SC State",
     "opp": "Duquesne",
     "market": "spread",
-    "line": 20.5,
-    "odds": -112,
-    "p": 0.514,
+    "line": 19.5,
+    "odds": -106,
+    "p": 0.513,
     "win_p": 0.041,
     "reasons": []
    }
@@ -5203,7 +5201,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.715,
+    "p": 0.716,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -5221,7 +5219,7 @@
     "line": -13.5,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.772,
+    "win_p": 0.773,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -5263,7 +5261,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana",
-    "p": 0.562,
+    "p": 0.563,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -5280,8 +5278,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.596,
-    "win_p": 0.596,
+    "p": 0.597,
+    "win_p": 0.597,
     "reasons": [
      "opponent's body clock is off"
     ]
@@ -5309,7 +5307,7 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -205,
     "p": 0.638,
     "win_p": 0.422,
     "reasons": []
@@ -5369,7 +5367,7 @@
     "market": "spread",
     "line": -12.5,
     "odds": -106,
-    "p": 0.502,
+    "p": 0.507,
     "win_p": 0.815,
     "reasons": [
      "the stronger team",
@@ -5383,8 +5381,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.672,
-    "tie": 0.033,
+    "p": 0.682,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -5398,10 +5396,10 @@
     "team": "Rockets",
     "opp": "76ers",
     "market": "spread",
-    "line": -10.5,
-    "odds": -113,
-    "p": 0.501,
-    "win_p": 0.769,
+    "line": -12.5,
+    "odds": -110,
+    "p": 0.508,
+    "win_p": 0.782,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back"
@@ -5414,7 +5412,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arizona",
-    "p": 0.641,
+    "p": 0.636,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -5430,9 +5428,9 @@
     "opp": "Arizona St",
     "market": "spread",
     "line": -8.5,
-    "odds": -112,
+    "odds": -110,
     "p": 0.512,
-    "win_p": 0.689,
+    "win_p": 0.683,
     "reasons": [
      "the stronger team"
     ]
@@ -5472,7 +5470,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UNLV",
-    "p": 0.588,
+    "p": 0.589,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -5489,8 +5487,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.627,
-    "win_p": 0.627,
+    "p": 0.628,
+    "win_p": 0.628,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -5534,7 +5532,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Houston",
-    "p": 0.579,
+    "p": 0.573,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -5550,9 +5548,9 @@
     "opp": "Baylor",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "the stronger team"
     ]
@@ -5564,7 +5562,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas St",
-    "p": 0.66,
+    "p": 0.662,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -5582,7 +5580,7 @@
     "line": -7.5,
     "odds": -105,
     "p": 0.517,
-    "win_p": 0.679,
+    "win_p": 0.68,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -5595,8 +5593,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UC San Diego",
-    "p": 0.502,
-    "tie": 0.044,
+    "p": 0.507,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -5611,9 +5609,9 @@
     "opp": "LMU",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.531,
-    "win_p": 0.531,
+    "odds": -125,
+    "p": 0.538,
+    "win_p": 0.538,
     "reasons": [
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
@@ -5673,8 +5671,8 @@
     "market": "ml",
     "line": null,
     "odds": -148,
-    "p": 0.536,
-    "win_p": 0.536,
+    "p": 0.537,
+    "win_p": 0.537,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -5687,7 +5685,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.709,
+    "p": 0.71,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -5705,7 +5703,7 @@
     "line": 13.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.202,
+    "win_p": 0.201,
     "reasons": []
    }
   }
