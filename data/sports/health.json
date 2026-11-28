@@ -1,33 +1,35 @@
 {
- "at": "2026-11-27T23:00Z",
+ "at": "2026-11-28T00:35Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Riera vs Linana: no points for 167s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (108s)",
+  "live watcher fresh (29s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "card audit: 3 live cards, 21 lines - nothing false, outdated or senseless",
-  "double check: 12 injury / starter / price claims on 3 live cards - 3 confirmed by a second source, 8 single-sourced, 1 waiting on a game-day word \u00b7 single: Senators card (2026-11-27): Pontus Holmberg out - only ESPN says so; Heat card (2026-11-27): Andre Drummond out - only ESPN says so; Heat card (2026-11-27): Jordan Clarkson out - only ESPN says so; Heat card (2026-11-27): OG Anunoby out - only ESPN says so \u00b7 waiting: Heat card (2026-11-27): Giannis Antetokounmpo questionable - no game-day word on him yet - the card says game-time, never out",
+  "double check: 9 injury / starter / price claims on 2 live cards - 2 confirmed by a second source, 7 single-sourced, 0 waiting on a game-day word \u00b7 single: Heat card (2026-11-27): Andre Drummond out - only ESPN says so; Heat card (2026-11-27): Jordan Clarkson out - only ESPN says so; Heat card (2026-11-27): OG Anunoby out - only ESPN says so; Wichita St card (2026-11-27): N. Hill out - only Covers says so",
   "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 5.0, unit cards under the floor: 0)",
   "slate check: all 95 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 10 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 6 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 59 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-28T00:35Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-27T23:00Z",
    "fixes": [],
@@ -476,11 +478,6 @@
   },
   {
    "at": "2026-11-26T13:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-26T11:56Z",
    "fixes": [],
    "problems": []
   }
