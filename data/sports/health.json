@@ -1,17 +1,17 @@
 {
- "at": "2026-11-28T03:06Z",
+ "at": "2026-11-28T03:16Z",
  "fixes": [],
  "problems": [
   "sources down (the backups took over): betrivers:ncaab:1028909990 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (41s)",
+  "live watcher fresh (38s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 4 live cards, 18 lines - nothing false, outdated or senseless",
-  "double check: 9 injury / starter / price claims on 2 live cards - 2 confirmed by a second source, 7 single-sourced, 0 waiting on a game-day word \u00b7 single: Heat card (2026-11-27): Andre Drummond out - only ESPN says so; Heat card (2026-11-27): Jordan Clarkson out - only ESPN says so; Heat card (2026-11-27): OG Anunoby out - only ESPN says so; Wichita St card (2026-11-27): N. Hill out - only Covers says so",
-  "card quality: 100/100 on 4 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.8, unit cards under the floor: 0)",
+  "card audit: 3 live cards, 9 lines - nothing false, outdated or senseless",
+  "double check: 5 injury / starter / price claims on 1 live cards - 1 confirmed by a second source, 4 single-sourced, 0 waiting on a game-day word \u00b7 single: Wichita St card (2026-11-27): N. Hill out - only Covers says so; Wichita St card (2026-11-27): M. Moreno out - only Covers says so; Wichita St card (2026-11-27): T. Noah out - only Covers says so; Wichita St card (2026-11-27): J. Morton out - only Covers says so",
+  "card quality: 100/100 on 3 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
   "slate check: all 95 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -20,12 +20,19 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 14 min ago",
+  "engine ran 24 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-28T03:16Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028909990 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-28T03:06Z",
    "fixes": [],
@@ -461,16 +468,6 @@
    "problems": [
     "live tennis scores: tennis Brancaccio vs De Reales: no points for 1824s",
     "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1824s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-26T18:48Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Brancaccio vs De Reales: no points for 1889s",
-    "live tennis scores: tennis Lepchenko vs Costoulas: no points for 1889s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route",
     "simulator last ran 10h ago - restarted"
    ]
