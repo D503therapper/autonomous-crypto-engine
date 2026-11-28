@@ -30971,3 +30971,35 @@ DEX: $975.00 (-25.00) · Scammed: 1 (-$25.00)
 [2026-11-28 05:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-28 05:05 UTC] crypto/hold_btc  equity $370.67 (-25.9%) 1 open  market DOWN
    social heat top: WLFI 42 (32/0/10), BTC 40 (40/0/0), TAO 37 (37/0/0), VVV 29 (29/0/0), PUMP 27 (27/0/0)
+   footprint: PAXG: footprint 3/4 (quiet+hikes+rising_lows) 48h +2.2%, 5 volume hikes, 65% quiet hours @ 3650.43
+   scanner: 967 tickers, sample: {'i': 'BTC_USD', 'h': '62167.08', 'l': '58720.34', 'a': '59858.90', 'v': '5814.6522', 'vv': '350672141.52', 'c': '-0.0260', 'b': '59853.24', 'k': '59853.25', 'oi': '0', 't': 1795842337289}
+   dex scanner: 2,642 pools (solana 1,786 / base 493 / ethereum 363), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT MIHAO@solana liq $295,371 - lp holders unknown; rugcheck lp locked 62% < 95%
+   dex screen: REJECT POPCAT@solana liq $2,312,571 - top-10 holders 42%
+   dex screen: UNREACHABLE ACT@solana liq $1,183,369 - goplus unreachable
+   dex screen: PASS USELESS@solana liq $2,343,918
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT ZOTH@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   >> crypto/mover: SELL $36.75 of WLFI @ 0.021508, P/L $-10.21 (stop hit (live check))
+   dex screen: REJECT KMNO@solana liq $1,423,757 - top-10 holders 53%
+   dex screen: REJECT ZRO@base liq $36,253 - liquidity $36,253 < $100,000; pool age unknown; 24h volume $51,420 < $100,000
+   dex screen: REJECT VVV@base liq $7,066,760 - is_mintable; owner_percent 30%; top-10 holders 61%
+   dex screen: REJECT SKY@ethereum liq $1,020,740 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 89%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 2,772 pools (solana 1,864 / base 539 / ethereum 369), refresh cycle 104s (hot 100s), 3039 calls (124 feed, 429s 0, failed 0), 87,414 refreshed (10790 no pair), +233 added / -103 dropped (dead 98, stale 5, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-28 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/mover     equity $93.19 (-81.4%) 1 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/social_heat equity $317.10 (-36.6%) 2 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-28 06:05 UTC] crypto/hold_btc  equity $369.64 (-26.1%) 1 open  market DOWN
+   social heat top: WLFI 51 (40/0/11), CFG 37 (37/0/0), PONS 34 (24/0/10), BTC 32 (32/0/0), TRUMP 32 (24/0/8)
