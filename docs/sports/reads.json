@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T01:57Z",
+ "updated": "2026-11-28T01:51Z",
  "games": [
   {
    "id": "ncaab:401920429",
@@ -1343,6 +1343,128 @@
    }
   },
   {
+   "id": "nba:401909333",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Spurs",
+    "p": 0.58,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T02:30Z",
+   "away": "Lakers",
+   "home": "Spurs",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Spurs",
+    "opp": "Lakers",
+    "market": "ml",
+    "line": null,
+    "odds": -217,
+    "p": 0.645,
+    "win_p": 0.645,
+    "reasons": [
+     "the stronger team",
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909334",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Nuggets",
+    "p": 0.676,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T02:30Z",
+   "away": "Nuggets",
+   "home": "Jazz",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Nuggets",
+    "opp": "Jazz",
+    "market": "spread",
+    "line": -9.5,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.772,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909335",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Clippers",
+    "p": 0.506,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T02:30Z",
+   "away": "Pelicans",
+   "home": "Clippers",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Clippers",
+    "opp": "Pelicans",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.536,
+    "win_p": 0.536,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909336",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Trail Blazers",
+    "p": 0.629,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-28T02:30Z",
+   "away": "Warriors",
+   "home": "Trail Blazers",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Trail Blazers",
+    "opp": "Warriors",
+    "market": "spread",
+    "line": -8.5,
+    "odds": -104,
+    "p": 0.5,
+    "win_p": 0.713,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401926783",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1410,7 +1532,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas Tech",
-    "p": 0.703,
+    "p": 0.702,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1428,7 +1550,7 @@
     "line": 8.5,
     "odds": -105,
     "p": 0.502,
-    "win_p": 0.221,
+    "win_p": 0.222,
     "reasons": [
      "opponent on a back-to-back",
      "opponent's body clock is off"
@@ -4483,9 +4605,9 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -162,
+    "odds": -155,
     "p": 0.62,
-    "win_p": 0.403,
+    "win_p": 0.404,
     "reasons": [
      "opponent on a back-to-back"
     ]
