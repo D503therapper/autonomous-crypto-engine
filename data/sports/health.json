@@ -1,9 +1,9 @@
 {
- "at": "2026-11-28T05:01Z",
+ "at": "2026-11-28T05:08Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (107s)",
+  "live watcher fresh (73s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,17 +14,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 64 min ago",
+  "simulator ran 4h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-28T05:08Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-28T05:01Z",
    "fixes": [],
@@ -440,14 +445,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Podoroska vs Carle: no points for 2226s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-26T21:57Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Podoroska vs Carle: no points for 64s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
