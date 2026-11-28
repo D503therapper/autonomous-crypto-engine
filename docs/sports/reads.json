@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T03:09Z",
+ "updated": "2026-11-28T03:31Z",
  "games": [
   {
    "id": "ncaab:401920429",
@@ -1038,8 +1038,8 @@
    "away": "76ers",
    "home": "Pacers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1053,8 +1053,8 @@
    "away": "Bucks",
    "home": "Pistons",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1068,8 +1068,8 @@
    "away": "Jets",
    "home": "Islanders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1098,8 +1098,8 @@
    "away": "Nets",
    "home": "Raptors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1158,8 +1158,8 @@
    "away": "Hawks",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1173,8 +1173,8 @@
    "away": "Idaho",
    "home": "Washington St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1218,8 +1218,8 @@
    "away": "Missouri St",
    "home": "Oral Roberts",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1248,8 +1248,8 @@
    "away": "Northeastern",
    "home": "Northwestern",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1448,36 +1448,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401920544",
+   "id": "ncaab:401926783",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Gonzaga",
-    "p": 0.649,
-    "tie": 0.04,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-28T04:00Z",
-   "away": "Creighton",
-   "home": "Gonzaga",
-   "why": "tight",
+   "start": "2026-11-28T03:30Z",
+   "away": "Omaha",
+   "home": "Jax State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Gonzaga",
-    "opp": "Creighton",
-    "market": "ml",
-    "line": null,
-    "odds": -265,
-    "p": 0.72,
-    "win_p": 0.72,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent's body clock is off"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401920535",
@@ -1532,7 +1515,7 @@
     "opp": "Boston College",
     "market": "spread",
     "line": -24.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.548,
     "win_p": 0.889,
     "reasons": [
@@ -1929,7 +1912,8 @@
     "p": 0.534,
     "win_p": 0.534,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
   },
@@ -2611,7 +2595,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Iowa State",
-    "p": 0.561,
+    "p": 0.56,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3708,7 +3692,7 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
+    "odds": -230,
     "p": 0.728,
     "win_p": 0.517,
     "reasons": [
@@ -4095,7 +4079,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.554,
+    "p": 0.548,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -4111,9 +4095,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -169,
-    "p": 0.603,
-    "win_p": 0.603,
+    "odds": -163,
+    "p": 0.595,
+    "win_p": 0.595,
     "reasons": [
      "the stronger team"
     ]
@@ -4234,8 +4218,8 @@
     "opp": "Colorado St",
     "market": "spread",
     "line": -21.0,
-    "odds": -118,
-    "p": 0.529,
+    "odds": -115,
+    "p": 0.528,
     "win_p": 0.865,
     "reasons": [
      "the stronger team"
@@ -4336,7 +4320,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.586,
+    "p": 0.601,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -4353,10 +4337,11 @@
     "market": "ml",
     "line": null,
     "odds": -224,
-    "p": 0.654,
-    "win_p": 0.654,
+    "p": 0.674,
+    "win_p": 0.674,
     "reasons": [
      "the stronger team",
+     "opponent on a back-to-back",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -4443,9 +4428,9 @@
     "opp": "Kansas",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.628,
-    "win_p": 0.628,
+    "odds": -230,
+    "p": 0.631,
+    "win_p": 0.631,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -4574,8 +4559,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.422,
-    "tie": 0.295,
+    "p": 0.437,
+    "tie": 0.292,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4583,7 +4568,7 @@
    "start": "2026-11-29T00:00Z",
    "away": "Jets",
    "home": "Devils",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Devils",
@@ -4591,10 +4576,11 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.647,
-    "win_p": 0.647,
+    "p": 0.676,
+    "win_p": 0.676,
     "reasons": [
      "the stronger team",
+     "opponent on a back-to-back",
      "sharp money moving this way"
     ]
    }
@@ -4621,7 +4607,7 @@
     "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -238,
+    "odds": -230,
     "p": 0.695,
     "win_p": 0.478,
     "reasons": []
@@ -4911,7 +4897,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.377,
+    "p": 0.367,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -4927,9 +4913,9 @@
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
-    "p": 0.66,
-    "win_p": 0.442,
+    "odds": -290,
+    "p": 0.745,
+    "win_p": 0.54,
     "reasons": []
    }
   },
@@ -5107,7 +5093,8 @@
     "p": 0.562,
     "win_p": 0.562,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -5117,7 +5104,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.711,
+    "p": 0.712,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -5137,7 +5124,8 @@
     "p": 0.502,
     "win_p": 0.815,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -5237,8 +5225,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.447,
-    "tie": 0.291,
+    "p": 0.478,
+    "tie": 0.284,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -5246,7 +5234,7 @@
    "start": "2026-11-29T02:00Z",
    "away": "Sharks",
    "home": "Avalanche",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Avalanche",
