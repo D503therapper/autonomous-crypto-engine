@@ -31134,6 +31134,15 @@
      "game:nonconf"
     ],
     "dec": 2.7,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": null,
+     "s": "73-71",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "def_first": false,
     "dog_bad": [],
     "dog_ctx": {
@@ -31189,6 +31198,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "25,40,8",
+     "h": "31,34,6"
+    },
     "form_state": [
      18.0,
      5,
@@ -31306,7 +31319,7 @@
      "T. Noah": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -31315,7 +31328,9 @@
     ],
     "roster_new": 0.022,
     "roster_tin": 0.39,
+    "score": "Wichita St 73 @ Kentucky 71",
     "season_games": null,
+    "settled": "2026-11-28T05:09Z",
     "side": "away",
     "sold": [
      "\ud83e\uddf2|10,1"
@@ -31371,11 +31386,13 @@
    "two_at": 5
   },
   "p_hit": 0.3417,
-  "pnl": 0.0,
+  "pnl": 170.0,
   "posted": "2026-11-27T17:42Z",
   "round": 1,
+  "settled": "2026-11-28T05:09Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]
