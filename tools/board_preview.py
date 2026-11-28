@@ -99,8 +99,8 @@ def main(day_iso=None):
                       and leg.get("dog_p") is not None else "")   #  the line called it the own read; both are shown now)
                    + f", edge {((leg.get('edge_own') or 0)):+.1%}"
                    + (" [THIN]" if sports.thin_edge(leg) else ""))
-        for line in (leg.get("breakdown") or [])[-2:]:
-            out.append(f"      {line}")
+        for line in (leg.get("breakdown") or []):         # (11/27, the owner: "give me the full breakdown" - the
+            out.append(f"      {line}")                     #  whole card, not its last two lines)
         if leg.get("why_line"):
             out.append(f"      why: {leg['why_line']}")
     if not new:
