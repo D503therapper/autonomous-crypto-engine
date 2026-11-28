@@ -1,10 +1,9 @@
 {
- "at": "2026-11-28T01:20Z",
- "fixes": [
-  "live board 8 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-28T02:51Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (288s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,17 +14,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 10 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 39 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 66 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-28T02:51Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-28T01:20Z",
    "fixes": [
@@ -471,15 +475,6 @@
   {
    "at": "2026-11-26T17:14Z",
    "fixes": [],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-26T17:13Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
    "problems": [
     "studies last ran 9h ago - restarted"
    ]
