@@ -31071,3 +31071,36 @@ DEX: $975.00 (-25.00) · Scammed: 1 (-$25.00)
 [2026-11-28 09:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-28 09:05 UTC] crypto/hold_btc  equity $368.73 (-26.3%) 1 open  market DOWN
    social heat top: WLFI 50 (40/0/10), BTC 35 (35/0/0), TRUMP 35 (29/0/5), CFG 32 (32/0/0), PENGU 24 (24/0/0)
+   dex screen: REJECT BONK@solana liq $209,085 - top-10 holders 41%; lp holders unknown
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   scanner: WLFI: +5.0% in 15 min on 3.8x volume @ 0.02064 spread 0.24%
+   scanner: WLFI: +9.1% in 30 min on 3.5x volume @ 0.02079 spread 0.19%
+   scanner: WLFI: +9.9% in 30 min on 3.5x volume @ 0.02082 spread 0.19%
+   scanner: WLFI: +8.1% in 30 min on 3.1x volume @ 0.0209 spread 0.19%
+   dex screen: REJECT CVX@ethereum liq $115,647 - 24h volume $2,993 < $100,000
+   dex screen: UNREACHABLE VAR@ethereum liq $120,585 - honeypot.is unreachable
+   dex screen: REJECT GROW@ethereum liq $1,254,209 - 24h volume $23,723 < $100,000
+   dex screen: REJECT SSV@ethereum liq $312,811 - is_mintable; owner_percent 5%; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $107,591 - honeypot.is unreachable
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE MIHAO@ethereum liq $118,339 - honeypot.is unreachable
+   dex screen: REJECT GOOGLC@base liq $1,542,620 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 86%; lp locked 0% < 95%
+   dex screen: REJECT ICNT@base liq $126,221 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   dex screen: REJECT DRV@base liq $226,857 - pool age unknown; 24h volume $85,298 < $100,000
+   dex screen: REJECT CON@ethereum liq $591,041 - creator_percent 50%; top-10 holders 100%; lp holders unknown
+   dex screen: REJECT NEAR@ethereum liq $806,182 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT ZAMA@ethereum liq $456,366 - is_mintable; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT LIT@ethereum liq $383,171 - top-10 holders 61%; lp locked 0% < 95%
+   dex screen: REJECT BEAM@ethereum liq $2,424,412 - is_mintable; owner_change_balance; top-10 holders 60%
+   dex scanner: 2,983 pools (solana 1,961 / base 613 / ethereum 409), refresh cycle 122s (hot 118s), 3045 calls (113 feed, 429s 1, failed 1), 87,958 refreshed (10290 no pair), +97 added / -56 dropped (dead 43, stale 5, cap 8), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-28 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/mover     equity $92.55 (-81.5%) 1 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/social_heat equity $318.28 (-36.3%) 2 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-28 10:05 UTC] crypto/hold_btc  equity $368.28 (-26.3%) 1 open  market DOWN
+   social heat top: WLFI 45 (40/0/5), TRUMP 41 (32/0/9), VVV 40 (27/0/14), PENGU 35 (35/0/0), BTC 32 (32/0/0)
